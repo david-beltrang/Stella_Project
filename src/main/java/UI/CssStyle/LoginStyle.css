@@ -1,0 +1,7 @@
+.root {
+    -fx-background-image: url("../Image/FondoStella.jpg");
+    -fx-background-size: cover;
+    -fx-background-size: contain;   /* mantiene proporción */
+    -fx-background-position: center center;
+
+}
