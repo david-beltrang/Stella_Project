@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.GaussianBlur?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.stellaa.PantallaLogin">
+   <children>
+      <Pane layoutX="10.0" layoutY="10.0" maxHeight="1080.0" maxWidth="1920.0" minHeight="1080.0" minWidth="1920.0" prefHeight="1080.0" prefWidth="1740.0" styleClass="root" stylesheets="@../../../CssStyle/LoginStyle.css">
+         <children>
+            <Label layoutX="769.0" layoutY="147.0" prefHeight="138.0" prefWidth="415.0" text="STELLA" textFill="WHITE">
+               <font>
+                  <Font name="Franklin Gothic Demi" size="120.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="342.0" fitWidth="504.0" layoutX="738.0" layoutY="368.0" pickOnBounds="true" preserveRatio="true" style="-fx-blend-mode: #FFFF09;">
+               <effect>
+                  <GaussianBlur />
+               </effect>
+            </ImageView>
+            <Pane layoutX="617.0" layoutY="312.0" opacity="0.3" prefHeight="516.0" prefWidth="740.0" style="-fx-background-color: #080736;">
+               <effect>
+                  <GaussianBlur />
+               </effect>
+               <children>
+                  <FlowPane layoutX="-17.0" layoutY="-70.0" prefHeight="200.0" prefWidth="200.0" />
+               </children>
+            </Pane>
+         </children>
+         <effect>
+            <GaussianBlur radius="0.0" />
+         </effect>
+      </Pane>
+   </children>
+</AnchorPane>
