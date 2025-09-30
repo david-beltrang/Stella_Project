@@ -8,7 +8,8 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="1080.0" maxWidth="1920.0" minHeight="1080.0" minWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../../CssStyle/LoginStyle.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.stellaa.StellaController">
+
+<Pane maxHeight="1080.0" maxWidth="1920.0" minHeight="1080.0" minWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@/styles/LoginStyle.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Stella.UI.controllers.StellaController">
 
    <children>
       <Label layoutX="656.0" layoutY="200.0" prefHeight="388.0" prefWidth="873.0" text="STELLA" textFill="WHITE">
@@ -36,12 +37,12 @@
       </Button>
       <ImageView fitHeight="122.0" fitWidth="148.0" layoutX="1271.0" layoutY="332.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../Image/StellaSF.png" />
+            <Image url="@/Image.General/StellaSF.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="61.0" fitWidth="70.0" layoutX="1559.0" layoutY="763.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../Image/StellaEsquinaSF.png" />
+            <Image url="@/Image.General/StellaEsquinaSF.png" />
          </image>
       </ImageView>
 

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="1080.0" maxWidth="1920.0" minHeight="1080.0" minWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@/styles/LoginStyle.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Stella.UI.controllers.StellaController">
+
+    <children>
+        <Label layoutX="659.0" layoutY="75.0" prefHeight="388.0" prefWidth="873.0" text="STELLA" textFill="WHITE">
+            <font>
+                <Font name="Franklin Gothic Demi" size="180.0" />
+            </font>
+        </Label>
+
+        <Label layoutX="824.0" layoutY="352.0" text="Iniciar Sesión" textFill="WHITE">
+            <font>
+                <Font size="47.0" />
+            </font>
+        </Label>
+
+        <TextField fx:id="usernameField" layoutX="747.0" layoutY="440.0" prefHeight="60.0" prefWidth="426.0" promptText="Usuario" style="-fx-font-size: 24px;" />
+
+        <PasswordField fx:id="passwordField" layoutX="747.0" layoutY="519.0" prefHeight="60.0" prefWidth="426.0" promptText="Contraseña" style="-fx-font-size: 24px;" />
+
+        <Button fx:id="loginSubmitButton" layoutX="747.0" layoutY="618.0" mnemonicParsing="false" opacity="0.8" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #080736;" text="Ingresar" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="24.0" />
+            </font>
+        </Button>
+
+        <Button fx:id="backButton" layoutX="973.0" layoutY="618.0" mnemonicParsing="false" onAction="#goBackToHello" opacity="0.8" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #080736;" text="Volver" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="24.0" />
+            </font>
+        </Button>
+        <Button fx:id="forgotPasswordButton" layoutX="747.0" layoutY="682.0" mnemonicParsing="false" onAction="#goToRecoverPassword" prefHeight="40.0" prefWidth="426.0" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-underline: true;" text="¿Olvidaste tu contraseña?">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Button>
+        <ImageView fitHeight="61.0" fitWidth="70.0" layoutX="1559.0" layoutY="763.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@/Image.General/StellaEsquinaSF.png" />
+            </image>
+        </ImageView>
+    </children>
+</Pane>
+
+        ---
+
+        ## 3. `Pantalla Login.fxml` (Final)
+
+        Se corrigió la **sintaxis FXML** y se **eliminó la etiqueta `ImageView` vacía**. Se ajustó el paquete del controlador.
+
+        ```xml
+        <?xml version="1.0" encoding="UTF-8"?>
+
+        <?import javafx.scene.control.Label?>
+        <?import javafx.scene.effect.GaussianBlur?>
+        <?import javafx.scene.layout.AnchorPane?>
+        <?import javafx.scene.layout.FlowPane?>
+        <?import javafx.scene.layout.Pane?>
+        <?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="[http://javafx.com/javafx/25](http://javafx.com/javafx/25)" xmlns:fx="[http://javafx.com/fxml/1](http://javafx.com/fxml/1)" fx:controller="Stella.UI.controllers.PantallaLogin">
+<children>
+    <Pane layoutX="10.0" layoutY="10.0" maxHeight="1080.0" maxWidth="1920.0" minHeight="1080.0" minWidth="1920.0" prefHeight="1080.0" prefWidth="1740.0" styleClass="root" stylesheets="@/styles/LoginStyle.css">
+        <children>
+            <Label layoutX="769.0" layoutY="147.0" prefHeight="138.0" prefWidth="415.0" text="STELLA" textFill="WHITE">
+                <font>
+                    <Font name="Franklin Gothic Demi" size="120.0" />
+                </font>
+            </Label>
+            <Pane layoutX="617.0" layoutY="312.0" opacity="0.3" prefHeight="516.0" prefWidth="740.0" style="-fx-background-color: #080736;">
+                <effect>
+                    <GaussianBlur />
+                </effect>
+                <children>
+                    <FlowPane layoutX="-17.0" layoutY="-70.0" prefHeight="200.0" prefWidth="200.0" />
+                </children>
+            </Pane>
+        </children>
+        <effect>
+            <GaussianBlur radius="0.0" />
+        </effect>
+    </Pane>
+</children>
+</AnchorPane>
