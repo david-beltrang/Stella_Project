@@ -8,7 +8,17 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="1080.0" maxWidth="1920.0" minHeight="1080.0" minWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../../CssStyle/LoginStyle.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.stellaa.StellaController">
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="1080.0" maxWidth="1920.0" minHeight="1080.0" minWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@/styles/LoginStyle.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Stella.UI.controllers.StellaController">
 
     <children>
         <Label layoutX="667.0" layoutY="165.0" prefHeight="388.0" prefWidth="873.0" text="STELLA" textFill="WHITE">
@@ -39,12 +49,11 @@
             </font>
         </Button>
 
-        <!-- Mensaje de confirmación -->
         <Label fx:id="recoveryMessage" layoutX="747.0" layoutY="750.0" prefWidth="426.0" style="-fx-font-size: 18px; -fx-font-weight: bold;" textFill="#90EE90" visible="false" wrapText="true" />
-      <ImageView fitHeight="61.0" fitWidth="70.0" layoutX="1559.0" layoutY="763.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../Image/StellaEsquinaSF.png" />
-         </image>
-      </ImageView>
+        <ImageView fitHeight="61.0" fitWidth="70.0" layoutX="1559.0" layoutY="763.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@/Image.General/StellaEsquinaSF.png" />
+            </image>
+        </ImageView>
     </children>
 </Pane>

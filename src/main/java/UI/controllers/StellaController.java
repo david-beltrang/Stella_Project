@@ -17,6 +17,7 @@ import java.util.ResourceBundle;
 public class StellaController implements Initializable {
 
     public Button registroButton;
+    @javafx.fxml.FXML
     @FXML
     private Button loginButton;          // Botón LOGIN en hello-view
 
@@ -34,8 +35,6 @@ public class StellaController implements Initializable {
     @FXML
     private Label recoveryMessage;       // Mensaje en recover-view
     
-    
-    
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -47,7 +46,7 @@ public class StellaController implements Initializable {
     private void goToLogin() {
         try {
             // Cargar el FXML de login
-            Parent loginView = FXMLLoader.load(getClass().getResource("Login.fxml"));
+            Parent loginView = FXMLLoader.load(getClass().getResource("/views/Login.fxml"));
 
             // Obtener la ventana actual
             Stage stage = (Stage) loginButton.getScene().getWindow();
@@ -63,12 +62,12 @@ public class StellaController implements Initializable {
         }
     }
 
-    // Método para ir a login (se llama desde hello-view)
+    // Método para ir a registro (se llama desde hello-view)
     @FXML
     private void goToRegistro() {
         try {
             // Cargar el FXML de login
-            Parent registroView = FXMLLoader.load(getClass().getResource("Registro.fxml"));
+            Parent registroView = FXMLLoader.load(getClass().getResource("/views/Registro.fxml"));
 
             // Obtener la ventana actual
             Stage stage = (Stage) registroButton.getScene().getWindow();
@@ -89,7 +88,7 @@ public class StellaController implements Initializable {
     private void goBackToHello() {
         try {
             // Cargar el FXML de hello
-            Parent helloView = FXMLLoader.load(getClass().getResource("hello-view.fxml"));
+            Parent helloView = FXMLLoader.load(getClass().getResource("/views/hello-view.fxml"));
 
             // Obtener la ventana actual
             Stage stage = (Stage) backButton.getScene().getWindow();
@@ -105,13 +104,11 @@ public class StellaController implements Initializable {
         }
     }
 
-    // === NUEVOS MÉTODOS PARA RECUPERAR CONTRASEÑA ===
-
     // Método para ir a recuperar contraseña (desde login)
     @FXML
     private void goToRecoverPassword() {
         try {
-            Parent recoverView = FXMLLoader.load(getClass().getResource("RecuperarContra.fxml"));
+            Parent recoverView = FXMLLoader.load(getClass().getResource("/views/RecuperarContra.fxml"));
             Stage stage = (Stage) forgotPasswordButton.getScene().getWindow();
             Scene recoverScene = new Scene(recoverView);
             stage.setScene(recoverScene);
@@ -126,7 +123,7 @@ public class StellaController implements Initializable {
     @FXML
     private void goBackToLogin() {
         try {
-            Parent loginView = FXMLLoader.load(getClass().getResource("Login.fxml"));
+            Parent loginView = FXMLLoader.load(getClass().getResource("/views/Login.fxml"));
             Stage stage = (Stage) backToLoginButton.getScene().getWindow();
             Scene loginScene = new Scene(loginView);
             stage.setScene(loginScene);
