@@ -11,20 +11,19 @@ public class Stella extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-        // CORRECCIÓN CLAVE: Usar la ruta absoluta del classpath
         // "/views/" apunta a la carpeta 'views' dentro de 'resources'
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/hello-view.fxml"));
 
-        // Carga el FXML
+        // Carga las escenas con los FXML
         Scene scene = new Scene(fxmlLoader.load());
 
-        // Opcional: Cargar el CSS con ruta absoluta
+        // Cargar el CSS con la ruta
         scene.getStylesheets().add(getClass().getResource("/styles/LoginStyle.css").toExternalForm());
 
         stage.setTitle("Stella App");
         stage.setScene(scene);
 
-        // Ajustes de tamaño y ventana
+        // Ajusta la pantalla al tamaño y ventana
         stage.setResizable(false);
         stage.setWidth(1920);
         stage.setHeight(1080);

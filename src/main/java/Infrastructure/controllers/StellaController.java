@@ -1,4 +1,4 @@
-package UI.controllers; // 1. PAQUETE CORREGIDO
+package Infrastructure.controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -35,8 +35,6 @@ public class StellaController implements Initializable {
     private Label recoveryMessage;       // Mensaje en recover-view
 
 
-
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Este método se ejecuta cuando se carga el FXML
@@ -46,7 +44,7 @@ public class StellaController implements Initializable {
     @FXML
     private void goToLogin() {
         try {
-            // 2. RUTA CORREGIDA: Usando ruta absoluta desde /views
+            // Cargar la primera view
             Parent loginView = FXMLLoader.load(getClass().getResource("/views/Login.fxml"));
 
             // Obtener la ventana actual
@@ -63,11 +61,11 @@ public class StellaController implements Initializable {
         }
     }
 
-    // Método para ir a registro (se llama desde hello-view)
+    // Método para ir a registro
     @FXML
     private void goToRegistro() {
         try {
-            // 2. RUTA CORREGIDA: Usando ruta absoluta desde /views
+            // Cargar la pantalla de Registro
             Parent registroView = FXMLLoader.load(getClass().getResource("/views/Registro.fxml"));
 
             // Obtener la ventana actual
