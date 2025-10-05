@@ -10,9 +10,7 @@
       minHeight="1080.0" minWidth="1920.0"
       prefHeight="1080.0" prefWidth="1920.0"
       stylesheets="@/styles/LoginStyle.css"
-      styleClass="login-root"
-      xmlns="http://javafx.com/javafx/17"
-      xmlns:fx="http://javafx.com/fxml/1"
+      xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="UI.controllers.RegistroController">
 
     <children>
@@ -21,32 +19,37 @@
             <font><Font name="Franklin Gothic Demi" size="180.0"/></font>
         </Label>
 
-        <Label layoutX="624.0" layoutY="282.0" text="¡Regístrate y empieza la aventura!"
-               textFill="WHITE">
+        <Label layoutX="624.0" layoutY="282.0"
+               text="¡Regístrate y empieza la aventura!" textFill="WHITE">
             <font><Font size="47.0"/></font>
         </Label>
 
         <!-- Nombre completo -->
         <TextField fx:id="nombreField" layoutX="750.0" layoutY="372.0"
-                   prefHeight="60.0" prefWidth="426.0" promptText="Nombre" style="-fx-font-size: 24px;"/>
+                   prefHeight="60.0" prefWidth="426.0"
+                   promptText="Nombre" style="-fx-font-size: 24px;"/>
 
         <!-- Nickname / username -->
         <TextField fx:id="usernameField" layoutX="750.0" layoutY="443.0"
-                   prefHeight="60.0" prefWidth="426.0" promptText="Nickname" style="-fx-font-size: 24px;"/>
+                   prefHeight="60.0" prefWidth="426.0"
+                   promptText="Nickname" style="-fx-font-size: 24px;"/>
 
         <!-- Correo -->
         <TextField fx:id="correoField" layoutX="750.0" layoutY="510.0"
-                   prefHeight="60.0" prefWidth="426.0" promptText="Email" style="-fx-font-size: 24px;"/>
+                   prefHeight="60.0" prefWidth="426.0"
+                   promptText="Email" style="-fx-font-size: 24px;"/>
 
         <!-- Contraseña -->
         <PasswordField fx:id="passwordField" layoutX="750.0" layoutY="578.0"
-                       prefHeight="60.0" prefWidth="426.0" promptText="Contraseña" style="-fx-font-size: 24px;"/>
+                       prefHeight="60.0" prefWidth="426.0"
+                       promptText="Contraseña" style="-fx-font-size: 24px;"/>
 
         <!-- Confirmar contraseña -->
         <PasswordField fx:id="confirmPasswordField" layoutX="750.0" layoutY="648.0"
-                       prefHeight="60.0" prefWidth="426.0" promptText="Confirmar Contraseña" style="-fx-font-size: 24px;"/>
+                       prefHeight="60.0" prefWidth="426.0"
+                       promptText="Confirmar Contraseña" style="-fx-font-size: 24px;"/>
 
-        <!-- Botón Registrar -->
+        <!-- Registrar -->
         <Button layoutX="747.0" layoutY="748.0" mnemonicParsing="false"
                 opacity="0.8" prefHeight="60.0" prefWidth="200.0"
                 style="-fx-background-color: #080736;" text="Registrar" textFill="WHITE"
@@ -64,7 +67,10 @@
 
         <ImageView fitHeight="61.0" fitWidth="70.0" layoutX="1559.0" layoutY="763.0"
                    pickOnBounds="true" preserveRatio="true">
-            <image><Image url="@/Image/General/StellaEsquinaSF.png"/></image>
+            <image>
+                <Image url="@/Image/General/StellaEsquinaSF.png"/>
+            </image>
         </ImageView>
     </children>
 </Pane>
+

@@ -4,6 +4,7 @@ import Application.services.DarAccesoService;
 import Infrastructure.repositories.UsuarioRepository;
 import Domain.repositoriesInterfaces.InterfazUsuarioRepository;
 import UI.controllers.LoginController;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -12,12 +13,12 @@ import javafx.stage.Stage;
 public class Stella extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        // Back (repo + service)
+        // Lo del back se llama una sola vez con repo y service
         InterfazUsuarioRepository repo = new UsuarioRepository();
         DarAccesoService service = new DarAccesoService(repo);
         UI.AppServices.init(service);
 
-        // Se carga FXML con inyección del controller
+        // SE carga FXML e inyecta controladores cuando se necesite
         FXMLLoader loader = new FXMLLoader(Stella.class.getResource("/views/hello-view.fxml"));
         loader.setControllerFactory(clazz -> {
             if (clazz == LoginController.class) return new LoginController(service);

@@ -1,6 +1,8 @@
-.login-root {
+/* styles/LoginStyle.css */
+.root {
     -fx-background-image: url("/Image/General/FondoStella.jpg");
     -fx-background-repeat: no-repeat;
     -fx-background-position: center center;
     -fx-background-size: cover;
 }
+

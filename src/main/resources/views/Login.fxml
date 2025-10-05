@@ -9,7 +9,6 @@
       minHeight="1080.0" minWidth="1920.0"
       prefHeight="1080.0" prefWidth="1920.0"
       stylesheets="@/styles/LoginStyle.css"
-      styleClass="login-root"
       xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="UI.controllers.LoginController">
 
@@ -23,10 +22,12 @@
             <font><Font size="47.0"/></font>
         </Label>
 
+        <!-- Correo -->
         <TextField fx:id="correoField" layoutX="747.0" layoutY="440.0"
                    prefHeight="60.0" prefWidth="426.0" promptText="Correo"
                    style="-fx-font-size: 24px;"/>
 
+        <!-- Contraseña -->
         <PasswordField fx:id="passwordField" layoutX="747.0" layoutY="519.0"
                        prefHeight="60.0" prefWidth="426.0" promptText="Contraseña"
                        style="-fx-font-size: 24px;"/>
