@@ -1,38 +1,40 @@
 package Main;
 
+import Application.services.DarAccesoService;
+import Infrastructure.repositories.UsuarioRepository;
+import Domain.repositoriesInterfaces.InterfazUsuarioRepository;
+import UI.controllers.LoginController;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 public class Stella extends Application {
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) throws Exception {
+        // Lo del back se llama una sola vez con repo y service
+        InterfazUsuarioRepository repo = new UsuarioRepository();
+        DarAccesoService service = new DarAccesoService(repo);
+        UI.AppServices.init(service);
 
-        // "/views/" apunta a la carpeta 'views' dentro de 'resources'
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/hello-view.fxml"));
+        // SE carga FXML e inyecta controladores cuando se necesite
+        FXMLLoader loader = new FXMLLoader(Stella.class.getResource("/views/hello-view.fxml"));
+        loader.setControllerFactory(clazz -> {
+            if (clazz == LoginController.class) return new LoginController(service);
+            try { return clazz.getDeclaredConstructor().newInstance(); }
+            catch (Exception e) { throw new RuntimeException(e); }
+        });
 
-        // Carga las escenas con los FXML
-        Scene scene = new Scene(fxmlLoader.load());
-
-        // Cargar el CSS con la ruta
-        scene.getStylesheets().add(getClass().getResource("/styles/LoginStyle.css").toExternalForm());
-
+        Scene scene = new Scene(loader.load());
         stage.setTitle("Stella App");
         stage.setScene(scene);
-
-        // Ajusta la pantalla al tamaño y ventana
         stage.setResizable(false);
         stage.setWidth(1920);
         stage.setHeight(1080);
         stage.centerOnScreen();
-
         stage.show();
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
+    public static void main(String[] args) { launch(); }
 }
