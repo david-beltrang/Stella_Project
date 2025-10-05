@@ -1,6 +1,6 @@
-package UI.controllers;
+package Infrastructure.controllers;
 
-import UI.AppServices;
+import Application.config.AppServices;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -38,9 +38,14 @@ public class HelloController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Registro.fxml"));
             loader.setControllerFactory(c -> {
-                if (c == RegistroController.class) return new RegistroController(UI.AppServices.service());
-                try { return c.getDeclaredConstructor().newInstance(); }
-                catch (Exception e) { throw new RuntimeException(e); }
+                if (c == RegistroController.class)
+                    return new RegistroController(AppServices.service());
+                try {
+                    return c.getDeclaredConstructor().newInstance();
+                }
+                catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             });
             Parent next = loader.load();
             Stage stage = (Stage) registroButton.getScene().getWindow();
@@ -50,5 +55,4 @@ public class HelloController {
             new Alert(Alert.AlertType.ERROR, "No pude cargar Registro.fxml: " + e.getMessage()).showAndWait();
         }
     }
-
 }

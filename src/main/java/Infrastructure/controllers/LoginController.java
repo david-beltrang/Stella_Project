@@ -1,4 +1,4 @@
-package UI.controllers;
+package Infrastructure.controllers;
 
 import Application.dtos.LoginRequest;
 import Application.dtos.UsuarioResponse;
@@ -27,10 +27,16 @@ public class LoginController {
     @FXML
     private void onLoginClicked() {
         String correo = correoField.getText();
-        String pass   = passwordField.getText();
+        String pass = passwordField.getText();
 
-        if (correo == null || correo.isBlank()) { alert("Falta el correo"); return; }
-        if (pass == null || pass.isBlank())     { alert("Falta la contraseña"); return; }
+        if (correo == null || correo.isBlank()){
+            alert("Falta el correo");
+            return;
+        }
+        if (pass == null || pass.isBlank()) {
+            alert("Falta la contraseña");
+            return;
+        }
 
         try {
             UsuarioResponse u = service.login(new LoginRequest(correo, pass));
@@ -58,8 +64,6 @@ public class LoginController {
         goTo("/views/RecuperarContra.fxml");
     }
 
-    /* ---------- helpers ---------- */
-
     private void goTo(String fxmlPath) {
         try {
             Parent next = FXMLLoader.load(getClass().getResource(fxmlPath));
@@ -75,5 +79,3 @@ public class LoginController {
         new Alert(Alert.AlertType.INFORMATION, msg).showAndWait();
     }
 }
-
-

@@ -1,9 +1,9 @@
-package UI.controllers;
+package Infrastructure.controllers;
 
 import Application.dtos.RegistrarUsuarioRequest;
 import Application.dtos.UsuarioResponse;
 import Application.services.DarAccesoService;
-import UI.AppServices;
+import Application.config.AppServices;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -73,9 +73,14 @@ public class RegistroController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Login.fxml"));
             loader.setControllerFactory(c -> {
-                if (c == LoginController.class) return new LoginController(AppServices.service());
-                try { return c.getDeclaredConstructor().newInstance(); }
-                catch (Exception e) { throw new RuntimeException(e); }
+                if (c == LoginController.class)
+                    return new LoginController(AppServices.service());
+                try {
+                    return c.getDeclaredConstructor().newInstance();
+                }
+                catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             });
             Parent next = loader.load();
             Stage stage = (Stage) nombreField.getScene().getWindow();
@@ -91,9 +96,14 @@ public class RegistroController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             if (injectService) {
                 loader.setControllerFactory(c -> {
-                    if (c == LoginController.class) return new LoginController(AppServices.service());
-                    try { return c.getDeclaredConstructor().newInstance(); }
-                    catch (Exception e) { throw new RuntimeException(e); }
+                    if (c == LoginController.class)
+                        return new LoginController(AppServices.service());
+                    try {
+                        return c.getDeclaredConstructor().newInstance();
+                    }
+                    catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
                 });
             }
             Parent next = loader.load();
@@ -105,7 +115,11 @@ public class RegistroController {
         }
     }
 
-    private static String text(TextField tf) { return tf.getText() == null ? "" : tf.getText().trim(); }
-    private static void alert(Alert.AlertType type, String msg) { new Alert(type, msg).showAndWait(); }
+    private static String text(TextField tf) {
+        return tf.getText() == null ? "" : tf.getText().trim();
+    }
+    private static void alert(Alert.AlertType type, String msg) {
+        new Alert(type, msg).showAndWait();
+    }
 }
 

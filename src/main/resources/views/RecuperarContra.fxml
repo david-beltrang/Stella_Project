@@ -13,7 +13,7 @@
       prefHeight="1080.0" prefWidth="1920.0"
       stylesheets="@/styles/LoginStyle.css"
       xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="UI.controllers.StellaController">
+      fx:controller="Infrastructure.controllers.StellaController">
 
     <children>
         <Label layoutX="667.0" layoutY="165.0" prefHeight="388.0" prefWidth="873.0"
