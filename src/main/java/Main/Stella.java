@@ -3,7 +3,6 @@ package Main;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -11,22 +10,24 @@ import java.io.IOException;
 public class Stella extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
 
-        // Carga el FXML con el tamaño exacto que definiste (1920x1080)
+        // CORRECCIÓN CLAVE: Usar la ruta absoluta del classpath
+        // "/views/" apunta a la carpeta 'views' dentro de 'resources'
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/hello-view.fxml"));
+
+        // Carga el FXML
         Scene scene = new Scene(fxmlLoader.load());
+
+        // Opcional: Cargar el CSS con ruta absoluta
+        scene.getStylesheets().add(getClass().getResource("/styles/LoginStyle.css").toExternalForm());
 
         stage.setTitle("Stella App");
         stage.setScene(scene);
 
-        // ⚠️ ESTA ES LA CLAVE - EVITA QUE SE REDIMENSIONE ⚠️
+        // Ajustes de tamaño y ventana
         stage.setResizable(false);
-
-        // En lugar de maximizado, usa tamaño fijo
         stage.setWidth(1920);
         stage.setHeight(1080);
-
-        // Centrar en la pantalla
         stage.centerOnScreen();
 
         stage.show();

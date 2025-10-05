@@ -1,4 +1,4 @@
-package com.example.stellaa;
+package UI.controllers; // 1. PAQUETE CORREGIDO
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,12 +17,11 @@ import java.util.ResourceBundle;
 public class StellaController implements Initializable {
 
     public Button registroButton;
-    @javafx.fxml.FXML
     @FXML
     private Button loginButton;          // Botón LOGIN en hello-view
 
     @FXML
-    private Button backButton;           // Botón Volver en login-view
+    private Button backButton;           // Botón Volver en login-view (y registro-view si se usa allí)
 
     @FXML
     private Button forgotPasswordButton; // Botón en login-view
@@ -34,7 +33,9 @@ public class StellaController implements Initializable {
     private TextField recoverEmailField; // Campo email en recover-view
     @FXML
     private Label recoveryMessage;       // Mensaje en recover-view
-    
+
+
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -45,7 +46,7 @@ public class StellaController implements Initializable {
     @FXML
     private void goToLogin() {
         try {
-            // Cargar el FXML de login
+            // 2. RUTA CORREGIDA: Usando ruta absoluta desde /views
             Parent loginView = FXMLLoader.load(getClass().getResource("/views/Login.fxml"));
 
             // Obtener la ventana actual
@@ -66,7 +67,7 @@ public class StellaController implements Initializable {
     @FXML
     private void goToRegistro() {
         try {
-            // Cargar el FXML de login
+            // 2. RUTA CORREGIDA: Usando ruta absoluta desde /views
             Parent registroView = FXMLLoader.load(getClass().getResource("/views/Registro.fxml"));
 
             // Obtener la ventana actual
@@ -83,11 +84,11 @@ public class StellaController implements Initializable {
         }
     }
 
-    // Método para volver a hello (se llama desde Login)
+    // Método para volver a hello (se llama desde Login y Registro)
     @FXML
     private void goBackToHello() {
         try {
-            // Cargar el FXML de hello
+            // 2. RUTA CORREGIDA: Usando ruta absoluta desde /views
             Parent helloView = FXMLLoader.load(getClass().getResource("/views/hello-view.fxml"));
 
             // Obtener la ventana actual
@@ -104,10 +105,13 @@ public class StellaController implements Initializable {
         }
     }
 
+    // === MÉTODOS PARA RECUPERAR CONTRASEÑA ===
+
     // Método para ir a recuperar contraseña (desde login)
     @FXML
     private void goToRecoverPassword() {
         try {
+            // 2. RUTA CORREGIDA: Usando ruta absoluta desde /views
             Parent recoverView = FXMLLoader.load(getClass().getResource("/views/RecuperarContra.fxml"));
             Stage stage = (Stage) forgotPasswordButton.getScene().getWindow();
             Scene recoverScene = new Scene(recoverView);
@@ -123,6 +127,7 @@ public class StellaController implements Initializable {
     @FXML
     private void goBackToLogin() {
         try {
+            // 2. RUTA CORREGIDA: Usando ruta absoluta desde /views
             Parent loginView = FXMLLoader.load(getClass().getResource("/views/Login.fxml"));
             Stage stage = (Stage) backToLoginButton.getScene().getWindow();
             Scene loginScene = new Scene(loginView);
@@ -150,6 +155,8 @@ public class StellaController implements Initializable {
         }
 
         // Simulación de envío de email
+        // En una aplicación DDD real, aquí llamarías a un Application Service:
+        // applicationService.sendPasswordRecoveryEmail(email);
         showRecoveryMessage("✓ Se ha enviado un enlace de recuperación a: " + email, "#90EE90");
 
         // Limpiar campo después de enviar
@@ -172,4 +179,3 @@ public class StellaController implements Initializable {
     }
 
 }
-
