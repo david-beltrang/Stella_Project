@@ -1,5 +1,6 @@
 package Infrastructure.controllers;
 
+import Application.config.AppServices;
 import Application.dtos.LoginRequest;
 import Application.dtos.UsuarioResponse;
 import Application.services.DarAccesoService;
@@ -16,7 +17,17 @@ public class LoginController {
 
     private final DarAccesoService service;
 
-    // SE trae desde Main.Stella usando loader.setControllerFactory()
+    /**
+     * ✅ Constructor sin argumentos requerido por FXMLLoader cuando hay fx:controller
+     * Toma la instancia desde AppServices (inicializada en Main.Stella con AppServices.init(...)).
+     */
+    public LoginController() {
+        this(AppServices.service()); // puede ser null si no inicializaste AppServices en el arranque
+    }
+
+    /**
+     * ✅ Constructor con DI por fábrica (setControllerFactory); lo sigues pudiendo usar.
+     */
     public LoginController(DarAccesoService service) {
         this.service = service;
     }
@@ -39,10 +50,14 @@ public class LoginController {
         }
 
         try {
+            if (service == null) {
+                throw new IllegalStateException("Servicio no inicializado. Revisa AppServices.init(...) en el arranque.");
+            }
+
             UsuarioResponse u = service.login(new LoginRequest(correo, pass));
             alert("Bienvenido, " + u.nombre() + " (" + u.tipo() + ") - id: " + u.id());
 
-            // Aqui se pone la pantalla a la que se quiere lanzar despues del login
+            // Si quieres cambiar de pantalla tras login:
             // goTo("/views/hello-view.fxml");
 
         } catch (IllegalArgumentException ex) {
@@ -54,16 +69,17 @@ public class LoginController {
 
     @FXML
     private void onBackClicked() {
-        // Placeholder de navegación: ajusta la ruta si usas otra vista
+        // Ajusta la ruta si usas otra vista para “volver”
         goTo("/views/hello-view.fxml");
     }
 
     @FXML
     private void onForgotClicked() {
-        // Placeholder de navegación: ajusta la ruta si usas otra vista
+        // Ir a Recuperar contraseña
         goTo("/views/RecuperarContra.fxml");
     }
 
+    /** Navegación básica: carga por fx:controller usando el constructor sin args */
     private void goTo(String fxmlPath) {
         try {
             Parent next = FXMLLoader.load(getClass().getResource(fxmlPath));
