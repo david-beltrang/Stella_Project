@@ -9,7 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.scene.control.TextField;
-
+import javafx.event.ActionEvent;
+import javafx.scene.Node;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -119,19 +120,22 @@ public class StellaController implements Initializable {
     }
 
     // Método para volver al login (desde recuperar contraseña)
+
     @FXML
     private void goBackToLogin() {
         try {
             Parent loginView = FXMLLoader.load(getClass().getResource("/views/Login.fxml"));
             Stage stage = (Stage) backToLoginButton.getScene().getWindow();
-            Scene loginScene = new Scene(loginView);
-            stage.setScene(loginScene);
+            stage.setScene(new Scene(loginView));
             stage.centerOnScreen();
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Error al cargar Login.fxml");
         }
     }
+
+
+
 
     // Método para enviar email de recuperación
     @FXML
