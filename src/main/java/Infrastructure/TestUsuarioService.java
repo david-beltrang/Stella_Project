@@ -1,9 +1,10 @@
-package Application.services;
+package Infrastructure;
 
 import Application.dtos.RegistrarUsuarioRequest;
 import Application.dtos.LoginRequest;
 import Application.dtos.ActualizarUsernameRequest;
 import Application.dtos.UsuarioResponse;
+import Application.services.DarAccesoService;
 import Domain.repositoriesInterfaces.InterfazUsuarioRepository;
 import Infrastructure.repositories.UsuarioRepository;
 
@@ -13,7 +14,7 @@ import Infrastructure.repositories.UsuarioRepository;
  * Usa una base de datos H2 en memoria para no dejar datos residuales.
  * Trabaja con la interfaz InterfazUsuarioRepository para mantener el desacoplamiento.
  */
-public class DarAccesoServiceTest {
+public class TestUsuarioService {
 
     public static void main(String[] args) {
         // Instanciar la interfaz con la implementación concreta
