@@ -1,8 +1,8 @@
 package Infrastructure.controllers;
 
 import Application.config.AppServices;
-import Application.dtos.usuario.LoginRequest;
-import Application.dtos.UsuarioResponse;
+import Application.dtos.acceso.LoginRequest;
+import Application.dtos.acceso.UsuarioResponse;
 import Application.services.DarAccesoService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
