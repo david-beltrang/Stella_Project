@@ -18,7 +18,6 @@ public class TestUsuarioService {
 
     public static void main(String[] args) {
         // Instanciar la interfaz con la implementación concreta
-        // INstanciar el servicio
         InterfazUsuarioRepository usuarioRepository = new UsuarioRepository();
         DarAccesoService accesoService = new DarAccesoService(usuarioRepository);
 
