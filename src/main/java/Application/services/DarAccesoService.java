@@ -1,4 +1,4 @@
-package Application.services;
+package main.java.Application.services;
 
 import Application.dtos.RegistrarUsuarioRequest;
 import Application.dtos.LoginRequest;

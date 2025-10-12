@@ -6,15 +6,23 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.util.Duration;
 
-import static com.example.stellaa.StellaController.timeline;
-
+/**
+ * Clase que maneja la lógica del temporizador Pomodoro.
+ * No depende de la interfaz gráfica (JavaFX Controller).
+ */
 public class PomodoroTimer {
 
-    private static PomodoroTimer instance; // Singleton (una sola instancia)
-    private final IntegerProperty secondsLeft = new SimpleIntegerProperty(1500); //
-    private boolean running = false;
+    private static PomodoroTimer instance;
 
-    private PomodoroTimer() {}
+    private static final int INITIAL_TIME = 1500; // 25 minutos en segundos
+    private final IntegerProperty secondsLeft = new SimpleIntegerProperty(INITIAL_TIME);
+    private Timeline timeline;
+    private boolean isPaused = true;
+
+    private PomodoroTimer() {
+        timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> tick()));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+    }
 
     public static PomodoroTimer getInstance() {
         if (instance == null) {
@@ -23,39 +31,45 @@ public class PomodoroTimer {
         return instance;
     }
 
+    /** Inicia o reanuda el temporizador */
     public void start() {
-        if (running) return;
-
-        timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
-            int current = secondsLeft.get();
-            if (current > 0) {
-                secondsLeft.set(current - 1);
-            } else {
-                stop();
-            }
-        }));
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
-        running = true;
+        if (timeline.getStatus() != Timeline.Status.RUNNING) {
+            isPaused = false;
+            timeline.play();
+        }
     }
 
-    public void stop() {
-        if (timeline != null) {
+    /** Pausa el temporizador */
+    public void pause() {
+        isPaused = true;
+    }
+
+    /** Reinicia el temporizador a 25:00 */
+    public void reset() {
+        timeline.stop();
+        secondsLeft.set(INITIAL_TIME);
+        isPaused = true;
+    }
+
+    /** Disminuye el contador cada segundo */
+    private void tick() {
+        if (!isPaused && secondsLeft.get() > 0) {
+            secondsLeft.set(secondsLeft.get() - 1);
+        } else if (secondsLeft.get() == 0) {
             timeline.stop();
         }
-        running = false;
     }
 
-    public void reset() {
-        stop();
-        secondsLeft.set(1500);
-    }
-
+    /** Propiedad observable para conectar con el label */
     public IntegerProperty secondsLeftProperty() {
         return secondsLeft;
     }
 
-    public boolean isRunning() {
-        return running;
+    public int getSecondsLeft() {
+        return secondsLeft.get();
+    }
+
+    public void setSecondsLeft(int seconds) {
+        secondsLeft.set(seconds);
     }
 }

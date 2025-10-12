@@ -7,19 +7,21 @@
 
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+
 <Pane maxHeight="1080.0" maxWidth="1920.0"
       minHeight="1080.0" minWidth="1920.0"
       prefHeight="1080.0" prefWidth="1920.0"
-      stylesheets="@../../../CssStyle/LoginStyle.css"
+      stylesheets="@../../../styles/LoginStyle.css"
       xmlns="http://javafx.com/javafx/25"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.example.stellaa.PomodoroController">
+      fx:controller="Infrastructure.controllers.PomodoroController"
 
 
-    <children>
+
+<children>
         <ImageView fitHeight="138.0" fitWidth="139.0" layoutX="1253.0" layoutY="325.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../../../Image/StellaPomodoroSF.png" />
+                <Image url="@../../resources/Image/StellaPomodoroSF.png" />
             </image>
         </ImageView>
         <Label fx:id="timerLabel" layoutX="870" layoutY="450"
