@@ -1,8 +1,8 @@
 package Infrastructure;
 
-import Application.dtos.RegistrarUsuarioRequest;
-import Application.dtos.LoginRequest;
-import Application.dtos.ActualizarUsernameRequest;
+import Application.dtos.usuario.RegistrarUsuarioRequest;
+import Application.dtos.usuario.LoginRequest;
+import Application.dtos.usuario.ActualizarUsernameRequest;
 import Application.dtos.UsuarioResponse;
 import Application.services.DarAccesoService;
 import Domain.repositoriesInterfaces.InterfazUsuarioRepository;

@@ -1,6 +1,6 @@
 package Infrastructure.controllers;
 
-import Application.dtos.RegistrarUsuarioRequest;
+import Application.dtos.usuario.RegistrarUsuarioRequest;
 import Application.dtos.UsuarioResponse;
 import Application.services.DarAccesoService;
 import Application.config.AppServices;

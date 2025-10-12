@@ -1,8 +1,8 @@
 package Application.services;
 
-import Application.dtos.RegistrarUsuarioRequest;
-import Application.dtos.LoginRequest;
-import Application.dtos.ActualizarUsernameRequest;
+import Application.dtos.usuario.RegistrarUsuarioRequest;
+import Application.dtos.usuario.LoginRequest;
+import Application.dtos.usuario.ActualizarUsernameRequest;
 import Application.dtos.UsuarioResponse;
 import Domain.models.Usuario;
 import Domain.models.UsuarioValueObjects.Username;

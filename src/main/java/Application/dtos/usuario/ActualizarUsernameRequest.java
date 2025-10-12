@@ -1,4 +1,4 @@
-package Application.dtos;
+package Application.dtos.usuario;
 
 /**
  * Record que representa la solicitud para actualizar el username de un usuario.
