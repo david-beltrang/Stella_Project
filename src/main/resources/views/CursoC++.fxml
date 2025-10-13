@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.Image?>
@@ -11,18 +12,11 @@
 
 <Pane maxHeight="1080.0" maxWidth="1920.0" minHeight="1080.0" minWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../../../../../Users/Personal/IdeaProjects/Stellaa/target/classes/CssStyle/LoginStyle.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.stellaa.PomodoroController">
 
-    <!-- Imagen de fondo -->
-    <ImageView fitHeight="1080.0" fitWidth="1920.0" preserveRatio="false">
-        <image>
-            <Image url="@../../images/fondo.png" />
-        </image>
-    </ImageView>
-
     <!-- Contenedor principal -->
     <VBox layoutX="586.0" layoutY="156.0" prefHeight="694.0" prefWidth="707.0" spacing="30">
-
-        <!-- Título -->
-        <Label prefHeight="176.0" prefWidth="690.0" text="CURSO C++" textFill="white">
+   
+                 <!-- Título -->
+        <Label prefHeight="88.0" prefWidth="803.0" text="CURSO C++" textFill="white">
             <font>
                 <Font name="System Bold" size="120.0" />
             </font>
@@ -112,4 +106,20 @@
          <Image url="@../../../../../../Users/Personal/IdeaProjects/Stellaa/src/main/resources/Image/StellaEsquinaSF.png" />
       </image>
    </ImageView>
+   <Pane layoutX="154.0" layoutY="83.0" prefHeight="80.0" prefWidth="1690.0" style="-fx-background-color: #ffffff;">
+      <children>
+         <Button layoutX="188.0" layoutY="21.0" style="-fx-background-color: transparent; -fx-font-size: 18px;" text="Logros" />
+         <Button layoutX="541.0" layoutY="21.0" style="-fx-background-color: transparent; -fx-font-size: 18px;" text="Dinero" />
+         <Button layoutX="852.0" layoutY="21.0" style="-fx-background-color: transparent; -fx-font-size: 18px;" text="Racha 🔥" />
+         <Button layoutX="1138.0" layoutY="18.0" style="-fx-background-color: transparent; -fx-font-size: 18px;" text="Pomodoro ⏱" />
+      </children>
+   </Pane>
+   <Pane layoutX="148.0" layoutY="874.0" prefHeight="80.0" prefWidth="1630.0" style="-fx-background-color: #ffffff;">
+      <children>
+         <Button layoutX="620.0" layoutY="15.0" style="-fx-background-color: transparent; -fx-font-size: 30px;" text="🏠" />
+         <Button layoutX="820.0" layoutY="15.0" style="-fx-background-color: transparent; -fx-font-size: 30px;" text="💬" />
+         <Button layoutX="1020.0" layoutY="15.0" style="-fx-background-color: transparent; -fx-font-size: 30px;" text="❄" />
+         <Button layoutX="1220.0" layoutY="15.0" style="-fx-background-color: transparent; -fx-font-size: 30px;" text="👤" />
+      </children>
+   </Pane>
 </Pane>
