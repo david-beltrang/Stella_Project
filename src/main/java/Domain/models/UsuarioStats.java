@@ -45,7 +45,21 @@ public class UsuarioStats {
         this.diasRacha = dias;
     }
 
-    // ... Getters ...
-    public int getPescaditos() { return pescaditos; }
-    // etc.
+    // --- Getters (Agregados y Completos) ---
+
+    public int getUsuarioId() { // <-- NECESARIO para la clave foránea/primaria
+        return usuarioId; 
+    }
+
+    public int getPescaditos() { 
+        return pescaditos; 
+    }
+
+    public int getObjetivoSesiones() { // <-- NECESARIO para la Persistencia
+        return objetivoSesiones; 
+    }
+    
+    public int getDiasRacha() { // <-- NECESARIO para la Persistencia
+        return diasRacha; 
+    }
 }

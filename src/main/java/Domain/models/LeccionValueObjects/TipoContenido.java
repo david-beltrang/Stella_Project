@@ -35,16 +35,12 @@ public record TipoContenido(String valor) {
         valor = tipoNormalizado;
     }
 
-    /**
-     * @return Devuelve la representación en String del tipo.
-     */
+    // Método para obtener el valor normalizado
     public String valor() {
         return valor;
     }
 
-    /**
-     * Método estático para reconstruir el Value Object desde una cadena de la BD.
-     */
+    // Método estático para reconstruir el Value Object desde una cadena de la BD
     public static TipoContenido fromString(String valorCadena) {
         return new TipoContenido(valorCadena);
     }

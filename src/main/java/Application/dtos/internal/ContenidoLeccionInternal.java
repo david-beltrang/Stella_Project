@@ -3,14 +3,14 @@ package Application.dtos.internal;
 import Domain.models.LeccionValueObjects.TipoContenido;
 import java.util.Objects;
 
-/** DTO interno usado entre SesionEstudioService y LeccionRepository. */
+// DTO interno usado entre SesionEstudioService y LeccionRepository
 public record ContenidoLeccionInternal(
         int id,
         String titulo,
         TipoContenido tipoContenido,
         String contenido,
-        Integer pruebaId // <--- Es Integer (Objeto) para aceptar null
-) {
+        Integer pruebaId
+        ) {
     public ContenidoLeccionInternal {
         Objects.requireNonNull(tipoContenido);
         Objects.requireNonNull(titulo);

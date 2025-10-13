@@ -14,9 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Implementación JDBC real del repositorio de Pruebas.
- */
+// Implementación JDBC real del repositorio de Pruebas.
 public class PruebaRepository implements InterfazPruebaRepository {
 
     private static final String SQL_SELECT_PRUEBA_BY_LECCION =
@@ -26,6 +24,7 @@ public class PruebaRepository implements InterfazPruebaRepository {
     private static final String SQL_SELECT_PREGUNTA_BY_ID =
             "SELECT pr.id AS pregunta_id, pr.enunciado, o.id AS opcion_id, o.texto, o.es_correcta FROM pregunta pr JOIN opcion o ON pr.id = o.pregunta_id WHERE pr.id = ?";
 
+    // Método para obtener la prueba de una lección.
     @Override
     public Optional<Prueba> buscarPruebaPorLeccion(int leccionId) {
         Prueba prueba = null;
@@ -50,20 +49,20 @@ public class PruebaRepository implements InterfazPruebaRepository {
         return Optional.ofNullable(prueba);
     }
 
+    // Método para obtener las preguntas de una prueba.
     @Override
     public List<PreguntaConOpcionesInternal> obtenerPreguntas(int pruebaId) {
         return obtenerPreguntasDesdeSQL(SQL_SELECT_PREGUNTAS_AND_OPCIONES, pruebaId);
     }
 
+    // Método para obtener las preguntas de una pregunta.
     @Override
     public List<PreguntaConOpcionesInternal> obtenerPreguntasPorId(int preguntaId) {
         return obtenerPreguntasDesdeSQL(SQL_SELECT_PREGUNTA_BY_ID, preguntaId);
     }
 
     // --- Método auxiliar para mapear preguntas y opciones ---
-
     private List<PreguntaConOpcionesInternal> obtenerPreguntasDesdeSQL(String sql, int id) {
-        List<PreguntaConOpcionesInternal> preguntas = new ArrayList<>();
         // Un HashMap para agrupar las opciones por ID de Pregunta
         java.util.Map<Integer, PreguntaConOpcionesInternal> preguntasMap = new java.util.LinkedHashMap<>();
 

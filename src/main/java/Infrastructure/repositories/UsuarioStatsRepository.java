@@ -12,12 +12,13 @@ import java.sql.SQLException;
  */
 public class UsuarioStatsRepository implements InterfazUsuarioStatsRepository {
 
-    // CORRECCIÓN FINAL: Usamos comillas dobles para forzar el nombre "dias_racha"
+    // Usar comillas dobles para forzar el nombre "dias_racha"
     private static final String SQL_UPDATE_RACHA =
             "UPDATE usuario_stats SET racha_dias = racha_dias + ? WHERE usuario_id = ?";
     private static final String SQL_UPDATE_PESCADITOS =
             "UPDATE usuario_stats SET pescaditos = pescaditos + ? WHERE usuario_id = ?";
 
+    // Método para actualizar la racha de días de estudio de un usuario.
     @Override
     public void actualizarRacha(int usuarioId, int diasSumar) {
         try (Connection conn = ConexionBD.getConnection();
@@ -38,6 +39,7 @@ public class UsuarioStatsRepository implements InterfazUsuarioStatsRepository {
         }
     }
 
+    // Método para actualizar la cantidad de pescaditos de un usuario.
     @Override
     public void actualizarPescaditos(int usuarioId, int cantidadSumar) {
         try (Connection conn = ConexionBD.getConnection();

@@ -17,6 +17,7 @@ import java.util.List;
  * * NOTA: Se asume que los errores de persistencia (racha_dias, logica de Intento, NullPointer)
  * han sido corregidos en las clases UsuarioStatsRepository, SesionEstudioService y ContenidoResponse/ProgresoLeccionRepository.
  */
+
 public class TestSesionEstudioService {
 
     public static void main(String[] args) {

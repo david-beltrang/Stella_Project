@@ -12,13 +12,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Collections;
 import java.util.Map;
 import java.util.HashMap;
 
-/**
- * Implementación JDBC real del repositorio de Lecciones.
- */
+// Implementación JDBC real del repositorio de Lecciones.
 public class LeccionRepository implements InterfazLeccionRepository {
 
     private static final String SQL_SELECT_CONTENIDO =
@@ -36,6 +33,7 @@ public class LeccionRepository implements InterfazLeccionRepository {
                     "WHERE p.leccion_id = ? ORDER BY p.id, o.id";
 
 
+    // Método para obtener el contenido de una lección.
     @Override
     public Optional<ContenidoLeccionInternal> obtenerContenido(int id) {
         ContenidoLeccionInternal contenido = null;
@@ -56,6 +54,7 @@ public class LeccionRepository implements InterfazLeccionRepository {
         return Optional.ofNullable(contenido);
     }
 
+    // Método para obtener las lecciones de un curso y sección.
     @Override
     public List<Leccion> buscarPorCursoYSeccion(int cursoId, int numeroSeccion) {
         List<Leccion> lecciones = new ArrayList<>();
@@ -76,6 +75,7 @@ public class LeccionRepository implements InterfazLeccionRepository {
         return lecciones;
     }
 
+    // Método para obtener las preguntas asociadas a una lección.
     @Override
     public List<Pregunta> buscarPreguntasAsociadas(int leccionId) {
         Map<Integer, Pregunta> preguntasMap = new HashMap<>();
@@ -116,9 +116,7 @@ public class LeccionRepository implements InterfazLeccionRepository {
         return new ArrayList<>(preguntasMap.values());
     }
 
-    /**
-     * Mapea un ResultSet al DTO de contenido de la lección (usado por SesionEstudioService).
-     */
+    // Mapea un ResultSet al DTO de contenido de la lección (usado por SesionEstudioService).
     private ContenidoLeccionInternal mapearContenido(ResultSet rs) throws SQLException {
         int pruebaIdInt = rs.getInt("prueba_id");
         // Verifica si el valor de la BD es NULL y usa Integer Object
@@ -133,9 +131,7 @@ public class LeccionRepository implements InterfazLeccionRepository {
         );
     }
 
-    /**
-     * Mapea un ResultSet a la entidad Leccion (usado por LeccionService).
-     */
+    // Mapea un ResultSet a la entidad Leccion (usado por LeccionService).
     private Leccion mapearLeccion(ResultSet rs) throws SQLException {
         int pruebaIdInt = rs.getInt("prueba_id");
         // Verifica si el valor de la BD es NULL y usa Integer Object para el constructor

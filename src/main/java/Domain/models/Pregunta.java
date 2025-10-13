@@ -12,8 +12,6 @@ public class Pregunta {
     private final String enunciado;
     private final List<Opcion> opciones;
 
-    // NOTA: Se pueden añadir leccionId y pruebaId si se considera necesario en el Dominio.
-
     public Pregunta(int id, String enunciado, List<Opcion> opciones) {
         this.id = id;
         this.enunciado = Objects.requireNonNull(enunciado);

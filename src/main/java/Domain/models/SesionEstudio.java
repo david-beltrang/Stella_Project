@@ -1,7 +1,6 @@
 package Domain.models;
 
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 /**
@@ -30,26 +29,20 @@ public class SesionEstudio {
 
     // ------------------ FACTORY METHODS ------------------
 
-    /**
-     * Inicia una nueva sesión de estudio.
-     */
+    // Inicia una nueva sesión de estudio.
     public static SesionEstudio iniciar(int usuarioId) {
         // Inicia con tiempo y descanso en 0.
         return new SesionEstudio(null, usuarioId, 0, 0, LocalDateTime.now(), null);
     }
 
-    /**
-     * Reconstruye la entidad desde la base de datos.
-     */
+    // Reconstruye la entidad desde la base de datos.
     public static SesionEstudio reconstruir(Integer id, int usuarioId, int tiempoEstudio, int tiempoDescanso, LocalDateTime fechaInicio, LocalDateTime fechaFin) {
         return new SesionEstudio(id, usuarioId, tiempoEstudio, tiempoDescanso, fechaInicio, fechaFin);
     }
 
     // ---------- COMPORTAMIENTOS y LÓGICA DEL DOMINIO ----------
 
-    /**
-     * Finaliza la sesión y calcula el tiempo total (en minutos).
-     */
+    // Finaliza la sesión y calcula el tiempo total (en minutos).
     public void finalizar(int tiempoEstudioMinutos, int tiempoDescansoMinutos) {
         if (this.fechaFin != null) {
             throw new IllegalStateException("La sesión ya ha sido finalizada.");
@@ -64,7 +57,6 @@ public class SesionEstudio {
     }
 
     // ---------- GETTERS ---------
-
     public Integer getId() { return id; }
     public int getUsuarioId() { return usuarioId; }
     public int getTiempoEstudioMinutos() { return tiempoEstudioMinutos; }

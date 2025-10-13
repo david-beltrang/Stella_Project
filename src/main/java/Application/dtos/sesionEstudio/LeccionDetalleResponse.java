@@ -2,9 +2,7 @@ package Application.dtos.sesionEstudio;
 
 import java.util.List;
 
-/**
- * DTO para la respuesta detallada de una lección, incluyendo el progreso.
- */
+// dto para devolver la información de una lección
 public record LeccionDetalleResponse(
         int id,
         String titulo,

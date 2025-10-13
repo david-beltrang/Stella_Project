@@ -8,9 +8,7 @@ import Infrastructure.persistence.ConexionBD;
 import java.sql.*;
 import java.time.LocalDateTime;
 
-/**
- * Implementación JDBC real del repositorio de Intentos y Respuestas.
- */
+// Implementación JDBC real del repositorio de Intentos y Respuestas.
 public class IntentoRepository implements InterfazIntentoRepository {
 
     private static final String SQL_INSERT_INTENTO =
@@ -18,6 +16,7 @@ public class IntentoRepository implements InterfazIntentoRepository {
     private static final String SQL_INSERT_RESPUESTA =
             "INSERT INTO respuesta (intento_id, pregunta_id, opcion_seleccionada_id) VALUES (?, ?, ?)";
 
+    // Método para obtener todos los intentos de un usuario.
     @Override
     public int guardarIntento(IntentoInternal intento) {
         try (Connection conn = ConexionBD.getConnection();
@@ -30,7 +29,8 @@ public class IntentoRepository implements InterfazIntentoRepository {
             ps.setTimestamp(4, Timestamp.valueOf(LocalDateTime.now()));
 
             ps.executeUpdate();
-
+            
+            // Obtener el ID generado
             try (ResultSet rs = ps.getGeneratedKeys()) {
                 if (rs.next()) {
                     return rs.getInt(1); // Retorna el ID generado
@@ -43,6 +43,7 @@ public class IntentoRepository implements InterfazIntentoRepository {
         }
     }
 
+    // --- Métodos para actualizar la respuesta de un intento ---
     @Override
     public void guardarRespuesta(RespuestaInternal respuesta) {
         try (Connection conn = ConexionBD.getConnection();

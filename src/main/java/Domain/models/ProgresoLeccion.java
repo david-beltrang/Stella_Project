@@ -49,7 +49,7 @@ public class ProgresoLeccion {
 
     // ------------------ LÓGICA DE DOMINIO ----------------------
 
-    /** Inicia la sesión de estudio. */
+    // Inicia la sesión de estudio.
     public void iniciarSesion() {
         if (this.estado.esCompletada()) {
             throw new IllegalStateException("La lección ya está COMPLETADA.");
@@ -60,7 +60,7 @@ public class ProgresoLeccion {
         }
     }
 
-    /** Marca la lección como completada. */
+    //Termina la sesión de estudio.
     public void completar() {
         if (this.estado.esCompletada()) {
             return;

@@ -15,13 +15,11 @@ public class Leccion {
     private final int numeroSeccion;
     private final int numeroOrden;
     private final String titulo;
-    private final TipoContenido tipoContenido; // <-- ¡Usando Value Object!
+    private final TipoContenido tipoContenido;
     private final String contenidoHtml;
 
-    // Opcional: ID de la prueba/quiz asociada. Usamos Integer para permitir 'null'.
     private final Integer pruebaId;
 
-    // Opcional: Campo para simular Preguntas asociadas que necesitará LeccionService
     private List<Pregunta> preguntas;
 
     // Constructor para reconstruir desde el repositorio
