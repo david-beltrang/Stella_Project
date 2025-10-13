@@ -5,4 +5,19 @@
     -fx-background-position: center center;
     -fx-background-size: cover;
 }
+/* Botón de la barra inferior (icon-only) */
+.nav-btn {
+    -fx-background-color: transparent;
+    -fx-padding: 12px;
+    -fx-background-radius: 999px;
+    -fx-cursor: hand;
+}
+
+.nav-btn:hover {
+    -fx-background-color: rgba(255,255,255,0.08);
+}
+
+.nav-btn:pressed {
+    -fx-background-color: rgba(255,255,255,0.18);
+}
 
