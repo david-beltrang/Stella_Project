@@ -46,7 +46,7 @@
             <Font name="System Bold" size="30.0" />
          </font>
       </Button>
-      <Button layoutX="729.0" layoutY="591.0" mnemonicParsing="false" prefHeight="89.0" prefWidth="543.0" style="-fx-background-color: #080736;" text="LINK DE YOUTUBE" textFill="WHITE">
+      <Button layoutX="737.0" layoutY="591.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="546.0" style="-fx-background-color: #080736;" text="LINK DE YOUTUBE" textFill="WHITE">
          <font>
             <Font name="System Bold" size="41.0" />
          </font>
