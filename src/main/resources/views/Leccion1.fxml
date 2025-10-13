@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="1080.0" maxWidth="1920.0" minHeight="1080.0" minWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../../../../../Users/Personal/IdeaProjects/Stellaa/target/classes/CssStyle/LoginStyle.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="465.0" layoutY="118.0" prefHeight="158.0" prefWidth="1436.0" text="CURSO C++ - LECCION 1" textFill="white">
+         <font>
+            <Font name="System Bold" size="92.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="61.0" fitWidth="70.0" layoutX="1579.0" layoutY="783.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../Users/Personal/IdeaProjects/Stellaa/src/main/resources/Image/StellaEsquinaSF.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="748.0" layoutY="243.0" text="Historia y uso de C++" textFill="WHITE">
+         <font>
+            <Font name="Monospaced Regular" size="40.0" />
+         </font>
+      </Label>
+      <Accordion layoutX="716.0" layoutY="551.0" />
+      <Label layoutX="416.0" layoutY="301.0" prefHeight="113.0" prefWidth="1166.0" text="C++ es un lenguaje de programación creado por Bjarne Stroustrup en 1979 en los laboratorios Bell. Originalmente se llamó &quot;C con clases&quot; y fue diseñado como una extensión del lenguaje C, agregando características de programación orientada a objetos." textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="Arial" size="29.0" />
+         </font>
+      </Label>
+      <Label layoutX="419.0" layoutY="441.0" prefHeight="31.0" prefWidth="358.0" text="Características principales:" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="Arial" size="29.0" />
+         </font>
+      </Label>
+      <Label layoutX="470.0" layoutY="523.0" prefHeight="33.0" prefWidth="696.0" text="• Lenguaje compilado (se traduce a código máquina)" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="Arial" size="29.0" />
+         </font>
+      </Label>
+      <Label layoutX="467.0" layoutY="486.0" prefHeight="33.0" prefWidth="948.0" text="• Multiparadigma (procedimental, orientado a objetos, genérico)" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="Arial" size="29.0" />
+         </font>
+      </Label>
+      <Label layoutX="468.0" layoutY="559.0" prefHeight="33.0" prefWidth="672.0" text="• Alto rendimiento y eficiencia" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="Arial" size="29.0" />
+         </font>
+      </Label>
+      <Label layoutX="471.0" layoutY="591.0" prefHeight="1.0" prefWidth="1026.0" text="• Control granular sobre los recursos del sistema" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="Arial" size="29.0" />
+         </font>
+      </Label>
+      <Label layoutX="415.0" layoutY="643.0" prefHeight="31.0" prefWidth="358.0" text="Ámbitos de uso:" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="Arial" size="29.0" />
+         </font>
+      </Label>
+      <Label layoutX="465.0" layoutY="692.0" prefHeight="33.0" prefWidth="948.0" text="• Sistemas operativos" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="Arial" size="29.0" />
+         </font>
+      </Label>
+      <Label layoutX="467.0" layoutY="725.0" prefHeight="33.0" prefWidth="948.0" text="• Videojuegos y gráficos" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="Arial" size="29.0" />
+         </font>
+      </Label>
+      <Label layoutX="901.0" layoutY="692.0" prefHeight="33.0" prefWidth="948.0" text="• Aplicaciones científicas" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="Arial" size="29.0" />
+         </font>
+      </Label>
+      <Label layoutX="902.0" layoutY="726.0" prefHeight="33.0" prefWidth="948.0" text="• Navegadores web" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="Arial" size="29.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

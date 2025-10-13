@@ -39,7 +39,7 @@
       <Button layoutX="1020.0" layoutY="15.0" style="-fx-background-color: transparent; -fx-font-size: 30px;" text="❄" />
       <Button layoutX="1220.0" layoutY="15.0" style="-fx-background-color: transparent; -fx-font-size: 30px;" text="👤" />
    </Pane>
-   <ImageView fitHeight="597.0" fitWidth="660.0" layoutX="1040.0" layoutY="250.0" pickOnBounds="true" preserveRatio="true">
+   <ImageView fitHeight="597.0" fitWidth="660.0" layoutX="1040.0" layoutY="223.0" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@../Image/General/STELLA.png" />
       </image>
