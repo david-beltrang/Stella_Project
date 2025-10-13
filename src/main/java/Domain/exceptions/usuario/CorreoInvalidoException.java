@@ -1,4 +1,4 @@
-package Domain.exceptions;
+package Domain.exceptions.usuario;
 
 public class CorreoInvalidoException extends RuntimeException {
     public CorreoInvalidoException(String correo) {

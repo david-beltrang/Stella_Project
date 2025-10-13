@@ -1,6 +1,6 @@
 package Domain.models.UsuarioValueObjects;
 
-import Domain.exceptions.UsernameInvalidoException;
+import Domain.exceptions.usuario.UsernameInvalidoException;
 
 public record Username (String valor) {
 

@@ -1,4 +1,4 @@
-package Application.dtos;
+package Application.dtos.acceso;
 
 /**
  * Record que representa la respuesta enviada al frontend tras operaciones de registro o login.

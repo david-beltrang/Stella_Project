@@ -1,7 +1,6 @@
 package Domain.repositoriesInterfaces;
 
 import Domain.models.Usuario;
-import Domain.models.UsuarioValueObjects.Username;
 import java.util.List;
 import java.util.Optional;
 

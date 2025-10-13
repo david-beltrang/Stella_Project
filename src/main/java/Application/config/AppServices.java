@@ -7,6 +7,7 @@ public final class AppServices {
 
     private AppServices() {}
 
+    // Esta función es para inicializar el servicio de acceso a la base de datos
     public static void init(DarAccesoService s) {
         service = s;
     }

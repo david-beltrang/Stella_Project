@@ -1,4 +1,4 @@
-package Application.dtos;
+package Application.dtos.acceso;
 
 /**
  * Record que representa la solicitud de inicio de sesión de un nuevo usuario.
