@@ -17,17 +17,12 @@ public class LoginController {
 
     private final DarAccesoService service;
 
-    /**
-     * ✅ Constructor sin argumentos requerido por FXMLLoader cuando hay fx:controller
-     * Toma la instancia desde AppServices (inicializada en Main.Stella con AppServices.init(...)).
-     */
+    // Requerido por FXMLLoader cuando hay fx:controller
     public LoginController() {
-        this(AppServices.service()); // puede ser null si no inicializaste AppServices en el arranque
+        this(AppServices.service());
     }
 
-    /**
-     * ✅ Constructor con DI por fábrica (setControllerFactory); lo sigues pudiendo usar.
-     */
+    // Opción con DI si usas setControllerFactory
     public LoginController(DarAccesoService service) {
         this.service = service;
     }
@@ -38,7 +33,7 @@ public class LoginController {
     @FXML
     private void onLoginClicked() {
         String correo = correoField.getText();
-        String pass = passwordField.getText();
+        String pass   = passwordField.getText();
 
         if (correo == null || correo.isBlank()){
             alert("Falta el correo");
@@ -51,14 +46,19 @@ public class LoginController {
 
         try {
             if (service == null) {
-                throw new IllegalStateException("Servicio no inicializado. Revisa AppServices.init(...) en el arranque.");
+                throw new IllegalStateException(
+                        "Servicio no inicializado. Revisa AppServices.init(...) en el arranque."
+                );
             }
 
+            // Autentica
             UsuarioResponse u = service.login(new LoginRequest(correo, pass));
-            alert("Bienvenido, " + u.nombre() + " (" + u.tipo() + ") - id: " + u.id());
 
-            // Si quieres cambiar de pantalla tras login:
-            // goTo("/views/hello-view.fxml");
+            // (Opcional) si manejan sesión global:
+            // AppServices.setUsuarioActual(u);
+
+            // Navega a la pantalla principal
+            goTo("/views/Principal.fxml");
 
         } catch (IllegalArgumentException ex) {
             alert("Error de login: " + ex.getMessage());
@@ -69,22 +69,20 @@ public class LoginController {
 
     @FXML
     private void onBackClicked() {
-        // Ajusta la ruta si usas otra vista para “volver”
         goTo("/views/hello-view.fxml");
     }
 
     @FXML
     private void onForgotClicked() {
-        // Ir a Recuperar contraseña
         goTo("/views/RecuperarContra.fxml");
     }
 
-    /** Navegación básica: carga por fx:controller usando el constructor sin args */
+    /** Navegación básica: carga el FXML indicado y lo pone en la misma ventana */
     private void goTo(String fxmlPath) {
         try {
             Parent next = FXMLLoader.load(getClass().getResource(fxmlPath));
             Stage stage = (Stage) correoField.getScene().getWindow();
-            stage.setScene(new Scene(next));
+            stage.setScene(new Scene(next, 1920, 1080)); // tamaño fijo si lo necesitas
             stage.centerOnScreen();
         } catch (Exception e) {
             alert("No pude cargar " + fxmlPath + " : " + e.getMessage());
