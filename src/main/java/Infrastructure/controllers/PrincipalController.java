@@ -6,6 +6,7 @@ import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -18,11 +19,11 @@ import java.util.*;
 
 public class PrincipalController implements Initializable {
 
-    // --- Botones de navegación ---
+    // --- Botones que podrían no existir en FXML (pueden quedar null y NO los usamos) ---
     @FXML private Button pomodoroButton;
     @FXML private Button volverButton;
 
-    // --- Elementos nuevos ---
+    // --- Elementos UI que sí están en la vista ---
     @FXML private TextField searchField;
     @FXML private ScrollPane misCursosScroll;
     @FXML private ScrollPane cursosDisponiblesScroll;
@@ -44,9 +45,9 @@ public class PrincipalController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        if (cursosDisponiblesContainer != null) {
-            cargarCursosDisponibles();
-        }
+        // Cargar secciones
+        cargarCursosDisponibles();
+        cargarMisCursos();
         configurarFlechas();
     }
 
@@ -99,7 +100,6 @@ public class PrincipalController implements Initializable {
 
         misCursos.add(nuevoCurso);
 
-        // Actualiza ambas secciones
         cargarMisCursos();
         cargarCursosDisponibles();
 
@@ -152,11 +152,9 @@ public class PrincipalController implements Initializable {
             if (nombre.equalsIgnoreCase("C++ Estructuras de Datos")) {
                 goToPomodoro(); // Abre Pomodoro.fxml
             } else {
-                Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-                alerta.setTitle("Curso en desarrollo");
-                alerta.setHeaderText("Curso no disponible aún");
-                alerta.setContentText("Este curso está en proceso de habilitarse. Inténtalo más adelante.");
-                alerta.showAndWait();
+                new Alert(Alert.AlertType.INFORMATION,
+                        "Este curso está en proceso de habilitarse. Inténtalo más adelante.")
+                        .showAndWait();
             }
         });
 
@@ -226,24 +224,24 @@ public class PrincipalController implements Initializable {
     }
 
     // ========================
-    //  MÉTODOS ORIGINALES
+    //  NAVEGACIÓN (sin botón ancla)
     // ========================
     @FXML
     private void goToPomodoro() {
-        cambiarEscena("/views/Pomodoro.fxml", pomodoroButton);
+        cambiarEscena("/views/Pomodoro.fxml");
     }
 
     @FXML
     private void goBackToLogin() {
-        cambiarEscena("/views/Login.fxml", volverButton);
+        cambiarEscena("/views/Login.fxml");
     }
 
-    private void cambiarEscena(String fxmlPath, Button botonReferencia) {
+    private void cambiarEscena(String fxmlPath) {
         try {
             Parent vista = FXMLLoader.load(
                     Objects.requireNonNull(getClass().getResource(fxmlPath))
             );
-            Stage stage = (Stage) botonReferencia.getScene().getWindow();
+            Stage stage = currentStage();
             stage.setScene(new Scene(vista));
             stage.centerOnScreen();
         } catch (Exception e) {
@@ -262,17 +260,28 @@ public class PrincipalController implements Initializable {
         }
     }
 
+    /** Obtiene el Stage de cualquier nodo disponible en la escena actual. */
+    private Stage currentStage() {
+        Stage s = tryStageFrom(searchField);
+        if (s != null) return s;
+        s = tryStageFrom(misCursosScroll);
+        if (s != null) return s;
+        s = tryStageFrom(cursosDisponiblesScroll);
+        if (s != null) return s;
+
+        throw new IllegalStateException("No hay escena activa para cambiar. Asegúrate de que la vista esté mostrada.");
+    }
+
+    private Stage tryStageFrom(Node n) {
+        if (n != null && n.getScene() != null) {
+            return (Stage) n.getScene().getWindow();
+        }
+        return null;
+    }
+
+    // ---- Placeholders ----
     @FXML private void goHome() {}
-    @FXML private void goForum() {
-        new Alert(Alert.AlertType.INFORMATION, "Pantalla de Foro aún no implementada.").showAndWait();
-    }
-    @FXML private void goAchievements() {
-        new Alert(Alert.AlertType.INFORMATION, "Pantalla de Logros aún no implementada.").showAndWait();
-    }
-    @FXML private void goProfile() {
-        new Alert(Alert.AlertType.INFORMATION, "Pantalla de Perfil aún no implementada.").showAndWait();
-    }
+    @FXML private void goForum() { new Alert(Alert.AlertType.INFORMATION, "Pantalla de Foro aún no implementada.").showAndWait(); }
+    @FXML private void goAchievements() { new Alert(Alert.AlertType.INFORMATION, "Pantalla de Logros aún no implementada.").showAndWait(); }
+    @FXML private void goProfile() { new Alert(Alert.AlertType.INFORMATION, "Pantalla de Perfil aún no implementada.").showAndWait(); }
 }
-
-
-

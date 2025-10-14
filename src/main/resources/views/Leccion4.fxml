@@ -6,100 +6,163 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>      <!-- agregado -->
+<?import javafx.scene.layout.AnchorPane?>     <!-- agregado -->
+<?import javafx.scene.shape.Rectangle?>       <!-- agregado -->
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="1080.0" maxWidth="1920.0" minHeight="1080.0" minWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@/styles/LoginStyle.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Label layoutX="465.0" layoutY="118.0" prefHeight="158.0" prefWidth="1436.0" text="CURSO C++ - LECCION 1" textFill="white">
-         <font>
-            <Font name="System Bold" size="92.0" />
-         </font>
-      </Label>
-      <ImageView fitHeight="61.0" fitWidth="70.0" layoutX="1579.0" layoutY="783.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@/Image/General/StellaEsquinaSF.png" />
-         </image>
-      </ImageView>
-      <Label layoutX="702.0" layoutY="243.0" text="Sintaxis básica y estructura" textFill="WHITE">
-         <font>
-            <Font name="Monospaced Regular" size="40.0" />
-         </font>
-      </Label>
-      <Accordion layoutX="716.0" layoutY="551.0" />
-      <Label layoutX="420.0" layoutY="310.0" prefHeight="65.0" prefWidth="1236.0" text="La estructura básica de un programa C++incluye:" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
-         <font>
-            <Font name="Arial" size="29.0" />
-         </font>
-      </Label>
-      <Button layoutX="745.0" layoutY="795.0" mnemonicParsing="false" opacity="0.9" prefHeight="47.0" prefWidth="242.0" style="-fx-background-color: #080736;" text="VOLVER" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="30.0" />
-         </font>
-      </Button>
-      <Button layoutX="1038.0" layoutY="796.0" mnemonicParsing="false" opacity="0.9" prefHeight="47.0" prefWidth="242.0" style="-fx-background-color: #080736;" text="SIGUIENTE" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="30.0" />
-         </font>
-      </Button>
-      <Label layoutX="580.0" layoutY="389.0" prefHeight="33.0" prefWidth="948.0" text="cpp" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
-         <font>
-            <Font name="Monospaced Regular" size="29.0" />
-         </font>
-      </Label>
-      <Label layoutX="580.0" layoutY="414.0" prefHeight="35.0" prefWidth="350.0" text="#include &lt;iostream&gt;" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
-         <font>
-            <Font name="Monospaced Regular" size="29.0" />
-         </font>
-      </Label>
-      <Label layoutX="580.0" layoutY="438.0" prefHeight="35.0" prefWidth="350.0" text="using namespace std;" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
-         <font>
-            <Font name="Monospaced Regular" size="29.0" />
-         </font>
-      </Label>
-      <Label layoutX="580.0" layoutY="474.0" prefHeight="35.0" prefWidth="233.0" text="int main() {" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
-         <font>
-            <Font name="Monospaced Regular" size="29.0" />
-         </font>
-      </Label>
-      <Label layoutX="580.0" layoutY="500.0" prefHeight="35.0" prefWidth="310.0" text="// Tu código aquí" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
-         <font>
-            <Font name="Monospaced Regular" size="29.0" />
-         </font>
-      </Label>
-      <Label layoutX="580.0" layoutY="527.0" prefHeight="35.0" prefWidth="223.0" text="return 0;" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
-         <font>
-            <Font name="Monospaced Regular" size="29.0" />
-         </font>
-      </Label>
-      <Label layoutX="580.0" layoutY="562.0" prefHeight="35.0" prefWidth="126.0" text="}" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
-         <font>
-            <Font name="Monospaced Regular" size="29.0" />
-         </font>
-      </Label>
-      <Label layoutX="1049.0" layoutY="382.0" prefHeight="35.0" prefWidth="462.0" text="Componentes esenciales" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
-         <font>
-            <Font name="Arial Bold" size="29.0" />
-         </font>
-      </Label>
-      <Label layoutX="1038.0" layoutY="417.0" prefHeight="77.0" prefWidth="439.0" text="#include &lt;iostream&gt;: Incluye la biblioteca para entrada/salida" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
-         <font>
-            <Font name="Arial" size="29.0" />
-         </font>
-      </Label>
-      <Label layoutX="1029.0" layoutY="469.0" prefHeight="98.0" prefWidth="502.0" text="· using namespace std;: Permite usar elementos de la biblioteca estándar" textFill="WHITE" wrapText="true">
-         <font>
-            <Font name="Arial" size="29.0" />
-         </font>
-      </Label>
-      <Label layoutX="1029.0" layoutY="551.0" prefHeight="77.0" prefWidth="439.0" text="· int main(): Función principal donde inicia el programa" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
-         <font>
-            <Font name="Arial" size="29.0" />
-         </font>
-      </Label>
-      <Label layoutX="1029.0" layoutY="620.0" prefHeight="77.0" prefWidth="439.0" text="· return 0;: Indica que el programa terminó correctamente" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
-         <font>
-            <Font name="Arial" size="29.0" />
-         </font>
-      </Label>
-   </children>
+<Pane maxHeight="1080.0" maxWidth="1920.0" minHeight="1080.0" minWidth="1920.0"
+      prefHeight="1080.0" prefWidth="1920.0"
+      stylesheets="@/styles/LoginStyle.css"
+      xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="Infrastructure.controllers.PomodoroController">
+
+    <children>
+        <Label layoutX="465.0" layoutY="118.0" prefHeight="158.0" prefWidth="1436.0"
+               text="CURSO C++ - LECCION 1" textFill="white">
+            <font><Font name="System Bold" size="92.0"/></font>
+        </Label>
+
+        <ImageView fitHeight="61.0" fitWidth="70.0" layoutX="1579.0" layoutY="783.0"
+                   pickOnBounds="true" preserveRatio="true">
+            <image><Image url="@/Image/General/StellaEsquinaSF.png"/></image>
+        </ImageView>
+
+        <Label layoutX="702.0" layoutY="243.0" text="Sintaxis básica y estructura" textFill="WHITE">
+            <font><Font name="Monospaced Regular" size="40.0"/></font>
+        </Label>
+
+        <Accordion layoutX="716.0" layoutY="551.0"/>
+
+        <Label layoutX="420.0" layoutY="310.0" prefHeight="65.0" prefWidth="1236.0"
+               text="La estructura básica de un programa C++incluye:" textAlignment="JUSTIFY"
+               textFill="WHITE" wrapText="true">
+            <font><Font name="Arial" size="29.0"/></font>
+        </Label>
+
+        <!-- Botones de navegación con acciones -->
+        <Button layoutX="745.0" layoutY="795.0" mnemonicParsing="false" opacity="0.9"
+                prefHeight="47.0" prefWidth="242.0" style="-fx-background-color: #080736;"
+                text="VOLVER" textFill="WHITE" onAction="#prevFrom4">
+            <font><Font name="System Bold" size="30.0"/></font>
+        </Button>
+
+        <Button layoutX="1038.0" layoutY="796.0" mnemonicParsing="false" opacity="0.9"
+                prefHeight="47.0" prefWidth="242.0" style="-fx-background-color: #080736;"
+                text="SIGUIENTE" textFill="WHITE" onAction="#nextFrom4">
+            <font><Font name="System Bold" size="30.0"/></font>
+        </Button>
+
+        <Label layoutX="580.0" layoutY="389.0" prefHeight="33.0" prefWidth="948.0"
+               text="cpp" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
+            <font><Font name="Monospaced Regular" size="29.0"/></font>
+        </Label>
+
+        <Label layoutX="580.0" layoutY="414.0" prefHeight="35.0" prefWidth="350.0"
+               text="#include &lt;iostream&gt;" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
+            <font><Font name="Monospaced Regular" size="29.0"/></font>
+        </Label>
+
+        <Label layoutX="580.0" layoutY="438.0" prefHeight="35.0" prefWidth="350.0"
+               text="using namespace std;" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
+            <font><Font name="Monospaced Regular" size="29.0"/></font>
+        </Label>
+
+        <Label layoutX="580.0" layoutY="474.0" prefHeight="35.0" prefWidth="233.0"
+               text="int main() {" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
+            <font><Font name="Monospaced Regular" size="29.0"/></font>
+        </Label>
+
+        <Label layoutX="580.0" layoutY="500.0" prefHeight="35.0" prefWidth="310.0"
+               text="// Tu código aquí" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
+            <font><Font name="Monospaced Regular" size="29.0"/></font>
+        </Label>
+
+        <Label layoutX="580.0" layoutY="527.0" prefHeight="35.0" prefWidth="223.0"
+               text="return 0;" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
+            <font><Font name="Monospaced Regular" size="29.0"/></font>
+        </Label>
+
+        <Label layoutX="580.0" layoutY="562.0" prefHeight="35.0" prefWidth="126.0"
+               text="}" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
+            <font><Font name="Monospaced Regular" size="29.0"/></font>
+        </Label>
+
+        <Label layoutX="1049.0" layoutY="382.0" prefHeight="35.0" prefWidth="462.0"
+               text="Componentes esenciales" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
+            <font><Font name="Arial Bold" size="29.0"/></font>
+        </Label>
+
+        <Label layoutX="1038.0" layoutY="417.0" prefHeight="77.0" prefWidth="439.0"
+               text="#include &lt;iostream&gt;: Incluye la biblioteca para entrada/salida"
+               textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
+            <font><Font name="Arial" size="29.0"/></font>
+        </Label>
+
+        <Label layoutX="1029.0" layoutY="469.0" prefHeight="98.0" prefWidth="502.0"
+               text="· using namespace std;: Permite usar elementos de la biblioteca estándar"
+               textFill="WHITE" wrapText="true">
+            <font><Font name="Arial" size="29.0"/></font>
+        </Label>
+
+        <Label layoutX="1029.0" layoutY="551.0" prefHeight="77.0" prefWidth="439.0"
+               text="· int main(): Función principal donde inicia el programa"
+               textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
+            <font><Font name="Arial" size="29.0"/></font>
+        </Label>
+
+        <Label layoutX="1029.0" layoutY="620.0" prefHeight="77.0" prefWidth="439.0"
+               text="· return 0;: Indica que el programa terminó correctamente"
+               textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
+            <font><Font name="Arial" size="29.0"/></font>
+        </Label>
+
+        <!-- Barra inferior (igual a Principal) -->
+        <StackPane layoutX="-1.0" layoutY="867.0" prefHeight="80" prefWidth="1920.0">
+            <children>
+                <Rectangle arcHeight="0" arcWidth="0" height="80"
+                           style="-fx-fill: rgba(8,7,54,0.55);" width="1923.0"/>
+                <AnchorPane prefHeight="56.0" prefWidth="1876.0">
+                    <children>
+                        <Button fx:id="homeBtn" layoutX="346.0" layoutY="12.0"
+                                onAction="#goHome" styleClass="nav-btn">
+                            <graphic>
+                                <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                                    <image><Image url="@/Image/General/home.png"/></image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+
+                        <Button fx:id="forumBtn" layoutX="688.0" layoutY="12.0"
+                                onAction="#goForum" styleClass="nav-btn">
+                            <graphic>
+                                <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                                    <image><Image url="@/Image/General/foro.png"/></image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+
+                        <Button fx:id="achievementsBtn" layoutX="1202.0" layoutY="12.0"
+                                onAction="#goAchievements" styleClass="nav-btn">
+                            <graphic>
+                                <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                                    <image><Image url="@/Image/General/trofeo.png"/></image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+
+                        <Button fx:id="profileBtn" layoutX="1585.0" layoutY="12.0"
+                                onAction="#goProfile" styleClass="nav-btn">
+                            <graphic>
+                                <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                                    <image><Image url="@/Image/General/usuario.png"/></image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                    </children>
+                </AnchorPane>
+            </children>
+        </StackPane>
+
+    </children>
 </Pane>

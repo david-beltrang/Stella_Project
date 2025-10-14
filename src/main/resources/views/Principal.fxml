@@ -22,7 +22,7 @@
         <children>
             <TextField fx:id="searchField" prefWidth="600" promptText="Buscar curso..."
                        style="-fx-background-radius: 20; -fx-padding: 8 20 8 20;" />
-            <Button onAction="#buscarCurso" style="-fx-background-color: transparent; -fx-font-size: 20;" text="🔍" />
+            <Button onAction="#buscarCurso" style="-fx-background-color: transparent; -fx-font-size: 20; -fx-text-fill: #00BFFF;" text="🔍" />
         </children>
     </HBox>
 
@@ -74,7 +74,8 @@
         </children>
     </AnchorPane>
 
-    <!-- BOTONES PRINCIPALES -->
+    <!-- BOTONES PRINCIPALES (ocultos, NO eliminados) -->
+    <!--
     <Button fx:id="pomodoroButton" layoutX="850" layoutY="820"
             onAction="#goToPomodoro"
             style="-fx-background-color: #080736; -fx-text-fill: white;"
@@ -88,8 +89,9 @@
             text="Cerrar Sesión">
         <font><Font size="22.0" /></font>
     </Button>
+    -->
 
-    <!-- Barra inferior -->
+    <!-- Barra inferior (SE MANTIENE) -->
     <StackPane layoutX="-1.0" layoutY="867.0" prefHeight="80" prefWidth="1920.0">
         <children>
             <Rectangle arcHeight="0" arcWidth="0" height="80"
@@ -128,4 +130,3 @@
         </children>
     </StackPane>
 </AnchorPane>
-

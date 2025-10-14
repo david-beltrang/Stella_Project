@@ -1,4 +1,4 @@
-package main.java.Infrastructure.controllers;
+package Infrastructure.controllers;
 
 import Application.config.AppServices;
 import javafx.fxml.FXML;
