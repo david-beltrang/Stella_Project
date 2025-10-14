@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="1080.0" maxWidth="1920.0" minHeight="1080.0" minWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../../../../../Users/Personal/IdeaProjects/Stellaa/target/classes/CssStyle/LoginStyle.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="1080.0" maxWidth="1920.0" minHeight="1080.0" minWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@/styles/LoginStyle.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
 
     <children>
         <!-- Título del curso -->
@@ -61,7 +61,7 @@
         </Label>
       <ImageView fitHeight="61.0" fitWidth="70.0" layoutX="1589.0" layoutY="793.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../Users/Personal/IdeaProjects/Stellaa/src/main/resources/Image/StellaEsquinaSF.png" />
+            <Image url="@/Image/General/StellaEsquinaSF.png" />
          </image>
       </ImageView>
       <Label layoutX="492.0" layoutY="240.0" text="Cuestionario - ¡Utiliza tus conocimientos!" textFill="WHITE">

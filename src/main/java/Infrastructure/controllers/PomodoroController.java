@@ -17,6 +17,17 @@ import java.util.Objects;
 
 public class PomodoroController {
 
+    @FXML private Button btn3min;
+    @FXML private Button btn5min;
+    @FXML private Button btn8min;
+    @FXML private Button btn10min;
+    @FXML private Button btn25min;
+    @FXML private Button btn30min;
+    @FXML private Button btn45min;
+    @FXML private Button btn60min;
+
+    private int minutosSeleccionados = 0;
+
     @FXML private Label  timerLabel;     // puede ser null si este FXML no lo define
     @FXML private Button startButton;    // idem
     @FXML private Button confirmarButton; // <-- para "CONFIRMAR TIEMPO DE FOCO"
@@ -26,8 +37,11 @@ public class PomodoroController {
     private final PomodoroTimer pomodoroTimer = PomodoroTimer.getInstance();
     private boolean alreadyBound = false;
 
+
     @FXML
     public void initialize() {
+
+
         // Bind del temporizador solo si el label existe en este FXML
         if (timerLabel != null && !alreadyBound) {
             pomodoroTimer.secondsLeftProperty().addListener((obs, oldVal, newVal) -> {
@@ -57,6 +71,19 @@ public class PomodoroController {
         if (confirmarButton != null) {
             confirmarButton.setOnAction(e -> confirmarTiempoDeFoco());
         }
+
+        // --- Botones de descanso ---
+        if (btn3min != null)  btn3min.setOnAction(e -> seleccionarTiempo(3, btn3min));
+        if (btn5min != null)  btn5min.setOnAction(e -> seleccionarTiempo(5, btn5min));
+        if (btn8min != null)  btn8min.setOnAction(e -> seleccionarTiempo(8, btn8min));
+        if (btn10min != null) btn10min.setOnAction(e -> seleccionarTiempo(10, btn10min));
+
+// --- Botones de estudio ---
+        if (btn25min != null) btn25min.setOnAction(e -> seleccionarTiempo(25, btn25min));
+        if (btn30min != null) btn30min.setOnAction(e -> seleccionarTiempo(30, btn30min));
+        if (btn45min != null) btn45min.setOnAction(e -> seleccionarTiempo(45, btn45min));
+        if (btn60min != null) btn60min.setOnAction(e -> seleccionarTiempo(60, btn60min));
+
     }
 
     // --- Handlers de temporizador (si este FXML los usa) ---
@@ -91,10 +118,45 @@ public class PomodoroController {
     /** Acción del botón CONFIRMAR TIEMPO DE FOCO */
     @FXML
     private void confirmarTiempoDeFoco() {
-        // Aquí solo navego a la pantalla de descanso; si luego
-        // agregan la selección de minutos, pueden setear el tiempo antes.
-        gotoView("/views/PomodoroDescanso.fxml", confirmarButton);
+        if (minutosSeleccionados == 0) {
+            showInfo("Selecciona un tiempo", "Debes elegir un tiempo antes de continuar.");
+            return;
+        }
+
+        String destino;
+
+        // Detecta si este FXML tiene los botones de descanso o estudio
+        if (btn3min != null || btn5min != null || btn8min != null || btn10min != null) {
+            destino = "/views/CursoC++.fxml"; // Si está en PomodoroDescanso
+        } else {
+            destino = "/views/PomodoroDescanso.fxml"; // Si está en Pomodoro principal
+        }
+
+        try {
+            Parent vista = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(destino)));
+            Stage stage = (Stage) confirmarButton.getScene().getWindow();
+            stage.setScene(new Scene(vista));
+            stage.centerOnScreen();
+        } catch (Exception e) {
+            e.printStackTrace();
+            showInfo("Error", "No se pudo abrir la vista destino: " + e.getMessage());
+        }
     }
+
+
+    private void seleccionarTiempo(int minutos, Button boton) {
+        minutosSeleccionados = minutos;
+
+        // Resetear estilos de todos
+        if (btn25min != null) btn25min.setStyle("-fx-background-color: #4A90E2; -fx-text-fill: white;");
+        if (btn30min != null) btn30min.setStyle("-fx-background-color: #4A90E2; -fx-text-fill: white;");
+        if (btn45min != null) btn45min.setStyle("-fx-background-color: #4A90E2; -fx-text-fill: white;");
+        if (btn60min != null) btn60min.setStyle("-fx-background-color: #4A90E2; -fx-text-fill: white;");
+
+        // Resaltar el seleccionado
+        boton.setStyle("-fx-background-color: #00BFA6; -fx-text-fill: white; -fx-font-weight: bold;");
+    }
+
 
     // Helper genérico de navegación
     private void gotoView(String fxmlPath, Button refButton) {

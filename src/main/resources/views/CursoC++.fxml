@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="1080.0" maxWidth="1920.0" minHeight="1080.0" minWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../../../../../Users/Personal/IdeaProjects/Stellaa/target/classes/CssStyle/LoginStyle.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.stellaa.PomodoroController">
+<Pane maxHeight="1080.0" maxWidth="1920.0" minHeight="1080.0" minWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@/styles/LoginStyle.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Infrastructure.controllers.PomodoroController">
 
     <!-- Contenedor principal -->
     <VBox layoutX="586.0" layoutY="156.0" prefHeight="694.0" prefWidth="707.0" spacing="30">
@@ -103,7 +103,7 @@
     </VBox>
    <ImageView fitHeight="61.0" fitWidth="70.0" layoutX="1579.0" layoutY="783.0" pickOnBounds="true" preserveRatio="true">
       <image>
-         <Image url="@../../../../../../Users/Personal/IdeaProjects/Stellaa/src/main/resources/Image/StellaEsquinaSF.png" />
+         <Image url="@/Image/General/StellaEsquinaSF.png" />
       </image>
    </ImageView>
    <Pane layoutX="154.0" layoutY="83.0" prefHeight="80.0" prefWidth="1690.0" style="-fx-background-color: #ffffff;">
