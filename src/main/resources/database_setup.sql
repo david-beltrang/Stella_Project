@@ -12,6 +12,7 @@ DROP TABLE IF EXISTS "prueba";
 DROP TABLE IF EXISTS "leccion";
 DROP TABLE IF EXISTS "curso";
 DROP TABLE IF EXISTS "usuario"; -- <-- Ajustado
+DROP TABLE IF EXISTS "sesion_estudio";
 
 -- CREACIÓN DE TABLAS (con Claves Foráneas y ON DELETE CASCADE)
 -- =========================================================================
@@ -133,6 +134,19 @@ CREATE TABLE "respuesta" ( -- <-- Usamos comillas dobles
                              FOREIGN KEY (intento_id) REFERENCES "intento"(id) ON DELETE CASCADE, -- <-- Referencia ajustada con comillas
                              FOREIGN KEY (pregunta_id) REFERENCES "pregunta"(id) ON DELETE CASCADE, -- <-- Referencia ajustada con comillas
                              FOREIGN KEY (opcion_seleccionada_id) REFERENCES "opcion"(id) ON DELETE CASCADE -- <-- Referencia ajustada con comillas
+);
+
+-- TABLA: "sesion_estudio" (Guardar todas las sesiones de estudio )
+CREATE TABLE "sesion_estudio" ( -- <-- Usamos comillas dobles
+                             id INT PRIMARY KEY AUTO_INCREMENT,
+                             usuario_id INT NOT NULL,
+                             tiempo_estudio INT NOT NULL,
+                             tiempo_descanso INT NOT NULL,
+                             fecha_inicio TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                             fecha_final TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+                             FOREIGN KEY (usuario_id) REFERENCES "usuario"(id) ON DELETE CASCADE -- <-- Referencia ajustada con comillas
+
 );
 
 
