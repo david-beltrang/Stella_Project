@@ -1,4 +1,4 @@
-package Infrastructure.controllers;
+package main.java.Infrastructure.controllers;
 
 import Application.config.AppServices;
 import javafx.fxml.FXML;
@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+
 
 public class HelloController {
 
@@ -19,7 +20,7 @@ public class HelloController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Login.fxml"));
             loader.setControllerFactory(c -> {
-                if (c == LoginController.class) return new LoginController(AppServices.service());
+                if (c == Infrastructure.controllers.LoginController.class) return new Infrastructure.controllers.LoginController(AppServices.service());
                 try { return c.getDeclaredConstructor().newInstance(); }
                 catch (Exception e) { throw new RuntimeException(e); }
             });
@@ -38,8 +39,8 @@ public class HelloController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Registro.fxml"));
             loader.setControllerFactory(c -> {
-                if (c == RegistroController.class)
-                    return new RegistroController(AppServices.service());
+                if (c == Infrastructure.controllers.RegistroController.class)
+                    return new Infrastructure.controllers.RegistroController(AppServices.service());
                 try {
                     return c.getDeclaredConstructor().newInstance();
                 }

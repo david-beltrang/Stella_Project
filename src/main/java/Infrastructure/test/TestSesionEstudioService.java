@@ -2,6 +2,7 @@ package Infrastructure.test;
 
 import Application.dtos.sesionEstudio.LeccionDetalleResponse;
 import Application.dtos.sesionEstudio.*;
+import Application.dtos.sesionEstudio.Pomodoro.IniciarSesionEstudioRequest;
 import Application.services.LeccionService;
 import Application.services.SesionEstudioService;
 import Domain.models.ProgresoLeccion;
@@ -107,10 +108,10 @@ public class TestSesionEstudioService {
         } catch (Exception e) {
             System.err.println("-> ERROR EVALUACIÓN: " + e.getMessage());
         }
-
+        /*
         // --- PRUEBA 4: Finalizar Sesión (Marcar COMPLETADA y Actualizar Racha) ---
         System.out.println("\n--- PRUEBA 4: Finalizar Sesión y Stats ---");
-        FinalizarSesionRequest finalizarRequest = new FinalizarSesionRequest(
+        IniciarSesionEstudioRequest finalizarRequest = new IniciarSesionEstudioRequest(
                 USUARIO_ID, LECCION_ID_PREGUNTA, 600, 30 // Usamos la Leccion Pregunta
         );
         try {
@@ -125,6 +126,8 @@ public class TestSesionEstudioService {
             System.err.println("-> ERROR FINALIZAR: " + e.getMessage());
         }
 
+
+         */
         // --- PRUEBA 5: Intentar iniciar sesión YA COMPLETADA ---
         System.out.println("\n--- PRUEBA 5: Intentar iniciar sesión YA COMPLETADA ---");
         try {

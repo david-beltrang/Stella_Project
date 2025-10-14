@@ -1,66 +1,60 @@
 package Domain.models;
 
-import java.time.LocalDateTime;
+import Domain.models.PomodoroValueObjects.TiempoDescanso;
+import Domain.models.PomodoroValueObjects.TiempoEstudio;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 /**
- * Entidad que registra los tiempos de una sesión de estudio.
- * No es un Aggregate Root, pero es una entidad importante para las estadísticas.
+ * Entidad SesionEstudio
+ * Contiene Value Objects para manejr excepciones y reglas de negocio (TiempoEstudio, TiempoDescanso).
+ * Factory methods: crearNueva para crear desde la UI y para poder reconstruir la sesión desde la BD.
  */
 public class SesionEstudio {
+    private Integer id; // null si no se ha guardado en la BD
+    private int usuarioId;
+    private TiempoEstudio tiempoEstudio;
+    private TiempoDescanso tiempoDescanso;
+    private Timestamp fechaInicio; //Se utiliza timestamp para poder manejar las fechas en la base de datos
+    private Timestamp fechaFinal; //Se utiliza timestamp para poder manejar las fechas en la base de datos
 
-    private Integer id;
-    private final int usuarioId;
-    private int tiempoEstudioMinutos;
-    private int tiempoDescansoMinutos;
-    private final LocalDateTime fechaInicio;
-    private LocalDateTime fechaFin;
-
-    // ------------------ CONSTRUCTOR PRIVADO ----------------------
-
-    private SesionEstudio(Integer id, int usuarioId, int tiempoEstudioMinutos, int tiempoDescansoMinutos, LocalDateTime fechaInicio, LocalDateTime fechaFin) {
+    // Constructor privado para garantizar integridad
+    private SesionEstudio(Integer id, int usuarioId, TiempoEstudio tiempoEstudio, TiempoDescanso tiempoDescanso,
+                          Timestamp fechaInicio, Timestamp fechaFinal) {
         this.id = id;
         this.usuarioId = usuarioId;
-        this.tiempoEstudioMinutos = tiempoEstudioMinutos;
-        this.tiempoDescansoMinutos = tiempoDescansoMinutos;
-        this.fechaInicio = Objects.requireNonNull(fechaInicio, "La fecha de inicio no puede ser nula.");
-        this.fechaFin = fechaFin;
+        this.tiempoEstudio = Objects.requireNonNull(tiempoEstudio, "tiempoEstudio no puede ser nulo");
+        this.tiempoDescanso = Objects.requireNonNull(tiempoDescanso, "tiempoDescanso no puede ser nulo");
+        this.fechaInicio = Objects.requireNonNull(fechaInicio, "fechaInicio no puede ser nulo");
+        this.fechaFinal = fechaFinal; // Puede ser null si no ha terminado la sesión
     }
 
-    // ------------------ FACTORY METHODS ------------------
-
-    // Inicia una nueva sesión de estudio.
-    public static SesionEstudio iniciar(int usuarioId) {
-        // Inicia con tiempo y descanso en 0.
-        return new SesionEstudio(null, usuarioId, 0, 0, LocalDateTime.now(), null);
+    // Factory method para crear una nueva sesión desde la UI
+    public static SesionEstudio crearNueva(int usuarioId, int tiempoEstudioMinutos, int tiempoDescansoMinutos) {
+        TiempoEstudio tiempoEstudio = new TiempoEstudio(tiempoEstudioMinutos);
+        TiempoDescanso tiempoDescanso = new TiempoDescanso(tiempoDescansoMinutos);
+        return new SesionEstudio(null, usuarioId, tiempoEstudio, tiempoDescanso, new Timestamp(System.currentTimeMillis()), null);
     }
 
-    // Reconstruye la entidad desde la base de datos.
-    public static SesionEstudio reconstruir(Integer id, int usuarioId, int tiempoEstudio, int tiempoDescanso, LocalDateTime fechaInicio, LocalDateTime fechaFin) {
-        return new SesionEstudio(id, usuarioId, tiempoEstudio, tiempoDescanso, fechaInicio, fechaFin);
+    // Factory method para reconstruir desde la BD
+    public static SesionEstudio reconstruir(Integer id, int usuarioId, TiempoEstudio tiempoEstudio,
+                                            TiempoDescanso tiempoDescanso, Timestamp fechaInicio, Timestamp fechaFinal) {
+        return new SesionEstudio(id, usuarioId, tiempoEstudio, tiempoDescanso, fechaInicio, fechaFinal);
     }
 
-    // ---------- COMPORTAMIENTOS y LÓGICA DEL DOMINIO ----------
-
-    // Finaliza la sesión y calcula el tiempo total (en minutos).
-    public void finalizar(int tiempoEstudioMinutos, int tiempoDescansoMinutos) {
-        if (this.fechaFin != null) {
+    // Finalizar la sesión para poder actualizar o insertar una nueva sesión de estudio en la base de datos
+    public void finalizar() {
+        if (this.fechaFinal != null) {
             throw new IllegalStateException("La sesión ya ha sido finalizada.");
         }
-        if (tiempoEstudioMinutos < 0 || tiempoDescansoMinutos < 0) {
-            throw new IllegalArgumentException("Los tiempos no pueden ser negativos.");
-        }
-
-        this.tiempoEstudioMinutos = tiempoEstudioMinutos;
-        this.tiempoDescansoMinutos = tiempoDescansoMinutos;
-        this.fechaFin = LocalDateTime.now();
+        this.fechaFinal = new Timestamp(System.currentTimeMillis());
     }
 
-    // ---------- GETTERS ---------
+    // Getters
     public Integer getId() { return id; }
     public int getUsuarioId() { return usuarioId; }
-    public int getTiempoEstudioMinutos() { return tiempoEstudioMinutos; }
-    public int getTiempoDescansoMinutos() { return tiempoDescansoMinutos; }
-    public LocalDateTime getFechaInicio() { return fechaInicio; }
-    public LocalDateTime getFechaFin() { return fechaFin; }
+    public TiempoEstudio getTiempoEstudio() { return tiempoEstudio; }
+    public TiempoDescanso getTiempoDescanso() { return tiempoDescanso; }
+    public Timestamp getFechaInicio() { return fechaInicio; }
+    public Timestamp getFechaFinal() { return fechaFinal; }
 }

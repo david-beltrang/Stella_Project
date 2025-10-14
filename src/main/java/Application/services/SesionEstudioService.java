@@ -2,15 +2,14 @@ package Application.services;
 
 import Application.dtos.internal.*;
 import Application.dtos.sesionEstudio.*;
+import Application.dtos.sesionEstudio.Pomodoro.IniciarSesionEstudioRequest;
 import Domain.models.ProgresoLeccion;
 import Domain.models.SesionEstudio;
-import Domain.models.LeccionValueObjects.EstadoLeccion;
 import Domain.repositoriesInterfaces.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Servicio de aplicación para gestionar las sesiones de estudio, progreso, y la lógica de gamificación.
@@ -69,7 +68,8 @@ public class SesionEstudioService {
      * Finaliza la sesión de estudio, actualiza el progreso y la gamificación.
      * @param request DTO con tiempos y IDs.
      */
-    public void finalizarSesion(FinalizarSesionRequest request) {
+    /*
+    public void finalizarSesion(IniciarSesionEstudioRequest request) {
         // 1. Lógica del Progreso (Dominio)
         ProgresoLeccion progreso = progresoRepo
                 .buscarPorUsuarioYLeccion(request.usuarioId(), request.leccionId())
@@ -91,7 +91,7 @@ public class SesionEstudioService {
         statsRepo.actualizarRacha(request.usuarioId(), 1);
 
         // 4. (Opcional) Llamar a otro servicio para guardar la sesión si fuera necesario.
-    }
+    }*/
 
     /**
      * Evalúa la respuesta de una pregunta.
@@ -181,4 +181,5 @@ public class SesionEstudioService {
                 contenidoHTML
         );
     }
+
 }
