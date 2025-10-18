@@ -1,89 +1,132 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="1080.0" maxWidth="1920.0"
-      minHeight="1080.0" minWidth="1920.0"
-      prefHeight="1080.0" prefWidth="1920.0"
-      stylesheets="@/styles/LoginStyle.css"
-      xmlns="http://javafx.com/javafx/17"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="Infrastructure.controllers.PrincipalController">
+<AnchorPane maxHeight="1080.0" maxWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0"
+            stylesheets="@/styles/LoginStyle.css"
+            xmlns="http://javafx.com/javafx/25"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Infrastructure.controllers.PrincipalController">
 
-    <children>
-        <!-- TUS BOTONES EXISTENTES -->
-        <Button fx:id="pomodoroButton"
-                text="Ir al Pomodoro"
-                layoutX="850" layoutY="500"
-                onAction="#goToPomodoro"
-                style="-fx-background-color: #080736; -fx-text-fill: white;">
-            <font><Font size="22.0" /></font>
-        </Button>
+    <!-- Fondo -->
+    <ImageView fx:id="background" fitHeight="1080" fitWidth="1920" preserveRatio="false">
+        <image><Image url="@/Image/General/FondoStella.jpg" /></image>
+    </ImageView>
 
-        <Button fx:id="volverButton"
-                text="Cerrar Sesión"
-                layoutX="850" layoutY="580"
-                onAction="#goBackToLogin"
-                style="-fx-background-color: #080736; -fx-text-fill: white;">
-            <font><Font size="22.0" /></font>
-        </Button>
+    <!-- Barra superior -->
+    <HBox layoutX="283.0" layoutY="117.0" spacing="20">
+        <children>
+            <TextField fx:id="searchField" prefWidth="600" promptText="Buscar curso..."
+                       style="-fx-background-radius: 20; -fx-padding: 8 20 8 20;" />
+            <Button onAction="#buscarCurso" style="-fx-background-color: transparent; -fx-font-size: 20; -fx-text-fill: #00BFFF;" text="🔍" />
+        </children>
+    </HBox>
 
-        <!-- ======= Bottom Nav (misma que en Pomodoro) ======= -->
-        <StackPane layoutX="-1.0" layoutY="867.0" prefHeight="80" prefWidth="1920.0">
-            <children>
-                <Rectangle arcHeight="0" arcWidth="0" height="80"
-                           style="-fx-fill: rgba(8,7,54,0.55);" width="1923.0" />
-                <AnchorPane prefHeight="56.0" prefWidth="1876.0">
-                    <children>
-                        <!-- HOME -->
-                        <Button fx:id="homeBtn" layoutX="346.0" layoutY="12.0"
-                                onAction="#goHome" styleClass="nav-btn">
-                            <graphic>
-                                <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
-                                    <image><Image url="@/Image/General/home.png"/></image>
-                                </ImageView>
-                            </graphic>
-                        </Button>
+    <!-- MIS CURSOS -->
+    <Label layoutX="283.0" layoutY="160.0"
+           style="-fx-text-fill: white; -fx-font-size: 36; -fx-font-weight: bold;"
+           text="Mis Cursos" />
 
-                        <!-- FORO -->
-                        <Button fx:id="forumBtn" layoutX="688.0" layoutY="12.0"
-                                onAction="#goForum" styleClass="nav-btn">
-                            <graphic>
-                                <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
-                                    <image><Image url="@/Image/General/foro.png"/></image>
-                                </ImageView>
-                            </graphic>
-                        </Button>
+    <AnchorPane layoutX="284.0" layoutY="213.0" prefHeight="200" prefWidth="1720">
+        <children>
+            <Label fx:id="noCoursesLabel" text="Aún no tienes cursos."
+                   layoutX="760" layoutY="80"
+                   visible="false"
+                   style="-fx-text-fill: white; -fx-font-size: 20; -fx-font-weight: bold;"/>
+            <ScrollPane fx:id="misCursosScroll" hbarPolicy="NEVER"
+                        prefHeight="200" prefWidth="1720"
+                        style="-fx-background-color: transparent;" vbarPolicy="NEVER">
+                <content>
+                    <HBox fx:id="misCursosContainer" alignment="CENTER_LEFT" spacing="30"/>
+                </content>
+            </ScrollPane>
+        </children>
+    </AnchorPane>
 
-                        <!-- LOGROS -->
-                        <Button fx:id="achievementsBtn" layoutX="1202.0" layoutY="12.0"
-                                onAction="#goAchievements" styleClass="nav-btn">
-                            <graphic>
-                                <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
-                                    <image><Image url="@/Image/General/trofeo.png"/></image>
-                                </ImageView>
-                            </graphic>
-                        </Button>
+    <!-- CURSOS DISPONIBLES -->
+    <Label layoutX="283.0" layoutY="479.0"
+           style="-fx-text-fill: white; -fx-font-size: 36; -fx-font-weight: bold;"
+           text="Cursos Disponibles" />
 
-                        <!-- PERFIL -->
-                        <Button fx:id="profileBtn" layoutX="1585.0" layoutY="12.0"
-                                onAction="#goProfile" styleClass="nav-btn">
-                            <graphic>
-                                <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
-                                    <image><Image url="@/Image/General/usuario.png"/></image>
-                                </ImageView>
-                            </graphic>
-                        </Button>
-                    </children>
-                </AnchorPane>
-            </children>
-        </StackPane>
-    </children>
-</Pane>
+    <AnchorPane layoutX="272.0" layoutY="540.0" prefHeight="240.0" prefWidth="1222.0">
+        <children>
+            <Button fx:id="leftArrow" layoutX="0" layoutY="100"
+                    onAction="#scrollLeft"
+                    style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 40;" text="◀" />
+
+            <ScrollPane fx:id="cursosDisponiblesScroll" layoutX="60" layoutY="0"
+                        prefHeight="240" prefWidth="1100"
+                        hbarPolicy="NEVER" vbarPolicy="NEVER"
+                        style="-fx-background-color: transparent;">
+                <content>
+                    <!-- Contenedor vacío (Java lo llena dinámicamente) -->
+                    <HBox fx:id="cursosDisponiblesContainer" alignment="CENTER_LEFT" spacing="30"/>
+                </content>
+            </ScrollPane>
+
+            <Button fx:id="rightArrow" layoutX="1170" layoutY="100"
+                    onAction="#scrollRight"
+                    style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 40;" text="▶" />
+        </children>
+    </AnchorPane>
+
+    <!-- BOTONES PRINCIPALES (ocultos, NO eliminados) -->
+    <!--
+    <Button fx:id="pomodoroButton" layoutX="850" layoutY="820"
+            onAction="#goToPomodoro"
+            style="-fx-background-color: #080736; -fx-text-fill: white;"
+            text="Iniciar Pomodoro">
+        <font><Font size="22.0" /></font>
+    </Button>
+
+    <Button fx:id="volverButton" layoutX="850" layoutY="890"
+            onAction="#goBackToLogin"
+            style="-fx-background-color: #080736; -fx-text-fill: white;"
+            text="Cerrar Sesión">
+        <font><Font size="22.0" /></font>
+    </Button>
+    -->
+
+    <!-- Barra inferior (SE MANTIENE) -->
+    <StackPane layoutX="-1.0" layoutY="867.0" prefHeight="80" prefWidth="1920.0">
+        <children>
+            <Rectangle arcHeight="0" arcWidth="0" height="80"
+                       style="-fx-fill: rgba(8,7,54,0.55);" width="1923.0"/>
+            <AnchorPane prefHeight="56.0" prefWidth="1876.0">
+                <children>
+                    <Button fx:id="homeBtn" layoutX="346.0" layoutY="12.0"
+                            onAction="#goHome" styleClass="nav-btn">
+                        <graphic><ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                            <image><Image url="@/Image/General/home.png" /></image>
+                        </ImageView></graphic>
+                    </Button>
+
+                    <Button fx:id="forumBtn" layoutX="688.0" layoutY="12.0"
+                            onAction="#goForum" styleClass="nav-btn">
+                        <graphic><ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                            <image><Image url="@/Image/General/foro.png" /></image>
+                        </ImageView></graphic>
+                    </Button>
+
+                    <Button fx:id="achievementsBtn" layoutX="1202.0" layoutY="12.0"
+                            onAction="#goAchievements" styleClass="nav-btn">
+                        <graphic><ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                            <image><Image url="@/Image/General/trofeo.png" /></image>
+                        </ImageView></graphic>
+                    </Button>
+
+                    <Button fx:id="profileBtn" layoutX="1585.0" layoutY="12.0"
+                            onAction="#goProfile" styleClass="nav-btn">
+                        <graphic><ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                            <image><Image url="@/Image/General/usuario.png" /></image>
+                        </ImageView></graphic>
+                    </Button>
+                </children>
+            </AnchorPane>
+        </children>
+    </StackPane>
+</AnchorPane>

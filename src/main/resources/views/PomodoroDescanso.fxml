@@ -9,19 +9,24 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="root" maxHeight="1080.0" maxWidth="1920.0" minHeight="1080.0" minWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@/styles/LoginStyle.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Infrastructure.controllers.PomodoroController">
+<AnchorPane fx:id="root" maxHeight="1080.0" maxWidth="1920.0" minHeight="1080.0" minWidth="1920.0"
+            prefHeight="1080.0" prefWidth="1920.0"
+            stylesheets="@/styles/LoginStyle.css"
+            xmlns="http://javafx.com/javafx/25"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Infrastructure.controllers.PomodoroController">
 
     <children>
 
         <!-- Panel azul translúcido -->
-        <Button layoutX="508.0" layoutY="221.0" opacity="0.78" prefHeight="526.0" prefWidth="679.0" style="-fx-background-color: #1F618D; -fx-text-fill: white;">
+        <Button layoutX="508.0" layoutY="221.0" opacity="0.78" prefHeight="526.0" prefWidth="679.0"
+                style="-fx-background-color: #1F618D; -fx-text-fill: white;">
             <font><Font size="22.0" /></font>
         </Button>
 
         <!-- Pingu y sello (DESCANSO) -->
         <ImageView fitHeight="312.0" fitWidth="295.0" layoutX="1158.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <!-- ojo: sin .. ; igual que en Pomodoro.fxml -->
                 <Image url="@/Image/General/StellaPomodoroDescansoSF.png" />
             </image>
         </ImageView>
@@ -30,11 +35,15 @@
             <image><Image url="@/Image/General/StellaEsquinaSF.png" /></image>
         </ImageView>
 
-        <Button layoutX="594.0" layoutY="646.0" opacity="0.86" prefHeight="61.0" prefWidth="519.0" style="-fx-background-color: #080736; -fx-text-fill: white;" text="CONFIRMAR TIEMPO DE FOCO">
+        <!-- Botón confirmar -->
+        <Button fx:id="confirmarButton" layoutX="594.0" layoutY="646.0" opacity="0.86" prefHeight="61.0" prefWidth="519.0"
+                onAction="#confirmarTiempoDeFoco"
+                style="-fx-background-color: #080736; -fx-text-fill: white;"
+                text="CONFIRMAR TIEMPO DE FOCO">
             <font><Font name="System Bold" size="30.0" /></font>
         </Button>
 
-        <Text fill="WHITE" layoutX="552.0" layoutY="269.0" text="Configurar Sesion Pomodoro" wrappingWidth="628.2">
+        <Text fill="WHITE" layoutX="552.0" layoutY="269.0" text="Configurar Sesión Pomodoro" wrappingWidth="628.2">
             <font><Font name="Wingdings 2" size="50.0" /></font>
         </Text>
 
@@ -42,19 +51,28 @@
             <font><Font name="Segoe UI" size="25.0" /></font>
         </Text>
 
-        <Button layoutX="558.0" layoutY="395.0" prefHeight="81.0" prefWidth="258.0" style="-fx-background-color: #4A90E2; -fx-text-fill: white;" text="3 Minutos">
+        <!-- Botones de selección de tiempo -->
+        <Button fx:id="btn3min" layoutX="558.0" layoutY="395.0" prefHeight="81.0" prefWidth="258.0"
+                style="-fx-background-color: #4A90E2; -fx-text-fill: white;"
+                text="3 Minutos">
             <font><Font name="System Bold" size="38.0" /></font>
         </Button>
 
-        <Button layoutX="875.0" layoutY="395.0" prefHeight="81.0" prefWidth="258.0" style="-fx-background-color: #4A90E2; -fx-text-fill: white;" text="5 Minutos">
+        <Button fx:id="btn5min" layoutX="875.0" layoutY="395.0" prefHeight="81.0" prefWidth="258.0"
+                style="-fx-background-color: #4A90E2; -fx-text-fill: white;"
+                text="5 Minutos">
             <font><Font name="System Bold" size="38.0" /></font>
         </Button>
 
-        <Button layoutX="558.0" layoutY="519.0" prefHeight="73.0" prefWidth="258.0" style="-fx-background-color: #4A90E2; -fx-text-fill: white;" text="8 Minutos">
+        <Button fx:id="btn8min" layoutX="558.0" layoutY="519.0" prefHeight="73.0" prefWidth="258.0"
+                style="-fx-background-color: #4A90E2; -fx-text-fill: white;"
+                text="8 Minutos">
             <font><Font name="System Bold" size="38.0" /></font>
         </Button>
 
-        <Button layoutX="875.0" layoutY="519.0" prefHeight="81.0" prefWidth="258.0" style="-fx-background-color: #4A90E2; -fx-text-fill: white;" text="10 Minutos">
+        <Button fx:id="btn10min" layoutX="875.0" layoutY="519.0" prefHeight="81.0" prefWidth="258.0"
+                style="-fx-background-color: #4A90E2; -fx-text-fill: white;"
+                text="10 Minutos">
             <font><Font name="System Bold" size="38.0" /></font>
         </Button>
 
