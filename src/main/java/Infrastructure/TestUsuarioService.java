@@ -4,7 +4,7 @@ import Application.dtos.acceso.RegistrarUsuarioRequest;
 import Application.dtos.acceso.LoginRequest;
 import Application.dtos.acceso.ActualizarUsernameRequest;
 import Application.dtos.acceso.UsuarioResponse;
-import Application.services.DarAccesoService;
+import Application.services.DarAcceso.DarAccesoService;
 import Domain.repositoriesInterfaces.InterfazUsuarioRepository;
 import Infrastructure.repositories.UsuarioRepository;
 

@@ -2,8 +2,9 @@ package Infrastructure.controllers;
 
 import Application.dtos.acceso.RegistrarUsuarioRequest;
 import Application.dtos.acceso.UsuarioResponse;
-import Application.services.DarAccesoService;
+import Application.services.DarAcceso.DarAccesoService;
 import Application.config.AppServices;
+import Application.services.DarAcceso.RegistroService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,10 +14,10 @@ import javafx.stage.Stage;
 
 public class RegistroController {
 
-    private final DarAccesoService service;
+    private final RegistroService service;
 
     // Se inyecta con controllerFactory (desde HelloController.goToRegistro)
-    public RegistroController(DarAccesoService service) {
+    public RegistroController(RegistroService service) {
         this.service = service;
     }
 

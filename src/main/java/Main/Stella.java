@@ -1,24 +1,38 @@
 package Main;
 
 
+import Application.services.DarAcceso.LoginService;
+import Application.services.DarAcceso.RegistroService;
+import Domain.repositoriesInterfaces.*;
+import Infrastructure.controllers.ControllerPrincipal;
+import Infrastructure.repositories.*;
 import javafx.stage.Stage;
-import Application.config.AppServices;
-import Application.services.DarAccesoService;
-import Infrastructure.repositories.UsuarioRepository;
-import Domain.repositoriesInterfaces.InterfazUsuarioRepository;
-import Infrastructure.controllers.LoginController;
-import Infrastructure.persistence.H2DataBaseInitializer; // <--- Importación necesaria
+import Application.services.DarAcceso.DarAccesoService;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 
 
 public class Stella extends Application {
+
     @Override
     public void start(Stage stage) throws Exception {
 
+        //Instanciación de interfaces
+        InterfazUsuarioRepository usuarioRepository = new UsuarioRepository();
+        InterfazIntentoRepository intentoRepository = new IntentoRepository();
+        InterfazLeccionRepository leccionRepository = new LeccionRepository();
+        InterfazProgresoLeccionRepository progresoRepository = new ProgresoLeccionRepository();
+        InterfazPruebaRepository pruebaRepository = new PruebaRepository();
+        InterfazUsuarioStatsRepository usuarioStatsRepository = new UsuarioStatsRepository();
+
+        //Instanciacion de servicios
+        LoginService loginService = new LoginService(usuarioRepository);
+        RegistroService registroService = new RegistroService(usuarioRepository);
+
+        //Instanciacion de controlador principal
+        ControllerPrincipal controllerPrincipal = new ControllerPrincipal(loginService, registroService);
+
+        /*
         // **********************************************
         // 1. PASO CRÍTICO: INICIALIZAR LA BASE DE DATOS
         H2DataBaseInitializer.initialize();
@@ -51,6 +65,10 @@ public class Stella extends Application {
         stage.centerOnScreen();
         stage.show();
     }
+    */
 
-    public static void main(String[] args) { launch();}
+    }
+    public static void main (String[]args){
+        launch();
+    }
 }

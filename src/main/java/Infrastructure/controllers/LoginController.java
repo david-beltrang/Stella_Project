@@ -3,7 +3,8 @@ package Infrastructure.controllers;
 import Application.config.AppServices;
 import Application.dtos.acceso.LoginRequest;
 import Application.dtos.acceso.UsuarioResponse;
-import Application.services.DarAccesoService;
+import Application.services.DarAcceso.DarAccesoService;
+import Application.services.DarAcceso.LoginService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,7 +16,7 @@ import javafx.stage.Stage;
 
 public class LoginController {
 
-    private final DarAccesoService service;
+    private final LoginService service;
 
     // Requerido por FXMLLoader cuando hay fx:controller
     public LoginController() {
@@ -23,7 +24,7 @@ public class LoginController {
     }
 
     // Opción con DI si usas setControllerFactory
-    public LoginController(DarAccesoService service) {
+    public LoginController(LoginService service) {
         this.service = service;
     }
 
