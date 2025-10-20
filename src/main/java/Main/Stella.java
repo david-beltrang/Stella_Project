@@ -6,8 +6,8 @@ import Application.services.DarAcceso.RegistroService;
 import Domain.repositoriesInterfaces.*;
 import Infrastructure.controllers.ControllerPrincipal;
 import Infrastructure.repositories.*;
+import Infrastructure.repositories.ProgresoRepository;
 import javafx.stage.Stage;
-import Application.services.DarAcceso.DarAccesoService;
 
 import javafx.application.Application;
 
@@ -21,7 +21,7 @@ public class Stella extends Application {
         InterfazUsuarioRepository usuarioRepository = new UsuarioRepository();
         InterfazIntentoRepository intentoRepository = new IntentoRepository();
         InterfazLeccionRepository leccionRepository = new LeccionRepository();
-        InterfazProgresoLeccionRepository progresoRepository = new ProgresoLeccionRepository();
+        InterfazProgresoLeccionRepository progresoRepository = new ProgresoRepository();
         InterfazPruebaRepository pruebaRepository = new PruebaRepository();
         InterfazUsuarioStatsRepository usuarioStatsRepository = new UsuarioStatsRepository();
 

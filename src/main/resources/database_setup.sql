@@ -11,7 +11,7 @@ DROP TABLE IF EXISTS "pregunta";
 DROP TABLE IF EXISTS "prueba";
 DROP TABLE IF EXISTS "leccion";
 DROP TABLE IF EXISTS "curso";
-DROP TABLE IF EXISTS "usuario"; -- <-- Ajustado
+DROP TABLE IF EXISTS "usuario";
 DROP TABLE IF EXISTS "sesion_estudio";
 
 -- CREACIÓN DE TABLAS (con Claves Foráneas y ON DELETE CASCADE)

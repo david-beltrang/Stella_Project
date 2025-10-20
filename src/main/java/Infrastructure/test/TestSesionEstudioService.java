@@ -1,15 +1,14 @@
 package Infrastructure.test;
 
+import Application.dtos.leccion.LeccionRequest;
 import Application.dtos.sesionEstudio.LeccionDetalleResponse;
 import Application.dtos.sesionEstudio.*;
-import Application.dtos.sesionEstudio.Pomodoro.IniciarSesionEstudioRequest;
 import Application.services.LeccionService;
 import Application.services.SesionEstudioService;
-import Domain.models.ProgresoLeccion;
 import Domain.repositoriesInterfaces.*;
 import Infrastructure.repositories.*;
+import Infrastructure.repositories.ProgresoRepository;
 
-import java.util.Optional;
 import java.util.List;
 
 /**
@@ -31,7 +30,7 @@ public class TestSesionEstudioService {
         System.out.println("=================================================");
 
         // 1. Instanciar Repositorios
-        InterfazProgresoLeccionRepository progresoRepo = new ProgresoLeccionRepository();
+        InterfazProgresoRepository progresoRepo = new ProgresoRepository();
         InterfazLeccionRepository leccionRepo = new LeccionRepository();
         InterfazPruebaRepository pruebaRepo = new PruebaRepository();
         InterfazIntentoRepository intentoRepo = new IntentoRepository();

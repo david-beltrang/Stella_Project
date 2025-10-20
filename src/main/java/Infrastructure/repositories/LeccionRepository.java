@@ -1,151 +1,146 @@
 package Infrastructure.repositories;
 
-import Application.dtos.internal.ContenidoLeccionInternal;
+import Domain.models.CursoValueObjects.CursoId;
+import Domain.models.CursoValueObjects.LeccionId;
+import Domain.models.CursoValueObjects.Titulo;
 import Domain.models.Leccion;
-import Domain.models.Pregunta;
-import Domain.models.Opcion;
-import Domain.models.LeccionValueObjects.TipoContenido;
+import Domain.models.CursoValueObjects.TipoContenido;
 import Domain.repositoriesInterfaces.InterfazLeccionRepository;
 import Infrastructure.persistence.ConexionBD;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.Map;
-import java.util.HashMap;
 
 // Implementación JDBC real del repositorio de Lecciones.
 public class LeccionRepository implements InterfazLeccionRepository {
 
-    private static final String SQL_SELECT_CONTENIDO =
-            "SELECT id, titulo, tipo_contenido, contenido_html, prueba_id FROM leccion WHERE id = ?";
+    private final ConexionBD db; // Clase de utilidad para la conexión
 
-    private static final String SQL_SELECT_BY_SECTION =
-            "SELECT id, curso_id, numero_seccion, numero_orden, titulo, tipo_contenido, contenido_html, prueba_id " +
-                    "FROM leccion WHERE curso_id = ? AND numero_seccion = ? ORDER BY numero_orden ASC";
-
-    // Consulta para obtener Preguntas y sus Opciones asociadas a una Lección (vía leccion_id)
-    private static final String SQL_SELECT_PREGUNTAS_BY_LECCION =
-            "SELECT p.id as pregunta_id, p.enunciado, o.id as opcion_id, o.texto, o.es_correcta " +
-                    "FROM pregunta p " +
-                    "LEFT JOIN opcion o ON p.id = o.pregunta_id " +
-                    "WHERE p.leccion_id = ? ORDER BY p.id, o.id";
-
-
-    // Método para obtener el contenido de una lección.
-    @Override
-    public Optional<ContenidoLeccionInternal> obtenerContenido(int id) {
-        ContenidoLeccionInternal contenido = null;
-
-        try (Connection conn = ConexionBD.getConnection();
-             PreparedStatement ps = conn.prepareStatement(SQL_SELECT_CONTENIDO)) {
-
-            ps.setInt(1, id);
-
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    contenido = mapearContenido(rs);
-                }
-            }
-        } catch (SQLException e) {
-            System.err.println("Error al obtener contenido de lección: " + e.getMessage());
-        }
-        return Optional.ofNullable(contenido);
+    public LeccionRepository(ConexionBD db) {
+        this.db = db;
     }
 
-    // Método para obtener las lecciones de un curso y sección.
+    private Leccion mapResultSetToLeccion(ResultSet rs) throws SQLException {
+        return new Leccion(
+                // VO: LeccionId
+                new LeccionId(rs.getInt("id")),
+
+                // VO: CursoId (Corrección clave: encapsular el INT de la DB)
+                new CursoId(rs.getInt("curso_id")),
+
+                // VO: Titulo
+                new Titulo(rs.getString("titulo")),
+
+                // Primitivos:
+                rs.getInt("numero_seccion"),
+                rs.getInt("numero_orden"),
+
+                // Enum: TipoContenido
+                TipoContenido.valueOf(rs.getString("tipo_contenido")),
+
+                // String:
+                rs.getString("contenido_html")
+        );
+    }
+
     @Override
-    public List<Leccion> buscarPorCursoYSeccion(int cursoId, int numeroSeccion) {
-        List<Leccion> lecciones = new ArrayList<>();
-        try (Connection conn = ConexionBD.getConnection();
-             PreparedStatement ps = conn.prepareStatement(SQL_SELECT_BY_SECTION)) {
+    public Leccion buscarPorId(LeccionId leccionId) {
+        String sql = "SELECT * FROM leccion WHERE id = ?";
+        try (Connection conn = db.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            ps.setInt(1, cursoId);
-            ps.setInt(2, numeroSeccion);
+            stmt.setInt(1, leccionId.valor());
 
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    lecciones.add(mapearLeccion(rs));
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return mapResultSetToLeccion(rs);
                 }
             }
         } catch (SQLException e) {
-            System.err.println("Error al buscar lecciones por sección: " + e.getMessage());
+            System.err.println("Error al buscar lección por ID: " + e.getMessage());
+        }
+        return null;
+    }
+
+    @Override
+    public Iterable<Leccion> buscarPorCursoId(CursoId cursoId) {
+        String sql = "SELECT * FROM leccion WHERE curso_id = ? ORDER BY numero_seccion, numero_orden";
+        List<Leccion> lecciones = new ArrayList<>();
+        try (Connection conn = db.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, cursoId.valor());
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    lecciones.add(mapResultSetToLeccion(rs));
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al buscar lecciones por Curso ID: " + e.getMessage());
         }
         return lecciones;
     }
 
-    // Método para obtener las preguntas asociadas a una lección.
+    /**
+     * Lógica SQL para encontrar la siguiente lección en la secuencia.
+     */
     @Override
-    public List<Pregunta> buscarPreguntasAsociadas(int leccionId) {
-        Map<Integer, Pregunta> preguntasMap = new HashMap<>();
+    public Leccion buscarProximaLeccion(CursoId cursoId, int seccionActual, int ordenActual) {
+        String sql = "SELECT * FROM leccion WHERE curso_id = ? AND " +
+                " (numero_seccion = ? AND numero_orden > ?) " +
+                " OR numero_seccion > ? " +
+                "ORDER BY numero_seccion ASC, numero_orden ASC LIMIT 1";
 
-        try (Connection conn = ConexionBD.getConnection();
-             PreparedStatement ps = conn.prepareStatement(SQL_SELECT_PREGUNTAS_BY_LECCION)) {
+        try (Connection conn = db.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            ps.setInt(1, leccionId);
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    // Mapeo y agrupación de preguntas/opciones
-                    Integer preguntaId = rs.getInt("pregunta_id");
-                    String enunciado = rs.getString("enunciado");
+            // Desempaquetado del VO para el JDBC: cursoId.valor()
+            stmt.setInt(1, cursoId.valor());
+            stmt.setInt(2, seccionActual);
+            stmt.setInt(3, ordenActual);
+            stmt.setInt(4, seccionActual);
 
-                    Pregunta pregunta = preguntasMap.get(preguntaId);
-                    if (pregunta == null) {
-                        // Creamos una nueva entidad Pregunta (con lista vacía para las opciones)
-                        pregunta = new Pregunta(preguntaId, enunciado, new ArrayList<>());
-                        preguntasMap.put(preguntaId, pregunta);
-                    }
-
-                    // Añadir opción si existe (opcion_id no nulo)
-                    int opcionId = rs.getInt("opcion_id");
-                    if (!rs.wasNull()) { // Verifica si el ID de la opción NO es nulo
-                        Opcion opcion = new Opcion(
-                                opcionId,
-                                rs.getString("texto"),
-                                rs.getBoolean("es_correcta")
-                        );
-                        pregunta.getOpciones().add(opcion);
-                    }
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return mapResultSetToLeccion(rs);
                 }
             }
         } catch (SQLException e) {
-            System.err.println("Error al buscar preguntas asociadas: " + e.getMessage());
+            System.err.println("Error al buscar próxima lección: " + e.getMessage());
         }
-
-        return new ArrayList<>(preguntasMap.values());
+        return null;
     }
 
-    // Mapea un ResultSet al DTO de contenido de la lección (usado por SesionEstudioService).
-    private ContenidoLeccionInternal mapearContenido(ResultSet rs) throws SQLException {
-        int pruebaIdInt = rs.getInt("prueba_id");
-        // Verifica si el valor de la BD es NULL y usa Integer Object
-        Integer pruebaId = rs.wasNull() ? null : pruebaIdInt;
+    /**
+     * Lógica SQL para encontrar la lección anterior en la secuencia.
+     */
+    @Override
+    public Leccion buscarLeccionAnterior(CursoId cursoId, int seccionActual, int ordenActual) {
+        String sql = "SELECT * FROM leccion WHERE curso_id = ? AND " +
+                // Opción 1: Mismo número de sección, pero orden menor (lección anterior)
+                " (numero_seccion = ? AND numero_orden < ?) " +
+                // Opción 2: Sección anterior (con cualquier orden)
+                " OR numero_seccion < ? " +
+                "ORDER BY numero_seccion DESC, numero_orden DESC LIMIT 1";
 
-        return new ContenidoLeccionInternal(
-                rs.getInt("id"),
-                rs.getString("titulo"),
-                TipoContenido.fromString(rs.getString("tipo_contenido")),
-                rs.getString("contenido_html"),
-                pruebaId
-        );
-    }
+        try (Connection conn = db.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-    // Mapea un ResultSet a la entidad Leccion (usado por LeccionService).
-    private Leccion mapearLeccion(ResultSet rs) throws SQLException {
-        int pruebaIdInt = rs.getInt("prueba_id");
-        // Verifica si el valor de la BD es NULL y usa Integer Object para el constructor
-        Integer pruebaId = rs.wasNull() ? null : pruebaIdInt;
+            stmt.setInt(1, cursoId.valor());
+            stmt.setInt(2, seccionActual);
+            stmt.setInt(3, ordenActual);
+            stmt.setInt(4, seccionActual);
 
-        return new Leccion(
-                rs.getInt("id"),
-                rs.getInt("curso_id"),
-                rs.getInt("numero_seccion"),
-                rs.getInt("numero_orden"),
-                rs.getString("titulo"),
-                rs.getString("tipo_contenido"), // Se pasa el String, el constructor de Leccion lo valida
-                rs.getString("contenido_html"),
-                pruebaId
-        );
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return mapResultSetToLeccion(rs);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al buscar lección anterior: " + e.getMessage());
+        }
+        return null;
     }
 }

@@ -1,4 +1,4 @@
-package Domain.models.LeccionValueObjects;
+package Domain.models.CursoValueObjects;
 
 import Domain.exceptions.curso.EstadoLeccionInvalidoException;
 

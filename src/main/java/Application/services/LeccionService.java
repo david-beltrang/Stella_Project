@@ -7,7 +7,7 @@ import Domain.models.Leccion;
 import Domain.models.Pregunta;
 import Domain.models.ProgresoLeccion;
 import Domain.repositoriesInterfaces.InterfazLeccionRepository;
-import Domain.repositoriesInterfaces.InterfazProgresoLeccionRepository;
+import Domain.repositoriesInterfaces.InterfazProgresoRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,13 +20,13 @@ import java.util.stream.Collectors;
  */
 public class LeccionService {
 
-    private final InterfazLeccionRepository leccionRepository;
-    private final InterfazProgresoLeccionRepository progresoRepository;
+    private final InterfazLeccionRepository interfazLeccionRepository;
+    private final InterfazProgresoRepository interfazProgresoRepository;
 
     public LeccionService(InterfazLeccionRepository leccionRepository,
-                          InterfazProgresoLeccionRepository progresoRepository) {
-        this.leccionRepository = leccionRepository;
-        this.progresoRepository = progresoRepository;
+                          InterfazProgresoRepository progresoRepository, InterfazLeccionRepository interfazLeccionRepository, InterfazProgresoRepository interfazProgresoRepository) {
+        this.interfazLeccionRepository = interfazLeccionRepository;
+        this.interfazProgresoRepository = interfazProgresoRepository;
     }
 
     /**
@@ -34,7 +34,7 @@ public class LeccionService {
      */
     public List<LeccionDetalleResponse> obtenerLeccionesPorSeccion(int usuarioId, int cursoId, int numeroSeccion) {
 
-        List<Leccion> lecciones = leccionRepository.buscarPorCursoYSeccion(cursoId, numeroSeccion);
+        List<Leccion> lecciones = interfazProgresoRepository.buscarPorCursoYSeccion(cursoId, numeroSeccion);
 
         if (lecciones.isEmpty()) {
             return new ArrayList<>();
@@ -42,7 +42,7 @@ public class LeccionService {
 
         return lecciones.stream()
                 .map(leccion -> {
-                    Optional<ProgresoLeccion> progresoOpt = progresoRepository.buscarPorUsuarioYLeccion(usuarioId, leccion.getId());
+                    Optional<ProgresoLeccion> progresoOpt = interfazProgresoRepository.buscarPorUsuarioYLeccion(usuarioId, leccion.getId());
 
                     // Usa el getter del record EstadoLeccion y la cadena literal "NO_INICIADA"
                     String estado = progresoOpt.map(progreso -> progreso.getEstado().valor())
@@ -50,7 +50,7 @@ public class LeccionService {
 
                     List<PreguntaResponse> preguntasDto = null;
                     if (leccion.getTipoContenido().equals("PREGUNTA") || leccion.getTipoContenido().equals("PRACTICA")) {
-                        List<Pregunta> preguntasDominio = leccionRepository.buscarPreguntasAsociadas(leccion.getId());
+                        List<Pregunta> preguntasDominio = interfazProgresoRepository.buscarPreguntasAsociadas(leccion.getId());
 
                         preguntasDto = preguntasDominio.stream()
                                 .map(this::mapToPreguntaResponse)

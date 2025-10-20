@@ -1,4 +1,4 @@
-package Application.dtos.sesionEstudio;
+package Application.dtos.leccion;
 
 // dto de solicitud para iniciar o continuar una sesión de estudio
 public record LeccionRequest(
