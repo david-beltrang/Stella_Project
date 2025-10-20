@@ -6,12 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="51597e74-c3d4-4a99-ad6b-5f4c9d498175" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Application/config/AppServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/config/AppServices.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Application/services/DarAccesoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/services/DarAcceso/DarAccesoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/TestUsuarioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/TestUsuarioService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/RegistroController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/RegistroController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main/Stella.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main/Stella.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/models/LeccionValueObjects/NivelCurso.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/models/CursoValueObjects/NivelCurso.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/ControllerPrincipal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/ControllerPrincipal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/database_setup.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/database_setup.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,6 +18,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
+        <option value="Record" />
         <option value="Class" />
       </list>
     </option>
@@ -56,12 +55,13 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature/CU003&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;fix-pantalla__principal&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15274803&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.29173693&quot;
+    &quot;project.structure.side.proportion&quot;: &quot;0.29173693&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;
   }
 }</component>
   <component name="RunManager">
@@ -111,7 +111,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Infrastructure/controllers/ControllerPrincipal.java</url>
-          <line>51</line>
+          <line>54</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

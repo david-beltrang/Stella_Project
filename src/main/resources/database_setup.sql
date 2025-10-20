@@ -38,10 +38,23 @@ CREATE TABLE "usuario_stats" ( -- <-- Usamos comillas dobles
 );
 
 -- TABLA: "curso"
-CREATE TABLE "curso" ( -- <-- Usamos comillas dobles
-                         id INT PRIMARY KEY,
-                         titulo VARCHAR(255) NOT NULL,
-                         numero_secciones INT NOT NULL
+CREATE TABLE "curso" (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(255) NOT NULL,
+    descripcion VARCHAR(2000),
+    nivel VARCHAR(50),
+    categoria VARCHAR(100),
+    duracion_minutos INT
+);
+
+-- TABLA: "usuario_curso"
+CREATE TABLE usuario_curso (
+    usuario_id INT NOT NULL,
+    curso_id INT NOT NULL,
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (usuario_id, curso_id),
+    FOREIGN KEY (usuario_id) REFERENCES usuario(id),
+    FOREIGN KEY (curso_id) REFERENCES curso(id)
 );
 
 -- TABLA: "leccion" (Contenido individual: Teoría, Video, Práctica, Pregunta)

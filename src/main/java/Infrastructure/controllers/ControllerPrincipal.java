@@ -13,9 +13,11 @@ public class ControllerPrincipal {
     private RegistroService registroService;
     private SesionEstudioService sesionEstudioService;
 
+
     //Controladores
     private LoginController loginController;
     private RegistroController registroController;
+
 
     public ControllerPrincipal(LoginService loginService, RegistroService registroService) {
         this.loginService = loginService;
@@ -38,7 +40,7 @@ public class ControllerPrincipal {
         );
         UsuarioResponse response = null;
         try {
-            response = accesoService.registrar(registroRequest);
+            response = registroService.registrar(registroRequest);
             System.out.println("Registro exitoso: " + response);
             System.out.println("ID generado: " + response.id());
             System.out.println("Username generado: " + response.username());
