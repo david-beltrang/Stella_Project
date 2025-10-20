@@ -13,9 +13,9 @@ import java.util.List;
 import java.util.Optional;
 
 
-public class CursoRepository implements InterfazCursoRepository {
+public class CursosTotalesRepository implements InterfazCursoRepository {
 
-    public CursoRepository() {
+    public CursosTotalesRepository() {
         // La creación de la tabla se maneja en el script SQL al iniciar H2.
     }
 
