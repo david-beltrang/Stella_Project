@@ -4,20 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="51597e74-c3d4-4a99-ad6b-5f4c9d498175" name="Changes" comment="Se realizan las motificaciones para poder mostrar en pantalla el curso, secciones y lecciones.">
+    <list default="true" id="51597e74-c3d4-4a99-ad6b-5f4c9d498175" name="Changes" comment="Se eliminan las clases CursoRepository.java y InterfazCursoRepository.java, se elimina el dto CursoId.java. Para poder realizar integración con el desarollo del otro grupo de developers.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Application/dtos/curso/CursoEstructura.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/curso/CursoEstructura.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Application/services/CursoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/services/CursoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/models/Curso.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/models/Curso.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/models/CursoValueObjects/CursoId.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/models/CursoValueObjects/Titulo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/models/Leccion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/models/Leccion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/models/ProgresoLeccion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/models/ProgresoLeccion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/repositoriesInterfaces/InterfazCursoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/repositoriesInterfaces/InterfazCursoRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/repositoriesInterfaces/InterfazLeccionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/repositoriesInterfaces/InterfazLeccionRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/CursoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/CursoRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/LeccionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/LeccionRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main/Stella.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main/Stella.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/models/Curso.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,7 +114,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1760376168853</updated>
-      <workItem from="1761005856938" duration="4734000" />
+      <workItem from="1761005856938" duration="5906000" />
     </task>
     <task id="LOCAL-00001" summary="Se realizan las motificaciones para poder mostrar en pantalla el curso, secciones y lecciones.">
       <option name="closed" value="true" />
@@ -135,7 +124,15 @@
       <option name="project" value="LOCAL" />
       <updated>1760925927452</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Se eliminan las clases CursoRepository.java y InterfazCursoRepository.java, se elimina el dto CursoId.java. Para poder realizar integración con el desarollo del otro grupo de developers.">
+      <option name="closed" value="true" />
+      <created>1761014076891</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1761014076891</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -143,7 +140,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Se realizan las motificaciones para poder mostrar en pantalla el curso, secciones y lecciones." />
-    <option name="LAST_COMMIT_MESSAGE" value="Se realizan las motificaciones para poder mostrar en pantalla el curso, secciones y lecciones." />
+    <MESSAGE value="Se eliminan las clases CursoRepository.java y InterfazCursoRepository.java, se elimina el dto CursoId.java. Para poder realizar integración con el desarollo del otro grupo de developers." />
+    <option name="LAST_COMMIT_MESSAGE" value="Se eliminan las clases CursoRepository.java y InterfazCursoRepository.java, se elimina el dto CursoId.java. Para poder realizar integración con el desarollo del otro grupo de developers." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
