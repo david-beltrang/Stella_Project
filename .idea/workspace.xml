@@ -6,16 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="51597e74-c3d4-4a99-ad6b-5f4c9d498175" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Application/dtos/Curso/CursoResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/Listado_Cursos/CursoResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Application/dtos/Curso/CursosResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/Listado_Cursos/CursosResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Application/dtos/Curso/InscripcionRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/Listado_Cursos/InscripcionRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Application/services/CursoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/services/CursoService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Domain/models/Curso.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/models/Curso.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/models/CursoValueObjects/Titulo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/models/CursoValueObjects/Titulo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/ControllerPrincipal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/ControllerPrincipal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/PrincipalController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/CursoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/CursoRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/database_setup.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/database_setup.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/PrincipalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/PrincipalController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/CursosTotalesRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/CursoRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

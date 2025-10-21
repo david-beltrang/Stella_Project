@@ -1,11 +1,11 @@
 package Infrastructure.controllers;
 
 import Application.config.AppServices;
-import Application.dtos.Curso.CursoResponse;
-import Application.dtos.Curso.CursosResponse;
-import Application.dtos.Curso.InscripcionRequest;
+import Application.dtos.Listado_Cursos.CursoResponse;
+import Application.dtos.Listado_Cursos.CursosResponse;
+import Application.dtos.Listado_Cursos.InscripcionRequest;
 import Application.services.ListarCursosService;
-import Infrastructure.repositories.CursosTotalesRepository;
+import Infrastructure.repositories.CursoRepository;
 import Infrastructure.repositories.UsuarioCursoRepository;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -37,7 +37,7 @@ public class PrincipalController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // Instancia del servicio los repos de curso
         listarCursosService = new ListarCursosService(
-                new CursosTotalesRepository(),
+                new CursoRepository(),
                 new UsuarioCursoRepository()
         );
 

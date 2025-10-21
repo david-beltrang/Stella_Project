@@ -46,6 +46,7 @@ public class Curso {
                                       Integer numeroSecciones) {
         return new Curso(id, titulo, descripcion, nivel, categoria, duracionMinutos, numeroSecciones);
     }
+
     
 
     //getters
