@@ -12,10 +12,7 @@ import Domain.repositoriesInterfaces.InterfazCursoRepository;
 import Domain.repositoriesInterfaces.InterfazLeccionRepository;
 import Domain.repositoriesInterfaces.InterfazProgresoRepository;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -41,10 +38,11 @@ public class CursoService {
      */
     public CursoEstructura obtenerEstructuraCurso(UsuarioId usuarioId, Integer cursoId) {
         // 1. Obtener la Entidad principal del Curso
-        Curso curso = interfazCursoRepository.buscarPorId(cursoId);
-        if (curso == null) {
+        Optional<Curso> cursoOpt = interfazCursoRepository.buscarPorId(cursoId);
+        if (cursoOpt.isEmpty()) {
             throw new IllegalArgumentException("El curso con ID " + cursoId + " no fue encontrado.");
         }
+        Curso curso = cursoOpt.get();
 
         // 2. Obtener TODAS las lecciones (convirtiendo Iterable a List para ordenar)
         List<Leccion> todasLasLecciones = StreamSupport
@@ -101,7 +99,7 @@ public class CursoService {
         // 6. Devolver la Estructura Final (Response DTO)
         return new CursoEstructura(
                 curso.getId(),
-                curso.getTitulo().valor(),
+                curso.getTitulo().valorTitulo(),
                 secciones
         );
     }
