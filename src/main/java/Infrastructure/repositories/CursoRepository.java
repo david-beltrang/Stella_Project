@@ -98,7 +98,8 @@ public class CursoRepository implements InterfazCursoRepository {
                 rs.getString("descripcion"),
                 new NivelCurso(rs.getString("nivel")),
                 rs.getString("categoria"),
-                rs.getInt("duracion_minutos")
+                rs.getInt("duracion_minutos"),
+                rs.getInt("numero_secciones")
         );
     }
 

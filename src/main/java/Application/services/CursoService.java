@@ -1,8 +1,8 @@
 package Application.services;
 
-import Application.dtos.Curso.CursoResponse;
-import Application.dtos.Curso.CursosResponse;
-import Application.dtos.Curso.InscripcionRequest;
+import Application.dtos.Listado_Cursos.CursoResponse;
+import Application.dtos.Listado_Cursos.CursosResponse;
+import Application.dtos.Listado_Cursos.InscripcionRequest;
 import Domain.repositoriesInterfaces.InterfazCursoRepository;
 import Domain.repositoriesInterfaces.InterfazUsuarioCursoRepository;
 import Domain.models.Curso;

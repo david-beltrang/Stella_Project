@@ -13,15 +13,17 @@ public class Curso {
     private NivelCurso nivel;
     private String categoria;
     private Integer duracionMinutos;
+    private Integer numeroSecciones;
 
     // Constructor, getters y setters
-    private Curso(Integer id, Titulo titulo, String descripcion, NivelCurso nivel, String categoria, Integer duracionMinutos) {
+    private Curso(Integer id, Titulo titulo, String descripcion, NivelCurso nivel, String categoria, Integer duracionMinutos, Integer numeroSecciones) {
         this.id = id;
         this.titulo = Objects.requireNonNull(titulo, "El título no puede ser nulo");
         this.descripcion = descripcion;
         this.nivel = Objects.requireNonNull(nivel, "El nivel no puede ser nulo");
         this.categoria = categoria;
         this.duracionMinutos = duracionMinutos;
+        this.numeroSecciones = numeroSecciones;
     }
 
     //FACTORY METHODS: Un metodo para construir un usuario desde el front y otro metodo para
@@ -31,7 +33,7 @@ public class Curso {
     public static Curso crearNuevo(String tituloStr, String descripcionStr, String nivelStr, String categoriaStr, Integer duracionMinutos) {
         Titulo titulo = new Titulo(tituloStr); // Lanza excepción si inválido
         NivelCurso nivel = new NivelCurso(nivelStr); // Lanza excepción si inválido
-        return new Curso(null, titulo, descripcionStr, nivel, categoriaStr, duracionMinutos);
+        return new Curso(null, titulo, descripcionStr, nivel, categoriaStr, duracionMinutos, null);
     }
 
     //Reconstruir desde la BD
@@ -40,8 +42,9 @@ public class Curso {
                                       String descripcion,
                                       NivelCurso nivel,
                                       String categoria,
-                                      Integer duracionMinutos) {
-        return new Curso(id, titulo, descripcion, nivel, categoria, duracionMinutos);
+                                      Integer duracionMinutos,
+                                      Integer numeroSecciones) {
+        return new Curso(id, titulo, descripcion, nivel, categoria, duracionMinutos, numeroSecciones);
     }
     
 
@@ -68,6 +71,9 @@ public class Curso {
 
     public Integer getDuracionMinutos() {
         return this.duracionMinutos;
+    }
+    public Integer getNumeroSecciones() {
+        return this.numeroSecciones;
     }
 
 

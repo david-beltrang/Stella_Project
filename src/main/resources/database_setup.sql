@@ -45,6 +45,7 @@ CREATE TABLE "curso" (
     nivel VARCHAR(50),
     categoria VARCHAR(100),
     duracion_minutos INT
+    numero_secciones INT
 );
 
 -- TABLA: "usuario_curso"

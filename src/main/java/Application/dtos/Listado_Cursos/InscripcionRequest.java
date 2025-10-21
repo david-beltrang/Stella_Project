@@ -1,4 +1,4 @@
-package Application.dtos.Curso;
+package Application.dtos.Listado_Cursos;
 
 public record InscripcionRequest(
         int usuario_id,
