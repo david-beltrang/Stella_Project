@@ -1,16 +1,15 @@
 package Domain.models;
 
-import Domain.models.CursoValueObjects.CursoId;
 import Domain.models.CursoValueObjects.Titulo;
 
 import java.util.Objects;
 
 public class Curso {
-    private final CursoId id;
+    private final Integer id;
     private final Titulo titulo;
     private final int numeroSecciones;
 
-    public Curso(CursoId id, Titulo titulo, int numeroSecciones) {
+    public Curso(Integer id, Titulo titulo, int numeroSecciones) {
         Objects.requireNonNull(id, "El ID del curso no puede ser nulo.");
         Objects.requireNonNull(titulo, "El título del curso no puede ser nulo.");
         if (numeroSecciones <= 0) {
@@ -22,7 +21,7 @@ public class Curso {
     }
 
     // Getters públicos
-    public CursoId getId() {
+    public Integer getId() {
         return id;
     }
 

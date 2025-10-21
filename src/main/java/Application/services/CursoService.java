@@ -4,7 +4,6 @@ import Application.dtos.curso.CursoEstructura;
 import Application.dtos.leccion.LeccionLista;
 import Application.dtos.seccion.Seccion;
 import Domain.models.Curso;
-import Domain.models.CursoValueObjects.CursoId;
 import Domain.models.CursoValueObjects.EstadoProgreso;
 import Domain.models.Leccion;
 import Domain.models.ProgresoLeccion;
@@ -12,9 +11,6 @@ import Domain.models.UsuarioValueObjects.UsuarioId;
 import Domain.repositoriesInterfaces.InterfazCursoRepository;
 import Domain.repositoriesInterfaces.InterfazLeccionRepository;
 import Domain.repositoriesInterfaces.InterfazProgresoRepository;
-import Infrastructure.repositories.CursoRepository;
-import Infrastructure.repositories.LeccionRepository;
-import Infrastructure.repositories.ProgresoRepository;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -30,9 +26,7 @@ public class CursoService {
     private final InterfazLeccionRepository interfazLeccionRepository;
     private final InterfazProgresoRepository interfazProgresoRepository;
 
-    public CursoService(CursoRepository cursoRepository,
-                        LeccionRepository leccionRepository,
-                        ProgresoRepository progresoRepository, InterfazCursoRepository interfazCursoRepository, InterfazLeccionRepository interfazLeccionRepository, InterfazProgresoRepository interfazProgresoRepository) {
+    public CursoService(InterfazCursoRepository interfazCursoRepository, InterfazLeccionRepository interfazLeccionRepository, InterfazProgresoRepository interfazProgresoRepository) {
         this.interfazCursoRepository = interfazCursoRepository;
         this.interfazLeccionRepository = interfazLeccionRepository;
         this.interfazProgresoRepository = interfazProgresoRepository;
@@ -45,11 +39,11 @@ public class CursoService {
      * @param cursoId El ID del curso a visualizar.
      * @return CursoEstructuraDTO con las secciones y lecciones listas para la UI.
      */
-    public CursoEstructura obtenerEstructuraCurso(UsuarioId usuarioId, CursoId cursoId) {
+    public CursoEstructura obtenerEstructuraCurso(UsuarioId usuarioId, Integer cursoId) {
         // 1. Obtener la Entidad principal del Curso
         Curso curso = interfazCursoRepository.buscarPorId(cursoId);
         if (curso == null) {
-            throw new IllegalArgumentException("El curso con ID " + cursoId.valor() + " no fue encontrado.");
+            throw new IllegalArgumentException("El curso con ID " + cursoId + " no fue encontrado.");
         }
 
         // 2. Obtener TODAS las lecciones (convirtiendo Iterable a List para ordenar)

@@ -4,44 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="51597e74-c3d4-4a99-ad6b-5f4c9d498175" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/curso/CursoEstructura.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/curso/ProgresoLeccionId.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/leccion/ContenidoLeccionResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/leccion/LeccionLista.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/leccion/MarcarLeccionCompletadaRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/leccion/SolicitarContenidoLeccionRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/seccion/Seccion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/sesionEstudio/SesionCompletadaResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Application/services/CursoService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Domain/models/Curso.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Domain/models/CursoValueObjects/CursoId.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Domain/models/CursoValueObjects/EstadoProgreso.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Domain/models/CursoValueObjects/LeccionId.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Domain/models/CursoValueObjects/TipoContenido.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Domain/models/CursoValueObjects/Titulo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Domain/models/UsuarioValueObjects/UsuarioId.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Domain/repositoriesInterfaces/InterfazCursoRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Domain/repositoriesInterfaces/InterfazProgresoRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/CursoRepository.java" afterDir="false" />
+    <list default="true" id="51597e74-c3d4-4a99-ad6b-5f4c9d498175" name="Changes" comment="Se realizan las motificaciones para poder mostrar en pantalla el curso, secciones y lecciones.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Application/dtos/internal/ContenidoLeccionInternal.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Application/dtos/sesionEstudio/ContenidoResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Application/dtos/sesionEstudio/LeccionRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/leccion/LeccionRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Application/services/LeccionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/services/LeccionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Application/services/SesionEstudioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/services/SesionEstudioService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Application/dtos/curso/CursoEstructura.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/curso/CursoEstructura.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Application/services/CursoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/services/CursoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/models/Curso.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/models/Curso.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/models/CursoValueObjects/CursoId.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/models/CursoValueObjects/Titulo.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Domain/models/Leccion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/models/Leccion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/models/LeccionValueObjects/EstadoLeccion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/models/CursoValueObjects/EstadoLeccion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/models/LeccionValueObjects/NivelCurso.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/models/CursoValueObjects/NivelCurso.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/models/LeccionValueObjects/TipoContenido.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Domain/models/ProgresoLeccion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/models/ProgresoLeccion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/repositoriesInterfaces/InterfazCursoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/repositoriesInterfaces/InterfazCursoRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Domain/repositoriesInterfaces/InterfazLeccionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/repositoriesInterfaces/InterfazLeccionRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/repositoriesInterfaces/InterfazProgresoLeccionRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/CursoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/CursoRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/LeccionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/LeccionRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/ProgresoLeccionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/ProgresoRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/test/TestSesionEstudioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/test/TestSesionEstudioService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main/Stella.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main/Stella.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/database_setup.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/database_setup.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,7 +46,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/david-beltrang/Stella_Project.git&quot;,
-    &quot;accountId&quot;: &quot;8777b691-8a52-4ca1-a4e7-1ad65489ecfb&quot;
+    &quot;accountId&quot;: &quot;8699c3d3-f6ea-4f43-85a2-9fc0e3854c5c&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
@@ -92,10 +68,14 @@
     "git-widget-placeholder": "fix-pantalla__principal",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15274803",
-    "project.structure.side.proportion": "0.29173693"
+    "project.structure.side.proportion": "0.29173693",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RunManager">
@@ -130,6 +110,14 @@
       <method v="2" />
     </configuration>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.26830.84" />
+        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-IU-252.26830.84" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="51597e74-c3d4-4a99-ad6b-5f4c9d498175" name="Changes" comment="" />
@@ -137,8 +125,25 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1760376168853</updated>
+      <workItem from="1761005856938" duration="4734000" />
     </task>
+    <task id="LOCAL-00001" summary="Se realizan las motificaciones para poder mostrar en pantalla el curso, secciones y lecciones.">
+      <option name="closed" value="true" />
+      <created>1760925927452</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1760925927452</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Se realizan las motificaciones para poder mostrar en pantalla el curso, secciones y lecciones." />
+    <option name="LAST_COMMIT_MESSAGE" value="Se realizan las motificaciones para poder mostrar en pantalla el curso, secciones y lecciones." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -49,8 +49,18 @@ public class ProgresoLeccion {
         );
     }
 
-    public ProgresoLeccion(UsuarioId usuarioId, LeccionId leccionId, EstadoProgreso estadoProgreso) {
+    public ProgresoLeccion(ProgresoLeccionId id, UsuarioId usuarioId, LeccionId leccionId, EstadoProgreso estadoProgreso) {
+        this.id = id;
+        this.usuarioId = usuarioId;
+        this.leccionId = leccionId;
+        this.estado = estadoProgreso;
+        this.fechaInicio = Instant.now();
+    }
 
+    public ProgresoLeccion(UsuarioId usuarioId, LeccionId leccionId, EstadoProgreso estadoProgreso) {
+        this.usuarioId = usuarioId;
+        this.leccionId = leccionId;
+        this.estado = estadoProgreso;
     }
 
     // ------------------ LÓGICA DE DOMINIO ----------------------

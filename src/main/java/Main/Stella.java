@@ -1,6 +1,7 @@
 package Main;
 
 
+import Application.services.CursoService;
 import Application.services.DarAcceso.LoginService;
 import Application.services.DarAcceso.RegistroService;
 import Domain.repositoriesInterfaces.*;
@@ -21,13 +22,15 @@ public class Stella extends Application {
         InterfazUsuarioRepository usuarioRepository = new UsuarioRepository();
         InterfazIntentoRepository intentoRepository = new IntentoRepository();
         InterfazLeccionRepository leccionRepository = new LeccionRepository();
-        InterfazProgresoLeccionRepository progresoRepository = new ProgresoRepository();
+        InterfazProgresoRepository progresoRepository = new ProgresoRepository();
+        InterfazCursoRepository cursoRepository = new CursoRepository();
         InterfazPruebaRepository pruebaRepository = new PruebaRepository();
         InterfazUsuarioStatsRepository usuarioStatsRepository = new UsuarioStatsRepository();
 
         //Instanciacion de servicios
         LoginService loginService = new LoginService(usuarioRepository);
         RegistroService registroService = new RegistroService(usuarioRepository);
+        CursoService cursoService = new CursoService(cursoRepository, leccionRepository, progresoRepository);
 
         //Instanciacion de controlador principal
         ControllerPrincipal controllerPrincipal = new ControllerPrincipal(loginService, registroService);

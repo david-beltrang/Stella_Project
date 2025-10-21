@@ -1,6 +1,5 @@
 package Infrastructure.repositories;
 
-import Domain.models.CursoValueObjects.CursoId;
 import Domain.models.CursoValueObjects.LeccionId;
 import Domain.models.CursoValueObjects.Titulo;
 import Domain.models.Leccion;
@@ -26,8 +25,8 @@ public class LeccionRepository implements InterfazLeccionRepository {
                 // VO: LeccionId
                 new LeccionId(rs.getInt("id")),
 
-                // VO: CursoId (Corrección clave: encapsular el INT de la DB)
-                new CursoId(rs.getInt("curso_id")),
+                // Verificcar si es NULL
+                rs.wasNull() ? null : rs.getInt("curso_id"),
 
                 // VO: Titulo
                 new Titulo(rs.getString("titulo")),
@@ -64,13 +63,13 @@ public class LeccionRepository implements InterfazLeccionRepository {
     }
 
     @Override
-    public Iterable<Leccion> buscarPorCursoId(CursoId cursoId) {
+    public Iterable<Leccion> buscarPorCursoId(Integer cursoId) {
         String sql = "SELECT * FROM leccion WHERE curso_id = ? ORDER BY numero_seccion, numero_orden";
         List<Leccion> lecciones = new ArrayList<>();
         try (Connection conn = db.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, cursoId.valor());
+            stmt.setInt(1, cursoId);
 
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
@@ -87,7 +86,7 @@ public class LeccionRepository implements InterfazLeccionRepository {
      * Lógica SQL para encontrar la siguiente lección en la secuencia.
      */
     @Override
-    public Leccion buscarProximaLeccion(CursoId cursoId, int seccionActual, int ordenActual) {
+    public Leccion buscarProximaLeccion(Integer cursoId, int seccionActual, int ordenActual) {
         String sql = "SELECT * FROM leccion WHERE curso_id = ? AND " +
                 " (numero_seccion = ? AND numero_orden > ?) " +
                 " OR numero_seccion > ? " +
@@ -97,7 +96,7 @@ public class LeccionRepository implements InterfazLeccionRepository {
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             // Desempaquetado del VO para el JDBC: cursoId.valor()
-            stmt.setInt(1, cursoId.valor());
+            stmt.setInt(1, cursoId);
             stmt.setInt(2, seccionActual);
             stmt.setInt(3, ordenActual);
             stmt.setInt(4, seccionActual);
@@ -117,7 +116,7 @@ public class LeccionRepository implements InterfazLeccionRepository {
      * Lógica SQL para encontrar la lección anterior en la secuencia.
      */
     @Override
-    public Leccion buscarLeccionAnterior(CursoId cursoId, int seccionActual, int ordenActual) {
+    public Leccion buscarLeccionAnterior(Integer cursoId, int seccionActual, int ordenActual) {
         String sql = "SELECT * FROM leccion WHERE curso_id = ? AND " +
                 // Opción 1: Mismo número de sección, pero orden menor (lección anterior)
                 " (numero_seccion = ? AND numero_orden < ?) " +
@@ -128,7 +127,7 @@ public class LeccionRepository implements InterfazLeccionRepository {
         try (Connection conn = db.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, cursoId.valor());
+            stmt.setInt(1, cursoId);
             stmt.setInt(2, seccionActual);
             stmt.setInt(3, ordenActual);
             stmt.setInt(4, seccionActual);

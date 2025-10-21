@@ -1,6 +1,5 @@
 package Domain.models;
 
-import Domain.models.CursoValueObjects.CursoId;
 import Domain.models.CursoValueObjects.LeccionId;
 import Domain.models.CursoValueObjects.TipoContenido;
 import Domain.models.CursoValueObjects.Titulo;
@@ -11,14 +10,14 @@ import Domain.models.CursoValueObjects.Titulo;
  */
 public class Leccion {
     private final LeccionId id; // Usamos VO
-    private final CursoId cursoId;
+    private final Integer cursoId;
     private final Titulo titulo; // Usamos VO
     private final int numeroSeccion;
     private final int numeroOrden;
     private final TipoContenido tipoContenido;
     private final String contenidoHtml;
 
-    public Leccion(LeccionId id, CursoId cursoId, Titulo titulo, int numeroSeccion, int numeroOrden,
+    public Leccion(LeccionId id, Integer cursoId, Titulo titulo, int numeroSeccion, int numeroOrden,
                    TipoContenido tipoContenido, String contenidoHtml) {
         this.id = id;
         this.cursoId = cursoId;
@@ -35,7 +34,7 @@ public class Leccion {
 
     // Getters actualizados para devolver el VO o el valor primitivo si no tiene VO
     public LeccionId getId() { return id; }
-    public CursoId getCursoId() { return cursoId; }
+    public Integer getCursoId() { return cursoId; }
     public String getTitulo() { return titulo.getValor(); } // Se expone el valor a la Capa de Aplicación/DTOs
     public int getNumeroSeccion() { return numeroSeccion; }
     public int getNumeroOrden() { return numeroOrden; }
