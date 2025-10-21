@@ -12,13 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class CursoService {
+public class ListarCursosService {
 
     private final InterfazCursoRepository cursoRepository;
     private final InterfazUsuarioCursoRepository usuarioCursoRepository;
 
-    public CursoService(InterfazCursoRepository cursoRepository,
-                                InterfazUsuarioCursoRepository usuarioCursoRepository) {
+    public ListarCursosService(InterfazCursoRepository cursoRepository,
+                               InterfazUsuarioCursoRepository usuarioCursoRepository) {
         this.cursoRepository = cursoRepository;
         this.usuarioCursoRepository = usuarioCursoRepository;
     }
