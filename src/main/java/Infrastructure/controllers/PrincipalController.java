@@ -5,8 +5,6 @@ import Application.dtos.Listado_Cursos.CursoResponse;
 import Application.dtos.Listado_Cursos.CursosResponse;
 import Application.dtos.Listado_Cursos.InscripcionRequest;
 import Application.services.ListarCursosService;
-import Infrastructure.repositories.CursoRepository;
-import Infrastructure.repositories.UsuarioCursoRepository;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -16,10 +14,13 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class PrincipalController implements Initializable {
+
+    // ====== ELEMENTOS FXML ======
 
     @FXML private TextField searchField;
     @FXML private ScrollPane misCursosScroll;
@@ -29,23 +30,25 @@ public class PrincipalController implements Initializable {
     @FXML private Label noCoursesLabel;
     @FXML private Button leftArrow, rightArrow;
 
-    private ListarCursosService listarCursosService;
+    // ====== DEPENDENCIAS ========
+    private final ListarCursosService listarCursosService;
     private int usuarioActualId = AppServices.getUsuarioActual().id();
     private CursosResponse cursosActuales;
 
+
+    // ====== CONSTRUCTOR =========
+    public PrincipalController(ListarCursosService listarCursosService) {
+        this.listarCursosService = listarCursosService;
+    }
+
+    // ====== MÉTODOS FXML ========
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Instancia del servicio los repos de curso
-        listarCursosService = new ListarCursosService(
-                new CursoRepository(),
-                new UsuarioCursoRepository()
-        );
-
         cargarCursosDesdeBD();
         configurarFlechas();
     }
 
-    //Se cargan los cursos desde la base de datos
+
     private void cargarCursosDesdeBD() {
         try {
             cursosActuales = listarCursosService.obtenerCursosCompletos(usuarioActualId);
@@ -56,7 +59,7 @@ public class PrincipalController implements Initializable {
         }
     }
 
-    //se revisa cuales son los cursos que ya tiene el usuario y se cargan visualmente
+    // Se revisa cuáles son los cursos que ya tiene el usuario y se cargan visualmente
     private void cargarMisCursos() {
         misCursosContainer.getChildren().clear();
 
@@ -73,7 +76,7 @@ public class PrincipalController implements Initializable {
         }
     }
 
-    //se crean los cuadros de los cursos
+    // Se crean los cuadros de los cursos del usuario
     private VBox crearTarjetaCurso(CursoResponse curso) {
         VBox card = new VBox(10);
         card.setPrefSize(300, 200);
@@ -94,7 +97,7 @@ public class PrincipalController implements Initializable {
         return card;
     }
 
-    //Se revisan que cursos no tiene el usuario es decir los disponiblea s a añadir y los carga visualmente
+    // Se cargan los cursos disponibles (no inscritos)
     private void cargarCursosDisponibles() {
         cursosDisponiblesContainer.getChildren().clear();
 
@@ -121,7 +124,7 @@ public class PrincipalController implements Initializable {
         return card;
     }
 
-    //Se contruye una solicitud es decir un DTO y se llama al metodo de servicio para incribir el curso
+    // Se construye la solicitud (DTO) y se llama al servicio para inscribir el curso
     private void inscribirCurso(int cursoId) {
         try {
             InscripcionRequest request = new InscripcionRequest(usuarioActualId, cursoId);
@@ -134,7 +137,7 @@ public class PrincipalController implements Initializable {
         }
     }
 
-    //Lo siguiente son configuraciones y ajuestes visuales para la estetica y funcionamiento visual de la pantalla
+
 
     private void configurarFlechas() {
         if (leftArrow != null && rightArrow != null) {
@@ -154,6 +157,10 @@ public class PrincipalController implements Initializable {
         );
         timeline.play();
     }
+
+    // ============================
+    // ====== ALERTAS ============
+    // ============================
 
     private void mostrarError(String titulo, String mensaje) {
         Alert a = new Alert(Alert.AlertType.ERROR);

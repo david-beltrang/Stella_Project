@@ -1,19 +1,23 @@
 package Infrastructure.controllers;
 
 import Application.dtos.leccion.LeccionLista;
-//import Domain.models.CursoValueObjects.CursoId;//
 import Domain.models.UsuarioValueObjects.UsuarioId;
-
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
+
+import java.util.function.Function;
 
 /**
- * Controlador de la PANTALLA DE LECCIÓN:
+ * Controlador de la pantalla de LECCIÓN.
  * - Recibe el contexto (usuario, curso) y la lección seleccionada (LeccionLista).
  * - Muestra título, tipo y estado.
- * - (Botones opcionales) Volver al curso / volver a la sección.
+ * - Opcionalmente permite volver a curso o sección.
  */
 public class LeccionController {
 
@@ -24,17 +28,24 @@ public class LeccionController {
     @FXML private Button btnVolverSeccion;
 
     private UsuarioId usuarioId;
-    //private CursoId cursoId;
     private LeccionLista leccion;
 
-    /** Quien abre esta pantalla llama a este método. */
-    public void setContext(UsuarioId usuarioId,  LeccionLista leccion) {
+    // Factory global para navegar (inyectada por ControllerControladores)
+    private Function<Class<?>, Object> controllerFactory;
+
+    /** Inyección de la factory global desde ControllerControladores */
+    public void setControllerFactory(Function<Class<?>, Object> controllerFactory) {
+        this.controllerFactory = controllerFactory;
+    }
+
+    /** Método llamado por quien abre esta pantalla (le pasa el contexto). */
+    public void setContext(UsuarioId usuarioId, LeccionLista leccion) {
         this.usuarioId = usuarioId;
-       // this.cursoId = cursoId;//
         this.leccion = leccion;
         pintar();
     }
 
+    /** Muestra la información de la lección en la vista */
     private void pintar() {
         if (leccion == null) {
             new Alert(Alert.AlertType.ERROR, "Lección no recibida").showAndWait();
@@ -46,24 +57,32 @@ public class LeccionController {
     }
 
     // ----- Navegación opcional -----
+
     @FXML
     private void volverAlCurso() {
-        try {
-            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/views/Curso.fxml"));
-            javafx.scene.Parent root = loader.load();
-            // IMPORTANTE: para mantener el contexto deberías volver a llamar setContext(...)
-            // Aquí no sabemos quién invoca, así que normalmente regreso a un "router" o repinto curso.
-            javafx.stage.Stage stage = (javafx.stage.Stage) lblTitulo.getScene().getWindow();
-            stage.setScene(new javafx.scene.Scene(root, 1920, 1080)); stage.centerOnScreen(); stage.show();
-        } catch (Exception e) {
-            new Alert(Alert.AlertType.ERROR, "No se pudo volver: " + e.getMessage()).showAndWait();
-        }
+        cambiarVista("/views/Curso.fxml", "STELLA - Curso", btnVolverCurso);
     }
 
     @FXML
     private void volverALaSeccion() {
-        // Similar a volverAlCurso pero cargando Seccion.fxml
-        // Si quieres conservar la sección exacta, debes pasar también el DTO de Seccion.
-        new Alert(Alert.AlertType.INFORMATION, "Implementa esta navegación si usas pantalla de sección.").showAndWait();
+        cambiarVista("/views/Seccion.fxml", "STELLA - Sección", btnVolverSeccion);
+    }
+
+    /** Carga una nueva vista usando la factory global */
+    private void cambiarVista(String fxmlPath, String titulo, Button origen) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            if (controllerFactory != null) {
+                loader.setControllerFactory(controllerFactory::apply);
+            }
+            Parent next = loader.load();
+
+            Stage stage = (Stage) origen.getScene().getWindow();
+            stage.setScene(new Scene(next));
+            stage.setTitle(titulo);
+            stage.centerOnScreen();
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, "No se pudo cambiar la vista: " + e.getMessage()).showAndWait();
+        }
     }
 }

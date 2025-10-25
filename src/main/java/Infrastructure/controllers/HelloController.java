@@ -1,6 +1,5 @@
 package Infrastructure.controllers;
 
-import Application.config.AppServices;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,51 +8,51 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
+import java.util.function.Function;
 
 public class HelloController {
 
     @FXML private Button loginButton;
     @FXML private Button registroButton;
 
+    // Esta referencia se inyecta desde el ControllerControladores
+    private Function<Class<?>, Object> controllerFactory;
+
+    // Setter usado por el orquestador para pasarle la factory global
+    public void setControllerFactory(Function<Class<?>, Object> controllerFactory) {
+        this.controllerFactory = controllerFactory;
+    }
+
+    // --- EVENTOS DE BOTONES ---
+
     @FXML
     private void goToLogin() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Login.fxml"));
-            loader.setControllerFactory(c -> {
-                if (c == Infrastructure.controllers.LoginController.class) return new Infrastructure.controllers.LoginController(AppServices.service());
-                try { return c.getDeclaredConstructor().newInstance(); }
-                catch (Exception e) { throw new RuntimeException(e); }
-            });
-            Parent next = loader.load();
-            Stage stage = (Stage) loginButton.getScene().getWindow();
-            stage.setScene(new Scene(next));
-            stage.centerOnScreen();
-        } catch (Exception e) {
-            new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR,
-                    "No pude cargar /views/Login.fxml : " + e.getMessage()).showAndWait();
-        }
+        cambiarVista("/views/Login.fxml", "STELLA - Login", loginButton);
     }
 
     @FXML
     private void goToRegistro() {
+        cambiarVista("/views/Registro.fxml", "STELLA - Registro", registroButton);
+    }
+
+    // --- MÉTODO AUXILIAR DE NAVEGACIÓN ---
+    private void cambiarVista(String fxmlPath, String titulo, Button origen) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Registro.fxml"));
-            loader.setControllerFactory(c -> {
-                if (c == Infrastructure.controllers.RegistroController.class)
-                    return new Infrastructure.controllers.RegistroController(AppServices.service());
-                try {
-                    return c.getDeclaredConstructor().newInstance();
-                }
-                catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            });
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            if (controllerFactory != null) {
+                loader.setControllerFactory(controllerFactory::apply);
+            }
+
             Parent next = loader.load();
-            Stage stage = (Stage) registroButton.getScene().getWindow();
+            Stage stage = (Stage) origen.getScene().getWindow();
             stage.setScene(new Scene(next));
+            stage.setTitle(titulo);
             stage.centerOnScreen();
+
         } catch (Exception e) {
-            new Alert(Alert.AlertType.ERROR, "No pude cargar Registro.fxml: " + e.getMessage()).showAndWait();
+            new Alert(Alert.AlertType.ERROR,
+                    "No se pudo cargar " + fxmlPath + " : " + e.getMessage()
+            ).showAndWait();
         }
     }
 }
