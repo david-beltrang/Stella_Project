@@ -5,12 +5,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import Application.dtos.curso.CursoEstructura;
-import Application.dtos.leccion.LeccionLista;
+import Application.dtos.curso.EstructuraCursoResponse;
+import Application.dtos.leccion.LeccionResponse;
 import Application.dtos.seccion.Seccion;
 import Application.services.CursoService;
-
-import Domain.models.UsuarioValueObjects.UsuarioId;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -48,13 +46,13 @@ public class CursoController {
 
     // ---------- Dependencias / Contexto ----------
     private CursoService cursoService;  // se inyecta desde fuera
-    private UsuarioId usuarioId;        // usuario actual
+    private Integer usuarioId;        // usuario actual
     private Integer cursoId;            // curso que estamos viendo
 
     // ---------- Estado interno (para mapear selección -> DTO real) ----------
-    private CursoEstructura estructura;           // estructura completa del curso
+    private EstructuraCursoResponse estructura;           // estructura completa del curso
     private List<Seccion> seccionesActuales;      // secciones mostradas
-    private List<LeccionLista> leccionesActuales; // lecciones de la sección seleccionada
+    private List<LeccionResponse> leccionesActuales; // lecciones de la sección seleccionada
     private Seccion seccionSeleccionada;          // sección actualmente elegida
 
     // =====================================================================
@@ -67,7 +65,7 @@ public class CursoController {
     }
 
     /** Punto de entrada a esta pantalla. Debes llamarlo al cargar el FXML. */
-    public void init(UsuarioId usuarioId, Integer cursoId) {
+    public void init(Integer usuarioId, Integer cursoId) {
         this.usuarioId = Objects.requireNonNull(usuarioId, "usuarioId");
         this.cursoId   = Objects.requireNonNull(cursoId,   "cursoId");
         cargarEstructuraYMostrar();   // carga datos y pinta listas
@@ -84,7 +82,7 @@ public class CursoController {
             estructura = cursoService.obtenerEstructuraCurso(usuarioId, cursoId);
 
             // 2) Pinto el título del curso
-            lblTituloCurso.setText(estructura.tituloCurso());
+            lblTituloCurso.setText(String.valueOf(estructura.tituloCurso()));
 
             // 3) Preparo las secciones para la lista visual
             if (estructura.secciones() == null) {
@@ -93,7 +91,7 @@ public class CursoController {
                 seccionesActuales = new ArrayList<>(estructura.secciones());
             }
 
-            // 4) Creo una lista de Strings para mostrar (fácil de leer)
+            // 4) Creo una lista de Strings para mostrar
             List<String> textosSecciones = new ArrayList<>();
             for (Seccion s : seccionesActuales) {
                 int cantidad = (s.lecciones() == null) ? 0 : s.lecciones().size();
@@ -143,7 +141,7 @@ public class CursoController {
 
         // 3) Convierto las lecciones a texto simple para mostrar
         List<String> textosLecciones = new ArrayList<>();
-        for (LeccionLista l : leccionesActuales) {
+        for (LeccionResponse l : leccionesActuales) {
             String candado = l.desbloqueada() ? "" : "[BLOQUEADA] ";
             String texto = candado + l.titulo() + " — " + l.tipoContenido() + " — " + l.estado().name();
             textosLecciones.add(texto);
@@ -162,7 +160,7 @@ public class CursoController {
             btnAbrirLeccion.setDisable(true);
             return;
         }
-        LeccionLista l = leccionesActuales.get(indice);
+        LeccionResponse l = leccionesActuales.get(indice);
         // Solo habilito si está desbloqueada
         btnAbrirLeccion.setDisable(!l.desbloqueada());
     }
@@ -179,7 +177,7 @@ public class CursoController {
             mostrarInfo("Selecciona una lección.");
             return;
         }
-        LeccionLista l = leccionesActuales.get(indiceLeccion);
+        LeccionResponse l = leccionesActuales.get(indiceLeccion);
         if (!l.desbloqueada()) {
             mostrarInfo("La lección está bloqueada.");
             return;

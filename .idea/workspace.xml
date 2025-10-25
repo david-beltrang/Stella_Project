@@ -5,11 +5,36 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="51597e74-c3d4-4a99-ad6b-5f4c9d498175" name="Changes" comment="Se eliminan las clases CursoRepository.java y InterfazCursoRepository.java, se elimina el dto CursoId.java. Para poder realizar integración con el desarollo del otro grupo de developers.">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/CursoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Application/dtos/curso/CursoEstructura.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/curso/EstructuraCursoResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Application/dtos/curso/ProgresoLeccionId.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Application/dtos/leccion/ContenidoLeccionResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/leccion/ContenidoLeccionResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Application/dtos/leccion/LeccionLista.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/leccion/LeccionResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Application/dtos/leccion/MarcarLeccionCompletadaRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/leccion/MarcarLeccionCompletadaRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Application/dtos/leccion/SolicitarContenidoLeccionRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/leccion/SolicitarContenidoLeccionRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Application/dtos/seccion/Seccion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/seccion/Seccion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Application/dtos/sesionEstudio/LeccionDetalleResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/sesionEstudio/LeccionDetalleResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Application/dtos/sesionEstudio/Pomodoro/IniciarSesionEstudioRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/sesionEstudio/Pomodoro/IniciarSesionEstudioRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Application/services/CursoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/services/CursoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Application/services/SesionEstudioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/services/SesionEstudioService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/models/CursoValueObjects/EstadoLeccion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/models/LeccionValueObjects/EstadoLeccion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/models/CursoValueObjects/EstadoProgreso.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/models/LeccionValueObjects/EstadoProgreso.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/models/CursoValueObjects/LeccionId.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/models/CursoValueObjects/TipoContenido.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/models/LeccionValueObjects/TipoContenido.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/models/Leccion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/models/Leccion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/models/ProgresoLeccion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/models/ProgresoLeccion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/models/UsuarioValueObjects/UsuarioId.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/repositoriesInterfaces/InterfazCursoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/repositoriesInterfaces/InterfazCursoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/repositoriesInterfaces/InterfazLeccionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/repositoriesInterfaces/InterfazLeccionRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/repositoriesInterfaces/InterfazProgresoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/repositoriesInterfaces/InterfazProgresoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/CursoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/CursoController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/LeccionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/LeccionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/CursoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/CursoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/LeccionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/LeccionRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/ProgresoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/ProgresoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/UsuarioCursoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/UsuarioCursoRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

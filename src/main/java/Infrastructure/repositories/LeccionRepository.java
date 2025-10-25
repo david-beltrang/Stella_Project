@@ -1,9 +1,8 @@
 package Infrastructure.repositories;
 
-import Domain.models.CursoValueObjects.LeccionId;
 import Domain.models.CursoValueObjects.Titulo;
 import Domain.models.Leccion;
-import Domain.models.CursoValueObjects.TipoContenido;
+import Domain.models.LeccionValueObjects.TipoContenido;
 import Domain.repositoriesInterfaces.InterfazLeccionRepository;
 import Infrastructure.persistence.ConexionBD;
 
@@ -22,8 +21,7 @@ public class LeccionRepository implements InterfazLeccionRepository {
 
     private Leccion mapResultSetToLeccion(ResultSet rs) throws SQLException {
         return new Leccion(
-                // VO: LeccionId
-                new LeccionId(rs.getInt("id")),
+                rs.getInt("id"),
 
                 // Verificcar si es NULL
                 rs.wasNull() ? null : rs.getInt("curso_id"),
@@ -44,12 +42,12 @@ public class LeccionRepository implements InterfazLeccionRepository {
     }
 
     @Override
-    public Leccion buscarPorId(LeccionId leccionId) {
+    public Leccion buscarPorId(Integer leccionId) {
         String sql = "SELECT * FROM leccion WHERE id = ?";
         try (Connection conn = db.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, leccionId.valor());
+            stmt.setInt(1, leccionId);
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
@@ -83,36 +81,6 @@ public class LeccionRepository implements InterfazLeccionRepository {
     }
 
     /**
-     * Lógica SQL para encontrar la siguiente lección en la secuencia.
-     */
-    @Override
-    public Leccion buscarProximaLeccion(Integer cursoId, int seccionActual, int ordenActual) {
-        String sql = "SELECT * FROM leccion WHERE curso_id = ? AND " +
-                " (numero_seccion = ? AND numero_orden > ?) " +
-                " OR numero_seccion > ? " +
-                "ORDER BY numero_seccion ASC, numero_orden ASC LIMIT 1";
-
-        try (Connection conn = db.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            // Desempaquetado del VO para el JDBC: cursoId.valor()
-            stmt.setInt(1, cursoId);
-            stmt.setInt(2, seccionActual);
-            stmt.setInt(3, ordenActual);
-            stmt.setInt(4, seccionActual);
-
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return mapResultSetToLeccion(rs);
-                }
-            }
-        } catch (SQLException e) {
-            System.err.println("Error al buscar próxima lección: " + e.getMessage());
-        }
-        return null;
-    }
-
-    /**
      * Lógica SQL para encontrar la lección anterior en la secuencia.
      */
     @Override
@@ -139,6 +107,36 @@ public class LeccionRepository implements InterfazLeccionRepository {
             }
         } catch (SQLException e) {
             System.err.println("Error al buscar lección anterior: " + e.getMessage());
+        }
+        return null;
+    }
+
+    /**
+     * Lógica SQL para encontrar la siguiente lección en la secuencia.
+     */
+    @Override
+    public Leccion buscarProximaLeccion(Integer cursoId, int seccionActual, int ordenActual) {
+        String sql = "SELECT * FROM leccion WHERE curso_id = ? AND " +
+                " (numero_seccion = ? AND numero_orden > ?) " +
+                " OR numero_seccion > ? " +
+                "ORDER BY numero_seccion ASC, numero_orden ASC LIMIT 1";
+
+        try (Connection conn = db.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            // Desempaquetado del VO para el JDBC: cursoId.valor()
+            stmt.setInt(1, cursoId);
+            stmt.setInt(2, seccionActual);
+            stmt.setInt(3, ordenActual);
+            stmt.setInt(4, seccionActual);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return mapResultSetToLeccion(rs);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al buscar próxima lección: " + e.getMessage());
         }
         return null;
     }

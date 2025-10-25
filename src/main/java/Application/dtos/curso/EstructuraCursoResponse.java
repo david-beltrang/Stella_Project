@@ -1,12 +1,13 @@
 package Application.dtos.curso;
 
 import Application.dtos.seccion.Seccion;
+import Domain.models.CursoValueObjects.Titulo;
 
 import java.util.List;
 
-public record CursoEstructura(
+public record EstructuraCursoResponse(
         Integer id,
-        String tituloCurso,
+        Titulo tituloCurso,
         List<Seccion> secciones
 ) {
 }

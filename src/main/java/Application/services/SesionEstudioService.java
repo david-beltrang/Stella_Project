@@ -4,13 +4,10 @@ import Application.dtos.leccion.ContenidoLeccionResponse;
 import Application.dtos.leccion.MarcarLeccionCompletadaRequest;
 import Application.dtos.leccion.SolicitarContenidoLeccionRequest;
 import Application.dtos.sesionEstudio.*;
-import Domain.models.CursoValueObjects.LeccionId;
-import Domain.models.CursoValueObjects.EstadoProgreso;
+import Domain.models.LeccionValueObjects.EstadoProgreso;
 import Domain.models.Leccion;
 import Domain.models.ProgresoLeccion;
-import Domain.models.UsuarioValueObjects.UsuarioId;
 import Domain.repositoriesInterfaces.*;
-import Infrastructure.repositories.LeccionRepository;
 
 /**
  * Servicio de aplicación para gestionar las sesiones de estudio, progreso, y la lógica de gamificación.
@@ -34,11 +31,11 @@ public class SesionEstudioService {
      * Valida la secuencialidad y devuelve el contenido y las opciones de navegación.
      */
     public ContenidoLeccionResponse servirContenido(
-            UsuarioId usuarioId,
+            Integer usuarioId,
             SolicitarContenidoLeccionRequest request
     ) throws IllegalAccessException { // Excepción si la regla de negocio es violada
 
-        LeccionId leccionId = request.leccionId();
+        Integer leccionId = request.leccionId();
         Leccion leccionActual = leccionRepository.buscarPorId(leccionId);
 
         if (leccionActual == null) {
@@ -80,10 +77,10 @@ public class SesionEstudioService {
      * Actualiza el progreso y dispara la lógica de gamificación.
      */
     public SesionCompletadaResponse marcarLeccionComoCompletada(
-            UsuarioId usuarioId,
+            Integer usuarioId,
             MarcarLeccionCompletadaRequest request
     ) {
-        LeccionId leccionId = request.leccionId();
+        Integer leccionId = request.leccionId();
 
         // 1. Lógica del Dominio: Actualizar Progreso
         ProgresoLeccion progreso = progresoRepository.buscarPorUsuarioYLeccion(usuarioId, leccionId);
@@ -116,7 +113,7 @@ public class SesionEstudioService {
     /**
      * Determina si el usuario ha completado la lección anterior para desbloquear la actual.
      */
-    private boolean isLeccionDesbloqueada(UsuarioId usuarioId, Leccion leccionActual) {
+    private boolean isLeccionDesbloqueada(Integer usuarioId, Leccion leccionActual) {
         // La primera lección de la primera sección siempre está desbloqueada
         if (leccionActual.getNumeroOrden() == 1 && leccionActual.getNumeroSeccion() == 1) {
             return true;
@@ -139,7 +136,7 @@ public class SesionEstudioService {
     /**
      * Verifica el estado de una lección específica en el repositorio de progreso.
      */
-    private boolean isLeccionCompletada(UsuarioId usuarioId, LeccionId leccionId) {
+    private boolean isLeccionCompletada(Integer usuarioId, Integer leccionId) {
         ProgresoLeccion progreso = progresoRepository.buscarPorUsuarioYLeccion(usuarioId, leccionId);
         // Es completada si existe el registro Y el estado es COMPLETADA
         return progreso != null && progreso.getEstado() == EstadoProgreso.COMPLETADA;

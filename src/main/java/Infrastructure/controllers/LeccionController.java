@@ -5,13 +5,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import Application.dtos.curso.CursoEstructura;
-import Application.dtos.leccion.LeccionLista;
+import Application.dtos.curso.EstructuraCursoResponse;
+import Application.dtos.leccion.LeccionResponse;
 import Application.dtos.seccion.Seccion;
 import Application.services.CursoService;
 
-import Domain.models.CursoValueObjects.EstadoProgreso;
-import Domain.models.UsuarioValueObjects.UsuarioId;
+import Domain.models.LeccionValueObjects.EstadoProgreso;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -44,14 +43,14 @@ public class LeccionController {
 
     // ------------------- Dependencias / Contexto -------------------
     private CursoService cursoService;     // se inyecta desde fuera
-    private UsuarioId usuarioId;           // usuario actual
+    private Integer usuarioId;           // usuario actual
     private Integer cursoId;               // curso actual
     private Integer numeroSeccion;         // sección actual (1, 2, 3, ...)
 
     // ------------------- Estado local de navegación -------------------
-    private List<LeccionLista> lecciones;  // lecciones de la sección actual
+    private List<LeccionResponse> lecciones;  // lecciones de la sección actual
     private int indexActual;               // 0..(n-1)
-    private LeccionLista leccion;          // lección mostrada
+    private LeccionResponse leccion;          // lección mostrada
 
     // =================================================================
     // =============== MÉTODOS PÚBLICOS QUE LLAMA OTRA CLASE ===========
@@ -69,7 +68,7 @@ public class LeccionController {
      * @param numeroSeccion    número de sección a mostrar
      * @param indexSeleccionado índice de la lección dentro de esa sección (0-based)
      */
-    public void init(UsuarioId usuarioId, Integer cursoId, Integer numeroSeccion, int indexSeleccionado) {
+    public void init(Integer usuarioId, Integer cursoId, Integer numeroSeccion, int indexSeleccionado) {
         this.usuarioId = Objects.requireNonNull(usuarioId, "usuarioId");
         this.cursoId = Objects.requireNonNull(cursoId, "cursoId");
         this.numeroSeccion = Objects.requireNonNull(numeroSeccion, "numeroSeccion");
@@ -101,7 +100,7 @@ public class LeccionController {
     private void cargarLeccionesDeSeccion() {
         lecciones = Collections.emptyList();
 
-        CursoEstructura estructura = cursoService.obtenerEstructuraCurso(usuarioId, cursoId);
+        EstructuraCursoResponse estructura = cursoService.obtenerEstructuraCurso(usuarioId, cursoId);
 
         // Buscar la sección con un for simple (sin streams)
         Seccion encontrada = null;
@@ -193,7 +192,7 @@ public class LeccionController {
 
         // 1) Reemplazar el DTO actual por uno con estado COMPLETADA.
         //    (Ajusta los nombres si tu LeccionLista tiene otros componentes.)
-        LeccionLista actualCompletada = new LeccionLista(
+        LeccionResponse actualCompletada = new LeccionResponse(
                 leccion.id(),
                 leccion.titulo(),
                 leccion.numeroSeccion(),
@@ -206,9 +205,9 @@ public class LeccionController {
 
         // 2) Desbloquear visualmente la siguiente (si existe)
         if (indexActual + 1 < lecciones.size()) {
-            LeccionLista siguiente = lecciones.get(indexActual + 1);
+            LeccionResponse siguiente = lecciones.get(indexActual + 1);
             if (!siguiente.desbloqueada()) {
-                LeccionLista siguienteDesbloqueada = new LeccionLista(
+                LeccionResponse siguienteDesbloqueada = new LeccionResponse(
                         siguiente.id(),
                         siguiente.titulo(),
                         siguiente.numeroSeccion(),

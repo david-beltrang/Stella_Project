@@ -1,15 +1,13 @@
 package Domain.repositoriesInterfaces;
 
-import Domain.models.CursoValueObjects.LeccionId;
 import Domain.models.ProgresoLeccion;
-import Domain.models.UsuarioValueObjects.UsuarioId;
 
 public interface InterfazProgresoRepository {
     /**
      * Obtiene el progreso de una lección específica para un usuario dado.
      * @return La entidad ProgresoLeccion.
      */
-    ProgresoLeccion buscarPorUsuarioYLeccion(UsuarioId usuarioId, LeccionId leccionId);
+    ProgresoLeccion buscarPorUsuarioYLeccion(Integer usuarioId, Integer leccionId);
 
     /**
      * Persiste (guarda o actualiza) el estado de progreso de una lección.

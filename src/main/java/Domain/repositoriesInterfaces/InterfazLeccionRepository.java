@@ -1,6 +1,5 @@
 package Domain.repositoriesInterfaces;
 
-import Domain.models.CursoValueObjects.LeccionId;
 import Domain.models.Leccion;
 
 // No se define la Entidad Leccion completa, solo los métodos de lectura necesarios.
@@ -11,7 +10,7 @@ public interface InterfazLeccionRepository {
      * @param leccionId El VO del ID de la lección.
      * @return La entidad Leccion.
      */
-    Leccion buscarPorId(LeccionId leccionId);
+    Leccion buscarPorId(Integer leccionId);
 
     /**
      * Obtiene todas las lecciones de un curso, ordenadas por sección y orden.

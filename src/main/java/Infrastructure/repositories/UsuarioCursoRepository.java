@@ -64,8 +64,6 @@ public class UsuarioCursoRepository implements InterfazUsuarioCursoRepository {
         return inscripciones;
     }
 
-
-
     // Método auxiliar para mapear un ResultSet a un UsuarioCurso.
     private UsuarioCurso obtenerUsuarioCurso(ResultSet rs) throws SQLException {
         return UsuarioCurso.reconstruir(

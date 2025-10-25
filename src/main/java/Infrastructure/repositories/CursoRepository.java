@@ -19,23 +19,6 @@ public class CursoRepository implements InterfazCursoRepository {
         // La creación de la tabla se maneja en el script SQL al iniciar H2.
     }
 
-    @Override
-    public List<Curso> listarTodos() {
-        List<Curso> cursos = new ArrayList<>();
-        String sql = "SELECT * FROM \"curso\"";
-        try (Connection conn = ConexionBD.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
-            while (rs.next()) {
-                cursos.add(obtenerCurso(rs));
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException("Error listando cursos: " + e.getMessage(), e);
-        }
-        return cursos;
-    }
-
-
     // Método para obtener un curso por su id.
     @Override
     public Optional<Curso> buscarPorId(Integer id) {
@@ -54,21 +37,7 @@ public class CursoRepository implements InterfazCursoRepository {
         return Optional.empty();
     }
 
-
-    // Método para eliminar un curso.
-    @Override
-    public void eliminar(int id) {
-        String sql = "DELETE FROM \"curso\" WHERE id = ?";
-        try (Connection conn = ConexionBD.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, id);
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException("Error eliminando curso: " + e.getMessage(), e);
-        }
-    }
-
-
+    // Método para encontrar que cursos esta y no esta cursando el usuario
     @Override
     public List<Curso> encontrarCursosNoCursadosPorUsuarioId(Integer usuarioId) {
         List<Curso> cursosNoCursados = new ArrayList<>();
@@ -88,7 +57,6 @@ public class CursoRepository implements InterfazCursoRepository {
         }
         return cursosNoCursados;
     }
-
 
     // Método auxiliar para mapear un ResultSet a un Usuario.
     private Curso obtenerCurso(ResultSet rs) throws SQLException {

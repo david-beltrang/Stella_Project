@@ -1,7 +1,6 @@
 package Domain.models;
 
-import Domain.models.CursoValueObjects.LeccionId;
-import Domain.models.CursoValueObjects.TipoContenido;
+import Domain.models.LeccionValueObjects.TipoContenido;
 import Domain.models.CursoValueObjects.Titulo;
 
 /**
@@ -9,7 +8,7 @@ import Domain.models.CursoValueObjects.Titulo;
  * La entidad es responsable de gestionar sus datos estructurales.
  */
 public class Leccion {
-    private final LeccionId id; // Usamos VO
+    private final Integer id; // Usamos VO
     private final Integer cursoId;
     private final Titulo titulo; // Usamos VO
     private final int numeroSeccion;
@@ -17,7 +16,7 @@ public class Leccion {
     private final TipoContenido tipoContenido;
     private final String contenidoHtml;
 
-    public Leccion(LeccionId id, Integer cursoId, Titulo titulo, int numeroSeccion, int numeroOrden,
+    public Leccion(Integer id, Integer cursoId, Titulo titulo, int numeroSeccion, int numeroOrden,
                    TipoContenido tipoContenido, String contenidoHtml) {
         this.id = id;
         this.cursoId = cursoId;
@@ -28,14 +27,10 @@ public class Leccion {
         this.contenidoHtml = contenidoHtml;
     }
 
-    public String getTituloValor() {
-        return titulo.valor();
-    }
-
     // Getters actualizados para devolver el VO o el valor primitivo si no tiene VO
-    public LeccionId getId() { return id; }
+    public Integer getId() { return id; }
     public Integer getCursoId() { return cursoId; }
-    public String getTitulo() { return titulo.getValor(); } // Se expone el valor a la Capa de Aplicación/DTOs
+    public String getTitulo() { return this.titulo; } // Se expone el valor a la Capa de Aplicación/DTOs
     public int getNumeroSeccion() { return numeroSeccion; }
     public int getNumeroOrden() { return numeroOrden; }
     public TipoContenido getTipoContenido() { return tipoContenido; }
