@@ -8,7 +8,7 @@ import javafx.scene.paint.Color;
  * Helper que maneja únicamente animaciones y feedback visual.
  * Sin dependencias del backend.
  */
-public class UIFeedbackHelper {
+public class  UIFeedbackHelper {
 
     public void showInfo(String title, String msg) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

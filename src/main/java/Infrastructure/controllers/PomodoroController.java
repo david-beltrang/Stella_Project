@@ -7,21 +7,19 @@ import Infrastructure.ui.UIFeedbackHelper;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
-import javafx.stage.Stage;
-
 import java.util.function.Function;
 
 /**
  * Controlador de la vista Pomodoro.
- * No maneja lógica de negocio: delega todo a servicios inyectados
- * por ControllerControladores y a helpers de interfaz (UIFeedbackHelper, NavigationManager).
+ * Encargado solo de manejar interacción de UI y delegar lógica a los servicios.
+ * No incluye validación de quiz (no implementada en backend).
  */
 public class PomodoroController {
 
     // ====== Dependencias (inyectadas por ControllerControladores) ======
-    private final SesionPomodoroService sesionPomodoroService; // <-- back: iniciar/guardar sesión
-    private final PomodoroTimer pomodoroTimer;                 // <-- back: lógica del temporizador
-    private Function<Class<?>, Object> controllerFactory;      // <-- inyectada desde ControllerControladores
+    private final SesionPomodoroService sesionPomodoroService;
+    private final PomodoroTimer pomodoroTimer;
+    private Function<Class<?>, Object> controllerFactory;
 
     // ====== Helpers de UI (front) ======
     private final NavigationManager navigator = new NavigationManager();
@@ -34,10 +32,7 @@ public class PomodoroController {
     @FXML private Button btn25min, btn30min, btn45min, btn60min;
     @FXML private Button homeBtn, forumBtn, achievementsBtn, profileBtn;
 
-    @FXML private ToggleGroup quizGroup;
-    @FXML private Label quizResult;
-
-    // ====== Estado mínimo ======
+    // ====== Estado ======
     private int minutosSeleccionados;
 
     // ====== Constructores ======
@@ -47,10 +42,9 @@ public class PomodoroController {
         this.pomodoroTimer = pomodoroTimer;
     }
 
-    // Ctor vacío (para FXMLLoader si aún no usa la factory)
     public PomodoroController() {
         this.sesionPomodoroService = null;
-        this.pomodoroTimer = PomodoroTimer.getInstance(); // fallback
+        this.pomodoroTimer = PomodoroTimer.getInstance();
     }
 
     // ====== Setter requerido por ControllerControladores ======
@@ -64,12 +58,13 @@ public class PomodoroController {
         setupButtons();
         setupKeyboardShortcuts();
 
-        // Vincula la etiqueta del temporizador al PomodoroTimer
+        // Vincular etiqueta del temporizador al PomodoroTimer
         if (timerLabel != null && pomodoroTimer != null) {
             uiHelper.bindTimerLabel(timerLabel, pomodoroTimer);
         }
     }
 
+    // ====== Configuración ======
     private void setupKeyboardShortcuts() {
         if (timerLabel == null) return;
         timerLabel.sceneProperty().addListener((obs, oldScene, newScene) -> {
@@ -111,9 +106,18 @@ public class PomodoroController {
 
     // ====== Eventos ======
     private void startPomodoro() {
-        if (sesionPomodoroService != null)
-            sesionPomodoroService.iniciarSesion(minutosSeleccionados); // <-- lógica de back
-        pomodoroTimer.start(); // solo temporizador
+        try {
+            if (sesionPomodoroService != null) {
+                // Inicia la sesión con el tiempo seleccionado
+                sesionPomodoroService.iniciarSesion(
+                        new Application.dtos.sesionEstudio.Pomodoro.IniciarSesionEstudioRequest(
+                                1, minutosSeleccionados > 0 ? minutosSeleccionados : 25, 5)
+                );
+            }
+            pomodoroTimer.start();
+        } catch (Exception ex) {
+            uiHelper.showError("Error al iniciar sesión", ex.getMessage());
+        }
     }
 
     private void pausePomodoro() {
@@ -126,19 +130,16 @@ public class PomodoroController {
             return;
         }
 
-        if (sesionPomodoroService != null)
-            sesionPomodoroService.confirmarSesion(minutosSeleccionados); // <-- back: guardar sesión
+        try {
+            if (sesionPomodoroService != null) {
+                sesionPomodoroService.confirmarSesion(minutosSeleccionados);
+            }
 
-        navigator.goTo("/views/PomodoroDescanso.fxml", "Descanso",
-                controllerFactory, confirmButton);
-    }
+            navigator.goTo("/views/PomodoroDescanso.fxml", "Descanso",
+                    controllerFactory, confirmButton);
 
-    @FXML
-    private void onQuizValidate() {
-        // <-- asumo que el back valida las respuestas
-        if (sesionPomodoroService != null && quizGroup != null) {
-            String resultado = sesionPomodoroService.validarQuiz(quizGroup);
-            uiHelper.updateQuizFeedback(quizResult, resultado);
+        } catch (Exception ex) {
+            uiHelper.showError("Error al confirmar sesión", ex.getMessage());
         }
     }
 
@@ -148,4 +149,3 @@ public class PomodoroController {
     @FXML private void goAchievements(){ uiHelper.showInfo("Logros", "Pantalla de Logros aún no implementada."); }
     @FXML private void goProfile()     { uiHelper.showInfo("Perfil", "Pantalla de Perfil aún no implementada."); }
 }
-//holapp

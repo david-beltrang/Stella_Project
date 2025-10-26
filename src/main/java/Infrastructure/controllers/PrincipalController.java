@@ -4,6 +4,7 @@ import Application.config.AppServices;
 import Application.dtos.Listado_Cursos.CursoResponse;
 import Application.dtos.Listado_Cursos.CursosResponse;
 import Application.dtos.Listado_Cursos.InscripcionRequest;
+import Application.services.LeccionService;
 import Application.services.ListarCursosService;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -32,13 +33,15 @@ public class PrincipalController implements Initializable {
 
     // ====== DEPENDENCIAS ========
     private final ListarCursosService listarCursosService;
+    private LeccionService leccionService;
     private int usuarioActualId = AppServices.getUsuarioActual().id();
     private CursosResponse cursosActuales;
 
 
     // ====== CONSTRUCTOR =========
-    public PrincipalController(ListarCursosService listarCursosService) {
+    public PrincipalController(ListarCursosService listarCursosService, LeccionService leccionService) {
         this.listarCursosService = listarCursosService;
+        this.leccionService= leccionService;
     }
 
     // ====== MÉTODOS FXML ========
