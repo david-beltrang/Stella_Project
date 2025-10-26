@@ -4,6 +4,7 @@ import Domain.models.LeccionValueObjects.EstadoProgreso;
 import Domain.models.ProgresoLeccion;
 import Domain.repositoriesInterfaces.InterfazProgresoRepository;
 import Infrastructure.persistence.ConexionBD;
+import Infrastructure.persistence.IConexionBD;
 
 import java.sql.*;
 import java.time.Instant;
@@ -11,10 +12,10 @@ import java.time.Instant;
 // Implementación JDBC real del repositorio de ProgresoLeccion.
 public class ProgresoRepository implements InterfazProgresoRepository {
 
-    private final ConexionBD db;
+    private IConexionBD connMgr;
 
-    public ProgresoRepository(ConexionBD db) {
-        this.db = db;
+    public ProgresoRepository(IConexionBD connMgr) {
+        this.connMgr = connMgr;
     }
 
     private ProgresoLeccion mapResultSetToProgreso(ResultSet rs) throws SQLException {
@@ -40,7 +41,7 @@ public class ProgresoRepository implements InterfazProgresoRepository {
     @Override
     public ProgresoLeccion buscarPorUsuarioYLeccion(Integer usuarioId, Integer leccionId) {
         String sql = "SELECT * FROM progreso_leccion WHERE usuario_id = ? AND leccion_id = ?";
-        try (Connection conn = db.getConnection();
+        try (Connection conn = connMgr.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, usuarioId);

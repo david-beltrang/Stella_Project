@@ -22,22 +22,6 @@ public class CursoRepository implements InterfazCursoRepository {
         this.connMgr = connMgr;
     }
 
-    @Override
-    public List<Curso> listarTodos() {
-        List<Curso> cursos = new ArrayList<>();
-        String sql = "SELECT * FROM \"curso\"";
-        try (Connection conn = connMgr.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
-            while (rs.next()) {
-                cursos.add(obtenerCurso(rs));
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException("Error listando cursos: " + e.getMessage(), e);
-        }
-        return cursos;
-    }
-
 
     // Método para obtener un curso por su id.
     @Override
@@ -57,19 +41,6 @@ public class CursoRepository implements InterfazCursoRepository {
         return Optional.empty();
     }
 
-
-    // Método para eliminar un curso.
-    @Override
-    public void eliminar(int id) {
-        String sql = "DELETE FROM \"curso\" WHERE id = ?";
-        try (Connection conn = connMgr.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, id);
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException("Error eliminando curso: " + e.getMessage(), e);
-        }
-    }
 
 
     @Override

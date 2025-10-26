@@ -4,9 +4,9 @@ import Application.dtos.leccion.LeccionResponse;
 
 import java.util.List;
 
-public record Seccion(
-        int numeroSeccion,
-        String tituloSeccion,
+public record SeccionResponse(
+        int id,
+        String titulo,
         List<LeccionResponse> lecciones
 ) {
 }

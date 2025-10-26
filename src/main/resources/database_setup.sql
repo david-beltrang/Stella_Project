@@ -6,6 +6,7 @@ DROP TABLE IF EXISTS "opcion";
 DROP TABLE IF EXISTS "pregunta";
 DROP TABLE IF EXISTS "prueba";
 DROP TABLE IF EXISTS "leccion";
+DROP TABLE IF EXISTS "seccion";
 DROP TABLE IF EXISTS "usuario_curso";
 DROP TABLE IF EXISTS "sesion_estudio";
 DROP TABLE IF EXISTS "usuario_stats";
@@ -55,29 +56,38 @@ CREATE TABLE "usuario_curso" (
     FOREIGN KEY (curso_id) REFERENCES "curso"(id) ON DELETE CASCADE
 );
 
+-- TABLA: "seccion"
+CREATE TABLE "seccion" (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    curso_id INT NOT NULL,
+    titulo VARCHAR(255) NOT NULL,
+    numero_orden INT NOT NULL,
+    FOREIGN KEY (curso_id) REFERENCES "curso"(id) ON DELETE CASCADE,
+    UNIQUE (numero_orden)
+);
+
 -- TABLA: "leccion" (Contenido individual: Teoría, Video, Práctica, Pregunta)
 CREATE TABLE "leccion" (
     id INT PRIMARY KEY,
-    curso_id INT NOT NULL,
+    seccion_id INT NOT NULL,
     titulo VARCHAR(255) NOT NULL,
-    numero_seccion INT NOT NULL,
     numero_orden INT NOT NULL,
     tipo_contenido VARCHAR(20) NOT NULL,
-    contenido_html CLOB,
-    solucion CLOB,
-    prueba_id INT,
-    FOREIGN KEY (curso_id) REFERENCES "curso"(id) ON DELETE CASCADE,
-    UNIQUE (curso_id, numero_seccion, numero_orden)
+    url_video VARCHAR(255),
+    contenido CLOB,
+    FOREIGN KEY (seccion_id) REFERENCES "seccion"(id) ON DELETE CASCADE,
+    UNIQUE (curso_id, numero_orden)
 );
 
 -- TABLA: "prueba" (Quizzes seccionales o examen final)
 CREATE TABLE "prueba" (
     id INT PRIMARY KEY,
     curso_id INT NOT NULL,
+    seccion_id INT NOT NULL,
     titulo VARCHAR(255) NOT NULL,
     tipo VARCHAR(20) NOT NULL,
-    numero_seccion INT,
     FOREIGN KEY (curso_id) REFERENCES "curso"(id) ON DELETE CASCADE
+    FOREIGN KEY (seccion_id) REFERENCES "seccion"(id) ON DELETE CASCADE
 );
 
 -- TABLA: "pregunta"

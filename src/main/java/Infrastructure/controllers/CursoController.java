@@ -7,7 +7,7 @@ import java.util.Objects;
 
 import Application.dtos.curso.EstructuraCursoResponse;
 import Application.dtos.leccion.LeccionResponse;
-import Application.dtos.seccion.Seccion;
+import Application.dtos.seccion.SeccionResponse;
 import Application.services.CursoService;
 
 import javafx.collections.FXCollections;
@@ -51,9 +51,9 @@ public class CursoController {
 
     // ---------- Estado interno (para mapear selección -> DTO real) ----------
     private EstructuraCursoResponse estructura;           // estructura completa del curso
-    private List<Seccion> seccionesActuales;      // secciones mostradas
+    private List<SeccionResponse> seccionesActuales;      // secciones mostradas
     private List<LeccionResponse> leccionesActuales; // lecciones de la sección seleccionada
-    private Seccion seccionSeleccionada;          // sección actualmente elegida
+    private SeccionResponse seccionSeleccionada;          // sección actualmente elegida
 
     // =====================================================================
     // =============== MÉTODOS PÚBLICOS QUE LLAMA OTRA CLASE ===============
@@ -93,7 +93,7 @@ public class CursoController {
 
             // 4) Creo una lista de Strings para mostrar
             List<String> textosSecciones = new ArrayList<>();
-            for (Seccion s : seccionesActuales) {
+            for (SeccionResponse s : seccionesActuales) {
                 int cantidad = (s.lecciones() == null) ? 0 : s.lecciones().size();
                 String texto = "Sección " + s.numeroSeccion() + ": " + s.tituloSeccion() + " (" + cantidad + " lecciones)";
                 textosSecciones.add(texto);

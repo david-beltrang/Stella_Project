@@ -7,7 +7,7 @@ import java.util.Objects;
 
 import Application.dtos.curso.EstructuraCursoResponse;
 import Application.dtos.leccion.LeccionResponse;
-import Application.dtos.seccion.Seccion;
+import Application.dtos.seccion.SeccionResponse;
 import Application.services.CursoService;
 
 import Domain.models.LeccionValueObjects.EstadoProgreso;
@@ -103,9 +103,9 @@ public class LeccionController {
         EstructuraCursoResponse estructura = cursoService.obtenerEstructuraCurso(usuarioId, cursoId);
 
         // Buscar la sección con un for simple (sin streams)
-        Seccion encontrada = null;
+        SeccionResponse encontrada = null;
         if (estructura.secciones() != null) {
-            for (Seccion s : estructura.secciones()) {
+            for (SeccionResponse s : estructura.secciones()) {
                 if (s.numeroSeccion() == this.numeroSeccion) {
                     encontrada = s;
                     break;

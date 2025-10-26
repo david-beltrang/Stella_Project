@@ -2,7 +2,7 @@ package Application.services;
 
 import Application.dtos.curso.EstructuraCursoResponse;
 import Application.dtos.leccion.LeccionResponse;
-import Application.dtos.seccion.Seccion;
+import Application.dtos.seccion.SeccionResponse;
 
 import Domain.models.Curso;
 import Domain.models.LeccionValueObjects.EstadoProgreso;
@@ -102,7 +102,7 @@ public class CursoService {
                         ));
 
         // 5) Mapear los grupos a los DTOs de Sección (ordenados por número de sección)
-        List<Seccion> secciones =
+        List<SeccionResponse> secciones =
 
                 // Obtenemos un Stream de las entradas del Map cada una tiene
                 // - getKey(): el número de sección (Integer)
@@ -117,7 +117,7 @@ public class CursoService {
                             // Creamos un título para la sección, personalizado con el número
                             String tituloSec = "Sección " + numero + ": Contenido Temático";
                             // Creamos un objeto Seccion
-                            return new Seccion(numero, tituloSec, entry.getValue());
+                            return new SeccionResponse(numero, tituloSec, entry.getValue());
                         })
 
                         // Colectamos todos los objetos Seccion generados en una lista

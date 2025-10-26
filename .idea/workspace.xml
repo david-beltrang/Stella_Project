@@ -4,8 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="51597e74-c3d4-4a99-ad6b-5f4c9d498175" name="Changes" comment="">
+    <list default="true" id="51597e74-c3d4-4a99-ad6b-5f4c9d498175" name="Changes" comment="Merge branch 'feature-secciones_Pprincipal' of https://github.com/david-beltrang/Stella_Project into copia-feature-secciones_Pprincipal&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/main/java/Infrastructure/repositories/CursoRepository.java&#10;#&#9;src/main/java/Infrastructure/repositories/LeccionRepository.java&#10;#&#9;src/main/java/Infrastructure/repositories/ProgresoLeccionRepository.java&#10;#&#9;src/main/java/Infrastructure/test/TestSesionEstudioService.java&#10;#&#9;src/main/java/Main/Stella.java&#10;#&#9;src/main/resources/database_setup.sql">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Application/dtos/curso/EstructuraCursoResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/curso/EstructuraCursoResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Application/dtos/seccion/Seccion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/seccion/SeccionResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Application/services/CursoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/services/CursoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/models/Leccion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/models/Leccion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/repositoriesInterfaces/InterfazCursoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/repositoriesInterfaces/InterfazCursoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/CursoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/CursoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/LeccionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/LeccionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/CursoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/CursoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/ProgresoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/ProgresoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/test/CursoServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/test/CursoServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/database_setup.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/database_setup.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,8 +26,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Record" />
         <option value="Class" />
+        <option value="Record" />
         <option value="Interface" />
       </list>
     </option>
@@ -44,27 +55,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.ListarCursosServiceTest.executor": "Run",
-    "Application.Stella.executor": "Run",
-    "Application.TestSesionEstudioService.executor": "Run",
-    "Application.TestUsuarioService.executor": "Run",
-    "Application.h2webconsole.executor": "Run",
-    "Maven.Stella [javafx:run].executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "feature-secciones__Pprincipal",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15274803",
-    "project.structure.side.proportion": "0.29173693",
-    "run.code.analysis.last.selected.profile": "pProject Default"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.ListarCursosServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Stella.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TestSesionEstudioService.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TestUsuarioService.executor&quot;: &quot;Run&quot;,
+    &quot;Application.h2webconsole.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Stella [javafx:run].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;copia-feature-secciones__Pprincipal&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15274803&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.29173693&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;
   }
-}]]></component>
-  <component name="RunManager" selected="Application.h2webconsole">
+}</component>
+  <component name="RunManager" selected="Application.ListarCursosServiceTest">
     <configuration name="ListarCursosServiceTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Infrastructure.test.ListarCursosServiceTest" />
       <module name="Stella" />
@@ -135,15 +146,15 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Application.ListarCursosServiceTest" />
       <item itemvalue="Application.TestUsuarioService" />
       <item itemvalue="Application.h2webconsole" />
-      <item itemvalue="Application.ListarCursosServiceTest" />
       <item itemvalue="Maven.Stella [javafx:run]" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.h2webconsole" />
         <item itemvalue="Application.ListarCursosServiceTest" />
+        <item itemvalue="Application.h2webconsole" />
         <item itemvalue="Application.TestUsuarioService" />
       </list>
     </recent_temporary>
