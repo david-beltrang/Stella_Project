@@ -148,4 +148,4 @@ public class PomodoroController {
     @FXML private void goAchievements(){ uiHelper.showInfo("Logros", "Pantalla de Logros aún no implementada."); }
     @FXML private void goProfile()     { uiHelper.showInfo("Perfil", "Pantalla de Perfil aún no implementada."); }
 }
-//holap
+//holapp
