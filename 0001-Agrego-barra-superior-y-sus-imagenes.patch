@@ -1,0 +1,50 @@
+From 6d2069e1255302dfbb96f98e4772de216451b548 Mon Sep 17 00:00:00 2001
+From: dgior <giovannyduran2906@gmail.com>
+Date: Sun, 19 Oct 2025 23:34:58 -0500
+Subject: [PATCH] Agrego barra superior y sus imagenes
+
+---
+ .idea/workspace.xml | 21 +--------------------
+ 1 file changed, 1 insertion(+), 20 deletions(-)
+
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+index 2a25b7e..37f0b50 100644
+--- a/.idea/workspace.xml
++++ b/.idea/workspace.xml
+@@ -4,15 +4,7 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="51597e74-c3d4-4a99-ad6b-5f4c9d498175" name="Changes" comment="">
+-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/Application/config/AppServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/config/AppServices.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/Application/services/DarAccesoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/services/DarAcceso/DarAccesoService.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/TestUsuarioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/TestUsuarioService.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/LoginController.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/RegistroController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/RegistroController.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/Main/Stella.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main/Stella.java" afterDir="false" />
+-    </list>
++    <list default="true" id="51597e74-c3d4-4a99-ad6b-5f4c9d498175" name="Changes" comment="" />
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -106,15 +98,4 @@
+     </task>
+     <servers />
+   </component>
+-  <component name="XDebuggerManager">
+-    <breakpoint-manager>
+-      <breakpoints>
+-        <line-breakpoint enabled="true" type="java-line">
+-          <url>file://$PROJECT_DIR$/src/main/java/Infrastructure/controllers/ControllerPrincipal.java</url>
+-          <line>51</line>
+-          <option name="timeStamp" value="1" />
+-        </line-breakpoint>
+-      </breakpoints>
+-    </breakpoint-manager>
+-  </component>
+ </project>
+\ No newline at end of file
+-- 
+2.50.1.windows.1
+

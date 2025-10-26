@@ -4,16 +4,23 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class ConexionBD {
+public class ConexionBD implements IConexionBD {
 
-    private static final String URL = "jdbc:h2:~/testdb";
+    private static final String JDBC_URL = "jdbc:h2:./stella"; // Base en disco
     private static final String USER = "sa";
     private static final String PASSWORD = "";
 
-    //Como ConexionBD solo tiene un metodo estatico no necesita instanciarse con new
-    private ConexionBD() { }
+    private static Connection connection = null;
 
-    public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(URL, USER, PASSWORD);
+    public Connection getConnection() throws SQLException {
+        if (connection == null || connection.isClosed()) {
+            try {
+                Class.forName("org.h2.Driver");
+            } catch (ClassNotFoundException e) {
+                throw new SQLException("H2 Driver no encontrado.", e);
+            }
+            connection = DriverManager.getConnection(JDBC_URL, USER, PASSWORD);
+        }
+        return connection;
     }
 }

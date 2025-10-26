@@ -1,5 +1,5 @@
 package Domain.models.UsuarioValueObjects;
-import Domain.exceptions.TipoInvalidoException;
+import Domain.exceptions.usuario.TipoInvalidoException;
 
 public record Tipo (String valor) {
 

@@ -1,6 +1,6 @@
 package Domain.models.UsuarioValueObjects;
 
-import Domain.exceptions.NombreInvalidoException;
+import Domain.exceptions.usuario.NombreInvalidoException;
 
 public record Nombre (String valor) {
 

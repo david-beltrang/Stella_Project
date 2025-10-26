@@ -1,6 +1,6 @@
 package Domain.models.UsuarioValueObjects;
 
-import Domain.exceptions.CorreoInvalidoException;
+import Domain.exceptions.usuario.CorreoInvalidoException;
 
 public record Correo (String valor) {
 
