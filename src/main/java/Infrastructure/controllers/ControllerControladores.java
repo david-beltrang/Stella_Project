@@ -1,25 +1,34 @@
 package Infrastructure.controllers;
 
 import Application.services.DarAcceso.LoginService;
+import Application.services.DarAcceso.RegistroService;
 import Application.services.LeccionService;
 import Application.services.ListarCursosService;
 import Application.services.PomodoroTimer;
 import Application.services.SesionEstudioService;
 import Application.services.SesionPomodoroService;
+
 import java.util.Objects;
 import java.util.function.Function;
 
+/**
+ * Controlador principal (orquestador de controladores).
+ * Se encarga de crear los controladores de presentación,
+ * inyectarles sus servicios y enlazarlos con la factory global
+ * que usa el FXMLLoader para mantener la misma instancia por pantalla.
+ */
 public class ControllerControladores {
 
-    // ===== Servicios disponibles (DI) =====
+    // ======== Servicios de aplicación ========
     private final LeccionService leccionService;
     private final ListarCursosService listarCursosService;
     private final PomodoroTimer pomodoroTimer;
     private final SesionEstudioService sesionEstudioService;
     private final SesionPomodoroService sesionPomodoroService;
     private final LoginService loginService;
+    private final RegistroService registroService;
 
-    // ===== Controladores =====
+    // ======== Controladores ========
     private HelloController helloController;
     private PrincipalController principalController;
     private StellaController stellaController;
@@ -27,77 +36,79 @@ public class ControllerControladores {
     private RegistroController registroController;
     private LoginController loginController;
 
-    // ===== Factory central para FXMLLoader =====
+    // ======== Factory central (para FXMLLoader) ========
     private Function<Class<?>, Object> factory;
 
-    // ===== Ctor inyectando servicios =====
+    // ======== Constructor (inyecta todos los servicios) ========
     public ControllerControladores(LeccionService leccionService,
                                    ListarCursosService listarCursosService,
                                    PomodoroTimer pomodoroTimer,
                                    SesionEstudioService sesionEstudioService,
                                    SesionPomodoroService sesionPomodoroService,
-                                   LoginService loginService) {
+                                   LoginService loginService,
+                                   RegistroService registroService) {
         this.leccionService        = Objects.requireNonNull(leccionService, "leccionService requerido");
         this.listarCursosService   = Objects.requireNonNull(listarCursosService, "listarCursosService requerido");
         this.pomodoroTimer         = Objects.requireNonNull(pomodoroTimer, "pomodoroTimer requerido");
         this.sesionEstudioService  = Objects.requireNonNull(sesionEstudioService, "sesionEstudioService requerido");
         this.sesionPomodoroService = Objects.requireNonNull(sesionPomodoroService, "sesionPomodoroService requerido");
         this.loginService          = Objects.requireNonNull(loginService, "loginService requerido");
+        this.registroService       = Objects.requireNonNull(registroService, "registroService requerido");
+
         inicializar();
     }
 
+    // ======== Inicialización de controladores ========
     private void inicializar() {
-        // ---- Controladores sin deps
-        this.helloController   = new HelloController();
-        this.stellaController  = new StellaController();
+        // ---- Controladores sin dependencias
+        this.helloController  = new HelloController();
+        this.stellaController = new StellaController();
 
-        // ---- Controladores con deps
+        // ---- Controladores con dependencias
         this.principalController = new PrincipalController(listarCursosService, leccionService);
-        this.pomodoroController  = new PomodoroController(sesionPomodoroService, pomodoroTimer);
-        this.registroController  = new RegistroController();
+        this.pomodoroController  = new PomodoroController(pomodoroTimer);
         this.loginController     = new LoginController(loginService);
+        this.registroController  = new RegistroController(registroService);
 
-        // ---- Construimos la factory central
+        // ---- Construcción de la factory global ----
         this.factory = (Class<?> clazz) -> {
             try {
-                if (clazz == HelloController.class)      return getHelloController();
-                if (clazz == PrincipalController.class)  return getPrincipalController();
-                if (clazz == StellaController.class)     return getStellaController();
-                if (clazz == PomodoroController.class)   return getPomodoroController();
-                if (clazz == RegistroController.class)   return getRegistroController();
-                if (clazz == LoginController.class)      return getLoginController();
+                if (clazz == HelloController.class)      return helloController;
+                if (clazz == PrincipalController.class)  return principalController;
+                if (clazz == StellaController.class)     return stellaController;
+                if (clazz == PomodoroController.class)   return pomodoroController;
+                if (clazz == RegistroController.class)   return registroController;
+                if (clazz == LoginController.class)      return loginController;
 
-                // Fallback a ctor vacío si aparece un controlador no registrado aquí
+                // fallback por si se carga un controlador no registrado aquí
                 return clazz.getDeclaredConstructor().newInstance();
             } catch (Exception e) {
                 throw new RuntimeException("No se pudo crear controlador: " + clazz.getName(), e);
             }
         };
 
-        // ---- Inyectamos la factory en controladores que navegan
-        // (estos setters deben existir en los controladores;)
-        try {
-            this.helloController.setControllerFactory(this.factory);
-        } catch (NoSuchMethodError | NoSuchMethodException | RuntimeException ignored) {}
-        try {
-            this.loginController.setControllerFactory(this.factory);
-        } catch (NoSuchMethodError | NoSuchMethodException | RuntimeException ignored) {}
+        // ---- Inyectar la factory en los controladores que navegan ----
+        helloController.setControllerFactory(factory);
+        loginController.setControllerFactory(factory);
+        registroController.setControllerFactory(factory);
+        pomodoroController.setControllerFactory(factory);
+        // principalController y stellaController podrían necesitarla si también navegan
     }
 
-    // Getters
-    public HelloController getHelloController()           { return helloController; }
-    public PrincipalController getPrincipalController()   { return principalController; }
-    public StellaController getStellaController()         { return stellaController; }
-    public PomodoroController getPomodoroController()     { return pomodoroController; }
-    public RegistroController getRegistroController()     { return registroController; }
-    public LoginController getLoginController()           { return loginController; }
+    // ======== Getters para acceso externo ========
+    public HelloController getHelloController()         { return helloController; }
+    public PrincipalController getPrincipalController() { return principalController; }
+    public StellaController getStellaController()       { return stellaController; }
+    public PomodoroController getPomodoroController()   { return pomodoroController; }
+    public RegistroController getRegistroController()   { return registroController; }
+    public LoginController getLoginController()         { return loginController; }
 
-    // ===== Exponer la factory para el FXMLLoader =====
+    // ======== Factory pública (para FXMLLoader) ========
     public Function<Class<?>, Object> controllerFactory() {
         return this.factory;
     }
 
-    // Por si se necesita resetear| instancias (cambio de sesión, etc.)
+    // ======== Reinicializar controladores (opcional) ========
     public void reinicializar() {
         inicializar();
     }
