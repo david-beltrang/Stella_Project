@@ -5,30 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="51597e74-c3d4-4a99-ad6b-5f4c9d498175" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Application/config/AppServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/config/AppServices.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Application/dtos/acceso/RegistrarUsuarioRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/acceso/RegistrarUsuarioRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/TestUsuarioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/TestUsuarioService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/HelloController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/PrincipalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/PrincipalController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/RegistroController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/RegistroController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/persistence/ConexionBD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/persistence/ConexionBD.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/persistence/H2DataBaseInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/persistence/H2DataBaseInitializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/CursoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/CursoRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/IntentoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/IntentoRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/LeccionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/LeccionRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/ProgresoLeccionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/ProgresoLeccionRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/PruebaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/PruebaRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/SesionEstudioRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/SesionEstudioRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/UsuarioCursoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/UsuarioCursoRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/UsuarioRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/UsuarioRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/UsuarioStatsRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/UsuarioStatsRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/test/SesionEstudioTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/test/SesionEstudioTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/test/TestConexionSetup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/test/TestConexionSetup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/test/TestSesionEstudioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/test/TestSesionEstudioService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main/Stella.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main/Stella.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/database_setup.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/database_setup.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
