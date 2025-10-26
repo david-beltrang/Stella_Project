@@ -7,6 +7,7 @@ import Domain.models.Opcion;
 import Domain.models.LeccionValueObjects.TipoContenido;
 import Domain.repositoriesInterfaces.InterfazLeccionRepository;
 import Infrastructure.persistence.ConexionBD;
+import Infrastructure.persistence.IConexionBD;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -32,13 +33,17 @@ public class LeccionRepository implements InterfazLeccionRepository {
                     "LEFT JOIN opcion o ON p.id = o.pregunta_id " +
                     "WHERE p.leccion_id = ? ORDER BY p.id, o.id";
 
+    private IConexionBD connMgr;
 
+    public LeccionRepository(IConexionBD connMgr) {
+        this.connMgr = connMgr;
+    }
     // Método para obtener el contenido de una lección.
     @Override
     public Optional<ContenidoLeccionInternal> obtenerContenido(int id) {
         ContenidoLeccionInternal contenido = null;
 
-        try (Connection conn = ConexionBD.getConnection();
+        try (Connection conn = connMgr.getConnection();
              PreparedStatement ps = conn.prepareStatement(SQL_SELECT_CONTENIDO)) {
 
             ps.setInt(1, id);
@@ -58,7 +63,7 @@ public class LeccionRepository implements InterfazLeccionRepository {
     @Override
     public List<Leccion> buscarPorCursoYSeccion(int cursoId, int numeroSeccion) {
         List<Leccion> lecciones = new ArrayList<>();
-        try (Connection conn = ConexionBD.getConnection();
+        try (Connection conn = connMgr.getConnection();
              PreparedStatement ps = conn.prepareStatement(SQL_SELECT_BY_SECTION)) {
 
             ps.setInt(1, cursoId);
@@ -80,7 +85,7 @@ public class LeccionRepository implements InterfazLeccionRepository {
     public List<Pregunta> buscarPreguntasAsociadas(int leccionId) {
         Map<Integer, Pregunta> preguntasMap = new HashMap<>();
 
-        try (Connection conn = ConexionBD.getConnection();
+        try (Connection conn = connMgr.getConnection();
              PreparedStatement ps = conn.prepareStatement(SQL_SELECT_PREGUNTAS_BY_LECCION)) {
 
             ps.setInt(1, leccionId);

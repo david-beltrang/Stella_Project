@@ -1,15 +1,21 @@
 package Infrastructure.test;
 
 import Infrastructure.persistence.ConexionBD;
+import Infrastructure.persistence.H2DataBaseInitializer;
+import Infrastructure.persistence.IConexionBD;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class TestConexionSetup {
     public static void main(String[] args) {
+        IConexionBD connMgr = new ConexionBD();
+        H2DataBaseInitializer initializer = new H2DataBaseInitializer(connMgr);
+        initializer.initialize();
         System.out.println("--- Probando Inicialización de H2 en Memoria ---");
 
-        try (Connection conn = ConexionBD.getConnection()) {
+        try (Connection conn = connMgr.getConnection()) {
             System.out.println("✅ Conexión establecida y BD inicializada.");
 
             // Prueba de lectura: Verificar si la tabla 'usuario' existe y tiene datos

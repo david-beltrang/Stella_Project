@@ -4,6 +4,7 @@ import Domain.models.ProgresoLeccion;
 import Domain.models.LeccionValueObjects.EstadoLeccion;
 import Domain.repositoriesInterfaces.InterfazProgresoLeccionRepository;
 import Infrastructure.persistence.ConexionBD;
+import Infrastructure.persistence.IConexionBD;
 
 import java.sql.*;
 import java.util.Optional;
@@ -20,12 +21,18 @@ public class ProgresoLeccionRepository implements InterfazProgresoLeccionReposit
     private static final String SQL_UPDATE_ESTADO =
             "UPDATE progreso_leccion SET estado = ? WHERE id = ?";
 
+    private IConexionBD connMgr;
+
+    public ProgresoLeccionRepository(IConexionBD connMgr) {
+        this.connMgr = connMgr;
+    }
+
     // Método para obtener el progreso de un usuario y lección.
     @Override
     public Optional<ProgresoLeccion> buscarPorUsuarioYLeccion(int usuarioId, int leccionId) {
         ProgresoLeccion progreso = null;
 
-        try (Connection conn = ConexionBD.getConnection();
+        try (Connection conn = connMgr.getConnection();
              PreparedStatement ps = conn.prepareStatement(SQL_SELECT_BY_USER_AND_LECCION)) {
 
             ps.setInt(1, usuarioId);
@@ -55,7 +62,7 @@ public class ProgresoLeccionRepository implements InterfazProgresoLeccionReposit
     // Método para actualizar el estado de un progreso.
     @Override
     public void actualizarEstado(int progresoId, EstadoLeccion nuevoEstado) {
-        try (Connection conn = ConexionBD.getConnection();
+        try (Connection conn = connMgr.getConnection();
              PreparedStatement ps = conn.prepareStatement(SQL_UPDATE_ESTADO)) {
 
             ps.setString(1, nuevoEstado.valor());
@@ -68,7 +75,7 @@ public class ProgresoLeccionRepository implements InterfazProgresoLeccionReposit
 
     // Método para insertar un nuevo progreso.
     private ProgresoLeccion insertar(ProgresoLeccion progreso) {
-        try (Connection conn = ConexionBD.getConnection();
+        try (Connection conn = connMgr.getConnection();
              PreparedStatement ps = conn.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS)) {
 
             ps.setInt(1, progreso.getUsuarioId());
@@ -103,7 +110,7 @@ public class ProgresoLeccionRepository implements InterfazProgresoLeccionReposit
 
     // Método para actualizar un progreso existente.
     private ProgresoLeccion actualizar(ProgresoLeccion progreso) {
-        try (Connection conn = ConexionBD.getConnection();
+        try (Connection conn = connMgr.getConnection();
              PreparedStatement ps = conn.prepareStatement(SQL_UPDATE)) {
 
             ps.setString(1, progreso.getEstado().valor());
