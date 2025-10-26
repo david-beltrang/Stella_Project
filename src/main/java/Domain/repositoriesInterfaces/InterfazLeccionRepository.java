@@ -1,36 +1,34 @@
 package Domain.repositoriesInterfaces;
 
-import Application.dtos.internal.ContenidoLeccionInternal; // Asume la creación de un DTO para el contenido
 import Domain.models.Leccion;
-import Domain.models.Pregunta;
-
-import java.util.List;
-import java.util.Optional;
 
 // No se define la Entidad Leccion completa, solo los métodos de lectura necesarios.
 public interface InterfazLeccionRepository {
 
     /**
-     * Busca todas las lecciones que pertenecen a un curso y número de sección específicos,
-     * ordenadas por su número de orden.
-     * @param cursoId ID del curso.
-     * @param numeroSeccion Número de la sección dentro del curso.
-     * @return Lista de Lecciones.
+     * Busca una lección específica por su identificador.
+     * @param leccionId El VO del ID de la lección.
+     * @return La entidad Leccion.
      */
-    List<Leccion> buscarPorCursoYSeccion(int cursoId, int numeroSeccion);
+    Leccion buscarPorId(Integer leccionId);
 
     /**
-     * Busca las preguntas asociadas a una lección específica.
-     * Esto es usado por LeccionService para mostrar el contenido del quiz/práctica.
-     * @param leccionId ID de la lección.
-     * @return Lista de Preguntas con sus opciones.
+     * Obtiene todas las lecciones de un curso, ordenadas por sección y orden.
+     * @param cursoId El VO del ID del curso.
+     * @return Iterable de Lecciones (para evitar dependencias de List).
      */
-    List<Pregunta> buscarPreguntasAsociadas(int leccionId);
+    Iterable<Leccion> buscarPorCursoId(Integer cursoId);
 
     /**
-     * Obtiene el contenido específico de una lección, mapeado a un DTO interno.
-     * @param leccionId ID de la lección.
-     * @return DTO con el contenido (HTML, tipo, pruebaId).
+     * Busca la lección que precede inmediatamente a la lección actual,
+     * basada en su orden y sección.
+     * @return La entidad Leccion anterior, o null si es la primera.
      */
-    Optional<ContenidoLeccionInternal> obtenerContenido(int leccionId);
+    Leccion buscarLeccionAnterior(Integer cursoId, int seccionActual, int ordenActual);
+
+    /**
+     * Busca la lección que sigue inmediatamente a la lección actual.
+     * @return La entidad Leccion siguiente, o null si es la última.
+     */
+    Leccion buscarProximaLeccion(Integer cursoId, int seccionActual, int ordenActual);
 }

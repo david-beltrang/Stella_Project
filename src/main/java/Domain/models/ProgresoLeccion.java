@@ -1,83 +1,82 @@
 package Domain.models;
 
-import Domain.models.LeccionValueObjects.EstadoLeccion;
-import java.time.LocalDateTime;
-import java.util.Objects;
+import Domain.models.LeccionValueObjects.EstadoProgreso;
+
+import java.time.Instant;
 
 /**
  * Entidad que registra el progreso de un Usuario en una Lección.
  */
 public class ProgresoLeccion {
-    private Integer id;
-    private final int usuarioId;
-    private final int leccionId;
-    private EstadoLeccion estado;
-    private LocalDateTime fechaInicio;
-    private LocalDateTime fechaCompletado;
 
-    // ------------------ CONSTRUCTOR PRIVADO ----------------------
+    private final Integer id; // ID único del registro de progreso
+    private final Integer usuarioId;
+    private final Integer leccionId;
 
-    // Este constructor privado es utilizado internamente por los Factory Methods (crearNuevo y reconstruir)
-    private ProgresoLeccion(Integer id, int usuarioId, int leccionId, String estado,
-                            LocalDateTime fechaInicio, LocalDateTime fechaCompletado) {
+    // Campos mutables/actualizables
+    private EstadoProgreso estado;
+    private Instant fechaInicio;
+    private Instant fechaCompletado; // Puede ser null
+
+    /**
+     * Constructor 1: Para cargar un registro existente desde el Repositorio (Carga Completa).
+     */
+    public ProgresoLeccion(Integer id, Integer usuarioId, Integer leccionId,
+                           EstadoProgreso estado, Instant fechaInicio, Instant fechaCompletado) {
         this.id = id;
         this.usuarioId = usuarioId;
         this.leccionId = leccionId;
-        // La creación del record ya maneja la validación de la cadena 'estado'
-        this.estado = new EstadoLeccion(estado);
+        this.estado = estado;
         this.fechaInicio = fechaInicio;
         this.fechaCompletado = fechaCompletado;
     }
 
-    // ------------------ FACTORY METHODS ----------------------
-
     /**
-     * Crea un nuevo progreso inicial, típicamente con estado "NO_INICIADA".
+     * Constructor 2: Para crear un nuevo registro de progreso (Inicialización).
+     * El ID es nulo y el estado inicial es EN_CURSO.
      */
-    public static ProgresoLeccion crearNuevo(int usuarioId, int leccionId) {
-        return new ProgresoLeccion(null, usuarioId, leccionId, "NO_INICIADA", null, null);
+    public ProgresoLeccion(Integer usuarioId, Integer leccionId) {
+        this(
+                null, // El ID se asigna al guardar en la DB por primera vez
+                usuarioId,
+                leccionId,
+                EstadoProgreso.EN_PROGRESO,
+                Instant.now(),
+                null
+        );
     }
 
-    /**
-     * Reconstruye la entidad desde la base de datos (usado por el Repositorio).
-     * ESTE ES EL MÉTODO QUE FALTABA.
-     */
-    public static ProgresoLeccion reconstruir(Integer id, int usuarioId, int leccionId, String estado,
-                                              LocalDateTime fechaInicio, LocalDateTime fechaCompletado) {
-        return new ProgresoLeccion(id, usuarioId, leccionId, estado, fechaInicio, fechaCompletado);
+    public ProgresoLeccion(Integer id, Integer usuarioId, Integer leccionId, EstadoProgreso estadoProgreso) {
+        this.id = id;
+        this.usuarioId = usuarioId;
+        this.leccionId = leccionId;
+        this.estado = estadoProgreso;
+        this.fechaInicio = Instant.now();
+    }
+
+    public ProgresoLeccion(Integer usuarioId, Integer leccionId, EstadoProgreso estadoProgreso) {
+        this.usuarioId = usuarioId;
+        this.leccionId = leccionId;
+        this.estado = estadoProgreso;
     }
 
     // ------------------ LÓGICA DE DOMINIO ----------------------
 
-    // Inicia la sesión de estudio.
-    public void iniciarSesion() {
-        if (this.estado.esCompletada()) {
-            throw new IllegalStateException("La lección ya está COMPLETADA.");
-        }
-        if (this.estado.valor().equals("NO_INICIADA")) {
-            this.estado = new EstadoLeccion("EN_PROGRESO");
-            this.fechaInicio = LocalDateTime.now();
+    /**
+     * Marca la lección como completada y registra la fecha de finalización.
+     */
+    public void marcarComoCompletada() {
+        if (this.estado != EstadoProgreso.COMPLETADA) {
+            this.estado = EstadoProgreso.COMPLETADA;
+            this.fechaCompletado = Instant.now();
         }
     }
 
-    //Termina la sesión de estudio.
-    public void completar() {
-        if (this.estado.esCompletada()) {
-            return;
-        }
-        this.estado = new EstadoLeccion("COMPLETADA");
-        this.fechaCompletado = LocalDateTime.now();
-    }
-
-    // ------------------ GETTERS ----------------------
-
+    // Getters
     public Integer getId() { return id; }
-    public int getUsuarioId() { return usuarioId; }
-    public int getLeccionId() { return leccionId; }
-    public EstadoLeccion getEstado() { return estado; }
-    public LocalDateTime getFechaInicio() { return fechaInicio; }
-    public LocalDateTime getFechaCompletado() { return fechaCompletado; }
-
-    // Setter para la persistencia (si es necesario actualizar el ID tras un INSERT)
-    public void setId(int id) { this.id = id; }
+    public Integer getUsuarioId() { return usuarioId; }
+    public Integer getLeccionId() { return leccionId; }
+    public EstadoProgreso getEstado() { return estado; }
+    public Instant getFechaInicio() { return fechaInicio; }
+    public Instant getFechaCompletado() { return fechaCompletado; }
 }
