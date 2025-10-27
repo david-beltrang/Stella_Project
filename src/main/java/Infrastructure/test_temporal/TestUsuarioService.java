@@ -1,4 +1,4 @@
-package Infrastructure;
+package Infrastructure.test;
 
 import Application.dtos.acceso.RegistrarUsuarioRequest;
 import Application.dtos.acceso.LoginRequest;

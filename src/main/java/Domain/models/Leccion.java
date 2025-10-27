@@ -36,7 +36,7 @@ public class Leccion {
     }
 
     public static Leccion reconstruir(Integer id, Integer seccion_id, Titulo titulo, Integer numeroOrden, TipoContenido tipoContenido, String url_video, String contenido ){
-        return new UsuarioCurso(usuario_id, curso_id, fecha);
+        return new Leccion(id, seccion_id, titulo, numeroOrden, tipoContenido, url_video, contenido);
     }
 
     // Getters actualizados para devolver el VO o el valor primitivo si no tiene VO
@@ -45,5 +45,6 @@ public class Leccion {
     public Titulo getTitulo() { return this.titulo; } // Se expone el valor a la Capa de Aplicación/DTOs
     public int getNumeroOrden() { return numeroOrden; }
     public TipoContenido getTipoContenido() { return tipoContenido; }
-    public Clob getContenido() { return contenido; }
+    public String getUrl_video() {return url_video;}
+    public String getContenido() { return contenido; }
 }

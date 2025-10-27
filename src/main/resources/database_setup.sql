@@ -68,7 +68,7 @@ CREATE TABLE "seccion" (
 
 -- TABLA: "leccion" (Contenido individual: Teoría, Video, Práctica, Pregunta)
 CREATE TABLE "leccion" (
-    id INT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     seccion_id INT NOT NULL,
     titulo VARCHAR(255) NOT NULL,
     numero_orden INT NOT NULL,
@@ -76,7 +76,7 @@ CREATE TABLE "leccion" (
     url_video VARCHAR(255),
     contenido CLOB,
     FOREIGN KEY (seccion_id) REFERENCES "seccion"(id) ON DELETE CASCADE,
-    UNIQUE (curso_id, numero_orden)
+    UNIQUE (seccion_id, numero_orden)
 );
 
 -- TABLA: "prueba" (Quizzes seccionales o examen final)
@@ -86,7 +86,7 @@ CREATE TABLE "prueba" (
     seccion_id INT NOT NULL,
     titulo VARCHAR(255) NOT NULL,
     tipo VARCHAR(20) NOT NULL,
-    FOREIGN KEY (curso_id) REFERENCES "curso"(id) ON DELETE CASCADE
+    FOREIGN KEY (curso_id) REFERENCES "curso"(id) ON DELETE CASCADE,
     FOREIGN KEY (seccion_id) REFERENCES "seccion"(id) ON DELETE CASCADE
 );
 
@@ -163,7 +163,7 @@ CREATE TABLE "sesion_estudio" (
 INSERT INTO "usuario" (username, correo, nombre, contrasena, tipo)
 VALUES ('testestudio', 'test@estudio.com', 'Usuario Estudio', 'pass123', 'ESTUDIANTE');
 
--- 3. CURSOS PRINCIPAL
+-- 2. CURSOS DE
 INSERT INTO "curso" (titulo, descripcion, nivel, categoria, duracion_minutos, numero_secciones)
 VALUES ('Curso de C++ basico', 'En este curso aprenderas a manejar variables', 'BÁSICO', 'categoria c++', 0, 0);
 
@@ -175,3 +175,24 @@ VALUES ('Curso de python basico', 'En este curso aprenderas a manejar variables'
 
 INSERT INTO "curso" (titulo, descripcion, nivel, categoria, duracion_minutos, numero_secciones)
 VALUES ('Curso de GO basico', 'En este curso aprenderas a manejar variables', 'BÁSICO', 'categoria GO', 0, 0);
+
+-- 3. SECCIONES DE PRUEBA
+INSERT INTO "seccion" (curso_id, titulo, numero_orden)
+VALUES (1, 'Imprimir en consola', 2);
+
+INSERT INTO "seccion" (curso_id, titulo, numero_orden)
+VALUES (1, 'Tipos de datos primitivos', 1);
+
+-- Sección con id 1 tiene dos lecciones (suponiendo AUTO_INCREMENT genera id = 1 para "Tipos de datos primitivos")
+INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido)
+VALUES (2, 'Lección de tipos de datos - int', 2, 'TEORIA', NULL, 'En esta lección aprenderás sobre los int');
+
+INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido)
+VALUES (2, 'Lección de tipos de datos - String', 1, 'TEORIA', NULL, 'En esta lección aprenderás sobre los String');
+
+-- Sección con id 2 tiene dos lecciones
+INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido)
+VALUES (1, 'Lección de imprimir en consola - print', 1, 'TEORIA', NULL, 'En esta lección aprenderás a imprimir en consola con print');
+
+INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido)
+VALUES (1, 'Lección de imprimir en consola - println', 2, 'TEORIA', NULL, 'En esta lección aprenderás a imprimir en consola con println');

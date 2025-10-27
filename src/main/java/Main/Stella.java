@@ -25,10 +25,10 @@ public class Stella extends Application {
 
         //Instanciación de interfaces
         InterfazUsuarioRepository usuarioRepository = new UsuarioRepository(connMgr);
-        InterfazIntentoRepository intentoRepository = new IntentoRepository(connMgr);
-        InterfazLeccionRepository leccionRepository = new LeccionRepository(connMgr);
-        InterfazProgresoLeccionRepository progresoRepository = new ProgresoLeccionRepository(connMgr);
-        InterfazPruebaRepository pruebaRepository = new PruebaRepository(connMgr);
+        //InterfazIntentoRepository intentoRepository = new IntentoRepository(connMgr);
+        //InterfazLeccionRepository leccionRepository = new LeccionRepository(connMgr);
+        //InterfazProgresoLeccionRepository progresoRepository = new ProgresoLeccionRepository(connMgr);
+        //InterfazPruebaRepository pruebaRepository = new PruebaRepository(connMgr);
         InterfazUsuarioStatsRepository usuarioStatsRepository = new UsuarioStatsRepository(connMgr);
 
         //Instanciacion de servicios
