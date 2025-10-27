@@ -6,17 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="51597e74-c3d4-4a99-ad6b-5f4c9d498175" name="Changes" comment="Merge branch 'feature-secciones_Pprincipal' of https://github.com/david-beltrang/Stella_Project into copia-feature-secciones_Pprincipal&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/main/java/Infrastructure/repositories/CursoRepository.java&#10;#&#9;src/main/java/Infrastructure/repositories/LeccionRepository.java&#10;#&#9;src/main/java/Infrastructure/repositories/ProgresoLeccionRepository.java&#10;#&#9;src/main/java/Infrastructure/test/TestSesionEstudioService.java&#10;#&#9;src/main/java/Main/Stella.java&#10;#&#9;src/main/resources/database_setup.sql">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Application/dtos/curso/EstructuraCursoResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/curso/EstructuraCursoResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Application/dtos/seccion/Seccion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/seccion/SeccionResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Application/services/CursoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/services/CursoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/models/Leccion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/models/Leccion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/repositoriesInterfaces/InterfazCursoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/repositoriesInterfaces/InterfazCursoRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/CursoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/CursoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/LeccionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/LeccionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/CursoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/CursoRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/ProgresoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/ProgresoRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/test/CursoServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/test/CursoServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/database_setup.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/database_setup.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,9 +135,9 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Application.ListarCursosServiceTest" />
       <item itemvalue="Application.TestUsuarioService" />
       <item itemvalue="Application.h2webconsole" />
+      <item itemvalue="Application.ListarCursosServiceTest" />
       <item itemvalue="Maven.Stella [javafx:run]" />
     </list>
     <recent_temporary>
