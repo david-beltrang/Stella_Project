@@ -4,12 +4,9 @@ import Application.config.AppServices;
 import Application.dtos.Listado_Cursos.CursoResponse;
 import Application.dtos.Listado_Cursos.CursosResponse;
 import Application.dtos.Listado_Cursos.InscripcionRequest;
+import Application.services.LeccionService;
 import Application.services.ListarCursosService;
-import Infrastructure.persistence.ConexionBD;
-import Infrastructure.persistence.H2DataBaseInitializer;
-import Infrastructure.persistence.IConexionBD;
-import Infrastructure.repositories.CursoRepository;
-import Infrastructure.repositories.UsuarioCursoRepository;
+import Infrastructure.ui.UIFeedbackHelper;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -19,11 +16,13 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class PrincipalController implements Initializable {
 
+    // ====== ELEMENTOS FXML ======
     @FXML private TextField searchField;
     @FXML private ScrollPane misCursosScroll;
     @FXML private ScrollPane cursosDisponiblesScroll;
@@ -32,37 +31,37 @@ public class PrincipalController implements Initializable {
     @FXML private Label noCoursesLabel;
     @FXML private Button leftArrow, rightArrow;
 
-    private ListarCursosService listarCursosService;
+    // ====== DEPENDENCIAS ========
+    private final ListarCursosService listarCursosService;
+    private final LeccionService leccionService;
+    private final UIFeedbackHelper uiHelper = new UIFeedbackHelper();
+
     private int usuarioActualId = AppServices.getUsuarioActual().id();
     private CursosResponse cursosActuales;
 
+    // ====== CONSTRUCTOR =========
+    public PrincipalController(ListarCursosService listarCursosService, LeccionService leccionService) {
+        this.listarCursosService = listarCursosService;
+        this.leccionService = leccionService;
+    }
+
+    // ====== MÉTODOS FXML ========
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Instancia del servicio los repos de curso
-        IConexionBD connMgr = new ConexionBD();
-        H2DataBaseInitializer initializer = new H2DataBaseInitializer(connMgr);
-        initializer.initialize();
-        listarCursosService = new ListarCursosService(
-                new CursoRepository(connMgr),
-                new UsuarioCursoRepository(connMgr)
-        );
-
         cargarCursosDesdeBD();
         configurarFlechas();
     }
 
-    //Se cargan los cursos desde la base de datos
     private void cargarCursosDesdeBD() {
         try {
             cursosActuales = listarCursosService.obtenerCursosCompletos(usuarioActualId);
             cargarMisCursos();
             cargarCursosDisponibles();
         } catch (Exception e) {
-            mostrarError("Error cargando cursos", e.getMessage());
+            uiHelper.showError("Error cargando cursos", e.getMessage());
         }
     }
 
-    //se revisa cuales son los cursos que ya tiene el usuario y se cargan visualmente
     private void cargarMisCursos() {
         misCursosContainer.getChildren().clear();
 
@@ -72,14 +71,12 @@ public class PrincipalController implements Initializable {
         }
 
         noCoursesLabel.setVisible(false);
-
         for (CursoResponse curso : cursosActuales.cursosUsuario()) {
             VBox card = crearTarjetaCurso(curso);
             misCursosContainer.getChildren().add(card);
         }
     }
 
-    //se crean los cuadros de los cursos
     private VBox crearTarjetaCurso(CursoResponse curso) {
         VBox card = new VBox(10);
         card.setPrefSize(300, 200);
@@ -94,16 +91,14 @@ public class PrincipalController implements Initializable {
 
         Button btn = new Button("Continuar");
         btn.setStyle("-fx-background-color: #4A90E2; -fx-text-fill: white; -fx-font-weight: bold;");
-        btn.setOnAction(e -> mostrarInfo("Curso: " + curso.titulo(), "Abrir contenido próximamente."));
+        btn.setOnAction(e -> uiHelper.showInfo("Curso: " + curso.titulo(), "Abrir contenido próximamente."));
 
         card.getChildren().addAll(title, nivel, btn);
         return card;
     }
 
-    //Se revisan que cursos no tiene el usuario es decir los disponiblea s a añadir y los carga visualmente
     private void cargarCursosDisponibles() {
         cursosDisponiblesContainer.getChildren().clear();
-
         for (CursoResponse curso : cursosActuales.cursosDisponibles()) {
             VBox card = crearTarjetaCursoDisponible(curso);
             cursosDisponiblesContainer.getChildren().add(card);
@@ -127,20 +122,17 @@ public class PrincipalController implements Initializable {
         return card;
     }
 
-    //Se contruye una solicitud es decir un DTO y se llama al metodo de servicio para incribir el curso
     private void inscribirCurso(int cursoId) {
         try {
             InscripcionRequest request = new InscripcionRequest(usuarioActualId, cursoId);
             cursosActuales = listarCursosService.inscribirCurso(request);
             cargarMisCursos();
             cargarCursosDisponibles();
-            mostrarInfo("Inscripción exitosa", "El curso fue agregado correctamente.");
+            uiHelper.showInfo("Inscripción exitosa", "El curso fue agregado correctamente.");
         } catch (Exception e) {
-            mostrarError("Error al inscribir curso", e.getMessage());
+            uiHelper.showError("Error al inscribir curso", e.getMessage());
         }
     }
-
-    //Lo siguiente son configuraciones y ajuestes visuales para la estetica y funcionamiento visual de la pantalla
 
     private void configurarFlechas() {
         if (leftArrow != null && rightArrow != null) {
@@ -160,20 +152,6 @@ public class PrincipalController implements Initializable {
         );
         timeline.play();
     }
-
-    private void mostrarError(String titulo, String mensaje) {
-        Alert a = new Alert(Alert.AlertType.ERROR);
-        a.setTitle(titulo);
-        a.setHeaderText(null);
-        a.setContentText(mensaje);
-        a.showAndWait();
-    }
-
-    private void mostrarInfo(String titulo, String mensaje) {
-        Alert a = new Alert(Alert.AlertType.INFORMATION);
-        a.setTitle(titulo);
-        a.setHeaderText(null);
-        a.setContentText(mensaje);
-        a.showAndWait();
-    }
 }
+
+ 
