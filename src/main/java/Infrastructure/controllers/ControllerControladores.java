@@ -31,7 +31,6 @@ public class ControllerControladores {
     // ======== Controladores ========
     private HelloController helloController;
     private PrincipalController principalController;
-    private StellaController stellaController;
     private PomodoroController pomodoroController;
     private RegistroController registroController;
     private LoginController loginController;
@@ -62,7 +61,6 @@ public class ControllerControladores {
     private void inicializar() {
         // ---- Controladores sin dependencias
         this.helloController  = new HelloController();
-        this.stellaController = new StellaController();
 
         // ---- Controladores con dependencias
         this.principalController = new PrincipalController(listarCursosService, leccionService);
@@ -75,7 +73,6 @@ public class ControllerControladores {
             try {
                 if (clazz == HelloController.class)      return helloController;
                 if (clazz == PrincipalController.class)  return principalController;
-                if (clazz == StellaController.class)     return stellaController;
                 if (clazz == PomodoroController.class)   return pomodoroController;
                 if (clazz == RegistroController.class)   return registroController;
                 if (clazz == LoginController.class)      return loginController;
@@ -98,7 +95,6 @@ public class ControllerControladores {
     // ======== Getters para acceso externo ========
     public HelloController getHelloController()         { return helloController; }
     public PrincipalController getPrincipalController() { return principalController; }
-    public StellaController getStellaController()       { return stellaController; }
     public PomodoroController getPomodoroController()   { return pomodoroController; }
     public RegistroController getRegistroController()   { return registroController; }
     public LoginController getLoginController()         { return loginController; }

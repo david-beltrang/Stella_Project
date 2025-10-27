@@ -6,8 +6,10 @@ import Application.dtos.sesionEstudio.PreguntaResponse;
 import Domain.models.Leccion;
 import Domain.models.Pregunta;
 import Domain.models.ProgresoLeccion;
+import Domain.repositoriesInterfaces.InterfazIntentoRepository;
 import Domain.repositoriesInterfaces.InterfazLeccionRepository;
 import Domain.repositoriesInterfaces.InterfazProgresoRepository;
+import Domain.repositoriesInterfaces.InterfazPruebaRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,13 +22,21 @@ import java.util.stream.Collectors;
  */
 public class LeccionService {
 
-    private final InterfazLeccionRepository interfazLeccionRepository;
-    private final InterfazProgresoRepository interfazProgresoRepository;
+    private final InterfazLeccionRepository leccionRepository;
+    private final InterfazProgresoRepository progresoRepository;
+    private final InterfazIntentoRepository intentoRepository;
+    private final InterfazPruebaRepository pruebaRepository;
 
-    public LeccionService(InterfazLeccionRepository leccionRepository,
-                          InterfazProgresoRepository progresoRepository, InterfazLeccionRepository interfazLeccionRepository, InterfazProgresoRepository interfazProgresoRepository) {
-        this.interfazLeccionRepository = interfazLeccionRepository;
-        this.interfazProgresoRepository = interfazProgresoRepository;
+    public LeccionService(
+            InterfazLeccionRepository leccionRepository,
+            InterfazProgresoRepository progresoRepository,
+            InterfazIntentoRepository intentoRepository,
+            InterfazPruebaRepository pruebaRepository
+    ) {
+        this.leccionRepository = leccionRepository;
+        this.progresoRepository = progresoRepository;
+        this.intentoRepository = intentoRepository;
+        this.pruebaRepository = pruebaRepository;
     }
 
     /**

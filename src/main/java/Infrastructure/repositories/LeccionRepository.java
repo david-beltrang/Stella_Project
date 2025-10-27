@@ -1,6 +1,6 @@
 package Infrastructure.repositories;
 
-import Application.dtos.internal.ContenidoLeccionInternal;
+import Application.dtos.internal.*;
 import Domain.models.Leccion;
 import Domain.models.Pregunta;
 import Domain.models.Opcion;
