@@ -5,5 +5,5 @@ import Application.dtos.seccion.SeccionResponse;
 import java.util.List;
 
 public interface InterfazSeccionRepository {
-    List<SeccionResponse>
+    public List<SeccionResponse> encontrarSeccionesConLecciones(int cursoId);
 }

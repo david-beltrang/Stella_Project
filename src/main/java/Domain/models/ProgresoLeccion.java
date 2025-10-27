@@ -9,7 +9,7 @@ import java.time.Instant;
  */
 public class ProgresoLeccion {
 
-    private final Integer id; // ID único del registro de progreso
+    private Integer id; // ID único del registro de progreso
     private final Integer usuarioId;
     private final Integer leccionId;
 

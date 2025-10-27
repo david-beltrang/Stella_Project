@@ -7,6 +7,7 @@ import java.util.List;
 public record SeccionResponse(
         int id,
         String titulo,
+        int numeroOrden,
         List<LeccionResponse> lecciones
 ) {
 }
