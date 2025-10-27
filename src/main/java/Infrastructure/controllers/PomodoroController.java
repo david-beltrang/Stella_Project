@@ -125,16 +125,17 @@ public class PomodoroController {
     }
 
     private void confirmarTiempo() {
+        // Verifica que el usuario haya seleccionado un tiempo antes de continuar
         if (minutosSeleccionados == 0) {
             uiHelper.showInfo("Selecciona un tiempo", "Debes elegir un tiempo antes de continuar.");
             return;
         }
 
         try {
-            if (sesionPomodoroService != null) {
-                sesionPomodoroService.confirmarSesion(minutosSeleccionados);
-            }
+            // En este punto NO necesitamos llamar al backend otra vez
+            // porque la sesión ya fue iniciada y guardada en iniciarSesion()
 
+            // Navegar a la pantalla de descanso (ya se hizo la parte de guardar inicio)
             navigator.goTo("/views/PomodoroDescanso.fxml", "Descanso",
                     controllerFactory, confirmButton);
 

@@ -18,6 +18,14 @@ public class  UIFeedbackHelper {
         alert.showAndWait();
     }
 
+    public void showError(String title, String msg) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(msg);
+        alert.showAndWait();
+    }
+
     public void highlightSelectedButton(Button btn) {
         btn.setStyle("-fx-background-color: #00BFA6; -fx-text-fill: white; -fx-font-weight: bold;");
     }

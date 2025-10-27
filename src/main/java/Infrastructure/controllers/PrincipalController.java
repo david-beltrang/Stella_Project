@@ -6,6 +6,7 @@ import Application.dtos.Listado_Cursos.CursosResponse;
 import Application.dtos.Listado_Cursos.InscripcionRequest;
 import Application.services.LeccionService;
 import Application.services.ListarCursosService;
+import Infrastructure.ui.UIFeedbackHelper;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -22,7 +23,6 @@ import java.util.ResourceBundle;
 public class PrincipalController implements Initializable {
 
     // ====== ELEMENTOS FXML ======
-
     @FXML private TextField searchField;
     @FXML private ScrollPane misCursosScroll;
     @FXML private ScrollPane cursosDisponiblesScroll;
@@ -33,15 +33,16 @@ public class PrincipalController implements Initializable {
 
     // ====== DEPENDENCIAS ========
     private final ListarCursosService listarCursosService;
-    private LeccionService leccionService;
+    private final LeccionService leccionService;
+    private final UIFeedbackHelper uiHelper = new UIFeedbackHelper();
+
     private int usuarioActualId = AppServices.getUsuarioActual().id();
     private CursosResponse cursosActuales;
-
 
     // ====== CONSTRUCTOR =========
     public PrincipalController(ListarCursosService listarCursosService, LeccionService leccionService) {
         this.listarCursosService = listarCursosService;
-        this.leccionService= leccionService;
+        this.leccionService = leccionService;
     }
 
     // ====== MÉTODOS FXML ========
@@ -51,18 +52,16 @@ public class PrincipalController implements Initializable {
         configurarFlechas();
     }
 
-
     private void cargarCursosDesdeBD() {
         try {
             cursosActuales = listarCursosService.obtenerCursosCompletos(usuarioActualId);
             cargarMisCursos();
             cargarCursosDisponibles();
         } catch (Exception e) {
-            mostrarError("Error cargando cursos", e.getMessage());
+            uiHelper.showError("Error cargando cursos", e.getMessage());
         }
     }
 
-    // Se revisa cuáles son los cursos que ya tiene el usuario y se cargan visualmente
     private void cargarMisCursos() {
         misCursosContainer.getChildren().clear();
 
@@ -72,14 +71,12 @@ public class PrincipalController implements Initializable {
         }
 
         noCoursesLabel.setVisible(false);
-
         for (CursoResponse curso : cursosActuales.cursosUsuario()) {
             VBox card = crearTarjetaCurso(curso);
             misCursosContainer.getChildren().add(card);
         }
     }
 
-    // Se crean los cuadros de los cursos del usuario
     private VBox crearTarjetaCurso(CursoResponse curso) {
         VBox card = new VBox(10);
         card.setPrefSize(300, 200);
@@ -94,16 +91,14 @@ public class PrincipalController implements Initializable {
 
         Button btn = new Button("Continuar");
         btn.setStyle("-fx-background-color: #4A90E2; -fx-text-fill: white; -fx-font-weight: bold;");
-        btn.setOnAction(e -> mostrarInfo("Curso: " + curso.titulo(), "Abrir contenido próximamente."));
+        btn.setOnAction(e -> uiHelper.showInfo("Curso: " + curso.titulo(), "Abrir contenido próximamente."));
 
         card.getChildren().addAll(title, nivel, btn);
         return card;
     }
 
-    // Se cargan los cursos disponibles (no inscritos)
     private void cargarCursosDisponibles() {
         cursosDisponiblesContainer.getChildren().clear();
-
         for (CursoResponse curso : cursosActuales.cursosDisponibles()) {
             VBox card = crearTarjetaCursoDisponible(curso);
             cursosDisponiblesContainer.getChildren().add(card);
@@ -127,20 +122,17 @@ public class PrincipalController implements Initializable {
         return card;
     }
 
-    // Se construye la solicitud (DTO) y se llama al servicio para inscribir el curso
     private void inscribirCurso(int cursoId) {
         try {
             InscripcionRequest request = new InscripcionRequest(usuarioActualId, cursoId);
             cursosActuales = listarCursosService.inscribirCurso(request);
             cargarMisCursos();
             cargarCursosDisponibles();
-            mostrarInfo("Inscripción exitosa", "El curso fue agregado correctamente.");
+            uiHelper.showInfo("Inscripción exitosa", "El curso fue agregado correctamente.");
         } catch (Exception e) {
-            mostrarError("Error al inscribir curso", e.getMessage());
+            uiHelper.showError("Error al inscribir curso", e.getMessage());
         }
     }
-
-
 
     private void configurarFlechas() {
         if (leftArrow != null && rightArrow != null) {
@@ -160,24 +152,5 @@ public class PrincipalController implements Initializable {
         );
         timeline.play();
     }
-
-    // ============================
-    // ====== ALERTAS ============
-    // ============================
-
-    private void mostrarError(String titulo, String mensaje) {
-        Alert a = new Alert(Alert.AlertType.ERROR);
-        a.setTitle(titulo);
-        a.setHeaderText(null);
-        a.setContentText(mensaje);
-        a.showAndWait();
-    }
-
-    private void mostrarInfo(String titulo, String mensaje) {
-        Alert a = new Alert(Alert.AlertType.INFORMATION);
-        a.setTitle(titulo);
-        a.setHeaderText(null);
-        a.setContentText(mensaje);
-        a.showAndWait();
-    }
 }
+
