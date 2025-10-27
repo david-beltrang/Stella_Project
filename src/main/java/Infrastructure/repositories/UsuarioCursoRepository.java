@@ -3,6 +3,8 @@ package Infrastructure.repositories;
 import Domain.models.UsuarioCurso;
 import Domain.repositoriesInterfaces.InterfazUsuarioCursoRepository;
 import Infrastructure.persistence.ConexionBD;
+import Infrastructure.persistence.IConexionBD;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,14 +12,16 @@ import java.util.List;
 
 public class UsuarioCursoRepository implements InterfazUsuarioCursoRepository {
 
-    public UsuarioCursoRepository(){
-        // La creación de la tabla se maneja en el script SQL al iniciar H2.
+    private IConexionBD connMgr;
+
+    public UsuarioCursoRepository(IConexionBD connMgr) {
+        this.connMgr = connMgr;
     }
 
     @Override
     public void inscribir(UsuarioCurso usuarioCurso) {
         String sql = "INSERT INTO \"usuario_curso\" (usuario_id, curso_id, fecha) VALUES (?, ?, ?)";
-        try (Connection conn = ConexionBD.getConnection();
+        try (Connection conn = connMgr.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, usuarioCurso.getUsuarioId());
             stmt.setInt(2, usuarioCurso.getCursoId());
@@ -31,7 +35,7 @@ public class UsuarioCursoRepository implements InterfazUsuarioCursoRepository {
     @Override
     public boolean existeInscripcion(Integer usuarioId, Integer cursoId) {
         String sql = "SELECT COUNT(*) FROM \"usuario_curso\" WHERE usuario_id = ? AND curso_id = ?";
-        try (Connection conn = ConexionBD.getConnection();
+        try (Connection conn = connMgr.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, usuarioId);
             stmt.setInt(2, cursoId);
@@ -50,7 +54,7 @@ public class UsuarioCursoRepository implements InterfazUsuarioCursoRepository {
     public List<UsuarioCurso> encontrarPorUsuarioId(Integer usuario_id) {
         List<UsuarioCurso> inscripciones = new ArrayList<>();
         String sql = "SELECT usuario_id, curso_id, fecha FROM \"usuario_curso\" WHERE usuario_id = ?";
-        try (Connection conn = ConexionBD.getConnection();
+        try (Connection conn = connMgr.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, usuario_id);
             try (ResultSet rs = stmt.executeQuery()) {
@@ -63,8 +67,6 @@ public class UsuarioCursoRepository implements InterfazUsuarioCursoRepository {
         }
         return inscripciones;
     }
-
-
 
     // Método auxiliar para mapear un ResultSet a un UsuarioCurso.
     private UsuarioCurso obtenerUsuarioCurso(ResultSet rs) throws SQLException {

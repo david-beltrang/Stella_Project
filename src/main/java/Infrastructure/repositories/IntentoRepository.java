@@ -4,6 +4,7 @@ import Application.dtos.internal.IntentoInternal;
 import Application.dtos.internal.RespuestaInternal;
 import Domain.repositoriesInterfaces.InterfazIntentoRepository;
 import Infrastructure.persistence.ConexionBD;
+import Infrastructure.persistence.IConexionBD;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -16,10 +17,15 @@ public class IntentoRepository implements InterfazIntentoRepository {
     private static final String SQL_INSERT_RESPUESTA =
             "INSERT INTO respuesta (intento_id, pregunta_id, opcion_seleccionada_id) VALUES (?, ?, ?)";
 
+    private IConexionBD connMgr;
+
+    public IntentoRepository(IConexionBD connMgr) {
+        this.connMgr = connMgr;
+    }
     // Método para obtener todos los intentos de un usuario.
     @Override
     public int guardarIntento(IntentoInternal intento) {
-        try (Connection conn = ConexionBD.getConnection();
+        try (Connection conn = connMgr.getConnection();
              PreparedStatement ps = conn.prepareStatement(SQL_INSERT_INTENTO, Statement.RETURN_GENERATED_KEYS)) {
 
             ps.setInt(1, intento.usuarioId());
@@ -46,7 +52,7 @@ public class IntentoRepository implements InterfazIntentoRepository {
     // --- Métodos para actualizar la respuesta de un intento ---
     @Override
     public void guardarRespuesta(RespuestaInternal respuesta) {
-        try (Connection conn = ConexionBD.getConnection();
+        try (Connection conn = connMgr.getConnection();
              PreparedStatement ps = conn.prepareStatement(SQL_INSERT_RESPUESTA)) {
 
             ps.setInt(1, respuesta.intentoId());

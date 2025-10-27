@@ -1,9 +1,6 @@
 package Domain.models;
 
-import Application.dtos.curso.ProgresoLeccionId;
-import Domain.models.CursoValueObjects.EstadoProgreso;
-import Domain.models.CursoValueObjects.LeccionId;
-import Domain.models.UsuarioValueObjects.UsuarioId;
+import Domain.models.LeccionValueObjects.EstadoProgreso;
 
 import java.time.Instant;
 
@@ -11,10 +8,10 @@ import java.time.Instant;
  * Entidad que registra el progreso de un Usuario en una Lección.
  */
 public class ProgresoLeccion {
-    // Campos inmutables
-    private final ProgresoLeccionId id; // ID único del registro de progreso
-    private final UsuarioId usuarioId;
-    private final LeccionId leccionId;
+
+    private final Integer id; // ID único del registro de progreso
+    private final Integer usuarioId;
+    private final Integer leccionId;
 
     // Campos mutables/actualizables
     private EstadoProgreso estado;
@@ -24,7 +21,7 @@ public class ProgresoLeccion {
     /**
      * Constructor 1: Para cargar un registro existente desde el Repositorio (Carga Completa).
      */
-    public ProgresoLeccion(ProgresoLeccionId id, UsuarioId usuarioId, LeccionId leccionId,
+    public ProgresoLeccion(Integer id, Integer usuarioId, Integer leccionId,
                            EstadoProgreso estado, Instant fechaInicio, Instant fechaCompletado) {
         this.id = id;
         this.usuarioId = usuarioId;
@@ -38,7 +35,7 @@ public class ProgresoLeccion {
      * Constructor 2: Para crear un nuevo registro de progreso (Inicialización).
      * El ID es nulo y el estado inicial es EN_CURSO.
      */
-    public ProgresoLeccion(UsuarioId usuarioId, LeccionId leccionId) {
+    public ProgresoLeccion(Integer usuarioId, Integer leccionId) {
         this(
                 null, // El ID se asigna al guardar en la DB por primera vez
                 usuarioId,
@@ -49,7 +46,7 @@ public class ProgresoLeccion {
         );
     }
 
-    public ProgresoLeccion(ProgresoLeccionId id, UsuarioId usuarioId, LeccionId leccionId, EstadoProgreso estadoProgreso) {
+    public ProgresoLeccion(Integer id, Integer usuarioId, Integer leccionId, EstadoProgreso estadoProgreso) {
         this.id = id;
         this.usuarioId = usuarioId;
         this.leccionId = leccionId;
@@ -57,7 +54,7 @@ public class ProgresoLeccion {
         this.fechaInicio = Instant.now();
     }
 
-    public ProgresoLeccion(UsuarioId usuarioId, LeccionId leccionId, EstadoProgreso estadoProgreso) {
+    public ProgresoLeccion(Integer usuarioId, Integer leccionId, EstadoProgreso estadoProgreso) {
         this.usuarioId = usuarioId;
         this.leccionId = leccionId;
         this.estado = estadoProgreso;
@@ -76,9 +73,9 @@ public class ProgresoLeccion {
     }
 
     // Getters
-    public ProgresoLeccionId getId() { return id; }
-    public UsuarioId getUsuarioId() { return usuarioId; }
-    public LeccionId getLeccionId() { return leccionId; }
+    public Integer getId() { return id; }
+    public Integer getUsuarioId() { return usuarioId; }
+    public Integer getLeccionId() { return leccionId; }
     public EstadoProgreso getEstado() { return estado; }
     public Instant getFechaInicio() { return fechaInicio; }
     public Instant getFechaCompletado() { return fechaCompletado; }

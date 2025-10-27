@@ -4,6 +4,9 @@ import Application.dtos.sesionEstudio.Pomodoro.IniciarSesionEstudioRequest;
 import Application.dtos.sesionEstudio.Pomodoro.SesionEstudioResponse;
 import Application.services.SesionPomodoroService;
 import Domain.repositoriesInterfaces.InterfazSesionEstudioRepository;
+import Infrastructure.persistence.ConexionBD;
+import Infrastructure.persistence.H2DataBaseInitializer;
+import Infrastructure.persistence.IConexionBD;
 import Infrastructure.repositories.SesionEstudioRepository;
 
 
@@ -13,10 +16,12 @@ public class SesionEstudioTest {
 
     public static void main(String[] args) {
 
-        Infrastructure.persistence.H2DataBaseInitializer.initialize();
+        IConexionBD connMgr = new ConexionBD();
+        H2DataBaseInitializer initializer = new H2DataBaseInitializer(connMgr);
+        initializer.initialize();
 
         // Instanciar la interfaz con la implementación concreta
-        InterfazSesionEstudioRepository sesionRepository = new SesionEstudioRepository();
+        InterfazSesionEstudioRepository sesionRepository = new SesionEstudioRepository(connMgr);
         SesionPomodoroService sesionService = new SesionPomodoroService(sesionRepository);
 
         SesionEstudioTest test = new SesionEstudioTest(); // Se intancia el test

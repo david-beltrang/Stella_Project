@@ -1,10 +1,9 @@
 package Application.dtos.leccion;
 
-import Domain.models.CursoValueObjects.LeccionId;
-import Domain.models.CursoValueObjects.TipoContenido;
+import Domain.models.LeccionValueObjects.TipoContenido;
 
 public record ContenidoLeccionResponse(
-        LeccionId leccionId,
+        Integer leccionId,
         String titulo,
         String contenido, // HTML o URL
         TipoContenido tipoContenido,

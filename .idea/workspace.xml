@@ -4,8 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="51597e74-c3d4-4a99-ad6b-5f4c9d498175" name="Changes" comment="Se eliminan las clases CursoRepository.java y InterfazCursoRepository.java, se elimina el dto CursoId.java. Para poder realizar integración con el desarollo del otro grupo de developers.">
+    <list default="true" id="51597e74-c3d4-4a99-ad6b-5f4c9d498175" name="Changes" comment="Merge branch 'feature-secciones_Pprincipal' of https://github.com/david-beltrang/Stella_Project into copia-feature-secciones_Pprincipal&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/main/java/Infrastructure/repositories/CursoRepository.java&#10;#&#9;src/main/java/Infrastructure/repositories/LeccionRepository.java&#10;#&#9;src/main/java/Infrastructure/repositories/ProgresoLeccionRepository.java&#10;#&#9;src/main/java/Infrastructure/test/TestSesionEstudioService.java&#10;#&#9;src/main/java/Main/Stella.java&#10;#&#9;src/main/resources/database_setup.sql">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Application/dtos/curso/EstructuraCursoResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/curso/EstructuraCursoResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Application/dtos/seccion/Seccion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/seccion/SeccionResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Application/services/CursoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/services/CursoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/models/Leccion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/models/Leccion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/repositoriesInterfaces/InterfazCursoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/repositoriesInterfaces/InterfazCursoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/CursoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/CursoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/LeccionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/LeccionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/CursoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/CursoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/ProgresoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/ProgresoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/test/CursoServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/test/CursoServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/database_setup.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/database_setup.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,7 +26,6 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Enum" />
         <option value="Class" />
         <option value="Record" />
         <option value="Interface" />
@@ -23,11 +33,6 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="feature-secciones_Pprincipal" />
-      </map>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -39,7 +44,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/david-beltrang/Stella_Project.git&quot;,
-    &quot;accountId&quot;: &quot;8699c3d3-f6ea-4f43-85a2-9fc0e3854c5c&quot;
+    &quot;accountId&quot;: &quot;8777b691-8a52-4ca1-a4e7-1ad65489ecfb&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
@@ -50,28 +55,66 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Stella.executor": "Run",
-    "Application.TestSesionEstudioService.executor": "Run",
-    "Maven.Stella [javafx:run].executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "feature-secciones__Pprincipal",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15274803",
-    "project.structure.side.proportion": "0.29173693",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.ListarCursosServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Stella.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TestSesionEstudioService.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TestUsuarioService.executor&quot;: &quot;Run&quot;,
+    &quot;Application.h2webconsole.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Stella [javafx:run].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;copia-feature-secciones__Pprincipal&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15274803&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.29173693&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;
   }
-}]]></component>
-  <component name="RunManager">
+}</component>
+  <component name="RunManager" selected="Application.ListarCursosServiceTest">
+    <configuration name="ListarCursosServiceTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Infrastructure.test.ListarCursosServiceTest" />
+      <module name="Stella" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Infrastructure.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestUsuarioService" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Infrastructure.TestUsuarioService" />
+      <module name="Stella" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Infrastructure.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="h2webconsole" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Infrastructure.persistence.h2webconsole" />
+      <module name="Stella" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Infrastructure.persistence.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Stella [javafx:run]" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
       <MavenSettings>
         <option name="myGeneralSettings" />
@@ -102,14 +145,19 @@
       </MavenSettings>
       <method v="2" />
     </configuration>
-  </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.26830.84" />
-        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-IU-252.26830.84" />
-      </set>
-    </attachedChunks>
+    <list>
+      <item itemvalue="Application.ListarCursosServiceTest" />
+      <item itemvalue="Application.TestUsuarioService" />
+      <item itemvalue="Application.h2webconsole" />
+      <item itemvalue="Maven.Stella [javafx:run]" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.ListarCursosServiceTest" />
+        <item itemvalue="Application.h2webconsole" />
+        <item itemvalue="Application.TestUsuarioService" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -118,44 +166,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1760376168853</updated>
-      <workItem from="1761005856938" duration="5906000" />
     </task>
-    <task id="LOCAL-00001" summary="Se realizan las motificaciones para poder mostrar en pantalla el curso, secciones y lecciones.">
-      <option name="closed" value="true" />
-      <created>1760925927452</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1760925927452</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Se eliminan las clases CursoRepository.java y InterfazCursoRepository.java, se elimina el dto CursoId.java. Para poder realizar integración con el desarollo del otro grupo de developers.">
-      <option name="closed" value="true" />
-      <created>1761014076891</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1761014076891</updated>
-    </task>
-    <option name="localTasksCounter" value="3" />
     <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="Se realizan las motificaciones para poder mostrar en pantalla el curso, secciones y lecciones." />
-    <MESSAGE value="Se eliminan las clases CursoRepository.java y InterfazCursoRepository.java, se elimina el dto CursoId.java. Para poder realizar integración con el desarollo del otro grupo de developers." />
-    <option name="LAST_COMMIT_MESSAGE" value="Se eliminan las clases CursoRepository.java y InterfazCursoRepository.java, se elimina el dto CursoId.java. Para poder realizar integración con el desarollo del otro grupo de developers." />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Infrastructure/controllers/ControllerPrincipal.java</url>
-          <line>51</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

@@ -5,6 +5,7 @@ import Application.dtos.internal.PreguntaConOpcionesInternal;
 import Domain.models.Prueba;
 import Domain.repositoriesInterfaces.InterfazPruebaRepository;
 import Infrastructure.persistence.ConexionBD;
+import Infrastructure.persistence.IConexionBD;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,11 +25,16 @@ public class PruebaRepository implements InterfazPruebaRepository {
     private static final String SQL_SELECT_PREGUNTA_BY_ID =
             "SELECT pr.id AS pregunta_id, pr.enunciado, o.id AS opcion_id, o.texto, o.es_correcta FROM pregunta pr JOIN opcion o ON pr.id = o.pregunta_id WHERE pr.id = ?";
 
+    private IConexionBD connMgr;
+
+    public PruebaRepository(IConexionBD connMgr) {
+        this.connMgr = connMgr;
+    }
     // Método para obtener la prueba de una lección.
     @Override
     public Optional<Prueba> buscarPruebaPorLeccion(int leccionId) {
         Prueba prueba = null;
-        try (Connection conn = ConexionBD.getConnection();
+        try (Connection conn = connMgr.getConnection();
              PreparedStatement ps = conn.prepareStatement(SQL_SELECT_PRUEBA_BY_LECCION)) {
 
             ps.setInt(1, leccionId);
@@ -66,7 +72,7 @@ public class PruebaRepository implements InterfazPruebaRepository {
         // Un HashMap para agrupar las opciones por ID de Pregunta
         java.util.Map<Integer, PreguntaConOpcionesInternal> preguntasMap = new java.util.LinkedHashMap<>();
 
-        try (Connection conn = ConexionBD.getConnection();
+        try (Connection conn = connMgr.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, id);

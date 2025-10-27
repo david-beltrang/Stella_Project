@@ -1,13 +1,14 @@
 package Application.services;
 
-import Application.dtos.curso.CursoEstructura;
-import Application.dtos.leccion.LeccionLista;
-import Application.dtos.seccion.Seccion;
+import Application.dtos.curso.EstructuraCursoResponse;
+import Application.dtos.leccion.LeccionResponse;
+import Application.dtos.seccion.SeccionResponse;
+
 import Domain.models.Curso;
-import Domain.models.CursoValueObjects.EstadoProgreso;
+import Domain.models.LeccionValueObjects.EstadoProgreso;
 import Domain.models.Leccion;
 import Domain.models.ProgresoLeccion;
-import Domain.models.UsuarioValueObjects.UsuarioId;
+
 import Domain.repositoriesInterfaces.InterfazCursoRepository;
 import Domain.repositoriesInterfaces.InterfazLeccionRepository;
 import Domain.repositoriesInterfaces.InterfazProgresoRepository;
@@ -16,14 +17,16 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+
 public class CursoService {
 
-    // Dependencias inyectadas: solo Interfaces de Repositorio (Contratos de Dominio)
     private final InterfazCursoRepository interfazCursoRepository;
     private final InterfazLeccionRepository interfazLeccionRepository;
     private final InterfazProgresoRepository interfazProgresoRepository;
 
-    public CursoService(InterfazCursoRepository interfazCursoRepository, InterfazLeccionRepository interfazLeccionRepository, InterfazProgresoRepository interfazProgresoRepository) {
+    public CursoService(InterfazCursoRepository interfazCursoRepository,
+                        InterfazLeccionRepository interfazLeccionRepository,
+                        InterfazProgresoRepository interfazProgresoRepository) {
         this.interfazCursoRepository = interfazCursoRepository;
         this.interfazLeccionRepository = interfazLeccionRepository;
         this.interfazProgresoRepository = interfazProgresoRepository;
@@ -32,45 +35,48 @@ public class CursoService {
     /**
      * Obtiene la estructura completa del curso con el progreso y estado de desbloqueo
      * de cada lección para el usuario dado.
+     *
      * @param usuarioId El ID del usuario actual.
-     * @param cursoId El ID del curso a visualizar.
-     * @return CursoEstructuraDTO con las secciones y lecciones listas para la UI.
+     * @param cursoId   El ID del curso a visualizar.
+     * @return CursoEstructura con las secciones y lecciones listas para la UI.
      */
-    public CursoEstructura obtenerEstructuraCurso(UsuarioId usuarioId, Integer cursoId) {
-        // 1. Obtener la Entidad principal del Curso
+
+    // Obtener todo el curso,
+    public EstructuraCursoResponse obtenerEstructuraCurso(Integer usuarioId, Integer cursoId) {
+        // 1) Obtener la Entidad principal del Curso
         Optional<Curso> cursoOpt = interfazCursoRepository.buscarPorId(cursoId);
         if (cursoOpt.isEmpty()) {
             throw new IllegalArgumentException("El curso con ID " + cursoId + " no fue encontrado.");
         }
         Curso curso = cursoOpt.get();
 
-        // 2. Obtener TODAS las lecciones (convirtiendo Iterable a List para ordenar)
+        // 2) Obtener TODAS las lecciones (convirtiendo Iterable a List para ordenar ascendentemente)
         List<Leccion> todasLasLecciones = StreamSupport
                 .stream(interfazLeccionRepository.buscarPorCursoId(cursoId).spliterator(), false)
                 .collect(Collectors.toList());
 
         // Ordenamos por sección y luego por orden para aplicar la lógica secuencial
-        todasLasLecciones.sort(Comparator
-                .comparingInt(Leccion::getNumeroSeccion)
-                .thenComparingInt(Leccion::getNumeroOrden)
+        todasLasLecciones.sort(
+                Comparator.comparingInt(Leccion::getNumeroSeccion)
+                        .thenComparingInt(Leccion::getNumeroOrden)
         );
 
-        // 3. Obtener el estado y aplicar la lógica de desbloqueo
-        List<LeccionLista> leccionesConEstado = new ArrayList<>();
+        // 3) Obtener el estado y aplicar la lógica de desbloqueo
+        List<LeccionResponse> leccionesConEstado = new ArrayList<>();
         boolean leccionAnteriorCompletada = true; // La primera lección siempre se desbloquea
 
         for (Leccion leccion : todasLasLecciones) {
 
             // Usamos ProgresoRepository para obtener el estado actual
             ProgresoLeccion progreso = interfazProgresoRepository.buscarPorUsuarioYLeccion(usuarioId, leccion.getId());
-            EstadoProgreso estado = progreso != null ? progreso.getEstado() : EstadoProgreso.PENDIENTE;
+            EstadoProgreso estado = (progreso != null) ? progreso.getEstado() : EstadoProgreso.PENDIENTE;
 
-            // Lógica de desbloqueo: Desbloqueada si la anterior fue completada O si es la primera.
+            // Lógica de desbloqueo: desbloqueada si la anterior fue completada o si es la primera.
             boolean desbloqueada = leccionAnteriorCompletada;
 
-            LeccionLista dto = new LeccionLista(
+            LeccionResponse dto = new LeccionResponse(
                     leccion.getId(),
-                    leccion.getTituloValor(), // Accesor de Record Titulo
+                    leccion.getTitulo(),
                     leccion.getNumeroSeccion(),
                     leccion.getTipoContenido(),
                     estado,
@@ -82,24 +88,46 @@ public class CursoService {
             leccionAnteriorCompletada = (estado == EstadoProgreso.COMPLETADA);
         }
 
-        // 4. Agrupar la lista plana de DTOs por número de sección
-        Map<Integer, List<LeccionLista>> leccionesPorSeccion = leccionesConEstado.stream()
-                .collect(Collectors.groupingBy(LeccionLista::numeroSeccion));
+        // 4) Agrupar la lista plana de DTOs por número de sección
+        // Crear un Map donde la clave es un Integer (el número de sección) y el valor es una lista de objetos LeccionLista que pertenecen a esa sección.
+        Map<Integer, List<LeccionResponse>> leccionesPorSeccion =
+                // Convertir la lista leccionesConEstado en un Stream para usar map, filter y collect.
+                leccionesConEstado.stream()
+                        // Usar collect para transformar el Stream en un Map y groupingBy agrupa los elementos del Stream según la clave indicada
+                        .collect(Collectors.groupingBy(
+                                // Indicamos cómo obtener la clave de agrupamiento.
+                                // Haciendo referencia a método (equivalente a leccion -> leccion.numeroSeccion()).
+                                // Para agrupar todas las lecciones de una seccion en una misma lista
+                                LeccionResponse::numeroSeccion
+                        ));
 
-        // 5. Mapear los grupos a los DTOs de Sección (ordenados por número de sección)
-        List<Seccion> secciones = leccionesPorSeccion.entrySet().stream()
-                .sorted(Map.Entry.comparingByKey())
-                .map(entry -> {
-                    int numero = entry.getKey();
-                    String tituloSec = "Sección " + numero + ": Contenido Temático";
-                    return new Seccion(numero, tituloSec, entry.getValue());
-                })
-                .collect(Collectors.toList());
+        // 5) Mapear los grupos a los DTOs de Sección (ordenados por número de sección)
+        List<SeccionResponse> secciones =
 
-        // 6. Devolver la Estructura Final (Response DTO)
-        return new CursoEstructura(
+                // Obtenemos un Stream de las entradas del Map cada una tiene
+                // - getKey(): el número de sección (Integer)
+                // - getValue(): la lista de lecciones asociadas a esa sección (List<LeccionLista>)
+                leccionesPorSeccion.entrySet().stream()
+                        // Ordenar el Map por la clave (número de sección) de menor a mayor.
+                        .sorted(Map.Entry.comparingByKey())
+                        // Transformamos cada entrada del Map en un objeto Seccion
+                        .map(entry -> {
+                            // Guardamos el número de sección en una variable para mayor claridad
+                            int numero = entry.getKey();
+                            // Creamos un título para la sección, personalizado con el número
+                            String tituloSec = "Sección " + numero + ": Contenido Temático";
+                            // Creamos un objeto Seccion
+                            return new SeccionResponse(numero, tituloSec, entry.getValue());
+                        })
+
+                        // Colectamos todos los objetos Seccion generados en una lista
+                        .collect(Collectors.toList());
+
+
+        // 6) Devolver la Estructura Final
+        return new EstructuraCursoResponse(
                 curso.getId(),
-                curso.getTitulo().valorTitulo(),
+                curso.getTitulo(),
                 secciones
         );
     }

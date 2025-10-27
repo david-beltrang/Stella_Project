@@ -1,11 +1,10 @@
 package Application.dtos.leccion;
 
-import Domain.models.CursoValueObjects.LeccionId;
-import Domain.models.CursoValueObjects.EstadoProgreso;
-import Domain.models.CursoValueObjects.TipoContenido;
+import Domain.models.LeccionValueObjects.EstadoProgreso;
+import Domain.models.LeccionValueObjects.TipoContenido;
 
-public record LeccionLista(
-        LeccionId id,
+public record LeccionResponse(
+        Integer id,
         String titulo,
         int numeroSeccion,
         TipoContenido tipoContenido,

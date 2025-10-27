@@ -1,12 +1,10 @@
 package Infrastructure.repositories;
 
-import Application.dtos.curso.ProgresoLeccionId;
-import Domain.models.CursoValueObjects.LeccionId;
-import Domain.models.CursoValueObjects.EstadoProgreso;
+import Domain.models.LeccionValueObjects.EstadoProgreso;
 import Domain.models.ProgresoLeccion;
-import Domain.models.UsuarioValueObjects.UsuarioId;
 import Domain.repositoriesInterfaces.InterfazProgresoRepository;
 import Infrastructure.persistence.ConexionBD;
+import Infrastructure.persistence.IConexionBD;
 
 import java.sql.*;
 import java.time.Instant;
@@ -14,10 +12,10 @@ import java.time.Instant;
 // Implementación JDBC real del repositorio de ProgresoLeccion.
 public class ProgresoRepository implements InterfazProgresoRepository {
 
-    private final ConexionBD db;
+    private IConexionBD connMgr;
 
-    public ProgresoRepository(ConexionBD db) {
-        this.db = db;
+    public ProgresoRepository(IConexionBD connMgr) {
+        this.connMgr = connMgr;
     }
 
     private ProgresoLeccion mapResultSetToProgreso(ResultSet rs) throws SQLException {
@@ -31,9 +29,9 @@ public class ProgresoRepository implements InterfazProgresoRepository {
         Instant fechaCompletado = tsCompletado != null ? tsCompletado.toInstant() : null;
 
         return new ProgresoLeccion(
-                new ProgresoLeccionId(rs.getInt("id")),
-                new UsuarioId(rs.getInt("usuario_id")),
-                new LeccionId(rs.getInt("leccion_id")),
+                rs.getInt("id"),
+                rs.getInt("usuario_id"),
+                rs.getInt("leccion_id"),
                 EstadoProgreso.valueOf(rs.getString("estado")),
                 fechaInicio,        // Usamos la variable segura
                 fechaCompletado     // Usamos la variable segura
@@ -41,13 +39,13 @@ public class ProgresoRepository implements InterfazProgresoRepository {
     }
 
     @Override
-    public ProgresoLeccion buscarPorUsuarioYLeccion(UsuarioId usuarioId, LeccionId leccionId) {
+    public ProgresoLeccion buscarPorUsuarioYLeccion(Integer usuarioId, Integer leccionId) {
         String sql = "SELECT * FROM progreso_leccion WHERE usuario_id = ? AND leccion_id = ?";
-        try (Connection conn = db.getConnection();
+        try (Connection conn = connMgr.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, usuarioId.valor());
-            stmt.setInt(2, leccionId.valor());
+            stmt.setInt(1, usuarioId);
+            stmt.setInt(2, leccionId);
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
@@ -67,7 +65,6 @@ public class ProgresoRepository implements InterfazProgresoRepository {
                 "VALUES (?, ?, ?, ?, ?) " +
                 "ON DUPLICATE KEY UPDATE estado=?, fecha_completado=?";
         // Lógica de conexión, seteo de parámetros y ejecución.
-        // (Omitida por brevedad)
         return progreso;
     }
 }

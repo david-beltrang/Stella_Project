@@ -1,15 +1,15 @@
 package Infrastructure.test;
 
-import Application.dtos.leccion.LeccionRequest;
 import Application.dtos.sesionEstudio.LeccionDetalleResponse;
 import Application.dtos.sesionEstudio.*;
 import Application.services.LeccionService;
 import Application.services.SesionEstudioService;
 import Domain.repositoriesInterfaces.*;
 import Infrastructure.repositories.*;
-import Infrastructure.repositories.ProgresoRepository;
-
 import java.util.List;
+import Infrastructure.persistence.ConexionBD;
+import Infrastructure.persistence.H2DataBaseInitializer;
+import Infrastructure.persistence.IConexionBD;
 
 /**
  * Clase para pruebas manuales rápidas del SesionEstudioService.
@@ -23,18 +23,20 @@ public class TestSesionEstudioService {
     public static void main(String[] args) {
 
         // Aseguramos que la BD esté inicializada antes de instanciar cualquier repositorio.
-        Infrastructure.persistence.H2DataBaseInitializer.initialize();
+        IConexionBD connMgr = new ConexionBD();
+        H2DataBaseInitializer initializer = new H2DataBaseInitializer(connMgr);
+        initializer.initialize();
 
         System.out.println("=================================================");
         System.out.println("=== TEST FUNCIONAL: SesionEstudioService (v.1) ==");
         System.out.println("=================================================");
 
         // 1. Instanciar Repositorios
-        InterfazProgresoRepository progresoRepo = new ProgresoRepository();
-        InterfazLeccionRepository leccionRepo = new LeccionRepository();
-        InterfazPruebaRepository pruebaRepo = new PruebaRepository();
-        InterfazIntentoRepository intentoRepo = new IntentoRepository();
-        InterfazUsuarioStatsRepository statsRepo = new UsuarioStatsRepository();
+        InterfazProgresoLeccionRepository progresoRepo = new ProgresoLeccionRepository(connMgr);
+        InterfazLeccionRepository leccionRepo = new LeccionRepository(connMgr);
+        InterfazPruebaRepository pruebaRepo = new PruebaRepository(connMgr);
+        InterfazIntentoRepository intentoRepo = new IntentoRepository(connMgr);
+        InterfazUsuarioStatsRepository statsRepo = new UsuarioStatsRepository(connMgr);
 
         // 2. Instanciar el Servicio de Aplicación
         SesionEstudioService estudioService = new SesionEstudioService(
