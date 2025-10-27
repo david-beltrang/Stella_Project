@@ -7,6 +7,9 @@ import Application.services.ListarCursosService;
 import Application.services.PomodoroTimer;
 import Application.services.SesionEstudioService;
 import Application.services.SesionPomodoroService;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 import java.util.Objects;
 import java.util.function.Function;
@@ -56,6 +59,8 @@ public class ControllerControladores {
 
         inicializar();
     }
+
+
 
     // ======== Inicialización de controladores ========
     private void inicializar() {
@@ -108,4 +113,21 @@ public class ControllerControladores {
     public void reinicializar() {
         inicializar();
     }
+
+    public void mostrarVistaInicial(Stage stage) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/hello-view.fxml"));
+
+            // Envolvemos la Function en un Callback, que es lo que FXMLLoader requiere
+            loader.setControllerFactory(clazz -> this.controllerFactory().apply(clazz));
+
+            Scene scene = new Scene(loader.load());
+            stage.setScene(scene);
+
+        } catch (Exception e) {
+            System.err.println("❌ Error al cargar la vista inicial: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
 }

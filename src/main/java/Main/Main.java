@@ -15,23 +15,23 @@ import Infrastructure.persistence.H2DataBaseInitializer;
 import Infrastructure.repositories.*;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
-public class Stella extends Application {
+public class Main extends Application {
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
 
         // =====================================================
-        // ===== 1️⃣ Inicializar conexión e infraestructura BD =====
+        // 1️⃣ Inicializar conexión e infraestructura BD
+        // =====================================================
         var connMgr = new ConexionBD();
         var initializer = new H2DataBaseInitializer(connMgr);
         initializer.initialize();
 
-        // ===== 2️⃣ Instanciar repositorios =====
+        // =====================================================
+        // 2️⃣ Instanciar repositorios
+        // =====================================================
         InterfazUsuarioRepository usuarioRepository = new UsuarioRepository(connMgr);
         InterfazLeccionRepository leccionRepository = new LeccionRepository(connMgr);
         InterfazCursoRepository cursoRepository = new CursoRepository(connMgr);
@@ -43,22 +43,24 @@ public class Stella extends Application {
         InterfazUsuarioCursoRepository usuarioCursoRepository = new UsuarioCursoRepository(connMgr);
 
         // =====================================================
-        // 2️⃣ Instanciar servicios de aplicación
+        // 3️⃣ Instanciar servicios de aplicación
         // =====================================================
         LeccionService leccionService = new LeccionService(
                 leccionRepository, progresoRepository, intentoRepository, pruebaRepository
         );
 
-        ListarCursosService listarCursosService = new ListarCursosService(cursoRepository, usuarioCursoRepository);
+        ListarCursosService listarCursosService = new ListarCursosService(
+                cursoRepository, usuarioCursoRepository
+        );
+
         PomodoroTimer pomodoroTimer = PomodoroTimer.getInstance();
         SesionEstudioService sesionEstudioService = new SesionEstudioService(leccionRepository, progresoRepository);
         SesionPomodoroService sesionPomodoroService = new SesionPomodoroService(sesionEstudioRepository);
         LoginService loginService = new LoginService(usuarioRepository);
         RegistroService registroService = new RegistroService(usuarioRepository);
 
-
         // =====================================================
-        // 3️⃣ Crear el orquestador de controladores
+        // 4️⃣ Crear orquestador y delegar la vista inicial
         // =====================================================
         ControllerControladores controllerControladores = new ControllerControladores(
                 leccionService,
@@ -70,30 +72,21 @@ public class Stella extends Application {
                 registroService
         );
 
-        // =====================================================
-        // 4️⃣ Cargar la vista inicial (Hello View)
-        // =====================================================
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/hello-view.fxml"));
+        // 👉 Delega completamente la carga inicial al orquestador
+        controllerControladores.mostrarVistaInicial(stage);
 
-        // Inyectamos la factory global del orquestador
-        loader.setControllerFactory((Callback<Class<?>, Object>) controllerControladores.controllerFactory());
-
-        // Cargar escena principal
-        Scene scene = new Scene(loader.load());
+        // Configuración visual del Stage (opcional aquí)
         stage.setTitle("STELLA - Inicio");
-        stage.setScene(scene);
         stage.setResizable(false);
         stage.setWidth(1920);
         stage.setHeight(1080);
         stage.centerOnScreen();
         stage.show();
-
-        // 💡 Si más adelante quieres que el orquestador maneje la carga:
-        // controllerControladores.mostrarVistaInicial(stage);
     }
 
     public static void main(String[] args) {
         launch();
     }
 }
+
 
