@@ -127,7 +127,7 @@ public class ControllerControladores {
             stage.setScene(scene);
 
         } catch (Exception e) {
-            System.err.println(" Error al cargar la vista inicial: " + e.getMessage());
+            System.err.println("❌ Error al cargar la vista inicial: " + e.getMessage());
             e.printStackTrace();
         }
     }
