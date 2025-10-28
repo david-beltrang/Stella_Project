@@ -1,12 +1,13 @@
 package Infrastructure.repositories;
 
 
+import Application.dtos.Listado_Cursos.DetallesResponse;
 import Domain.models.Curso;
 import Domain.models.CursoValueObjects.NivelCurso;
 import Domain.models.CursoValueObjects.Titulo;
 import Domain.repositoriesInterfaces.InterfazCursoRepository;
-import Infrastructure.persistence.ConexionBD;
 import Infrastructure.persistence.IConexionBD;
+import Application.dtos.Listado_Cursos.DetallesResponse;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -20,6 +21,23 @@ public class CursoRepository implements InterfazCursoRepository {
 
     public CursoRepository(IConexionBD connMgr) {
         this.connMgr = connMgr;
+    }
+    @Override
+    public DetallesResponse verDetallesCurso(Integer cursoId) {
+        String sql = "SELECT descripcion FROM \"curso\" WHERE id = ?";
+        try (Connection conn = connMgr.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setInt(1, cursoId);
+            try (ResultSet rs = pstmt.executeQuery()){
+                if (rs.next()){
+                    return new DetallesResponse(rs.getString("descripcion"));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return new DetallesResponse("El curso no tiene descripcion");
     }
 
 
