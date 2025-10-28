@@ -38,10 +38,11 @@ public class ControllerControladores {
     private RegistroController registroController;
     private LoginController loginController;
 
-    // ======== Factory central (para FXMLLoader) ========
+    // Factory sirve para saber cual controlador devolver
     private Function<Class<?>, Object> factory;
 
-    // ======== Constructor (inyecta todos los servicios) ========
+    // Constructor (inyecta todos los servicios)
+    // SE van a guardar en variables y después se llama a inicializar() para crear los controladores
     public ControllerControladores(LeccionService leccionService,
                                    ListarCursosService listarCursosService,
                                    PomodoroTimer pomodoroTimer,
@@ -62,18 +63,18 @@ public class ControllerControladores {
 
 
 
-    // ======== Inicialización de controladores ========
+    // Inicialización de controladores
     private void inicializar() {
-        // ---- Controladores sin dependencias
+        // Controladores sin dependencias
         this.helloController  = new HelloController();
 
-        // ---- Controladores con dependencias
+        // Controladores con dependencias
         this.principalController = new PrincipalController(listarCursosService, leccionService);
         this.pomodoroController  = new PomodoroController(sesionPomodoroService, pomodoroTimer);
         this.loginController     = new LoginController(loginService);
         this.registroController  = new RegistroController(registroService);
 
-        // ---- Construcción de la factory global ----
+        // aquí se decide que controlador devolver según la clase que pida FXMLLoader
         this.factory = (Class<?> clazz) -> {
             try {
                 if (clazz == HelloController.class)      return helloController;
@@ -82,34 +83,35 @@ public class ControllerControladores {
                 if (clazz == RegistroController.class)   return registroController;
                 if (clazz == LoginController.class)      return loginController;
 
-                // fallback por si se carga un controlador no registrado aquí
+                // si se pide un controlador no existe se crea de forma manual
                 return clazz.getDeclaredConstructor().newInstance();
             } catch (Exception e) {
                 throw new RuntimeException("No se pudo crear controlador: " + clazz.getName(), e);
             }
         };
 
-        // ---- Inyectar la factory en los controladores que navegan ----
+        // SE pasa la factory a los controladores que cambian de pantalla
+        // Así los controladores pueden cargar otras vistas sin perder la misma instancia de factory
         helloController.setControllerFactory(factory);
         loginController.setControllerFactory(factory);
         registroController.setControllerFactory(factory);
         pomodoroController.setControllerFactory(factory);
-        // principalController y stellaController podrían necesitarla si también navegan
+
     }
 
-    // ======== Getters para acceso externo ========
+    //  Getters para acceso externo
     public HelloController getHelloController()         { return helloController; }
     public PrincipalController getPrincipalController() { return principalController; }
     public PomodoroController getPomodoroController()   { return pomodoroController; }
     public RegistroController getRegistroController()   { return registroController; }
     public LoginController getLoginController()         { return loginController; }
 
-    // ======== Factory pública (para FXMLLoader) ========
+    // Se devuelve la función factory para que el FXMLLoader la use al cargar las vistas
     public Function<Class<?>, Object> controllerFactory() {
         return this.factory;
     }
 
-    // ======== Reinicializar controladores (opcional) ========
+    // Reinicializar controladores
     public void reinicializar() {
         inicializar();
     }
@@ -118,7 +120,7 @@ public class ControllerControladores {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/hello-view.fxml"));
 
-            // Envolvemos la Function en un Callback, que es lo que FXMLLoader requiere
+            // FXMLLoader va a espera un "Callback", por eso se adapta esta forma
             loader.setControllerFactory(clazz -> this.controllerFactory().apply(clazz));
 
             Scene scene = new Scene(loader.load());

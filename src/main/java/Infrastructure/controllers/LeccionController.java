@@ -2,8 +2,8 @@ package Infrastructure.controllers;
 
 import Application.dtos.leccion.LeccionLista;
 import Domain.models.UsuarioValueObjects.UsuarioId;
-import Infrastructure.ui.NavigationManager;
-import Infrastructure.ui.UIFeedbackHelper;
+import Infrastructure.ui.Navigacion;
+import Infrastructure.ui.AyudaUI;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -28,8 +28,8 @@ public class LeccionController {
     private LeccionLista leccion;
     private Function<Class<?>, Object> controllerFactory;
 
-    private final NavigationManager navigator = new NavigationManager();
-    private final UIFeedbackHelper uiHelper = new UIFeedbackHelper();
+    private final Navigacion navigator = new Navigacion();
+    private final AyudaUI uiHelper = new AyudaUI();
 
     public void setControllerFactory(Function<Class<?>, Object> controllerFactory) {
         this.controllerFactory = controllerFactory;

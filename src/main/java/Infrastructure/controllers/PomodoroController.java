@@ -2,8 +2,8 @@ package Infrastructure.controllers;
 
 import Application.services.PomodoroTimer;
 import Application.services.SesionPomodoroService;
-import Infrastructure.ui.NavigationManager;
-import Infrastructure.ui.UIFeedbackHelper;
+import Infrastructure.ui.Navigacion;
+import Infrastructure.ui.AyudaUI;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
@@ -12,7 +12,7 @@ import java.util.function.Function;
 /**
  * Controlador de la vista Pomodoro.
  * Encargado solo de manejar interacción de UI y delegar lógica a los servicios.
- * No incluye validación de quiz (no implementada en backend).
+ * No incluye validación de quiz
  */
 public class PomodoroController {
 
@@ -22,17 +22,17 @@ public class PomodoroController {
     private Function<Class<?>, Object> controllerFactory;
 
     // ====== Helpers de UI (front) ======
-    private final NavigationManager navigator = new NavigationManager();
-    private final UIFeedbackHelper uiHelper = new UIFeedbackHelper();
+    private final Navigacion navigator = new Navigacion();
+    private final AyudaUI uiHelper = new AyudaUI();
 
-    // ====== Nodos FXML ======
+    // ====== FXML ======
     @FXML private Label timerLabel;
     @FXML private Button startButton, pauseButton, confirmButton;
     @FXML private Button btn3min, btn5min, btn8min, btn10min;
     @FXML private Button btn25min, btn30min, btn45min, btn60min;
     @FXML private Button homeBtn, forumBtn, achievementsBtn, profileBtn;
 
-    // ====== Estado ======
+
     private int minutosSeleccionados;
 
     // ====== Constructores ======
@@ -56,16 +56,16 @@ public class PomodoroController {
     @FXML
     public void initialize() {
         setupButtons();
-        setupKeyboardShortcuts();
+        atajoTeclado();
 
         // Vincular etiqueta del temporizador al PomodoroTimer
         if (timerLabel != null && pomodoroTimer != null) {
-            uiHelper.bindTimerLabel(timerLabel, pomodoroTimer);
+            uiHelper.SincronizadorVisualPomodoro(timerLabel, pomodoroTimer);
         }
     }
 
     // ====== Configuración ======
-    private void setupKeyboardShortcuts() {
+    private void atajoTeclado() {
         if (timerLabel == null) return;
         timerLabel.sceneProperty().addListener((obs, oldScene, newScene) -> {
             if (newScene != null) {

@@ -4,8 +4,8 @@ import Application.config.AppServices;
 import Application.dtos.acceso.LoginRequest;
 import Application.dtos.acceso.UsuarioResponse;
 import Application.services.DarAcceso.LoginService;
-import Infrastructure.ui.NavigationManager;
-import Infrastructure.ui.UIFeedbackHelper;
+import Infrastructure.ui.Navigacion;
+import Infrastructure.ui.AyudaUI;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -18,8 +18,8 @@ public class LoginController {
     private final LoginService service;
 
     // ===== UI Helpers =====
-    private final UIFeedbackHelper uiHelper = new UIFeedbackHelper();
-    private final NavigationManager navigator = new NavigationManager();
+    private final AyudaUI uiHelper = new AyudaUI();
+    private final Navigacion navigator = new Navigacion();
 
     // ===== Navegación (inyectada) =====
     private Function<Class<?>, Object> controllerFactory;

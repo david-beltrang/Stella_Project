@@ -1,7 +1,7 @@
 package Infrastructure.controllers;
 
-import Infrastructure.ui.NavigationManager;
-import Infrastructure.ui.UIFeedbackHelper;
+import Infrastructure.ui.Navigacion;
+import Infrastructure.ui.AyudaUI;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
@@ -12,18 +12,19 @@ public class HelloController {
     @FXML private Button loginButton;
     @FXML private Button registroButton;
 
-    // ====== Dependencias de UI comunes ======
-    private final NavigationManager navigator = new NavigationManager();
-    private final UIFeedbackHelper uiHelper = new UIFeedbackHelper();
+    // Dependencias de UI
+    private final Navigacion navigator = new Navigacion();
+    private final AyudaUI uiHelper = new AyudaUI();
 
-    // ====== Factory global para la inyección de controladores ======
+    // Factory global para la inyección de controladores
+    // Osea esto permite mantener las mismas instancias entre vistas al cambiar de escena
     private Function<Class<?>, Object> controllerFactory;
 
     public void setControllerFactory(Function<Class<?>, Object> controllerFactory) {
         this.controllerFactory = controllerFactory;
     }
 
-    // ====== EVENTOS DE BOTONES ======
+    //  ACCIONES DE BOTONES
     @FXML
     private void goToLogin() {
         try {

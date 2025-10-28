@@ -3,8 +3,8 @@ package Infrastructure.controllers;
 import Application.dtos.acceso.RegistrarUsuarioRequest;
 import Application.dtos.acceso.UsuarioResponse;
 import Application.services.DarAcceso.RegistroService;
-import Infrastructure.ui.NavigationManager;
-import Infrastructure.ui.UIFeedbackHelper;
+import Infrastructure.ui.Navigacion;
+import Infrastructure.ui.AyudaUI;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -15,11 +15,11 @@ public class RegistroController {
     // ===== Dependencias de negocio =====
     private final RegistroService service;
 
-    // ===== Utilidades UI (centralizadas en Infrastructure.ui) =====
-    private final UIFeedbackHelper uiHelper = new UIFeedbackHelper();
-    private final NavigationManager navigator = new NavigationManager();
+    // ===== UI=====
+    private final AyudaUI uiHelper = new AyudaUI();
+    private final Navigacion navigator = new Navigacion();
 
-    // ===== Factory global para navegación =====
+    // ===== Factory para navegación =====
     private Function<Class<?>, Object> controllerFactory;
 
     public void setControllerFactory(Function<Class<?>, Object> controllerFactory) {

@@ -6,7 +6,7 @@ import Application.dtos.Listado_Cursos.CursosResponse;
 import Application.dtos.Listado_Cursos.InscripcionRequest;
 import Application.services.LeccionService;
 import Application.services.ListarCursosService;
-import Infrastructure.ui.UIFeedbackHelper;
+import Infrastructure.ui.AyudaUI;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -34,7 +34,7 @@ public class PrincipalController implements Initializable {
     // ====== DEPENDENCIAS ========
     private final ListarCursosService listarCursosService;
     private final LeccionService leccionService;
-    private final UIFeedbackHelper uiHelper = new UIFeedbackHelper();
+    private final AyudaUI uiHelper = new AyudaUI();
 
     private int usuarioActualId = AppServices.getUsuarioActual().id();
     private CursosResponse cursosActuales;
