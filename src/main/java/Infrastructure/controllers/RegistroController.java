@@ -2,31 +2,49 @@ package Infrastructure.controllers;
 
 import Application.dtos.acceso.RegistrarUsuarioRequest;
 import Application.dtos.acceso.UsuarioResponse;
-import Application.config.AppServices;
-import Application.services.DarAcceso.LoginService;
 import Application.services.DarAcceso.RegistroService;
+import Infrastructure.ui.Navigacion;
+import Infrastructure.ui.AyudaUI;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
+
+import java.util.function.Function;
 
 public class RegistroController {
 
+    // ===== Dependencias de negocio =====
     private final RegistroService service;
 
-    // Se inyecta con controllerFactory (desde HelloController.goToRegistro)
+    // ===== UI=====
+    private final AyudaUI uiHelper = new AyudaUI();
+    private final Navigacion navigator = new Navigacion();
+
+    // ===== Factory para navegación =====
+    private Function<Class<?>, Object> controllerFactory;
+
+    public void setControllerFactory(Function<Class<?>, Object> controllerFactory) {
+        this.controllerFactory = controllerFactory;
+    }
+
+    // ===== Constructores =====
     public RegistroController(RegistroService service) {
         this.service = service;
     }
 
+    public RegistroController() {
+        this.service = null;
+    }
+
+    // ===== Nodos FXML =====
     @FXML private TextField nombreField;
     @FXML private TextField usernameField;
     @FXML private TextField correoField;
     @FXML private PasswordField passwordField;
     @FXML private PasswordField confirmPasswordField;
+    @FXML private Button backButton;
+    @FXML private Button registerButton;
 
+    // ===== Acciones de UI =====
     @FXML
     private void onRegistrarClicked() {
         String nombre   = text(nombreField);
@@ -35,92 +53,53 @@ public class RegistroController {
         String pass1    = text(passwordField);
         String pass2    = text(confirmPasswordField);
 
-        if (nombre.isBlank() || username.isBlank() || correo.isBlank() || pass1.isBlank() || pass2.isBlank()) {
-            alert(Alert.AlertType.WARNING, "Completa todos los campos.");
+        if (!correo.contains("@")) {
+            uiHelper.showError("Correo inválido", "El correo debe tener formato usuario@dominio.com");
             return;
         }
+        if (nombre.isBlank() || username.isBlank() || correo.isBlank() || pass1.isBlank() || pass2.isBlank()) {
+            uiHelper.showError("Campos incompletos", "Por favor completa todos los campos antes de continuar.");
+            return;
+        }
+
         if (!pass1.equals(pass2)) {
-            alert(Alert.AlertType.WARNING, "Las contraseñas no coinciden.");
+            uiHelper.showError("Contraseñas no coinciden", "Ambas contraseñas deben ser iguales.");
             return;
         }
 
         try {
-            // Por defecto registramos como ESTUDIANTE (coincide con tu VO Tipo)
+            if (service == null) {
+                throw new IllegalStateException("RegistroService no inicializado. Revisa la inyección de dependencias.");
+            }
+
             RegistrarUsuarioRequest req = new RegistrarUsuarioRequest(
                     username, correo, nombre, pass1, "ESTUDIANTE"
             );
 
             UsuarioResponse u = service.registrar(req);
-            alert(Alert.AlertType.INFORMATION, "✅ Registro exitoso: " + u.nombre());
 
-            // Llevar a Login (inyectando service)
-            goToLogin();
+            uiHelper.showInfo("Registro exitoso",
+                    "Bienvenido " + u.nombre() + ".\nYa puedes iniciar sesión en STELLA.");
+
+            // Navegar al login usando NavigationManager
+            navigator.goTo("/views/Login.fxml", "STELLA - Login", controllerFactory, registerButton);
 
         } catch (IllegalArgumentException ex) {
-            alert(Alert.AlertType.ERROR, "No se pudo registrar: " + ex.getMessage());
+            uiHelper.showError("Error en el registro", ex.getMessage());
         } catch (Exception ex) {
-            alert(Alert.AlertType.ERROR, "Error inesperado: " + ex.getMessage());
+            uiHelper.showError("Error inesperado", ex.getMessage());
         }
     }
 
     @FXML
     private void onVolverClicked() {
-        goTo("/views/hello-view.fxml", false);
+        navigator.goTo("/views/hello-view.fxml", "STELLA", controllerFactory, backButton);
     }
 
-    /* --------- helpers ---------- */
-
-    private void goToLogin() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Login.fxml"));
-            loader.setControllerFactory(c -> {
-                if (c == LoginController.class)
-                    return new LoginController(AppServices.service());
-                try {
-                    return c.getDeclaredConstructor().newInstance();
-                }
-                catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            });
-            Parent next = loader.load();
-            Stage stage = (Stage) nombreField.getScene().getWindow();
-            stage.setScene(new Scene(next));
-            stage.centerOnScreen();
-        } catch (Exception e) {
-            alert(Alert.AlertType.ERROR, "No pude cargar Login.fxml: " + e.getMessage());
-        }
-    }
-
-    private void goTo(String fxmlPath, boolean injectService) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-            if (injectService) {
-                loader.setControllerFactory(c -> {
-                    if (c == LoginController.class)
-                        return new LoginController(AppServices.service());
-                    try {
-                        return c.getDeclaredConstructor().newInstance();
-                    }
-                    catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-                });
-            }
-            Parent next = loader.load();
-            Stage stage = (Stage) nombreField.getScene().getWindow();
-            stage.setScene(new Scene(next));
-            stage.centerOnScreen();
-        } catch (Exception e) {
-            alert(Alert.AlertType.ERROR, "No pude cargar " + fxmlPath + ": " + e.getMessage());
-        }
-    }
-
+    // ===== Helpers internos =====
     private static String text(TextField tf) {
         return tf.getText() == null ? "" : tf.getText().trim();
     }
-    private static void alert(Alert.AlertType type, String msg) {
-        new Alert(type, msg).showAndWait();
-    }
+
 }
 
