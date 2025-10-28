@@ -1,4 +1,4 @@
-package Infrastructure.test;
+package Infrastructure.test_temporal;
 
 import Application.dtos.Listado_Cursos.CursoResponse;
 import Application.dtos.Listado_Cursos.InscripcionRequest;

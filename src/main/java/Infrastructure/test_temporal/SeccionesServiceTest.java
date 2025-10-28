@@ -1,4 +1,4 @@
-package Infrastructure.test;
+package Infrastructure.test_temporal;
 
 import Application.dtos.leccion.LeccionResponse;
 import Application.dtos.seccion.SeccionResponse;
