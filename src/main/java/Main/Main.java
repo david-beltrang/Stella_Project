@@ -22,16 +22,12 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
 
-        // =====================================================
-        // 1️⃣ Inicializar conexión e infraestructura BD
-        // =====================================================
+        // Aqui se inicializa la conexion con la base de datos
         var connMgr = new ConexionBD();
         var initializer = new H2DataBaseInitializer(connMgr);
         initializer.initialize();
 
-        // =====================================================
-        // 2️⃣ Instanciar repositorios
-        // =====================================================
+        // Se instancias todos los repositorios
         InterfazUsuarioRepository usuarioRepository = new UsuarioRepository(connMgr);
         InterfazLeccionRepository leccionRepository = new LeccionRepository(connMgr);
         InterfazCursoRepository cursoRepository = new CursoRepository(connMgr);
@@ -42,26 +38,20 @@ public class Main extends Application {
         InterfazSesionEstudioRepository sesionEstudioRepository = new SesionEstudioRepository(connMgr);
         InterfazUsuarioCursoRepository usuarioCursoRepository = new UsuarioCursoRepository(connMgr);
 
-        // =====================================================
-        // 3️⃣ Instanciar servicios de aplicación
-        // =====================================================
+        // Se instancian todos los servicios de aplicación
         LeccionService leccionService = new LeccionService(
                 leccionRepository, progresoRepository, intentoRepository, pruebaRepository
         );
-
         ListarCursosService listarCursosService = new ListarCursosService(
                 cursoRepository, usuarioCursoRepository
         );
-
         PomodoroTimer pomodoroTimer = PomodoroTimer.getInstance();
         SesionEstudioService sesionEstudioService = new SesionEstudioService(leccionRepository, progresoRepository);
         SesionPomodoroService sesionPomodoroService = new SesionPomodoroService(sesionEstudioRepository);
         LoginService loginService = new LoginService(usuarioRepository);
         RegistroService registroService = new RegistroService(usuarioRepository);
 
-        // =====================================================
-        // 4️⃣ Crear orquestador y delegar la vista inicial
-        // =====================================================
+        // Se crea el front controller y asignandole los servicios
         ControllerControladores controllerControladores = new ControllerControladores(
                 leccionService,
                 listarCursosService,
@@ -72,10 +62,10 @@ public class Main extends Application {
                 registroService
         );
 
-        // 👉 Delega completamente la carga inicial al orquestador
+        // Se muestra la primera vista de la aplicación desde el front controller
         controllerControladores.mostrarVistaInicial(stage);
 
-        // Configuración visual del Stage (opcional aquí)
+        // Configuración visual del Stage
         stage.setTitle("STELLA - Inicio");
         stage.setResizable(false);
         stage.setWidth(1920);
