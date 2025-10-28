@@ -7,6 +7,7 @@ import Application.dtos.Listado_Cursos.InscripcionRequest;
 import Application.services.LeccionService;
 import Application.services.ListarCursosService;
 import Infrastructure.ui.AyudaUI;
+import Infrastructure.ui.Navigacion;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -19,7 +20,11 @@ import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
+// Controlador de la vista Principal.fxml
+// Se encarga de mostrar los cursos del usuario, los cursos disponibles,
+// y manejar la navegación y las interacciones de la pantalla principal de la app.
 public class PrincipalController implements Initializable {
 
     // ====== ELEMENTOS FXML ======
@@ -31,27 +36,35 @@ public class PrincipalController implements Initializable {
     @FXML private Label noCoursesLabel;
     @FXML private Button leftArrow, rightArrow;
 
-    // ====== DEPENDENCIAS ========
+    // ====== BOTONES DE NAVEGACIÓN INFERIOR ======
+    @FXML private Button homeBtn, forumBtn, achievementsBtn, profileBtn;
+    @FXML private Button homeBtn2, forumBtn2, achievementsBtn2;
+
+    // ====== DEPENDENCIAS ======
     private final ListarCursosService listarCursosService;
     private final LeccionService leccionService;
     private final AyudaUI uiHelper = new AyudaUI();
+    private final Navigacion navigator = new Navigacion();
 
+    // ====== VARIABLES DE ESTADO ======
     private int usuarioActualId = AppServices.getUsuarioActual().id();
     private CursosResponse cursosActuales;
 
-    // ====== CONSTRUCTOR =========
+    // ====== CONSTRUCTOR ======
     public PrincipalController(ListarCursosService listarCursosService, LeccionService leccionService) {
         this.listarCursosService = listarCursosService;
         this.leccionService = leccionService;
     }
 
-    // ====== MÉTODOS FXML ========
+    // ====== CICLO DE VIDA ======
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         cargarCursosDesdeBD();
         configurarFlechas();
+        configurarBusqueda();
     }
 
+    // ====== CARGA DE DATOS ======
     private void cargarCursosDesdeBD() {
         try {
             cursosActuales = listarCursosService.obtenerCursosCompletos(usuarioActualId);
@@ -62,6 +75,7 @@ public class PrincipalController implements Initializable {
         }
     }
 
+    // Carga los cursos en los que el usuario está inscrito.
     private void cargarMisCursos() {
         misCursosContainer.getChildren().clear();
 
@@ -77,6 +91,7 @@ public class PrincipalController implements Initializable {
         }
     }
 
+    // Crea visualmente una tarjeta de curso inscrito.
     private VBox crearTarjetaCurso(CursoResponse curso) {
         VBox card = new VBox(10);
         card.setPrefSize(300, 200);
@@ -91,12 +106,13 @@ public class PrincipalController implements Initializable {
 
         Button btn = new Button("Continuar");
         btn.setStyle("-fx-background-color: #4A90E2; -fx-text-fill: white; -fx-font-weight: bold;");
-        btn.setOnAction(e -> uiHelper.showInfo("Curso: " + curso.titulo(), "Abrir contenido próximamente."));
+        btn.setOnAction(e -> uiHelper.showInfo("Curso: " + curso.titulo(), "El contenido estará disponible próximamente."));
 
         card.getChildren().addAll(title, nivel, btn);
         return card;
     }
 
+    // Carga los cursos que el usuario puede inscribir.
     private void cargarCursosDisponibles() {
         cursosDisponiblesContainer.getChildren().clear();
         for (CursoResponse curso : cursosActuales.cursosDisponibles()) {
@@ -105,6 +121,7 @@ public class PrincipalController implements Initializable {
         }
     }
 
+    // Crea visualmente una tarjeta para un curso disponible.
     private VBox crearTarjetaCursoDisponible(CursoResponse curso) {
         VBox card = new VBox(10);
         card.setPrefSize(300, 200);
@@ -122,6 +139,7 @@ public class PrincipalController implements Initializable {
         return card;
     }
 
+    // ====== LÓGICA DE INSCRIPCIÓN ======
     private void inscribirCurso(int cursoId) {
         try {
             InscripcionRequest request = new InscripcionRequest(usuarioActualId, cursoId);
@@ -134,6 +152,37 @@ public class PrincipalController implements Initializable {
         }
     }
 
+    // ====== BÚSQUEDA ======
+    private void configurarBusqueda() {
+        if (searchField != null) {
+            searchField.textProperty().addListener((obs, oldVal, newVal) -> buscarCurso());
+        }
+    }
+
+    @FXML
+    private void buscarCurso() {
+        String texto = searchField.getText().toLowerCase();
+        if (texto.isBlank()) {
+            cargarCursosDisponibles();
+            return;
+        }
+
+        var filtrados = cursosActuales.cursosDisponibles().stream()
+                .filter(c -> c.titulo().toLowerCase().contains(texto))
+                .collect(Collectors.toList());
+
+        cursosDisponiblesContainer.getChildren().clear();
+        if (filtrados.isEmpty()) {
+            uiHelper.showInfo("Sin resultados", "No se encontraron cursos con ese nombre.");
+        } else {
+            for (CursoResponse curso : filtrados) {
+                VBox card = crearTarjetaCursoDisponible(curso);
+                cursosDisponiblesContainer.getChildren().add(card);
+            }
+        }
+    }
+
+    // ====== ANIMACIÓN DE SCROLL ======
     private void configurarFlechas() {
         if (leftArrow != null && rightArrow != null) {
             leftArrow.setOnAction(e -> scrollLeft());
@@ -141,7 +190,9 @@ public class PrincipalController implements Initializable {
         }
     }
 
+    @FXML
     private void scrollLeft() { scrollHorizontally(cursosDisponiblesScroll, -0.3); }
+    @FXML
     private void scrollRight() { scrollHorizontally(cursosDisponiblesScroll, 0.3); }
 
     private void scrollHorizontally(ScrollPane scrollPane, double delta) {
@@ -152,6 +203,10 @@ public class PrincipalController implements Initializable {
         );
         timeline.play();
     }
-}
 
- 
+    // ====== NAVEGACIÓN INFERIOR ======
+    @FXML private void goHome()        { uiHelper.showInfo("Inicio", "Ya estás en la pantalla principal."); }
+    @FXML private void goForum()       { uiHelper.showInfo("Foro", "Pantalla de foro aún no implementada."); }
+    @FXML private void goAchievements(){ uiHelper.showInfo("Logros", "Pantalla de logros aún no implementada."); }
+    @FXML private void goProfile()     { uiHelper.showInfo("Perfil", "Pantalla de perfil aún no implementada."); }
+}
