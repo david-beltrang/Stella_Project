@@ -29,3 +29,7 @@ logs/
 *.temp
 /target/
 target/**/*
+
+#Archivos de la base de datos
+stella.trace.db
+stella.mv.db
