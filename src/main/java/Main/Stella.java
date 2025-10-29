@@ -1,14 +1,16 @@
 package Main;
 
 
-import Application.services.CursoService;
 import Application.services.DarAcceso.LoginService;
 import Application.services.DarAcceso.RegistroService;
 import Domain.repositoriesInterfaces.*;
 import Infrastructure.controllers.ControllerPrincipal;
+import Infrastructure.persistence.ConexionBD;
+import Infrastructure.persistence.H2DataBaseInitializer;
+import Infrastructure.persistence.IConexionBD;
 import Infrastructure.repositories.*;
-import Infrastructure.repositories.ProgresoRepository;
 import javafx.stage.Stage;
+import Application.services.DarAcceso.DarAccesoService;
 
 import javafx.application.Application;
 
@@ -17,20 +19,21 @@ public class Stella extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        IConexionBD connMgr = new ConexionBD();
+        H2DataBaseInitializer initializer = new H2DataBaseInitializer(connMgr);
+        initializer.initialize();
 
         //Instanciación de interfaces
-        InterfazUsuarioRepository usuarioRepository = new UsuarioRepository();
-        InterfazIntentoRepository intentoRepository = new IntentoRepository();
-        InterfazLeccionRepository leccionRepository = new LeccionRepository();
-        InterfazProgresoRepository progresoRepository = new ProgresoRepository();
-        InterfazCursoRepository cursoRepository = new CursoRepository();
-        InterfazPruebaRepository pruebaRepository = new PruebaRepository();
-        InterfazUsuarioStatsRepository usuarioStatsRepository = new UsuarioStatsRepository();
+        InterfazUsuarioRepository usuarioRepository = new UsuarioRepository(connMgr);
+        //InterfazIntentoRepository intentoRepository = new IntentoRepository(connMgr);
+        //InterfazLeccionRepository leccionRepository = new LeccionRepository(connMgr);
+        //InterfazProgresoLeccionRepository progresoRepository = new ProgresoLeccionRepository(connMgr);
+        //InterfazPruebaRepository pruebaRepository = new PruebaRepository(connMgr);
+        InterfazUsuarioStatsRepository usuarioStatsRepository = new UsuarioStatsRepository(connMgr);
 
         //Instanciacion de servicios
         LoginService loginService = new LoginService(usuarioRepository);
         RegistroService registroService = new RegistroService(usuarioRepository);
-        CursoService cursoService = new CursoService(cursoRepository, leccionRepository, progresoRepository);
 
         //Instanciacion de controlador principal
         ControllerPrincipal controllerPrincipal = new ControllerPrincipal(loginService, registroService);

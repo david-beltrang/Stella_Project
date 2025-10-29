@@ -1,4 +1,4 @@
-package Infrastructure;
+package Infrastructure.test_temporal;
 
 import Application.dtos.acceso.RegistrarUsuarioRequest;
 import Application.dtos.acceso.LoginRequest;
@@ -6,6 +6,9 @@ import Application.dtos.acceso.ActualizarUsernameRequest;
 import Application.dtos.acceso.UsuarioResponse;
 import Application.services.DarAcceso.DarAccesoService;
 import Domain.repositoriesInterfaces.InterfazUsuarioRepository;
+import Infrastructure.persistence.ConexionBD;
+import Infrastructure.persistence.H2DataBaseInitializer;
+import Infrastructure.persistence.IConexionBD;
 import Infrastructure.repositories.UsuarioRepository;
 
 /**
@@ -17,8 +20,11 @@ import Infrastructure.repositories.UsuarioRepository;
 public class TestUsuarioService {
 
     public static void main(String[] args) {
+        IConexionBD connMgr = new ConexionBD();
+        H2DataBaseInitializer initializer = new H2DataBaseInitializer(connMgr);
+        initializer.initialize();
         // Instanciar la interfaz con la implementación concreta
-        InterfazUsuarioRepository usuarioRepository = new UsuarioRepository();
+        InterfazUsuarioRepository usuarioRepository = new UsuarioRepository(connMgr);
         DarAccesoService accesoService = new DarAccesoService(usuarioRepository);
 
         // Prueba 1: Registrar un nuevo usuario

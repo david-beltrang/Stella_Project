@@ -5,6 +5,9 @@ import Application.dtos.Listado_Cursos.CursoResponse;
 import Application.dtos.Listado_Cursos.CursosResponse;
 import Application.dtos.Listado_Cursos.InscripcionRequest;
 import Application.services.ListarCursosService;
+import Infrastructure.persistence.ConexionBD;
+import Infrastructure.persistence.H2DataBaseInitializer;
+import Infrastructure.persistence.IConexionBD;
 import Infrastructure.repositories.CursoRepository;
 import Infrastructure.repositories.UsuarioCursoRepository;
 import javafx.animation.KeyFrame;
@@ -36,9 +39,12 @@ public class PrincipalController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // Instancia del servicio los repos de curso
+        IConexionBD connMgr = new ConexionBD();
+        H2DataBaseInitializer initializer = new H2DataBaseInitializer(connMgr);
+        initializer.initialize();
         listarCursosService = new ListarCursosService(
-                new CursoRepository(),
-                new UsuarioCursoRepository()
+                new CursoRepository(connMgr),
+                new UsuarioCursoRepository(connMgr)
         );
 
         cargarCursosDesdeBD();

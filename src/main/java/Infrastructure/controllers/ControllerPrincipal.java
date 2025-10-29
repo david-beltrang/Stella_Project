@@ -4,14 +4,14 @@ import Application.dtos.acceso.RegistrarUsuarioRequest;
 import Application.dtos.acceso.UsuarioResponse;
 import Application.services.DarAcceso.LoginService;
 import Application.services.DarAcceso.RegistroService;
-import Application.services.SesionEstudioService;
+//import Application.services.SesionEstudioService;
 
 public class ControllerPrincipal {
 
     //Servicios
     private LoginService loginService;
     private RegistroService registroService;
-    private SesionEstudioService sesionEstudioService;
+
 
 
     //Controladores
@@ -22,7 +22,6 @@ public class ControllerPrincipal {
     public ControllerPrincipal(LoginService loginService, RegistroService registroService) {
         this.loginService = loginService;
         this.registroService = registroService;
-        //this.sesionEstudioService = sesionEstudioService;
 
     }
 

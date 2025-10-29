@@ -5,17 +5,20 @@ import Domain.models.PomodoroValueObjects.TiempoDescanso;
 import Domain.models.PomodoroValueObjects.TiempoEstudio;
 import Domain.repositoriesInterfaces.InterfazSesionEstudioRepository;
 import Infrastructure.persistence.ConexionBD;
+import Infrastructure.persistence.IConexionBD;
 
 import java.sql.*;
 
 public class SesionEstudioRepository implements InterfazSesionEstudioRepository {
-    public SesionEstudioRepository() {
-        // Creación de tabla manejada en la prueba y en el database setup
+    private IConexionBD connMgr;
+
+    public SesionEstudioRepository(IConexionBD connMgr) {
+        this.connMgr = connMgr;
     }
 
     @Override
     public SesionEstudio guardar(SesionEstudio sesion) {
-        try (Connection conn = ConexionBD.getConnection()) {
+        try (Connection conn = connMgr.getConnection()) {
             // Si el id es null, es una nueva sesión (inserción)
             if (sesion.getId() == null) {
                 String insertSql = "INSERT INTO \"sesion_estudio\" (usuario_id, tiempo_estudio, tiempo_descanso, fecha_inicio, fecha_final) " +
@@ -67,7 +70,7 @@ public class SesionEstudioRepository implements InterfazSesionEstudioRepository 
     @Override
     public SesionEstudio encontrarPorId(int id) {
         String sql = "SELECT * FROM \"sesion_estudio\" WHERE id = ?";
-        try (Connection conn = ConexionBD.getConnection();
+        try (Connection conn = connMgr.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, id);

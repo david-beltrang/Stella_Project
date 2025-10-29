@@ -40,7 +40,7 @@ public class HelloController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Registro.fxml"));
             loader.setControllerFactory(c -> {
                 if (c == Infrastructure.controllers.RegistroController.class)
-                    return new Infrastructure.controllers.RegistroController(AppServices.service());
+                    return new Infrastructure.controllers.RegistroController(AppServices.registroService());
                 try {
                     return c.getDeclaredConstructor().newInstance();
                 }
