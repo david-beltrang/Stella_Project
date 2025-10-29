@@ -5,59 +5,49 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="51597e74-c3d4-4a99-ad6b-5f4c9d498175" name="Changes" comment="Se crea el Test manual para probar el funcionamiento de CursoService.java.">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/leccion/LeccionTituloRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/leccion/LeccionTituloResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/seccion/SeccionResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/seccion/SeccionesRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Application/services/SeccionesService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Domain/models/Seccion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Domain/repositoriesInterfaces/InterfazSeccionRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/persistence/IConexionBD.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/persistence/h2webconsole.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/SeccionRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/test_temporal/LeccionServiceTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/test_temporal/ListarCursosServiceTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/test_temporal/SeccionesServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/Listado_Cursos/DetallesRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/Listado_Cursos/DetallesResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/ControllerControladores.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/CursoController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/ui/AyudaUI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/ui/Navigacion.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Main/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Application/config/AppServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/config/AppServices.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Application/dtos/curso/EstructuraCursoResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/curso/EstructuraCursoResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Application/dtos/leccion/LeccionResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/leccion/LeccionResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Application/services/CursoService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Application/services/LeccionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/services/LeccionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Application/dtos/acceso/RegistrarUsuarioRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/acceso/RegistrarUsuarioRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Application/dtos/leccion/LeccionTituloRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/leccion/LeccionTituloRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Application/dtos/leccion/LeccionTituloResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/leccion/LeccionTituloResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Application/dtos/seccion/Seccion.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Application/dtos/seccion/SeccionResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/seccion/SeccionResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Application/dtos/seccion/SeccionesRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/seccion/SeccionesRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Application/services/ListarCursosService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/services/ListarCursosService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Application/services/SesionEstudioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/services/SesionEstudioService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/models/Leccion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/models/Leccion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/models/ProgresoLeccion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/models/ProgresoLeccion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/repositoriesInterfaces/InterfazLeccionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/repositoriesInterfaces/InterfazLeccionRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/TestUsuarioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/test_temporal/TestUsuarioService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/ControllerPrincipal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/ControllerPrincipal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/CursoController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Application/services/SeccionesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/services/SeccionesService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/models/Seccion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/models/Seccion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/repositoriesInterfaces/InterfazCursoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/repositoriesInterfaces/InterfazCursoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/repositoriesInterfaces/InterfazIntentoRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/repositoriesInterfaces/InterfazProgresoRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/repositoriesInterfaces/InterfazPruebaRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/repositoriesInterfaces/InterfazSeccionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/repositoriesInterfaces/InterfazSeccionRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/ControllerPrincipal.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/HelloController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/LeccionController.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/LoginController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/PomodoroController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/PomodoroController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/PrincipalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/PrincipalController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/RegistroController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/RegistroController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/persistence/ConexionBD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/persistence/ConexionBD.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/StellaController.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/persistence/H2DataBaseInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/persistence/H2DataBaseInitializer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/CursoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/CursoRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/IntentoRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/LeccionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/LeccionRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/ProgresoRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/PruebaRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/SesionEstudioRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/SesionEstudioRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/UsuarioCursoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/UsuarioCursoRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/UsuarioRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/UsuarioRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/UsuarioStatsRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/UsuarioStatsRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/test/CursoServiceTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/test/SesionEstudioTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/test/TestConexionSetup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/test_temporal/TestConexionSetup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/test/TestSesionEstudioService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main/Stella.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main/Stella.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/database_setup.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/database_setup.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/views/Leccion1.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Leccion1.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/test_temporal/ListarCursosServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/test_temporal/ListarCursosServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/test_temporal/SeccionesServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/test_temporal/SeccionesServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/test_temporal/TestConexionSetup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/test_temporal/TestConexionSetup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main/Stella.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Image/General/FondoStella.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Image/General/StellaEsquinaSF.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Image/General/StellaSF.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/components/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/RecuperarContra.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/RecuperarContra.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,7 +104,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "copia-features-secciones__Pprincipal",
+    "git-widget-placeholder": "Merging copia-features-secciones__Pprincipal",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
@@ -128,7 +118,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.SeccionesServiceTest">
     <configuration name="SeccionesServiceTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Infrastructure.test_temporal.SeccionesServiceTest" />
       <module name="Stella" />
