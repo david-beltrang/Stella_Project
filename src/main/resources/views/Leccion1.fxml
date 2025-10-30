@@ -6,11 +6,9 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.shape.Rectangle?>
 
+<<<<<<< Updated upstream
 <Pane maxHeight="1080.0" maxWidth="1920.0" minHeight="1080.0" minWidth="1920.0"
       prefHeight="1080.0" prefWidth="1920.0"
       stylesheets="@/styles/LoginStyle.css"
@@ -151,4 +149,59 @@
         </StackPane>
 
     </children>
+=======
+<Pane maxHeight="1080.0" maxWidth="1920.0" minHeight="1080.0" minWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../../../../../Users/Personal/IdeaProjects/Stellaa/target/classes/CssStyle/LoginStyle.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label id="TituloSeccion" layoutX="311.0" layoutY="118.0" prefHeight="158.0" prefWidth="1168.0" style="-fx-background-color: #080736;" textFill="white">
+         <font>
+            <Font name="System Bold" size="92.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="61.0" fitWidth="70.0" layoutX="1579.0" layoutY="783.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../Users/Personal/IdeaProjects/Stellaa/src/main/resources/Image/StellaEsquinaSF.png" />
+         </image>
+      </ImageView>
+      <Label id="NombreLeccion.1" layoutX="646.0" layoutY="249.0" prefHeight="47.0" prefWidth="584.0" style="-fx-background-color: #080736;" textFill="WHITE">
+         <font>
+            <Font name="Monospaced Regular" size="40.0" />
+         </font>
+      </Label>
+      <Label id="DescripcionLeccion.1" layoutX="416.0" layoutY="301.0" prefHeight="113.0" prefWidth="1166.0" style="-fx-background-color: #080736;" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="Arial" size="29.0" />
+         </font>
+      </Label>
+      <Label id="CaracteristicasTituloLeccion.1" layoutX="419.0" layoutY="441.0" prefHeight="31.0" prefWidth="358.0" style="-fx-background-color: #080736;" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="Arial" size="29.0" />
+         </font>
+      </Label>
+      <Label id="Caracteristicas.1" layoutX="467.0" layoutY="486.0" prefHeight="33.0" prefWidth="948.0" style="-fx-background-color: #080736;" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="Arial" size="29.0" />
+         </font>
+      </Label>
+      <Label id="AmbitosdeUsoTtitulo.1" layoutX="415.0" layoutY="643.0" prefHeight="31.0" prefWidth="358.0" style="-fx-background-color: #080736;" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="Arial" size="29.0" />
+         </font>
+      </Label>
+      <Label id="Ambitos.1" layoutX="465.0" layoutY="692.0" prefHeight="33.0" prefWidth="948.0" style="-fx-background-color: #080736;" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="Arial" size="29.0" />
+         </font>
+      </Label>
+      <Button layoutX="745.0" layoutY="795.0" mnemonicParsing="false" opacity="0.9" prefHeight="47.0" prefWidth="242.0" style="-fx-background-color: #080736;" text="VOLVER" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Button>
+      <Button layoutX="1038.0" layoutY="796.0" mnemonicParsing="false" opacity="0.9" prefHeight="47.0" prefWidth="242.0" style="-fx-background-color: #080736;" text="SIGUIENTE" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Button>
+   </children>
+>>>>>>> Stashed changes
 </Pane>

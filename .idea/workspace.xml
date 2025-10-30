@@ -4,6 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< Updated upstream
     <list default="true" id="51597e74-c3d4-4a99-ad6b-5f4c9d498175" name="Changes" comment="Merge branch 'feature-secciones_Pprincipal' of https://github.com/david-beltrang/Stella_Project into copia-feature-secciones_Pprincipal&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/main/java/Infrastructure/repositories/CursoRepository.java&#10;#&#9;src/main/java/Infrastructure/repositories/LeccionRepository.java&#10;#&#9;src/main/java/Infrastructure/repositories/ProgresoLeccionRepository.java&#10;#&#9;src/main/java/Infrastructure/test/TestSesionEstudioService.java&#10;#&#9;src/main/java/Main/Stella.java&#10;#&#9;src/main/resources/database_setup.sql">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Application/services/ListarCursosService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/services/ListarCursosService.java" afterDir="false" />
@@ -11,6 +12,14 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/test_temporal/SeccionesServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/test_temporal/SeccionesServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/test_temporal/TestConexionSetup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/test_temporal/TestConexionSetup.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/test_temporal/TestUsuarioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/test_temporal/TestUsuarioService.java" afterDir="false" />
+=======
+    <list default="true" id="51597e74-c3d4-4a99-ad6b-5f4c9d498175" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/persistence/H2DataBaseInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/persistence/H2DataBaseInitializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/CursoC++.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/CursoC++.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/Leccion1.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Leccion1.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/Leccion4.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Leccion4.fxml" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +50,15 @@
     &quot;accountId&quot;: &quot;8777b691-8a52-4ca1-a4e7-1ad65489ecfb&quot;
   }
 }</component>
+<<<<<<< Updated upstream
+=======
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/main/resources/views/Leccion1.fxml" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+>>>>>>> Stashed changes
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
 }</component>
@@ -64,7 +82,13 @@
     &quot;git-widget-placeholder&quot;: &quot;copia-feature-secciones__Pprincipal&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+<<<<<<< Updated upstream
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+=======
+    &quot;last_opened_file_path&quot;: &quot;C:/StellaFIS/Stella_Project&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+>>>>>>> Stashed changes
     &quot;project.structure.proportion&quot;: &quot;0.15274803&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.29173693&quot;,
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;
@@ -126,7 +150,21 @@
     <configuration name="Stella [javafx:run]" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
       <MavenSettings>
         <option name="myGeneralSettings" />
-        <option name="myRunnerSettings" />
+        <option name="myRunnerSettings">
+          <MavenRunnerSettings>
+            <option name="delegateBuildToMaven" value="false" />
+            <option name="environmentProperties">
+              <map />
+            </option>
+            <option name="jreName" value="17" />
+            <option name="mavenProperties">
+              <map />
+            </option>
+            <option name="passParentEnv" value="true" />
+            <option name="skipTests" value="false" />
+            <option name="vmOptions" value="" />
+          </MavenRunnerSettings>
+        </option>
         <option name="myRunnerParameters">
           <MavenRunnerParameters>
             <option name="cmdOptions" />
