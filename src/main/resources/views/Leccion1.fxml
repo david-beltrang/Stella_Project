@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<<<<<<< Updated upstream
+
 <Pane maxHeight="1080.0" maxWidth="1920.0" minHeight="1080.0" minWidth="1920.0"
       prefHeight="1080.0" prefWidth="1920.0"
       stylesheets="@/styles/LoginStyle.css"
