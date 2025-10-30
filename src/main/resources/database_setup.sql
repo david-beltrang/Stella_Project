@@ -94,11 +94,9 @@ CREATE TABLE "prueba" (
 CREATE TABLE "pregunta" (
     id INT PRIMARY KEY,
     enunciado VARCHAR(500) NOT NULL,
-    leccion_id INT,
-    prueba_id INT,
+    prueba_id INT NOT NULL,
     FOREIGN KEY (leccion_id) REFERENCES "leccion"(id) ON DELETE CASCADE,
     FOREIGN KEY (prueba_id) REFERENCES "prueba"(id) ON DELETE CASCADE,
-    CHECK (leccion_id IS NOT NULL OR prueba_id IS NOT NULL)
 );
 
 -- TABLA: "opcion"
@@ -196,3 +194,32 @@ VALUES (1, 'Lección de imprimir en consola - print', 1, 'TEORIA', NULL, 'En est
 
 INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido)
 VALUES (1, 'Lección de imprimir en consola - println', 2, 'TEORIA', NULL, 'En esta lección aprenderás a imprimir en consola con println');
+
+--- Prueba para un quiz de la seccion 1 del curso 2
+-- Se crea una prueba de tipo seccional
+INSERT INTO "prueba" (curso_id, seccion_id, titulo, tipo)
+SELECT
+    c.id AS curso_id,
+    s.id AS seccion_id,
+    'Quiz: Tipos de datos en C++' AS titulo,
+    'SECCIONAL' AS tipo
+FROM "curso" c
+JOIN "seccion" s ON s.curso_id = c.id
+WHERE c.titulo = 'Curso de C++ basico'
+  AND s.numero_orden = 1;
+
+  --Preguntas para la prueba con id 1
+  INSERT INTO "pregunta" (enunciado, prueba_id)
+  VALUES ('¿Cómo se declara una variable int en C++?', 1);
+
+  INSERT INTO "pregunta" (enunciado, prueba_id) VALUES ('¿Cómo se declara una variable int en C++?', 1);
+  INSERT INTO "pregunta" (enunciado, prueba_id) VALUES ('¿Qué tipo de dato se usa para texto?', 1);
+
+-- Opciones para cada pregunta
+INSERT INTO "opcion" (pregunta_id, texto, es_correcta) VALUES (1, 'int x;', true);
+INSERT INTO "opcion" (pregunta_id, texto, es_correcta) VALUES (1, 'variable x;', false);
+INSERT INTO "opcion" (pregunta_id, texto, es_correcta) VALUES (1, 'x = int;', false);
+
+INSERT INTO "opcion" (pregunta_id, texto, es_correcta) VALUES (2, 'string', true);
+INSERT INTO "opcion" (pregunta_id, texto, es_correcta) VALUES (2, 'int', false);
+INSERT INTO "opcion" (pregunta_id, texto, es_correcta) VALUES (2, 'char', false);
