@@ -1,6 +1,6 @@
 
 
-package Infrastructure.test;
+package Infrastructure.test_temporal;
 
 import Infrastructure.persistence.ConexionBD;
 import Infrastructure.persistence.H2DataBaseInitializer;
