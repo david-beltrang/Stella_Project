@@ -7,14 +7,20 @@ import Application.services.DarAcceso.LoginService;
 import Infrastructure.ui.Navigacion;
 import Infrastructure.ui.AyudaUI;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
+
 import java.util.function.Function;
 
-// Controlador de la vista Login.fxml
-// Maneja los eventos de inicio de sesión, recuperación de contraseña y navegación hacia otras pantallas.
+/**
+ * Controlador de la vista Login.fxml
+ * Maneja los eventos de inicio de sesión, recuperación de contraseña y navegación hacia otras pantallas.
+ */
 public class LoginController {
 
     // ===== Dependencias de negocio =====
@@ -52,7 +58,6 @@ public class LoginController {
         String correo = correoField.getText();
         String pass   = passwordField.getText();
 
-        // Validaciones
         if (correo == null || correo.isBlank()) {
             uiHelper.showError("Error de validación", "Debe ingresar un correo.");
             return;
@@ -63,30 +68,34 @@ public class LoginController {
         }
 
         try {
-            if (service == null) {
-                throw new IllegalStateException("LoginService no inicializado correctamente.");
-            }
-
-            // 🔹 1. Autenticación
+            // 1️⃣ Autenticación
             UsuarioResponse usuario = service.login(new LoginRequest(correo, pass));
 
-            // 🔹 2. Guardar el usuario logueado en sesión
+            // 2️⃣ Guardar el usuario globalmente
             AppServices.setUsuarioActual(usuario);
 
-            // 🔹 3. Navegar al menú principal
-            navigator.goTo("/views/Principal.fxml", "STELLA - Principal", controllerFactory, correoField);
+            // 3️⃣ Cambiar directamente de pantalla (sin duplicar controlador)
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Principal.fxml"));
+            if (controllerFactory != null) {
+                loader.setControllerFactory(controllerFactory::apply);
+            }
+            Scene scene = new Scene(loader.load());
+            Stage stage = (Stage) correoField.getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("STELLA - Principal");
+            stage.centerOnScreen();
 
-            // 🔹 4. Sincronizar el PrincipalController con el usuario activo
-            PrincipalController principalCtrl =
-                    (PrincipalController) controllerFactory.apply(PrincipalController.class);
-            principalCtrl.inicializarUsuario();
-
-            uiHelper.showInfo("Bienvenido", "Inicio de sesión exitoso.");
+            // 4️⃣ Mensaje personalizado
+            uiHelper.showInfo(
+                    "Bienvenido " + usuario.nombre(),
+                    "Has iniciado sesión correctamente. Tu ID es: " + usuario.id()
+            );
 
         } catch (IllegalArgumentException ex) {
             uiHelper.showError("Error de inicio de sesión", ex.getMessage());
         } catch (Exception ex) {
             uiHelper.showError("Error inesperado", ex.getMessage());
+            ex.printStackTrace();
         }
     }
 

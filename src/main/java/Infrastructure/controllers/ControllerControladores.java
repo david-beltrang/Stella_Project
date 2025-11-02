@@ -65,7 +65,6 @@ public class ControllerControladores {
 
         // Controladores con dependencias
         this.principalController = new PrincipalController(listarCursosService, seccionesService);
-        principalController.inicializarUsuario();
         this.pomodoroController = new PomodoroController(sesionPomodoroService, pomodoroTimer);
         this.loginController = new LoginController(loginService);
         this.registroController = new RegistroController(registroService);
