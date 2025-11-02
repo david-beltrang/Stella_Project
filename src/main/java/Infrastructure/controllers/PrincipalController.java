@@ -1,12 +1,11 @@
-
 package Infrastructure.controllers;
 
 import Application.config.AppServices;
 import Application.dtos.Listado_Cursos.CursoResponse;
 import Application.dtos.Listado_Cursos.CursosResponse;
 import Application.dtos.Listado_Cursos.InscripcionRequest;
-import Application.services.LeccionService;
 import Application.services.ListarCursosService;
+import Application.services.SeccionesService;
 import Infrastructure.ui.AyudaUI;
 import Infrastructure.ui.Navigacion;
 import javafx.animation.KeyFrame;
@@ -21,49 +20,82 @@ import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
-// Controlador de la vista Principal.fxml
-// Se encarga de mostrar los cursos del usuario, los cursos disponibles,
-// y manejar la navegación y las interacciones de la pantalla principal de la app.
 public class PrincipalController implements Initializable {
 
-    // ====== ELEMENTOS FXML ======
-    @FXML private TextField searchField;
-    @FXML private ScrollPane misCursosScroll;
-    @FXML private ScrollPane cursosDisponiblesScroll;
-    @FXML private HBox misCursosContainer;
-    @FXML private HBox cursosDisponiblesContainer;
-    @FXML private Label noCoursesLabel;
-    @FXML private Button leftArrow, rightArrow;
+    // ===== Factory global =====
+    private Function<Class<?>, Object> controllerFactory;
 
-    // ====== BOTONES DE NAVEGACIÓN INFERIOR ======
-    @FXML private Button homeBtn, forumBtn, achievementsBtn, profileBtn;
-    @FXML private Button homeBtn2, forumBtn2, achievementsBtn2;
+    // ====== ELEMENTOS FXML ======
+    @FXML
+    private TextField searchField;
+    @FXML
+    private ScrollPane misCursosScroll;
+    @FXML
+    private ScrollPane cursosDisponiblesScroll;
+    @FXML
+    private HBox misCursosContainer;
+    @FXML
+    private HBox cursosDisponiblesContainer;
+    @FXML
+    private Label noCoursesLabel;
+    @FXML
+    private Button leftArrow, rightArrow;
+    @FXML
+    private Button homeBtn, forumBtn, achievementsBtn, profileBtn;
+    @FXML
+    private Button homeBtn2, forumBtn2, achievementsBtn2;
 
     // ====== DEPENDENCIAS ======
     private final ListarCursosService listarCursosService;
-    private final LeccionService leccionService;
+    private final SeccionesService seccionesService;
     private final AyudaUI uiHelper = new AyudaUI();
     private final Navigacion navigator = new Navigacion();
 
     // ====== VARIABLES DE ESTADO ======
-    private int usuarioActualId = AppServices.getUsuarioActual().id();
+    private Integer usuarioActualId; // 🔹 Ahora se inicializa en initialize()
     private CursosResponse cursosActuales;
 
     // ====== CONSTRUCTOR ======
-    public PrincipalController(ListarCursosService listarCursosService, LeccionService leccionService) {
+    public PrincipalController(ListarCursosService listarCursosService, SeccionesService seccionesService) {
         this.listarCursosService = listarCursosService;
-        this.leccionService = leccionService;
+        this.seccionesService = seccionesService;
     }
 
-    // ====== CICLO DE VIDA ======
+    // ==============================
+    //       MÉTODOS PRINCIPALES
+    // ==============================
+
+    public void setControllerFactory(Function<Class<?>, Object> factory) {
+        this.controllerFactory = factory;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        cargarCursosDesdeBD();
+        inicializarUsuario();   // ✅ Nuevo método que valida el usuario
         configurarFlechas();
         configurarBusqueda();
+
+        // Solo carga los cursos si hay usuario logueado
+        if (usuarioActualId != null) {
+            cargarCursosDesdeBD();
+        }
     }
+
+    public void inicializarUsuario() {
+        var usuario = AppServices.getUsuarioActual();
+        if (usuario != null) {
+            usuarioActualId = usuario.id();
+            System.out.println("Usuario activo: " + usuario.nombre());
+            cargarCursosDesdeBD();
+        } else {
+            usuarioActualId = null;
+            System.err.println("[WARN] No hay usuario activo. Saltando carga de cursos.");
+        }
+    }
+
 
     // ====== CARGA DE DATOS ======
     private void cargarCursosDesdeBD() {
@@ -80,7 +112,7 @@ public class PrincipalController implements Initializable {
     private void cargarMisCursos() {
         misCursosContainer.getChildren().clear();
 
-        if (cursosActuales.cursosUsuario().isEmpty()) {
+        if (cursosActuales == null || cursosActuales.cursosUsuario().isEmpty()) {
             noCoursesLabel.setVisible(true);
             return;
         }
@@ -107,7 +139,16 @@ public class PrincipalController implements Initializable {
 
         Button btn = new Button("Continuar");
         btn.setStyle("-fx-background-color: #4A90E2; -fx-text-fill: white; -fx-font-weight: bold;");
-        btn.setOnAction(e -> uiHelper.showInfo("Curso: " + curso.titulo(), "El contenido estará disponible próximamente."));
+
+        btn.setOnAction(e -> {
+            if (curso.titulo().equalsIgnoreCase("C++")) {
+                navigator.goTo("/views/PlantillaCurso.fxml", "STELLA - C++", controllerFactory, btn);
+            } else {
+                uiHelper.showInfo("Curso: " + curso.titulo(),
+                        "El contenido de este curso estará disponible próximamente.");
+            }
+        });
+
 
         card.getChildren().addAll(title, nivel, btn);
         return card;
@@ -116,6 +157,8 @@ public class PrincipalController implements Initializable {
     // Carga los cursos que el usuario puede inscribir.
     private void cargarCursosDisponibles() {
         cursosDisponiblesContainer.getChildren().clear();
+        if (cursosActuales == null) return;
+
         for (CursoResponse curso : cursosActuales.cursosDisponibles()) {
             VBox card = crearTarjetaCursoDisponible(curso);
             cursosDisponiblesContainer.getChildren().add(card);
@@ -134,7 +177,13 @@ public class PrincipalController implements Initializable {
 
         Button agregar = new Button("Agregar");
         agregar.setStyle("-fx-background-color: #00BFA6; -fx-text-fill: white;");
-        agregar.setOnAction(e -> inscribirCurso(curso.id()));
+        agregar.setOnAction(e -> {
+            if (usuarioActualId == null) {
+                uiHelper.showError("Error", "No hay un usuario activo para inscribir cursos.");
+                return;
+            }
+            inscribirCurso(curso.id());
+        });
 
         card.getChildren().addAll(title, agregar);
         return card;
@@ -193,6 +242,7 @@ public class PrincipalController implements Initializable {
 
     @FXML
     private void scrollLeft() { scrollHorizontally(cursosDisponiblesScroll, -0.3); }
+
     @FXML
     private void scrollRight() { scrollHorizontally(cursosDisponiblesScroll, 0.3); }
 
@@ -204,6 +254,7 @@ public class PrincipalController implements Initializable {
         );
         timeline.play();
     }
+
 
     // ====== NAVEGACIÓN INFERIOR ======
     @FXML private void goHome()        { uiHelper.showInfo("Inicio", "Ya estás en la pantalla principal."); }

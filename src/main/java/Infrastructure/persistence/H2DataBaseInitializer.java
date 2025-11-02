@@ -1,5 +1,7 @@
-package main.java.Infrastructure.persistence;
+package Infrastructure.persistence;
 
+import Infrastructure.persistence.ConexionBD;
+import Infrastructure.persistence.IConexionBD;
 import org.h2.tools.RunScript;
 
 import java.io.InputStream;

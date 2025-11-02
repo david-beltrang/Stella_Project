@@ -4,22 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-<<<<<<< Updated upstream
-    <list default="true" id="51597e74-c3d4-4a99-ad6b-5f4c9d498175" name="Changes" comment="Merge branch 'feature-secciones_Pprincipal' of https://github.com/david-beltrang/Stella_Project into copia-feature-secciones_Pprincipal&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/main/java/Infrastructure/repositories/CursoRepository.java&#10;#&#9;src/main/java/Infrastructure/repositories/LeccionRepository.java&#10;#&#9;src/main/java/Infrastructure/repositories/ProgresoLeccionRepository.java&#10;#&#9;src/main/java/Infrastructure/test/TestSesionEstudioService.java&#10;#&#9;src/main/java/Main/Stella.java&#10;#&#9;src/main/resources/database_setup.sql">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Application/services/ListarCursosService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/services/ListarCursosService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/test_temporal/ListarCursosServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/test_temporal/ListarCursosServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/test_temporal/SeccionesServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/test_temporal/SeccionesServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/test_temporal/TestConexionSetup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/test_temporal/TestConexionSetup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/test_temporal/TestUsuarioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/test_temporal/TestUsuarioService.java" afterDir="false" />
-=======
-    <list default="true" id="51597e74-c3d4-4a99-ad6b-5f4c9d498175" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="3c791a3f-173c-427e-b5d1-4cf3b6fd8098" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/LeccionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/ControllerControladores.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/ControllerControladores.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/CursoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/CursoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/PrincipalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/PrincipalController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/persistence/H2DataBaseInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/persistence/H2DataBaseInitializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/views/CursoC++.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/CursoC++.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/views/Leccion1.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Leccion1.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/Leccion2.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Leccion2.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/Leccion3.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Leccion3.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/views/Leccion4.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Leccion4.fxml" afterDir="false" />
->>>>>>> Stashed changes
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/Leccion5.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Leccion5.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/PlantillaCurso.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/PlantillaCurso.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,190 +28,55 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
-        <option value="Record" />
-        <option value="Interface" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;LOUWPII&quot;
-  }
-}</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/david-beltrang/Stella_Project.git&quot;,
-    &quot;accountId&quot;: &quot;8777b691-8a52-4ca1-a4e7-1ad65489ecfb&quot;
-  }
-}</component>
-<<<<<<< Updated upstream
-=======
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/src/main/resources/views/Leccion1.fxml" root0="SKIP_INSPECTION" />
-  </component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
-  </component>
->>>>>>> Stashed changes
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 2
-}</component>
-  <component name="ProjectId" id="341LXB2xZDeO3siRlfWXuDYp9PK" />
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 7
+}]]></component>
+  <component name="ProjectId" id="34tMU8jO9YcphGFhjh6wnl2bQxw" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.ListarCursosServiceTest.executor&quot;: &quot;Run&quot;,
-    &quot;Application.SeccionesServiceTest.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Stella.executor&quot;: &quot;Run&quot;,
-    &quot;Application.TestSesionEstudioService.executor&quot;: &quot;Run&quot;,
-    &quot;Application.TestUsuarioService.executor&quot;: &quot;Run&quot;,
-    &quot;Application.h2webconsole.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.Stella [javafx:run].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;copia-feature-secciones__Pprincipal&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-<<<<<<< Updated upstream
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-=======
-    &quot;last_opened_file_path&quot;: &quot;C:/StellaFIS/Stella_Project&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
->>>>>>> Stashed changes
-    &quot;project.structure.proportion&quot;: &quot;0.15274803&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.29173693&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Maven.Stella [org.openjfx:javafx-maven-plugin:0.0.8:run].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "copia-feature-secciones__Pprincipal",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true"
   }
-}</component>
-  <component name="RunManager" selected="Application.h2webconsole">
-    <configuration name="ListarCursosServiceTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Infrastructure.test_temporal.ListarCursosServiceTest" />
-      <module name="Stella" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="Infrastructure.test_temporal.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
+}]]></component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="Stella_Project" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SeccionesServiceTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Infrastructure.test_temporal.SeccionesServiceTest" />
-      <module name="Stella" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="Infrastructure.test_temporal.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TestUsuarioService" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Infrastructure.TestUsuarioService" />
-      <module name="Stella" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="Infrastructure.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="h2webconsole" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Infrastructure.persistence.h2webconsole" />
-      <module name="Stella" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="Infrastructure.persistence.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Stella [javafx:run]" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
-      <MavenSettings>
-        <option name="myGeneralSettings" />
-        <option name="myRunnerSettings">
-          <MavenRunnerSettings>
-            <option name="delegateBuildToMaven" value="false" />
-            <option name="environmentProperties">
-              <map />
-            </option>
-            <option name="jreName" value="17" />
-            <option name="mavenProperties">
-              <map />
-            </option>
-            <option name="passParentEnv" value="true" />
-            <option name="skipTests" value="false" />
-            <option name="vmOptions" value="" />
-          </MavenRunnerSettings>
-        </option>
-        <option name="myRunnerParameters">
-          <MavenRunnerParameters>
-            <option name="cmdOptions" />
-            <option name="profiles">
-              <set />
-            </option>
-            <option name="goals">
-              <list>
-                <option value="javafx:run" />
-              </list>
-            </option>
-            <option name="multimoduleDir" />
-            <option name="pomFileName" />
-            <option name="profilesMap">
-              <map />
-            </option>
-            <option name="projectsCmdOptionValues">
-              <list />
-            </option>
-            <option name="resolveToWorkspace" value="false" />
-            <option name="workingDirPath" value="$PROJECT_DIR$" />
-          </MavenRunnerParameters>
-        </option>
-      </MavenSettings>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="Stella_Project" />
+      <option name="filePath" />
       <method v="2" />
     </configuration>
-    <list>
-      <item itemvalue="Application.SeccionesServiceTest" />
-      <item itemvalue="Application.TestUsuarioService" />
-      <item itemvalue="Application.h2webconsole" />
-      <item itemvalue="Application.ListarCursosServiceTest" />
-      <item itemvalue="Maven.Stella [javafx:run]" />
-    </list>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Application.h2webconsole" />
-        <item itemvalue="Application.SeccionesServiceTest" />
-        <item itemvalue="Application.ListarCursosServiceTest" />
-        <item itemvalue="Application.TestUsuarioService" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="51597e74-c3d4-4a99-ad6b-5f4c9d498175" name="Changes" comment="" />
-      <created>1760376168853</created>
+      <changelist id="3c791a3f-173c-427e-b5d1-4cf3b6fd8098" name="Changes" comment="" />
+      <created>1762028429485</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1760376168853</updated>
+      <updated>1762028429485</updated>
     </task>
     <servers />
   </component>
