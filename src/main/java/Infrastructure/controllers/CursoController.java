@@ -1,10 +1,10 @@
 package Infrastructure.controllers;
 
-import Application.dtos.seccion.SeccionResponse;
 import Application.dtos.leccion.LeccionResponse;
+import Application.dtos.seccion.SeccionResponse;
 import Application.services.SeccionesService;
-import Infrastructure.ui.Navigacion;
 import Infrastructure.ui.AyudaUI;
+import Infrastructure.ui.Navigacion;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,27 +13,28 @@ import javafx.scene.layout.Pane;
 import java.util.List;
 import java.util.function.Function;
 
-/**
- * Controlador que maneja la plantilla del curso (PlantillaCurso.fxml).
- * Carga las secciones y lecciones dinámicamente desde el servicio SeccionesService,
- * bloquea las lecciones no completadas y maneja la navegación hacia las pantallas de cada lección.
- */
 public class CursoController {
 
-    // ======= Dependencias =======
+    // ===== deps =====
     private final SeccionesService seccionesService;
     private final Navigacion navigator = new Navigacion();
     private final AyudaUI uiHelper = new AyudaUI();
     private Function<Class<?>, Object> controllerFactory;
 
-    // ======= FXML =======
-    @FXML private Pane root;
+    // ===== FXML =====
+    @FXML private Pane root;              // se inyecta SOLO cuando se carga PlantillaCurso.fxml
     @FXML private Label NombreCurso;
 
+    // ===== estado =====
+    private int cursoActualId = -1;
+    private String cursoTitulo = "CURSO DESCONOCIDO";
+
+    // ctor DI
     public CursoController(SeccionesService seccionesService) {
         this.seccionesService = seccionesService;
     }
 
+    // ctor vacío (FXML)
     public CursoController() {
         this.seccionesService = null;
     }
@@ -42,58 +43,90 @@ public class CursoController {
         this.controllerFactory = factory;
     }
 
-    // ======= Inicialización =======
+    // lo llama PrincipalController ANTES de cargar la vista
+    public void setCursoActual(int id, String titulo) {
+        this.cursoActualId = id;
+        this.cursoTitulo = titulo;
+
+        // si YA está la vista cargada, pinto; si no, espero al initialize()
+        if (root != null) {
+            cargarSeccionesYLecciones();
+        }
+    }
+
     @FXML
     public void initialize() {
-        if (seccionesService == null) {
-            uiHelper.showError("Error", "El servicio de secciones no está disponible.");
-            return;
+        // aquí ya hay root
+        if (NombreCurso != null) {
+            NombreCurso.setText("CURSO " + cursoTitulo.toUpperCase());
         }
 
+        // si ya nos habían pasado el id antes, ahora sí pintamos
+        if (seccionesService != null && cursoActualId > 0) {
+            cargarSeccionesYLecciones();
+        }
+    }
+
+    private void cargarSeccionesYLecciones() {
         try {
-            int cursoId = 1; // Aquí podrías obtenerlo dinámicamente según el curso actual
-            List<SeccionResponse> secciones = seccionesService.ListarSeccionesConLecciones(cursoId);
+            if (root == null) {
+                // seguridad extra
+                System.err.println("[WARN] root todavía es null, no pinto.");
+                return;
+            }
+            if (seccionesService == null) {
+                System.err.println("[WARN] seccionesService es null.");
+                return;
+            }
+            if (cursoActualId <= 0) {
+                System.err.println("[WARN] cursoActualId no seteado.");
+                return;
+            }
+
+            List<SeccionResponse> secciones = seccionesService.ListarSeccionesConLecciones(cursoActualId);
+            System.out.println("📘 Secciones encontradas: " + secciones.size());
 
             for (SeccionResponse seccion : secciones) {
                 for (LeccionResponse leccion : seccion.lecciones()) {
-                    // ID visual esperado: Leccion<numeroSeccion>.<numeroLeccion>
-                    String fxId = "Leccion" + seccion.numeroOrden() + "." + leccion.numeroOrden();
 
-                    Button boton = (Button) root.lookup("#" + fxId);
-                    if (boton != null) {
-                        boton.setText(leccion.titulo());
-                        boton.setUserData(leccion.id());
+                    // en tu FXML: fx:id="Leccion1.1" → punto
+                    String fxId = "Leccion" + seccion.numeroOrden() + "_" + leccion.numeroOrden();
+                    Button btn = (Button) root.lookup("#" + fxId);
 
-                        // Bloquea si la lección no está completada
-                        if (leccion.tipoContenido().equalsIgnoreCase("PENDIENTE")) {
-                            boton.setDisable(true);
-                            boton.setOpacity(0.6);
-                        } else {
-                            boton.setDisable(false);
-                            boton.setOpacity(1.0);
-                            boton.setOnAction(e -> abrirLeccion(leccion));
-                        }
+                    if (btn == null) {
+                        System.out.println("   ❌ No se encontró el botón #" + fxId);
+                        continue;
                     }
+
+                    btn.setText(leccion.titulo());
+                    btn.setDisable(false);
+                    btn.setOpacity(1.0);
+                    btn.setOnAction(e -> abrirLeccion(leccion));
                 }
             }
+
+            if (NombreCurso != null) {
+                NombreCurso.setText("CURSO " + cursoTitulo.toUpperCase());
+            }
+
         } catch (Exception e) {
             uiHelper.showError("Error al cargar curso", e.getMessage());
+            e.printStackTrace();
         }
     }
 
-    // ======= Navegación =======
     private void abrirLeccion(LeccionResponse leccion) {
         try {
-            String ruta = "/views/leccion" + leccion.numeroOrden() + ".fxml";
+            String ruta = "/views/Leccion" + leccion.numeroOrden() + ".fxml";
+
+            LeccionController lecCtrl = (LeccionController) controllerFactory.apply(LeccionController.class);
+            lecCtrl.setLeccionActual(leccion);
+
             navigator.goTo(ruta, leccion.titulo(), controllerFactory, root);
+
         } catch (Exception e) {
             uiHelper.showError("Error al abrir lección", e.getMessage());
+            e.printStackTrace();
         }
     }
-
-    // ======= Barra inferior =======
-    @FXML private void goHome()        { navigator.goTo("/views/Principal.fxml", "Principal", controllerFactory, root); }
-    @FXML private void goForum()       { uiHelper.showInfo("Foro", "Pantalla de Foro aún no implementada."); }
-    @FXML private void goAchievements(){ uiHelper.showInfo("Logros", "Pantalla de Logros aún no implementada."); }
-    @FXML private void goProfile()     { uiHelper.showInfo("Perfil", "Pantalla de Perfil aún no implementada."); }
 }

@@ -4,13 +4,14 @@ import Application.dtos.acceso.UsuarioResponse;
 import Application.services.DarAcceso.DarAccesoService;
 import Application.services.DarAcceso.LoginService;
 import Application.services.DarAcceso.RegistroService;
+import Application.services.SeccionesService;
 
 public final class AppServices {
     private static LoginService service;
     private static RegistroService registroService;
     private static UsuarioResponse usuarioActual;
     private AppServices() {}
-
+    private static SeccionesService seccionesService;
     // Esta función es para inicializar el servicio de acceso a la base de datos
     public static void init(LoginService s) {
         service = s;
@@ -30,4 +31,5 @@ public final class AppServices {
     public static void cerrarSesion(){
         usuarioActual = null;
     }
+
 }

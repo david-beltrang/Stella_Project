@@ -141,18 +141,48 @@ public class PrincipalController implements Initializable {
         btn.setStyle("-fx-background-color: #4A90E2; -fx-text-fill: white; -fx-font-weight: bold;");
 
         btn.setOnAction(e -> {
-            if (curso.titulo().equalsIgnoreCase("C++")) {
-                navigator.goTo("/views/PlantillaCurso.fxml", "STELLA - C++", controllerFactory, btn);
-            } else {
-                uiHelper.showInfo("Curso: " + curso.titulo(),
-                        "El contenido de este curso estará disponible próximamente.");
+            // 1. sin factory no hay navegación con controladores ya creados
+            if (controllerFactory == null) {
+                uiHelper.showError("Error", "No hay factory de controladores configurada.");
+                return;
+            }
+
+            try {
+                // 2. pregunto a la BD si ESTE curso tiene secciones/lecciones
+                var secciones = seccionesService.ListarSeccionesConLecciones(curso.id());
+
+                if (secciones == null || secciones.isEmpty()) {
+                    // no hay contenido → mostrar mensaje
+                    uiHelper.showInfo(
+                            "Curso: " + curso.titulo(),
+                            "El contenido de este curso estará disponible próximamente."
+                    );
+                    return;
+                }
+
+                // 3. sí hay contenido → preparar el controller de la plantilla
+                CursoController cursoCtrl = (CursoController) controllerFactory.apply(CursoController.class);
+                cursoCtrl.setCursoActual(curso.id(), curso.titulo());
+
+                // 4. navegar a la pantalla del curso
+                navigator.goTo(
+                        "/views/PlantillaCurso.fxml",
+                        "STELLA - " + curso.titulo(),
+                        controllerFactory,
+                        btn
+                );
+
+            } catch (Exception ex) {
+                uiHelper.showError("Error cargando contenido", ex.getMessage());
+                ex.printStackTrace();
             }
         });
-
 
         card.getChildren().addAll(title, nivel, btn);
         return card;
     }
+
+
 
     // Carga los cursos que el usuario puede inscribir.
     private void cargarCursosDisponibles() {

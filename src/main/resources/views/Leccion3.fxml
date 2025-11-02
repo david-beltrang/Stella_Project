@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.shape.Rectangle?>
-<Pane maxHeight="1080.0" maxWidth="1920.0" minHeight="1080.0" minWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../../../../../Users/Personal/IdeaProjects/Stellaa/target/classes/CssStyle/LoginStyle.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Infrastructure.controllers.LeccionController">
+<Pane maxHeight="1080.0" maxWidth="1920.0" minHeight="1080.0" minWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@/styles/LoginStyle.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Infrastructure.controllers.LeccionController">
 
     <children>
         <!-- Título del curso -->
@@ -61,7 +61,7 @@
         </Label>
         <ImageView fitHeight="61.0" fitWidth="70.0" layoutX="1589.0" layoutY="793.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../../../../../../Users/Personal/IdeaProjects/Stellaa/src/main/resources/Image/StellaEsquinaSF.png" />
+                <Image url="@/Image/General/StellaEsquinaSF.png" />
             </image>
         </ImageView>
         <Button layoutX="755.0" layoutY="805.0" mnemonicParsing="false" opacity="0.9" prefHeight="47.0" prefWidth="242.0" style="-fx-background-color: #080736;" text="VOLVER" onAction="#navegarALeccionAnterior" textFill="WHITE">

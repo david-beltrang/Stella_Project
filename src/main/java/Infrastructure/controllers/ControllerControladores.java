@@ -14,11 +14,6 @@ import javafx.stage.Stage;
 import java.util.Objects;
 import java.util.function.Function;
 
-/**
- * Controlador principal (Front Controller).
- * Centraliza la creación de controladores, inyección de dependencias
- * y manejo de la factory global para mantener instancias consistentes.
- */
 public class ControllerControladores {
 
     // ======== Servicios ========
@@ -38,7 +33,7 @@ public class ControllerControladores {
     private CursoController cursoController;
     private LeccionController leccionController;
 
-    // Factory global (para FXMLLoader)
+    // ======== Factory global ========
     private Function<Class<?>, Object> factory;
 
     public ControllerControladores(
@@ -55,61 +50,49 @@ public class ControllerControladores {
         this.sesionPomodoroService = Objects.requireNonNull(sesionPomodoroService);
         this.loginService = Objects.requireNonNull(loginService);
         this.registroService = Objects.requireNonNull(registroService);
-
         inicializar();
     }
 
     private void inicializar() {
-        // Controladores sin dependencias
+        // === Instanciación con dependencias ===
         this.helloController = new HelloController();
-
-        // Controladores con dependencias
         this.principalController = new PrincipalController(listarCursosService, seccionesService);
         this.pomodoroController = new PomodoroController(sesionPomodoroService, pomodoroTimer);
         this.loginController = new LoginController(loginService);
         this.registroController = new RegistroController(registroService);
         this.cursoController = new CursoController(seccionesService);
-        this.leccionController = new LeccionController(); // ProgresoService aún no se inyecta
+        this.leccionController = new LeccionController();
 
-        // Factory principal
+        // === Factory global ===
         this.factory = (Class<?> clazz) -> {
+            if (clazz == HelloController.class) return helloController;
+            if (clazz == PrincipalController.class) return principalController;
+            if (clazz == PomodoroController.class) return pomodoroController;
+            if (clazz == RegistroController.class) return registroController;
+            if (clazz == LoginController.class) return loginController;
+            if (clazz == CursoController.class) return cursoController;
+            if (clazz == LeccionController.class) return leccionController;
             try {
-                if (clazz == HelloController.class) return helloController;
-                if (clazz == PrincipalController.class) return principalController;
-                if (clazz == PomodoroController.class) return pomodoroController;
-                if (clazz == RegistroController.class) return registroController;
-                if (clazz == LoginController.class) return loginController;
-                if (clazz == CursoController.class) return cursoController;
-                if (clazz == LeccionController.class) return leccionController;
-
                 return clazz.getDeclaredConstructor().newInstance();
             } catch (Exception e) {
-                throw new RuntimeException("No se pudo crear controlador: " + clazz.getName(), e);
+                throw new RuntimeException("No se pudo crear el controlador: " + clazz.getName(), e);
             }
         };
 
-        // Asignar factory a controladores que la necesiten
+        // === Asignar factory a todos ===
         helloController.setControllerFactory(factory);
-        loginController.setControllerFactory(factory);
-        registroController.setControllerFactory(factory);
+        principalController.setControllerFactory(factory);
         pomodoroController.setControllerFactory(factory);
+        registroController.setControllerFactory(factory);
+        loginController.setControllerFactory(factory);
         cursoController.setControllerFactory(factory);
         leccionController.setControllerFactory(factory);
     }
 
     // ======== Getters ========
-    public HelloController getHelloController() { return helloController; }
     public PrincipalController getPrincipalController() { return principalController; }
-    public PomodoroController getPomodoroController() { return pomodoroController; }
-    public RegistroController getRegistroController() { return registroController; }
-    public LoginController getLoginController() { return loginController; }
     public CursoController getCursoController() { return cursoController; }
-    public LeccionController getLeccionController() { return leccionController; }
-
-    // Factory para FXMLLoader
-    public Function<Class<?>, Object> controllerFactory() { return this.factory; }
-
-    public void reinicializar() { inicializar(); }
+    public Function<Class<?>, Object> controllerFactory() { return factory; }
 
     public void mostrarVistaInicial(Stage stage) {
         try {
@@ -123,3 +106,4 @@ public class ControllerControladores {
         }
     }
 }
+
