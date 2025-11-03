@@ -10,9 +10,9 @@ public class Respuesta {
 
     private Respuesta(Integer id, Integer intento_id, Integer pregunta_id, Integer opcion_seleccionada_id) {
         this.id = id;
-        this.intento_id = Objects.requireNonNull(intento_id, "el id de intento no puede ser nulo");
+        this.intento_id = intento_id;
         this.pregunta_id = Objects.requireNonNull(pregunta_id, "el id de la pregunta no puede ser nulo");
-        this.opcion_seleccionada_id = Objects.requireNonNull(intento_id, "el id de la opción seleccionada no puede ser nulo");
+        this.opcion_seleccionada_id = opcion_seleccionada_id;
     }
 
     public static Respuesta crear(Integer intento_id, Integer pregunta_id, Integer opcion_seleccionada_id) {

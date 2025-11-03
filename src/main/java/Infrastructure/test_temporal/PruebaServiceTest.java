@@ -37,7 +37,7 @@ public class PruebaServiceTest {
                     1,  // prueba_id
                     List.of(
                             new RespuestaRequest(1, 1),  // Pregunta 1 → opción 1 (correcta)
-                            new RespuestaRequest(2, 6)   // Pregunta 2 → opción 6 (incorrecta: string es 4)
+                            new RespuestaRequest(2, 4)   // Pregunta 2 → opción 6 (incorrecta: string es 4)
                     )
             );
 

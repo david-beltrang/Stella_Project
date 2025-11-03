@@ -6,6 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="51597e74-c3d4-4a99-ad6b-5f4c9d498175" name="Changes" comment="Merge branch 'feature-secciones_Pprincipal' of https://github.com/david-beltrang/Stella_Project into copia-feature-secciones_Pprincipal&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/main/java/Infrastructure/repositories/CursoRepository.java&#10;#&#9;src/main/java/Infrastructure/repositories/LeccionRepository.java&#10;#&#9;src/main/java/Infrastructure/repositories/ProgresoLeccionRepository.java&#10;#&#9;src/main/java/Infrastructure/test/TestSesionEstudioService.java&#10;#&#9;src/main/java/Main/Stella.java&#10;#&#9;src/main/resources/database_setup.sql">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/models/Respuesta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/models/Respuesta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/IntentoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/IntentoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/PruebaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/PruebaRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/test_temporal/PruebaServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/test_temporal/PruebaServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/database_setup.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/database_setup.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,36 +49,50 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.ListarCursosServiceTest.executor&quot;: &quot;Run&quot;,
-    &quot;Application.SeccionesServiceTest.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Stella.executor&quot;: &quot;Run&quot;,
-    &quot;Application.TestSesionEstudioService.executor&quot;: &quot;Run&quot;,
-    &quot;Application.TestUsuarioService.executor&quot;: &quot;Run&quot;,
-    &quot;Application.h2webconsole.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.Stella [javafx:run].executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;copia-feature-secciones__Pprincipal&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15274803&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.29173693&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.ListarCursosServiceTest.executor": "Run",
+    "Application.PruebaServiceTest.executor": "Run",
+    "Application.SeccionesServiceTest.executor": "Run",
+    "Application.Stella.executor": "Run",
+    "Application.TestSesionEstudioService.executor": "Run",
+    "Application.TestUsuarioService.executor": "Run",
+    "Application.h2webconsole.executor": "Run",
+    "Maven.Stella [javafx:run].executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "feature-prueba",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15274803",
+    "project.structure.side.proportion": "0.29173693",
+    "run.code.analysis.last.selected.profile": "pProject Default"
   }
-}</component>
-  <component name="RunManager" selected="Application.SeccionesServiceTest">
+}]]></component>
+  <component name="RunManager" selected="Application.PruebaServiceTest">
     <configuration name="ListarCursosServiceTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Infrastructure.test.ListarCursosServiceTest" />
       <module name="Stella" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="Infrastructure.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PruebaServiceTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Infrastructure.test_temporal.PruebaServiceTest" />
+      <module name="Stella" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Infrastructure.test_temporal.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -151,6 +170,7 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Application.PruebaServiceTest" />
       <item itemvalue="Application.SeccionesServiceTest" />
       <item itemvalue="Application.ListarCursosServiceTest" />
       <item itemvalue="Application.TestUsuarioService" />
@@ -159,6 +179,7 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.PruebaServiceTest" />
         <item itemvalue="Application.SeccionesServiceTest" />
         <item itemvalue="Application.ListarCursosServiceTest" />
         <item itemvalue="Application.h2webconsole" />

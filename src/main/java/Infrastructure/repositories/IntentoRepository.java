@@ -17,18 +17,22 @@ public class IntentoRepository implements InterfazIntentoRepository {
 
     @Override
     public Intento guardar(Intento intento) {
-        String sql = "INSERT INTO intento (usuario_id, prueba_id, puntaje) VALUES (?, ?, ?) RETURNING id";
+        String sql = "INSERT INTO \"intento\" (usuario_id, prueba_id, puntaje) VALUES (?, ?, ?)";
         try (Connection conn = connMgr.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+             PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             pstmt.setInt(1, intento.getUsuarioId());
             pstmt.setInt(2, intento.getPruebaId());
             pstmt.setDouble(3, intento.getPuntaje().valorPuntaje());
 
-            try (ResultSet rs = pstmt.executeQuery()) {
+            int affected = pstmt.executeUpdate();
+            if (affected == 0) throw new RuntimeException("No se pudo insertar el intento");
+
+            try (ResultSet rs = pstmt.getGeneratedKeys()) {
                 if (rs.next()) {
+                    int idGenerado = rs.getInt(1);
                     return Intento.reconstruir(
-                            rs.getInt("id"),
+                            idGenerado,
                             intento.getUsuarioId(),
                             intento.getPruebaId(),
                             intento.getPuntaje(),
@@ -44,7 +48,7 @@ public class IntentoRepository implements InterfazIntentoRepository {
 
     @Override
     public void guardarRespuestas(List<Respuesta> respuestas) {
-        String sql = "INSERT INTO respuesta (intento_id, pregunta_id, opcion_seleccionada_id) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO \"respuesta\" (intento_id, pregunta_id, opcion_seleccionada_id) VALUES (?, ?, ?)";
 
         try (Connection conn = connMgr.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -61,4 +65,3 @@ public class IntentoRepository implements InterfazIntentoRepository {
         }
     }
 }
-
