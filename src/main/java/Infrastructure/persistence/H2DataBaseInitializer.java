@@ -1,4 +1,4 @@
-package Infrastructure.persistence;
+package main.java.Infrastructure.persistence;
 
 import org.h2.tools.RunScript;
 
