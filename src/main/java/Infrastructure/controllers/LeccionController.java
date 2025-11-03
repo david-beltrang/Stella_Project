@@ -1,5 +1,7 @@
 package Infrastructure.controllers;
 
+import Application.dtos.leccion.LeccionResponse;
+import Application.services.LeccionService;
 import Infrastructure.ui.AyudaUI;
 import Infrastructure.ui.Navigacion;
 import javafx.event.ActionEvent;
@@ -8,104 +10,65 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 
-import java.lang.reflect.Method;
 import java.util.function.Function;
-import java.util.function.IntFunction;
 
 public class LeccionController {
 
+    // ===== DEPENDENCIAS =====
     private final Navigacion navigator = new Navigacion();
     private final AyudaUI uiHelper = new AyudaUI();
-
+    private final LeccionService leccionService;
     private Function<Class<?>, Object> controllerFactory;
 
+    // ===== FXML =====
     @FXML private Pane root;
 
-    // 👉 navegación por número (como ya lo tenías funcionando)
+    // ===== ESTADO =====
+    private LeccionResponse leccionActual;
     private int numeroActual = 1;
-    public void setNumeroActual(int n) { this.numeroActual = Math.max(1, n); }
+    private int cursoId = -1;
+    private int seccionOrden = -1;
+
+    // ===== CONSTRUCTOR =====
+    public LeccionController(LeccionService leccionService) {
+        this.leccionService = leccionService;
+    }
+
+    public LeccionController() {
+        this.leccionService = null;
+    }
 
     public void setControllerFactory(Function<Class<?>, Object> factory) {
         this.controllerFactory = factory;
     }
 
-    // 👉 opcional: DTO de la lección para pintar contenido
-    private Object leccionActual;
-    public void setLeccionActual(Object leccion) {
-        this.leccionActual = leccion;
-        if (root != null) renderLeccion();
+    // ===== SETTERS =====
+    public void setNumeroActual(int n) { this.numeroActual = Math.max(1, n); }
+    public void setLeccionActual(LeccionResponse l) { this.leccionActual = l; }
+    public void setCursoYSeccion(int cursoId, int seccionOrden) {
+        this.cursoId = cursoId;
+        this.seccionOrden = seccionOrden;
     }
 
-    // 👉 opcional: cómo traer una lección por número cuando navego
-    private IntFunction<Object> fetchLeccionByOrden;
-    public void setFetchLeccionByOrden(IntFunction<Object> f) { this.fetchLeccionByOrden = f; }
 
     @FXML
     public void initialize() {
-        // Título general
-        setText("TituloSeccion", "LECCIÓN " + numeroActual);
-        setText("NombreLeccion" + numeroActual, "Lección " + numeroActual);
-
-        // Si aún no me pasaron DTO pero me dieron fetcher, lo pido y pinto
-        if (leccionActual == null && fetchLeccionByOrden != null) {
-            leccionActual = fetchLeccionByOrden.apply(numeroActual);
-        }
         if (leccionActual != null) {
             renderLeccion();
+        } else {
+            System.out.println("[INFO] LeccionController inicializado sin lección actual.");
         }
     }
 
-    // ======= NAV: igual que tenías, pero inyectando datos a la siguiente =======
-    @FXML
-    private void navegarALeccionAnterior(ActionEvent e) {
-        int anterior = numeroActual - 1;
-        if (anterior < 1) {
-            uiHelper.showInfo("Inicio del curso", "Ya estás en la primera lección.");
-            return;
-        }
-        irA(anterior, (Node) e.getSource());
-    }
-
-    @FXML
-    private void navegarALeccionSiguiente(ActionEvent e) {
-        int siguiente = numeroActual + 1;
-        irA(siguiente, (Node) e.getSource());
-    }
-
-    private void irA(int numeroDestino, Node source) {
-        String ruta = "/views/Leccion" + numeroDestino + ".fxml";
-        navigator.goToWithInit(
-                ruta,
-                "Lección " + numeroDestino,
-                controllerFactory,
-                (source != null ? source : root),
-                (LeccionController c) -> {
-                    c.setControllerFactory(controllerFactory);
-                    c.setNumeroActual(numeroDestino);
-                    c.setFetchLeccionByOrden(fetchLeccionByOrden);    // re-usa el fetcher
-                    if (fetchLeccionByOrden != null) {
-                        Object dto = fetchLeccionByOrden.apply(numeroDestino);
-                        if (dto != null) c.setLeccionActual(dto);      // pinta contenido
-                    } else if (leccionActual != null) {
-                        // sin fetcher: al menos ajusta los textos genéricos
-                        c.setLeccionActual(leccionActual);
-                    }
-                }
-        );
-    }
-
-    // ======= PINTAR CONTENIDO (idéntico a lo que ya usabas por reflexión) =======
+    // ===== mostrar contenido =====
     private void renderLeccion() {
         if (root == null || leccionActual == null) return;
 
-        int numero = getInt(leccionActual, "numeroOrden", "getNumeroOrden");
-        String titulo = getString(leccionActual, "titulo", "getTitulo");
-        String contenido = getString(leccionActual, "contenido", "getContenido");
-        String urlVideo = getString(leccionActual, "urlVideo", "getUrlVideo");
-
-        if (numero <= 0) numero = numeroActual;
-        if (titulo == null) titulo = "Lección " + numero;
-        if (contenido == null) contenido = "";
+        int numero = leccionActual.numeroOrden();
+        String titulo = leccionActual.titulo();
+        String contenido = leccionActual.contenido();
+        String tipo = leccionActual.tipoContenido();
+        String urlVideo = leccionActual.url_video();
 
         setText("TituloSeccion", "LECCIÓN " + numero);
         setText("NombreLeccion" + numero, titulo);
@@ -155,25 +118,52 @@ public class LeccionController {
         if (n instanceof Label lbl) lbl.setText(text != null ? text : "");
     }
 
-    private String getString(Object target, String... names) {
-        for (String name : names) {
-            try {
-                Method m = target.getClass().getMethod(name);
-                Object v = m.invoke(target);
-                if (v != null) return v.toString();
-            } catch (Exception ignored) {}
+    // ===== NAVEGACIÓN =====
+    @FXML
+    private void navegarALeccionAnterior(ActionEvent e) {
+        int anterior = numeroActual - 1;
+        if (anterior < 1) {
+            uiHelper.showInfo("Inicio del curso", "Ya estás en la primera lección.");
+            return;
         }
-        return null;
+        irA(anterior, (Node) e.getSource());
     }
 
-    private int getInt(Object target, String... names) {
-        for (String name : names) {
-            try {
-                Method m = target.getClass().getMethod(name);
-                Object v = m.invoke(target);
-                if (v instanceof Number num) return num.intValue();
-            } catch (Exception ignored) {}
+    @FXML
+    private void navegarALeccionSiguiente(ActionEvent e) {
+        int siguiente = numeroActual + 1;
+        irA(siguiente, (Node) e.getSource());
+    }
+
+    private void irA(int numeroDestino, Node source) {
+        try {
+            // obtenemos la nueva lección directamente al declarar la variable → efectivamente final
+            final LeccionResponse nueva = (leccionService != null && cursoId > 0 && seccionOrden > 0)
+                    ? leccionService.obtenerLeccionPorCursoYOrden(cursoId, seccionOrden, numeroDestino)
+                    : null;
+
+            if (nueva == null) {
+                uiHelper.showInfo("Fin del curso", "No hay más lecciones disponibles.");
+                return;
+            }
+
+            String ruta = "/views/Leccion" + numeroDestino + ".fxml";
+            navigator.goToWithInit(
+                    ruta,
+                    "Lección " + numeroDestino,
+                    controllerFactory,
+                    (source != null ? source : root),
+                    (LeccionController c) -> {
+                        c.setControllerFactory(controllerFactory);
+                        c.setNumeroActual(numeroDestino);
+                        c.setCursoYSeccion(cursoId, seccionOrden);
+                        c.setLeccionActual(nueva);
+                    }
+            );
+
+        } catch (Exception ex) {
+            uiHelper.showError("Error al cambiar de lección", ex.getMessage());
+            ex.printStackTrace();
         }
-        return 0;
     }
 }

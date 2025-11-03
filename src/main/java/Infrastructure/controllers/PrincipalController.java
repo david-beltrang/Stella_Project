@@ -74,7 +74,7 @@ public class PrincipalController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        inicializarUsuario();   // ✅ Nuevo método que valida el usuario
+        inicializarUsuario();
         configurarFlechas();
         configurarBusqueda();
 

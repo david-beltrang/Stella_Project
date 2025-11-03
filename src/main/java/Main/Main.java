@@ -6,6 +6,7 @@ import Application.services.ListarCursosService;
 import Application.services.PomodoroTimer;
 import Application.services.SesionPomodoroService;
 import Application.services.SeccionesService;
+import Application.services.LeccionService;
 
 import Domain.repositoriesInterfaces.*;
 import Infrastructure.controllers.ControllerControladores;
@@ -20,15 +21,16 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
-        // ======== Base de datos ========
+        // Base de datos
         var connMgr = new ConexionBD();
         var initializer = new H2DataBaseInitializer(connMgr);
         initializer.initialize();
 
-        // ======== Repositorios ========
+        // Repositorios
         InterfazUsuarioRepository usuarioRepository = new UsuarioRepository(connMgr);
         InterfazCursoRepository cursoRepository = new CursoRepository(connMgr);
         InterfazSeccionRepository seccionRepository = new SeccionRepository(connMgr);
+        InterfazLeccionRepository leccionRepository = new LeccionRepository(connMgr); // 🔥 nuevo
         InterfazUsuarioCursoRepository usuarioCursoRepository = new UsuarioCursoRepository(connMgr);
         InterfazUsuarioStatsRepository usuarioStatsRepository = new UsuarioStatsRepository(connMgr);
         InterfazSesionEstudioRepository sesionEstudioRepository = new SesionEstudioRepository(connMgr);
@@ -40,6 +42,7 @@ public class Main extends Application {
         SesionPomodoroService sesionPomodoroService = new SesionPomodoroService(sesionEstudioRepository);
         LoginService loginService = new LoginService(usuarioRepository);
         RegistroService registroService = new RegistroService(usuarioRepository);
+        LeccionService leccionService = new LeccionService(new LeccionRepository(connMgr)); // ✅ agregado
 
         // ======== Front Controller ========
         ControllerControladores frontController = new ControllerControladores(
@@ -48,8 +51,10 @@ public class Main extends Application {
                 pomodoroTimer,
                 sesionPomodoroService,
                 loginService,
-                registroService
+                registroService,
+                leccionService
         );
+
 
         // ======== Pantalla inicial ========
         frontController.mostrarVistaInicial(stage);
@@ -65,6 +70,7 @@ public class Main extends Application {
         launch();
     }
 }
+
 
 
 
