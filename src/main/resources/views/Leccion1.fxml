@@ -17,7 +17,7 @@
 
     <children>
         <!-- TÍTULO GRANDE -->
-        <Label fx:id="TituloSeccion"
+        <Label id="TituloSeccion"
                layoutX="311.0" layoutY="118.0"
                prefHeight="158.0" prefWidth="1168.0"
                style="-fx-background-color: #080736;" textFill="white">
@@ -29,12 +29,12 @@
                    layoutX="1579.0" layoutY="783.0"
                    pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@/Image/General/StellaEsquinaSF.png" />
+
             </image>
         </ImageView>
 
         <!-- NOMBRE LECCIÓN -->
-        <Label fx:id="NombreLeccion1"
+        <Label id="NombreLeccion1"
                layoutX="646.0" layoutY="249.0"
                prefHeight="47.0" prefWidth="584.0"
                style="-fx-background-color: #080736;" textFill="WHITE">
@@ -42,7 +42,7 @@
         </Label>
 
         <!-- DESCRIPCIÓN -->
-        <Label fx:id="DescripcionLeccion1"
+        <Label id="DescripcionLeccion1"
                layoutX="416.0" layoutY="301.0"
                prefHeight="113.0" prefWidth="1166.0"
                style="-fx-background-color: #080736;"
@@ -51,7 +51,7 @@
         </Label>
 
         <!-- SUBTÍTULO CARACTERÍSTICAS -->
-        <Label fx:id="CaracteristicasTituloLeccion1"
+        <Label id="CaracteristicasTituloLeccion1"
                layoutX="419.0" layoutY="441.0"
                prefHeight="31.0" prefWidth="358.0"
                style="-fx-background-color: #080736;"
@@ -60,7 +60,7 @@
         </Label>
 
         <!-- LISTA CARACTERÍSTICAS -->
-        <Label fx:id="Caracteristicas1"
+        <Label id="Caracteristicas1"
                layoutX="467.0" layoutY="486.0"
                prefHeight="33.0" prefWidth="948.0"
                style="-fx-background-color: #080736;"
@@ -69,7 +69,7 @@
         </Label>
 
         <!-- SUBTÍTULO ÁMBITOS -->
-        <Label fx:id="AmbitosdeUsoTtitulo1"
+        <Label id="AmbitosdeUsoTtitulo1"
                layoutX="415.0" layoutY="643.0"
                prefHeight="31.0" prefWidth="358.0"
                style="-fx-background-color: #080736;"
@@ -78,7 +78,7 @@
         </Label>
 
         <!-- ÁMBITOS -->
-        <Label fx:id="Ambitos1"
+        <Label id="Ambitos1"
                layoutX="465.0" layoutY="692.0"
                prefHeight="33.0" prefWidth="948.0"
                style="-fx-background-color: #080736;"

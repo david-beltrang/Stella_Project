@@ -6,6 +6,7 @@ import Application.services.SeccionesService;
 import Infrastructure.ui.AyudaUI;
 import Infrastructure.ui.Navigacion;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
@@ -22,7 +23,7 @@ public class CursoController {
     private Function<Class<?>, Object> controllerFactory;
 
     // ===== FXML =====
-    @FXML private Pane root;              // se inyecta SOLO cuando se carga PlantillaCurso.fxml
+    @FXML private Pane root;              // inyectado al cargar PlantillaCurso.fxml
     @FXML private Label NombreCurso;
 
     // ===== estado =====
@@ -48,7 +49,6 @@ public class CursoController {
         this.cursoActualId = id;
         this.cursoTitulo = titulo;
 
-        // si YA está la vista cargada, pinto; si no, espero al initialize()
         if (root != null) {
             cargarSeccionesYLecciones();
         }
@@ -56,12 +56,9 @@ public class CursoController {
 
     @FXML
     public void initialize() {
-        // aquí ya hay root
         if (NombreCurso != null) {
             NombreCurso.setText("CURSO " + cursoTitulo.toUpperCase());
         }
-
-        // si ya nos habían pasado el id antes, ahora sí pintamos
         if (seccionesService != null && cursoActualId > 0) {
             cargarSeccionesYLecciones();
         }
@@ -69,19 +66,9 @@ public class CursoController {
 
     private void cargarSeccionesYLecciones() {
         try {
-            if (root == null) {
-                // seguridad extra
-                System.err.println("[WARN] root todavía es null, no pinto.");
-                return;
-            }
-            if (seccionesService == null) {
-                System.err.println("[WARN] seccionesService es null.");
-                return;
-            }
-            if (cursoActualId <= 0) {
-                System.err.println("[WARN] cursoActualId no seteado.");
-                return;
-            }
+            if (root == null) { System.err.println("[WARN] root todavía es null, no pinto."); return; }
+            if (seccionesService == null) { System.err.println("[WARN] seccionesService es null."); return; }
+            if (cursoActualId <= 0) { System.err.println("[WARN] cursoActualId no seteado."); return; }
 
             List<SeccionResponse> secciones = seccionesService.ListarSeccionesConLecciones(cursoActualId);
             System.out.println("📘 Secciones encontradas: " + secciones.size());
@@ -89,19 +76,24 @@ public class CursoController {
             for (SeccionResponse seccion : secciones) {
                 for (LeccionResponse leccion : seccion.lecciones()) {
 
-                    // en tu FXML: fx:id="Leccion1.1" → punto
-                    String fxId = "Leccion" + seccion.numeroOrden() + "_" + leccion.numeroOrden();
-                    Button btn = (Button) root.lookup("#" + fxId);
+                    // buscar botón por ambas convenciones: "Leccion1.1" y "Leccion1_1"
+                    String idPunto = "Leccion" + seccion.numeroOrden() + "." + leccion.numeroOrden();
+                    String idGuion = "Leccion" + seccion.numeroOrden() + "_" + leccion.numeroOrden();
+
+                    Button btn = (Button) root.lookup("#" + idPunto);
+                    if (btn == null) btn = (Button) root.lookup("#" + idGuion);
 
                     if (btn == null) {
-                        System.out.println("   ❌ No se encontró el botón #" + fxId);
+                        System.out.println("   ❌ No se encontró el botón #" + idPunto + " ni #" + idGuion);
                         continue;
                     }
 
                     btn.setText(leccion.titulo());
                     btn.setDisable(false);
                     btn.setOpacity(1.0);
-                    btn.setOnAction(e -> abrirLeccion(leccion));
+
+                    final LeccionResponse lec = leccion;
+                    btn.setOnAction(e -> abrirLeccion(lec, (Node) e.getSource()));
                 }
             }
 
@@ -115,14 +107,22 @@ public class CursoController {
         }
     }
 
-    private void abrirLeccion(LeccionResponse leccion) {
+    /** Navegación simple por número de lección (sin pasar DTOs ni servicios al controller). */
+    private void abrirLeccion(LeccionResponse leccion, Node source) {
         try {
-            String ruta = "/views/Leccion" + leccion.numeroOrden() + ".fxml";
+            int numero = (leccion != null) ? leccion.numeroOrden() : 1;
+            String ruta = "/views/Leccion" + numero + ".fxml";
 
-            LeccionController lecCtrl = (LeccionController) controllerFactory.apply(LeccionController.class);
-            lecCtrl.setLeccionActual(leccion);
-
-            navigator.goTo(ruta, leccion.titulo(), controllerFactory, root);
+            navigator.goToWithInit(
+                    ruta,
+                    "Lección " + numero,
+                    controllerFactory,
+                    (source != null ? source : root),
+                    (LeccionController c) -> {
+                        c.setControllerFactory(controllerFactory);
+                        c.setNumeroActual(numero);   // <-- solo el número para navegar
+                    }
+            );
 
         } catch (Exception e) {
             uiHelper.showError("Error al abrir lección", e.getMessage());

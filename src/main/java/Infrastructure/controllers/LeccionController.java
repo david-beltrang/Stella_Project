@@ -2,70 +2,114 @@ package Infrastructure.controllers;
 
 import Infrastructure.ui.AyudaUI;
 import Infrastructure.ui.Navigacion;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 
 import java.lang.reflect.Method;
 import java.util.function.Function;
+import java.util.function.IntFunction;
 
 public class LeccionController {
 
     private final Navigacion navigator = new Navigacion();
     private final AyudaUI uiHelper = new AyudaUI();
+
     private Function<Class<?>, Object> controllerFactory;
 
     @FXML private Pane root;
-    @FXML private Button btnVolver;
-    @FXML private Button btnSiguiente;
 
-    // viene del CursoController
-    private Object leccionActual;   // <- NO uso tu DTO, uso Object
+    // 👉 navegación por número (como ya lo tenías funcionando)
+    private int numeroActual = 1;
+    public void setNumeroActual(int n) { this.numeroActual = Math.max(1, n); }
 
     public void setControllerFactory(Function<Class<?>, Object> factory) {
         this.controllerFactory = factory;
     }
 
-    // lo llama CursoController antes de navegar
+    // 👉 opcional: DTO de la lección para pintar contenido
+    private Object leccionActual;
     public void setLeccionActual(Object leccion) {
         this.leccionActual = leccion;
-        if (root != null) {
-            renderLeccion();
-        }
+        if (root != null) renderLeccion();
     }
+
+    // 👉 opcional: cómo traer una lección por número cuando navego
+    private IntFunction<Object> fetchLeccionByOrden;
+    public void setFetchLeccionByOrden(IntFunction<Object> f) { this.fetchLeccionByOrden = f; }
 
     @FXML
     public void initialize() {
+        // Título general
+        setText("TituloSeccion", "LECCIÓN " + numeroActual);
+        setText("NombreLeccion" + numeroActual, "Lección " + numeroActual);
+
+        // Si aún no me pasaron DTO pero me dieron fetcher, lo pido y pinto
+        if (leccionActual == null && fetchLeccionByOrden != null) {
+            leccionActual = fetchLeccionByOrden.apply(numeroActual);
+        }
         if (leccionActual != null) {
             renderLeccion();
-        } else {
-            System.out.println("[LeccionController] initialize() sin leccionActual todavía");
         }
     }
 
+    // ======= NAV: igual que tenías, pero inyectando datos a la siguiente =======
+    @FXML
+    private void navegarALeccionAnterior(ActionEvent e) {
+        int anterior = numeroActual - 1;
+        if (anterior < 1) {
+            uiHelper.showInfo("Inicio del curso", "Ya estás en la primera lección.");
+            return;
+        }
+        irA(anterior, (Node) e.getSource());
+    }
+
+    @FXML
+    private void navegarALeccionSiguiente(ActionEvent e) {
+        int siguiente = numeroActual + 1;
+        irA(siguiente, (Node) e.getSource());
+    }
+
+    private void irA(int numeroDestino, Node source) {
+        String ruta = "/views/Leccion" + numeroDestino + ".fxml";
+        navigator.goToWithInit(
+                ruta,
+                "Lección " + numeroDestino,
+                controllerFactory,
+                (source != null ? source : root),
+                (LeccionController c) -> {
+                    c.setControllerFactory(controllerFactory);
+                    c.setNumeroActual(numeroDestino);
+                    c.setFetchLeccionByOrden(fetchLeccionByOrden);    // re-usa el fetcher
+                    if (fetchLeccionByOrden != null) {
+                        Object dto = fetchLeccionByOrden.apply(numeroDestino);
+                        if (dto != null) c.setLeccionActual(dto);      // pinta contenido
+                    } else if (leccionActual != null) {
+                        // sin fetcher: al menos ajusta los textos genéricos
+                        c.setLeccionActual(leccionActual);
+                    }
+                }
+        );
+    }
+
+    // ======= PINTAR CONTENIDO (idéntico a lo que ya usabas por reflexión) =======
     private void renderLeccion() {
         if (root == null || leccionActual == null) return;
 
-        // ====== leer datos SIN asumir DTO ======
         int numero = getInt(leccionActual, "numeroOrden", "getNumeroOrden");
         String titulo = getString(leccionActual, "titulo", "getTitulo");
         String contenido = getString(leccionActual, "contenido", "getContenido");
-        String tipo = getString(leccionActual, "tipoContenido", "getTipoContenido");
         String urlVideo = getString(leccionActual, "urlVideo", "getUrlVideo");
 
-        if (numero <= 0) numero = 1;            // por si viene 0
+        if (numero <= 0) numero = numeroActual;
         if (titulo == null) titulo = "Lección " + numero;
         if (contenido == null) contenido = "";
 
-        // ====== título grande ======
         setText("TituloSeccion", "LECCIÓN " + numero);
-
-        // ====== nombre lección (sin punto) ======
         setText("NombreLeccion" + numero, titulo);
 
-        // ====== pintar según PLANTILLA (por número) ======
         switch (numero) {
             case 1 -> {
                 setText("DescripcionLeccion1", contenido);
@@ -101,26 +145,15 @@ public class LeccionController {
                 setText("Codigo5", "cout << \"Hola\";");
                 setText("ResultadoEsperado5", "Salida esperada en consola");
             }
-            default -> {
-                // cualquier otra: muestra título y contenido
-                setText("DescripcionLeccion1", contenido);
-            }
+            default -> setText("DescripcionLeccion1", contenido);
         }
     }
-
-    // ============ helpers UI ============
 
     private void setText(String id, String text) {
         if (root == null) return;
         Node n = root.lookup("#" + id);
-        if (n instanceof Label lbl) {
-            lbl.setText(text != null ? text : "");
-        } else {
-            System.out.println("[LeccionController] no encontré label #" + id);
-        }
+        if (n instanceof Label lbl) lbl.setText(text != null ? text : "");
     }
-
-    // ============ helpers REFLEXIÓN ============
 
     private String getString(Object target, String... names) {
         for (String name : names) {
@@ -143,47 +176,4 @@ public class LeccionController {
         }
         return 0;
     }
-
-    // ============ navegación ============
-
-    @FXML
-    private void navegarALeccionAnterior() {
-        if (leccionActual == null) {
-            uiHelper.showInfo("Inicio del curso", "Ya estás en la primera lección.");
-            return;
-        }
-        int actual = getInt(leccionActual, "numeroOrden", "getNumeroOrden");
-        int anterior = actual - 1;
-        if (anterior < 1) {
-            uiHelper.showInfo("Inicio del curso", "Ya estás en la primera lección.");
-            return;
-        }
-        navigator.goTo("/views/Leccion" + anterior + ".fxml",
-                "Lección " + anterior,
-                controllerFactory,
-                root);
-    }
-
-    @FXML
-    private void navegarALeccionSiguiente() {
-        if (leccionActual == null) {
-            uiHelper.showError("Error", "No se ha cargado ninguna lección actual.");
-            return;
-        }
-        int actual = getInt(leccionActual, "numeroOrden", "getNumeroOrden");
-        int siguiente = actual + 1;
-        if (siguiente > 5) {
-            uiHelper.showInfo("Fin", "No hay más lecciones en esta plantilla.");
-            return;
-        }
-        navigator.goTo("/views/Leccion" + siguiente + ".fxml",
-                "Lección " + siguiente,
-                controllerFactory,
-                root);
-    }
 }
-
-
-
-
-

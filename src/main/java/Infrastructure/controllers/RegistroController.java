@@ -7,6 +7,7 @@ import Infrastructure.ui.Navigacion;
 import Infrastructure.ui.AyudaUI;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.event.ActionEvent;
 
 import java.util.function.Function;
 
@@ -46,7 +47,7 @@ public class RegistroController {
 
     // ===== Acciones de UI =====
     @FXML
-    private void onRegistrarClicked() {
+    private void onRegistrarClicked(ActionEvent e) {
         String nombre   = text(nombreField);
         String username = text(usernameField);
         String correo   = text(correoField);
@@ -81,8 +82,13 @@ public class RegistroController {
             uiHelper.showInfo("Registro exitoso",
                     "Bienvenido " + u.nombre() + ".\nYa puedes iniciar sesión en STELLA.");
 
-            // Navegar al login usando NavigationManager
-            navigator.goTo("/views/Login.fxml", "STELLA - Login", controllerFactory, registerButton);
+            // Navegar al login usando el origen del evento
+            navigator.goTo(
+                    "/views/Login.fxml",
+                    "STELLA - Login",
+                    controllerFactory,
+                    (javafx.scene.Node) e.getSource()
+            );
 
         } catch (IllegalArgumentException ex) {
             uiHelper.showError("Error en el registro", ex.getMessage());
@@ -92,8 +98,13 @@ public class RegistroController {
     }
 
     @FXML
-    private void onVolverClicked() {
-        navigator.goTo("/views/hello-view.fxml", "STELLA", controllerFactory, backButton);
+    private void onVolverClicked(ActionEvent e) {
+        navigator.goTo(
+                "/views/hello-view.fxml",
+                "STELLA",
+                controllerFactory,
+                (javafx.scene.Node) e.getSource()
+        );
     }
 
     // ===== Helpers internos =====
