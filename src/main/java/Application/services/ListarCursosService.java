@@ -1,8 +1,6 @@
 package Application.services;
 
-import Application.dtos.Listado_Cursos.CursoResponse;
-import Application.dtos.Listado_Cursos.CursosResponse;
-import Application.dtos.Listado_Cursos.InscripcionRequest;
+import Application.dtos.Listado_Cursos.*;
 import Domain.repositoriesInterfaces.InterfazCursoRepository;
 import Domain.repositoriesInterfaces.InterfazUsuarioCursoRepository;
 import Domain.models.Curso;
@@ -73,6 +71,14 @@ public class ListarCursosService {
         UsuarioCurso usuarioCurso = UsuarioCurso.crearInscripcion(usuario_id, curso_id, null);
         usuarioCursoRepository.inscribir(usuarioCurso);
         return obtenerCursosCompletos(usuario_id);
+    }
+
+    public DetallesResponse verDetalles (DetallesRequest request){
+        if (request == null || request.curso_id() <= 0){
+            throw new IllegalArgumentException("Dato de ID de curso invalido");
+        }
+        Integer curso_id = request.curso_id();
+        return cursoRepository.verDetallesCurso(curso_id);
     }
 
 }

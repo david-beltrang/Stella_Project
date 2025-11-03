@@ -18,142 +18,142 @@ DROP TABLE IF EXISTS "usuario";
 
 -- TABLA: "usuario"
 CREATE TABLE "usuario" (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50) UNIQUE NOT NULL,
-    correo VARCHAR(100) UNIQUE NOT NULL,
-    nombre VARCHAR(100) NOT NULL,
-    contrasena VARCHAR(255) NOT NULL,
-    tipo VARCHAR(20) NOT NULL -- ESTUDIANTE, PROFESOR, ADMIN
+                           id INT AUTO_INCREMENT PRIMARY KEY,
+                           username VARCHAR(50) UNIQUE NOT NULL,
+                           correo VARCHAR(100) UNIQUE NOT NULL,
+                           nombre VARCHAR(100) NOT NULL,
+                           contrasena VARCHAR(255) NOT NULL,
+                           tipo VARCHAR(20) NOT NULL -- ESTUDIANTE, PROFESOR, ADMIN
 );
 
 -- TABLA: "usuario_stats" (Estadísticas y gamificación)
 CREATE TABLE "usuario_stats" (
-    usuario_id INT PRIMARY KEY,
-    pescaditos INT NOT NULL DEFAULT 0,
-    racha_dias INT NOT NULL DEFAULT 0,
-    tiempo_total_estudio_segundos INT NOT NULL DEFAULT 0,
-    FOREIGN KEY (usuario_id) REFERENCES "usuario"(id) ON DELETE CASCADE
+                                 usuario_id INT PRIMARY KEY,
+                                 pescaditos INT NOT NULL DEFAULT 0,
+                                 racha_dias INT NOT NULL DEFAULT 0,
+                                 tiempo_total_estudio_segundos INT NOT NULL DEFAULT 0,
+                                 FOREIGN KEY (usuario_id) REFERENCES "usuario"(id) ON DELETE CASCADE
 );
 
 -- TABLA: "curso"
 CREATE TABLE "curso" (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    titulo VARCHAR(255) NOT NULL,
-    descripcion VARCHAR(2000),
-    nivel VARCHAR(50),
-    categoria VARCHAR(100),
-    duracion_minutos INT,
-    numero_secciones INT
+                         id INT AUTO_INCREMENT PRIMARY KEY,
+                         titulo VARCHAR(255) NOT NULL,
+                         descripcion VARCHAR(2000),
+                         nivel VARCHAR(50),
+                         categoria VARCHAR(100),
+                         duracion_minutos INT,
+                         numero_secciones INT
 );
 
 -- TABLA: "usuario_curso"
 CREATE TABLE "usuario_curso" (
-    usuario_id INT NOT NULL,
-    curso_id INT NOT NULL,
-    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (usuario_id, curso_id),
-    FOREIGN KEY (usuario_id) REFERENCES "usuario"(id) ON DELETE CASCADE,
-    FOREIGN KEY (curso_id) REFERENCES "curso"(id) ON DELETE CASCADE
+                                 usuario_id INT NOT NULL,
+                                 curso_id INT NOT NULL,
+                                 fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                                 PRIMARY KEY (usuario_id, curso_id),
+                                 FOREIGN KEY (usuario_id) REFERENCES "usuario"(id) ON DELETE CASCADE,
+                                 FOREIGN KEY (curso_id) REFERENCES "curso"(id) ON DELETE CASCADE
 );
 
 -- TABLA: "seccion"
 CREATE TABLE "seccion" (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    curso_id INT NOT NULL,
-    titulo VARCHAR(255) NOT NULL,
-    numero_orden INT NOT NULL,
-    FOREIGN KEY (curso_id) REFERENCES "curso"(id) ON DELETE CASCADE,
-    UNIQUE (numero_orden)
+                           id INT AUTO_INCREMENT PRIMARY KEY,
+                           curso_id INT NOT NULL,
+                           titulo VARCHAR(255) NOT NULL,
+                           numero_orden INT NOT NULL,
+                           FOREIGN KEY (curso_id) REFERENCES "curso"(id) ON DELETE CASCADE,
+                           UNIQUE (curso_id, numero_orden)
 );
 
 -- TABLA: "leccion" (Contenido individual: Teoría, Video, Práctica, Pregunta)
 CREATE TABLE "leccion" (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    seccion_id INT NOT NULL,
-    titulo VARCHAR(255) NOT NULL,
-    numero_orden INT NOT NULL,
-    tipo_contenido VARCHAR(20) NOT NULL,
-    url_video VARCHAR(255),
-    contenido CLOB,
-    FOREIGN KEY (seccion_id) REFERENCES "seccion"(id) ON DELETE CASCADE,
-    UNIQUE (seccion_id, numero_orden)
+                           id INT AUTO_INCREMENT PRIMARY KEY,
+                           seccion_id INT NOT NULL,
+                           titulo VARCHAR(255) NOT NULL,
+                           numero_orden INT NOT NULL,
+                           tipo_contenido VARCHAR(20) NOT NULL,
+                           url_video VARCHAR(255),
+                           contenido CLOB,
+                           FOREIGN KEY (seccion_id) REFERENCES "seccion"(id) ON DELETE CASCADE,
+                           UNIQUE (seccion_id, numero_orden)
 );
 
 -- TABLA: "prueba" (Quizzes seccionales o examen final)
 CREATE TABLE "prueba" (
-    id INT PRIMARY KEY,
-    curso_id INT NOT NULL,
-    seccion_id INT NOT NULL,
-    titulo VARCHAR(255) NOT NULL,
-    tipo VARCHAR(20) NOT NULL,
-    FOREIGN KEY (curso_id) REFERENCES "curso"(id) ON DELETE CASCADE,
-    FOREIGN KEY (seccion_id) REFERENCES "seccion"(id) ON DELETE CASCADE
+                          id INT PRIMARY KEY,
+                          curso_id INT NOT NULL,
+                          seccion_id INT NOT NULL,
+                          titulo VARCHAR(255) NOT NULL,
+                          tipo VARCHAR(20) NOT NULL,
+                          FOREIGN KEY (curso_id) REFERENCES "curso"(id) ON DELETE CASCADE,
+                          FOREIGN KEY (seccion_id) REFERENCES "seccion"(id) ON DELETE CASCADE
 );
 
 -- TABLA: "pregunta"
 CREATE TABLE "pregunta" (
-    id INT PRIMARY KEY,
-    enunciado VARCHAR(500) NOT NULL,
-    leccion_id INT,
-    prueba_id INT,
-    FOREIGN KEY (leccion_id) REFERENCES "leccion"(id) ON DELETE CASCADE,
-    FOREIGN KEY (prueba_id) REFERENCES "prueba"(id) ON DELETE CASCADE,
-    CHECK (leccion_id IS NOT NULL OR prueba_id IS NOT NULL)
+                            id INT PRIMARY KEY,
+                            enunciado VARCHAR(500) NOT NULL,
+                            leccion_id INT,
+                            prueba_id INT,
+                            FOREIGN KEY (leccion_id) REFERENCES "leccion"(id) ON DELETE CASCADE,
+                            FOREIGN KEY (prueba_id) REFERENCES "prueba"(id) ON DELETE CASCADE,
+                            CHECK (leccion_id IS NOT NULL OR prueba_id IS NOT NULL)
 );
 
 -- TABLA: "opcion"
 CREATE TABLE "opcion" (
-    id INT PRIMARY KEY,
-    pregunta_id INT NOT NULL,
-    texto VARCHAR(500) NOT NULL,
-    es_correcta BOOLEAN NOT NULL,
-    FOREIGN KEY (pregunta_id) REFERENCES "pregunta"(id) ON DELETE CASCADE
+                          id INT PRIMARY KEY,
+                          pregunta_id INT NOT NULL,
+                          texto VARCHAR(500) NOT NULL,
+                          es_correcta BOOLEAN NOT NULL,
+                          FOREIGN KEY (pregunta_id) REFERENCES "pregunta"(id) ON DELETE CASCADE
 );
 
 -- TABLA: "progreso_leccion"
 CREATE TABLE "progreso_leccion" (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    usuario_id INT NOT NULL,
-    leccion_id INT NOT NULL,
-    estado VARCHAR(20) NOT NULL,
-    fecha_inicio TIMESTAMP,
-    fecha_completado TIMESTAMP,
-    FOREIGN KEY (usuario_id) REFERENCES "usuario"(id) ON DELETE CASCADE,
-    FOREIGN KEY (leccion_id) REFERENCES "leccion"(id) ON DELETE CASCADE,
-    UNIQUE (usuario_id, leccion_id)
+                                    id INT PRIMARY KEY AUTO_INCREMENT,
+                                    usuario_id INT NOT NULL,
+                                    leccion_id INT NOT NULL,
+                                    estado VARCHAR(20) NOT NULL,
+                                    fecha_inicio TIMESTAMP,
+                                    fecha_completado TIMESTAMP,
+                                    FOREIGN KEY (usuario_id) REFERENCES "usuario"(id) ON DELETE CASCADE,
+                                    FOREIGN KEY (leccion_id) REFERENCES "leccion"(id) ON DELETE CASCADE,
+                                    UNIQUE (usuario_id, leccion_id)
 );
 
 -- TABLA: "intento" (Registro de una prueba realizada)
 CREATE TABLE "intento" (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    usuario_id INT NOT NULL,
-    prueba_id INT NOT NULL,
-    puntaje DOUBLE NOT NULL,
-    fecha_intento TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (usuario_id) REFERENCES "usuario"(id) ON DELETE CASCADE,
-    FOREIGN KEY (prueba_id) REFERENCES "prueba"(id) ON DELETE CASCADE
+                           id INT PRIMARY KEY AUTO_INCREMENT,
+                           usuario_id INT NOT NULL,
+                           prueba_id INT NOT NULL,
+                           puntaje DOUBLE NOT NULL,
+                           fecha_intento TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                           FOREIGN KEY (usuario_id) REFERENCES "usuario"(id) ON DELETE CASCADE,
+                           FOREIGN KEY (prueba_id) REFERENCES "prueba"(id) ON DELETE CASCADE
 );
 
 -- TABLA: "respuesta" (Respuestas específicas dentro de un Intento)
 CREATE TABLE "respuesta" (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    intento_id INT NOT NULL,
-    pregunta_id INT NOT NULL,
-    opcion_seleccionada_id INT NOT NULL,
-    FOREIGN KEY (intento_id) REFERENCES "intento"(id) ON DELETE CASCADE,
-    FOREIGN KEY (pregunta_id) REFERENCES "pregunta"(id) ON DELETE CASCADE,
-    FOREIGN KEY (opcion_seleccionada_id) REFERENCES "opcion"(id) ON DELETE CASCADE
+                             id INT PRIMARY KEY AUTO_INCREMENT,
+                             intento_id INT NOT NULL,
+                             pregunta_id INT NOT NULL,
+                             opcion_seleccionada_id INT NOT NULL,
+                             FOREIGN KEY (intento_id) REFERENCES "intento"(id) ON DELETE CASCADE,
+                             FOREIGN KEY (pregunta_id) REFERENCES "pregunta"(id) ON DELETE CASCADE,
+                             FOREIGN KEY (opcion_seleccionada_id) REFERENCES "opcion"(id) ON DELETE CASCADE
 );
 
 -- TABLA: "sesion_estudio" (Guardar todas las sesiones de estudio)
 CREATE TABLE "sesion_estudio" (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    usuario_id INT NOT NULL,
-    tiempo_estudio INT NOT NULL,
-    tiempo_descanso INT NOT NULL,
-    fecha_inicio TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    fecha_final TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (usuario_id) REFERENCES "usuario"(id) ON DELETE CASCADE
+                                  id INT PRIMARY KEY AUTO_INCREMENT,
+                                  usuario_id INT NOT NULL,
+                                  tiempo_estudio INT NOT NULL,
+                                  tiempo_descanso INT NOT NULL,
+                                  fecha_inicio TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                                  fecha_final TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                                  FOREIGN KEY (usuario_id) REFERENCES "usuario"(id) ON DELETE CASCADE
 );
 
 -- DATOS INICIALES PARA TESTING
@@ -163,7 +163,7 @@ CREATE TABLE "sesion_estudio" (
 INSERT INTO "usuario" (username, correo, nombre, contrasena, tipo)
 VALUES ('testestudio', 'test@estudio.com', 'Usuario Estudio', 'pass123', 'ESTUDIANTE');
 
--- 2. CURSOS DE
+-- 2. CURSOS
 INSERT INTO "curso" (titulo, descripcion, nivel, categoria, duracion_minutos, numero_secciones)
 VALUES ('Curso de C++ basico', 'En este curso aprenderas a manejar variables', 'BÁSICO', 'categoria c++', 0, 0);
 
@@ -176,23 +176,90 @@ VALUES ('Curso de python basico', 'En este curso aprenderas a manejar variables'
 INSERT INTO "curso" (titulo, descripcion, nivel, categoria, duracion_minutos, numero_secciones)
 VALUES ('Curso de GO basico', 'En este curso aprenderas a manejar variables', 'BÁSICO', 'categoria GO', 0, 0);
 
--- 3. SECCIONES DE PRUEBA
-INSERT INTO "seccion" (curso_id, titulo, numero_orden)
-VALUES (1, 'Imprimir en consola', 2);
+-- 3. SECCIONES
 
-INSERT INTO "seccion" (curso_id, titulo, numero_orden)
-VALUES (1, 'Tipos de datos primitivos', 1);
+-- SECCIONES CURSO 1
+INSERT INTO "seccion" (curso_id, titulo, numero_orden) VALUES (1, 'Introducción al lenguaje y entorno', 1);
+INSERT INTO "seccion" (curso_id, titulo, numero_orden) VALUES (1, 'Variables, tipos de datos y operadores', 2);
+INSERT INTO "seccion" (curso_id, titulo, numero_orden) VALUES (1, 'Estructuras de control', 3);
+-- SECCIONES CURSO 2
+INSERT INTO "seccion" (curso_id, titulo, numero_orden) VALUES (2, 'Introducción a Java y su entorno', 1);
+INSERT INTO "seccion" (curso_id, titulo, numero_orden) VALUES (2, 'Variables, tipos de datos y operadores', 2);
+INSERT INTO "seccion" (curso_id, titulo, numero_orden) VALUES (2, 'Estructuras de control', 3);
 
--- Sección con id 1 tiene dos lecciones (suponiendo AUTO_INCREMENT genera id = 1 para "Tipos de datos primitivos")
+-- 4. LECCIONES
+
+-- CURSO 1
+-- LECCIONES SECCION 1
 INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido)
-VALUES (2, 'Lección de tipos de datos - int', 2, 'TEORIA', NULL, 'En esta lección aprenderás sobre los int');
-
+VALUES (1, 'Historia y características de C++', 1, 'TEORIA', NULL, 'Origen y evolución del lenguaje C++. Principales características y usos actuales.');
 INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido)
-VALUES (2, 'Lección de tipos de datos - String', 1, 'TEORIA', NULL, 'En esta lección aprenderás sobre los String');
-
--- Sección con id 2 tiene dos lecciones
+VALUES (1, 'Instalación del entorno (IDE)', 2, 'TEORIA', NULL, 'Instrucciones para instalar Code::Blocks o Visual Studio y configurar el compilador.');
 INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido)
-VALUES (1, 'Lección de imprimir en consola - print', 1, 'TEORIA', NULL, 'En esta lección aprenderás a imprimir en consola con print');
-
+VALUES (1, 'Estructura básica de un programa C++', 3, 'VIDEO', 'https://www.youtube.com/watch?v=Rub-JsjMhWY', 'Análisis de la estructura base de un programa: directivas, función main y sintaxis básica.');
 INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido)
-VALUES (1, 'Lección de imprimir en consola - println', 2, 'TEORIA', NULL, 'En esta lección aprenderás a imprimir en consola con println');
+VALUES (1, 'Primer programa: Hola Mundo', 4, 'TEORIA', NULL, 'Creación, compilación y ejecución de un programa sencillo que imprime Hola Mundo en consola.');
+INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido)
+VALUES (1, 'Comentarios y buenas prácticas', 5, 'TEORIA', NULL, 'Uso de comentarios en C++ y recomendaciones para escribir código limpio y legible.');
+
+-- LECCIONES SECCION 2
+INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido)
+VALUES (2, 'Tipos de datos primitivos', 1, 'TEORIA', NULL, 'Explicación de los tipos de datos: int, float, char, bool y double.');
+INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido)
+VALUES (2, 'Declaración y asignación de variables', 2, 'TEORIA', NULL, 'Cómo declarar, inicializar y modificar variables en C++.');
+INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido)
+VALUES (2, 'Operadores aritméticos y relacionales', 3, 'VIDEO', 'https://www.youtube.com/watch?v=1JbmAml1nT4', 'Uso de operadores básicos para cálculos y comparaciones.');
+INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido)
+VALUES (2, 'Entrada y salida estándar', 4, 'TEORIA', NULL, 'Lectura y escritura en consola usando cin y cout.');
+INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido)
+VALUES (2, 'Ejercicios prácticos', 5, 'TEORIA', NULL, 'Ejercicios de aplicación: operaciones matemáticas, promedio y área de figuras.');
+
+-- LECCIONES SECCION 3
+INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido)
+VALUES (3, 'Condicionales if, else if, else', 1, 'TEORIA', NULL, 'Uso de estructuras condicionales simples en C++.');
+INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido)
+VALUES (3, 'Estructura switch', 2, 'TEORIA', NULL, 'Uso del switch para manejar múltiples condiciones.');
+INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido)
+VALUES (3, 'Ciclo for', 3, 'VIDEO', 'https://www.youtube.com/watch?v=K4lnvU7hG6c', 'Cómo usar el ciclo for para repetir instrucciones controladamente.');
+INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido)
+VALUES (3, 'Ciclos while y do-while', 4, 'TEORIA', NULL, 'Repeticiones condicionales en C++ usando while y do-while.');
+INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido)
+VALUES (3, 'Proyecto final: Calculadora básica', 5, 'TEORIA', NULL, 'Desarrolla una calculadora que realice operaciones aritméticas básicas usando bucles y condicionales.');
+
+
+-- CURSO 2
+-- LECCIONES SECCION 1
+INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido)
+VALUES (4, 'Historia y filosofía de Java', 1, 'TEORIA', NULL, 'Origen y principios de Java, independencia de plataforma y portabilidad.');
+INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido)
+VALUES (4, 'Instalación de JDK y configuración del IDE', 2, 'TEORIA', NULL, 'Instalación del JDK y configuración del entorno de desarrollo (IntelliJ IDEA o Eclipse).');
+INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido)
+VALUES (4, 'Estructura de un programa Java', 3, 'VIDEO', 'https://www.youtube.com/watch?v=GoXwIVyNvX0', 'Análisis de la estructura base de un programa Java: clases, método main y sintaxis.');
+INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido)
+VALUES (4, 'Primer programa: Hola Mundo', 4, 'TEORIA', NULL, 'Creación y ejecución de un programa simple que imprime Hola Mundo.');
+INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido)
+VALUES (4, 'Comentarios y convenciones de código', 5, 'TEORIA', NULL, 'Uso de comentarios y buenas prácticas de escritura en Java.');
+
+-- LECCIONES SECCION 2
+INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido)
+VALUES (5, 'Tipos de datos primitivos', 1, 'TEORIA', NULL, 'Tipos de datos primitivos en Java: int, float, boolean, char, double.');
+INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido)
+VALUES (5, 'Variables y constantes', 2, 'TEORIA', NULL, 'Declaración, inicialización y uso de constantes con final.');
+INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido)
+VALUES (5, 'Operadores básicos y relacionales', 3, 'VIDEO', 'https://www.youtube.com/watch?v=cyuzt1Dp8X4', 'Uso de operadores aritméticos y relacionales en Java.');
+INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido)
+VALUES (5, 'Entrada y salida con Scanner', 4, 'TEORIA', NULL, 'Lectura de datos desde consola con la clase Scanner.');
+INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido)
+VALUES (5, 'Ejercicios prácticos', 5, 'TEORIA', NULL, 'Ejercicios simples de operaciones aritméticas y promedio.');
+
+-- LECCIONES SECCION 3
+INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido)
+VALUES (6, 'Condicionales if y else if', 1, 'TEORIA', NULL, 'Uso de condicionales para ejecutar diferentes caminos de código.');
+INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido)
+VALUES (6, 'switch y uso con String', 2, 'TEORIA', NULL, 'Estructura switch en Java y ejemplos con cadenas de texto.');
+INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido)
+VALUES (6, 'Ciclo for', 3, 'VIDEO', 'https://www.youtube.com/watch?v=wUpPsEcGSGg', 'Uso del bucle for para repetir instrucciones en Java.');
+INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido)
+VALUES (6, 'Ciclos while y do-while', 4, 'TEORIA', NULL, 'Diferencias entre while y do-while. Ejemplos prácticos de repetición.');
+INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido)
+VALUES (6, 'Proyecto final: Conversor de temperaturas', 5, 'TEORIA', NULL, 'Proyecto final para aplicar estructuras de control en un programa que convierte temperaturas.');

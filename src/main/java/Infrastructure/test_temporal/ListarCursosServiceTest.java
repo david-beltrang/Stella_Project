@@ -1,7 +1,6 @@
 package Infrastructure.test_temporal;
 
-import Application.dtos.Listado_Cursos.CursoResponse;
-import Application.dtos.Listado_Cursos.InscripcionRequest;
+import Application.dtos.Listado_Cursos.*;
 import Application.services.ListarCursosService;
 import Domain.repositoriesInterfaces.InterfazCursoRepository;
 import Domain.repositoriesInterfaces.InterfazUsuarioCursoRepository;
@@ -10,7 +9,6 @@ import Infrastructure.persistence.H2DataBaseInitializer;
 import Infrastructure.persistence.IConexionBD;
 import Infrastructure.repositories.CursoRepository;
 import Infrastructure.repositories.UsuarioCursoRepository;
-import Application.dtos.Listado_Cursos.CursosResponse;
 
 import java.util.List;
 
@@ -69,6 +67,16 @@ public class ListarCursosServiceTest {
             }
         } catch (Exception e) {
             System.out.println("Error durante la inscripción: " + e.getMessage());
+        }
+
+        System.out.println("Ahora se prueba el metodo de ver detalles de un curso especificado");
+        DetallesRequest request = new DetallesRequest(1);
+        try{
+            DetallesResponse response = service.verDetalles(request);
+            System.out.println("Ver detalles del curso con id 1 ---> Detalles:");
+            System.out.println(response.descripcion());
+        } catch (Exception e){
+            System.out.println("Error al ver detalles del curso: " + e.getMessage());
         }
 
 

@@ -12,6 +12,7 @@ import java.sql.SQLException;
  * Implementación JDBC para la persistencia de las estadísticas de usuario (racha, pescaditos).
  */
 public class UsuarioStatsRepository implements InterfazUsuarioStatsRepository {
+    private IConexionBD connMgr;
 
     // Usar comillas dobles para forzar el nombre "dias_racha"
     private static final String SQL_UPDATE_RACHA =
@@ -19,11 +20,10 @@ public class UsuarioStatsRepository implements InterfazUsuarioStatsRepository {
     private static final String SQL_UPDATE_PESCADITOS =
             "UPDATE usuario_stats SET pescaditos = pescaditos + ? WHERE usuario_id = ?";
 
-    private IConexionBD connMgr;
-
     public UsuarioStatsRepository(IConexionBD connMgr) {
         this.connMgr = connMgr;
     }
+
     // Método para actualizar la racha de días de estudio de un usuario.
     @Override
     public void actualizarRacha(int usuarioId, int diasSumar) {

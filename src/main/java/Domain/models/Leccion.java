@@ -3,8 +3,6 @@ package Domain.models;
 import Domain.models.LeccionValueObjects.TipoContenido;
 import Domain.models.CursoValueObjects.Titulo;
 
-import java.sql.Clob;
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -26,7 +24,7 @@ public class Leccion {
         this.seccion_id = Objects.requireNonNull(seccion_id, "seccion_id no puede ser nulo");
         this.titulo = Objects.requireNonNull(titulo, "titulo no puede ser nulo");
         this.numeroOrden = Objects.requireNonNull(numeroOrden, "numero_orden no puede ser nulo");
-        this.tipoContenido = Objects.requireNonNull(tipoContenido, "numero_orden no puede ser nulo");
+        this.tipoContenido = Objects.requireNonNull(tipoContenido, "tipoContenido no puede ser nulo");
         this.url_video = url_video;
         this.contenido = contenido;
     }

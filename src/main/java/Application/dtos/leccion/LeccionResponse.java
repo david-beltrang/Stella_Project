@@ -1,8 +1,5 @@
 package Application.dtos.leccion;
 
-import Domain.models.LeccionValueObjects.EstadoProgreso;
-import Domain.models.LeccionValueObjects.TipoContenido;
-
 public record LeccionResponse(
         int id,
         int seccion_id,
