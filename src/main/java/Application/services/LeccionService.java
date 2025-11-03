@@ -13,6 +13,7 @@ public class LeccionService {
         this.leccionRepository = leccionRepository;
     }
 
+
     public LeccionResponse obtenerLeccionPorCursoYOrden(
             int cursoId, int numeroOrdenSeccion, int numeroOrdenLeccion) {
 

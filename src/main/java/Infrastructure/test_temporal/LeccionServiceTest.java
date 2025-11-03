@@ -10,6 +10,7 @@ import Infrastructure.repositories.LeccionRepository;
 
 public class LeccionServiceTest {
 
+
     public static void main(String[] args) {
         IConexionBD connMgr = new ConexionBD();
         H2DataBaseInitializer initializer = new H2DataBaseInitializer(connMgr);
