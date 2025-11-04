@@ -4,50 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="51597e74-c3d4-4a99-ad6b-5f4c9d498175" name="Changes" comment="Se crea el Test manual para probar el funcionamiento de CursoService.java.">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/Listado_Cursos/DetallesRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/Listado_Cursos/DetallesResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/ControllerControladores.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/CursoController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/ui/AyudaUI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/ui/Navigacion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Main/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Application/config/AppServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/config/AppServices.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Application/dtos/acceso/RegistrarUsuarioRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/acceso/RegistrarUsuarioRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Application/dtos/leccion/LeccionTituloRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/leccion/LeccionTituloRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Application/dtos/leccion/LeccionTituloResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/leccion/LeccionTituloResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Application/dtos/seccion/Seccion.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Application/dtos/seccion/SeccionResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/seccion/SeccionResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Application/dtos/seccion/SeccionesRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/dtos/seccion/SeccionesRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Application/services/ListarCursosService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/services/ListarCursosService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Application/services/SeccionesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/services/SeccionesService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/models/Seccion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/models/Seccion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/repositoriesInterfaces/InterfazCursoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/repositoriesInterfaces/InterfazCursoRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/repositoriesInterfaces/InterfazIntentoRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/repositoriesInterfaces/InterfazProgresoRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/repositoriesInterfaces/InterfazPruebaRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/repositoriesInterfaces/InterfazSeccionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/repositoriesInterfaces/InterfazSeccionRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/ControllerPrincipal.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/HelloController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/PomodoroController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/PomodoroController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/PrincipalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/PrincipalController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/RegistroController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/RegistroController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/StellaController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/persistence/H2DataBaseInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/persistence/H2DataBaseInitializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/CursoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/CursoRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/test_temporal/ListarCursosServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/test_temporal/ListarCursosServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/test_temporal/SeccionesServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/test_temporal/SeccionesServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/test_temporal/TestConexionSetup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/test_temporal/TestConexionSetup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main/Stella.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Image/General/FondoStella.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Image/General/StellaEsquinaSF.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Image/General/StellaSF.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/components/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/views/RecuperarContra.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/RecuperarContra.fxml" afterDir="false" />
+    <list default="true" id="51597e74-c3d4-4a99-ad6b-5f4c9d498175" name="Changes" comment="Se reelizan modificaciones para el correcto funcionamiento.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,8 +16,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Interface" />
         <option value="Record" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -84,6 +42,9 @@
     &quot;accountId&quot;: &quot;8699c3d3-f6ea-4f43-85a2-9fc0e3854c5c&quot;
   }
 }</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
 }</component>
@@ -96,6 +57,7 @@
   "keyToString": {
     "Application.LeccionServiceTest.executor": "Run",
     "Application.ListarCursosServiceTest.executor": "Run",
+    "Application.ProgresoServiceTest.executor": "Run",
     "Application.SeccionesServiceTest.executor": "Run",
     "Application.Stella.executor": "Run",
     "Application.TestSesionEstudioService.executor": "Run",
@@ -104,7 +66,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "Merging copia-features-secciones__Pprincipal",
+    "git-widget-placeholder": "feature/curso-cpp",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
@@ -118,7 +80,46 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.SeccionesServiceTest">
+  <component name="RunManager" selected="Application.ProgresoServiceTest">
+    <configuration name="LeccionServiceTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Infrastructure.test_temporal.LeccionServiceTest" />
+      <module name="Stella" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Infrastructure.test_temporal.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ListarCursosServiceTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Infrastructure.test_temporal.ListarCursosServiceTest" />
+      <module name="Stella" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Infrastructure.test_temporal.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProgresoServiceTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Infrastructure.test_temporal.ProgresoServiceTest" />
+      <module name="Stella" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Infrastructure.test_temporal.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="SeccionesServiceTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Infrastructure.test_temporal.SeccionesServiceTest" />
       <module name="Stella" />
@@ -164,6 +165,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.ProgresoServiceTest" />
+        <item itemvalue="Application.LeccionServiceTest" />
+        <item itemvalue="Application.ListarCursosServiceTest" />
         <item itemvalue="Application.SeccionesServiceTest" />
       </list>
     </recent_temporary>
@@ -186,6 +190,8 @@
       <workItem from="1761005856938" duration="5906000" />
       <workItem from="1761607997206" duration="3566000" />
       <workItem from="1761681722826" duration="18017000" />
+      <workItem from="1761791798534" duration="744000" />
+      <workItem from="1762185572020" duration="20185000" />
     </task>
     <task id="LOCAL-00001" summary="Se realizan las motificaciones para poder mostrar en pantalla el curso, secciones y lecciones.">
       <option name="closed" value="true" />
@@ -219,7 +225,103 @@
       <option name="project" value="LOCAL" />
       <updated>1761452501059</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Se crea el Test manual para probar el funcionamiento de LeccionService.java">
+      <option name="closed" value="true" />
+      <created>1762186347004</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1762186347004</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Se eliminan las carpetas que no estan siendo utilizadas y no contienen archivos.">
+      <option name="closed" value="true" />
+      <created>1762226953149</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1762226953149</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Se crean los dtos necesarios para el funcionamiento del progreso en el codigo.">
+      <option name="closed" value="true" />
+      <created>1762227101269</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1762227101269</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Se crea la entidad ProgesoLeccion.java para poder implementar la logica del progreso leccion en la DataBase.">
+      <option name="closed" value="true" />
+      <created>1762227157753</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1762227157753</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Se agregan los insert necesarios para poder probar el progreso.">
+      <option name="closed" value="true" />
+      <created>1762227324510</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1762227324510</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Se crea el Servicio para el funcionamiento del progreso para poder marcar lecciones como completadas y obtener el progreos del curso.">
+      <option name="closed" value="true" />
+      <created>1762227452867</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1762227452867</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Se crea el test para probar cada uno de los metodos del ProgresoService.">
+      <option name="closed" value="true" />
+      <created>1762227545365</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1762227545365</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Se crea el Repositorio de Progeso para poder comunicar con la Base de Datos.">
+      <option name="closed" value="true" />
+      <created>1762227636817</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1762227636817</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Se crea la interfaz del ProgresoRepository, para poder aislar la implementación.">
+      <option name="closed" value="true" />
+      <created>1762227720585</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1762227720585</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Se crea el enum de para el progreso de la Leccion y tener los diferentes estados que puede tener cada una">
+      <option name="closed" value="true" />
+      <created>1762227819373</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1762227819373</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Se modifica para poner los atributos de la clase Final">
+      <option name="closed" value="true" />
+      <created>1762228144909</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1762228144909</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Se reelizan modificaciones para el correcto funcionamiento.">
+      <option name="closed" value="true" />
+      <created>1762228852531</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1762228852531</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -230,6 +332,18 @@
     <MESSAGE value="Se eliminan las clases CursoRepository.java y InterfazCursoRepository.java, se elimina el dto CursoId.java. Para poder realizar integración con el desarollo del otro grupo de developers." />
     <MESSAGE value="Se eliminan los Value Objects de LeccionId.java, UsuarioId.java y ProgresoLeccionId.java. Estos Id se dejan como Integer para facilitar el manejo en la Aplicación, adicionalmente se modifican las Interfaces y Repositorios que usaban estos Value Objects." />
     <MESSAGE value="Se crea el Test manual para probar el funcionamiento de CursoService.java." />
-    <option name="LAST_COMMIT_MESSAGE" value="Se crea el Test manual para probar el funcionamiento de CursoService.java." />
+    <MESSAGE value="Se crea el Test manual para probar el funcionamiento de LeccionService.java" />
+    <MESSAGE value="Se eliminan las carpetas que no estan siendo utilizadas y no contienen archivos." />
+    <MESSAGE value="Se crean los dtos necesarios para el funcionamiento del progreso en el codigo." />
+    <MESSAGE value="Se crea la entidad ProgesoLeccion.java para poder implementar la logica del progreso leccion en la DataBase." />
+    <MESSAGE value="Se agregan los insert necesarios para poder probar el progreso." />
+    <MESSAGE value="Se crea el Servicio para el funcionamiento del progreso para poder marcar lecciones como completadas y obtener el progreos del curso." />
+    <MESSAGE value="Se crea el test para probar cada uno de los metodos del ProgresoService." />
+    <MESSAGE value="Se crea el Repositorio de Progeso para poder comunicar con la Base de Datos." />
+    <MESSAGE value="Se crea la interfaz del ProgresoRepository, para poder aislar la implementación." />
+    <MESSAGE value="Se crea el enum de para el progreso de la Leccion y tener los diferentes estados que puede tener cada una" />
+    <MESSAGE value="Se modifica para poner los atributos de la clase Final" />
+    <MESSAGE value="Se reelizan modificaciones para el correcto funcionamiento." />
+    <option name="LAST_COMMIT_MESSAGE" value="Se reelizan modificaciones para el correcto funcionamiento." />
   </component>
 </project>
