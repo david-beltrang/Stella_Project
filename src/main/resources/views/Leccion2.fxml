@@ -6,113 +6,62 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.web.WebView?>
 
-<Pane fx:id="root"
-      maxHeight="1080.0" maxWidth="1920.0"
-      minHeight="1080.0" minWidth="1920.0"
-      prefHeight="1080.0" prefWidth="1920.0"
-      stylesheets="@/styles/LoginStyle.css"
-      xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="Infrastructure.controllers.LeccionController">
+<Pane fx:id="root" maxHeight="1080.0" maxWidth="1920.0" minHeight="1080.0" minWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@/styles/LoginStyle.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Infrastructure.controllers.LeccionController">
 
     <children>
-        <!-- título grande -->
-        <Label id="TituloSeccion"
-               layoutX="465.0" layoutY="118.0"
-               prefHeight="158.0" prefWidth="1130.0"
-               style="-fx-background-color: #080736;"
-               textAlignment="CENTER"
-               textFill="white">
+
+        <!-- ====== TÍTULO GRANDE ====== -->
+        <Label id="TituloSeccion" layoutX="465.0" layoutY="118.0" prefHeight="158.0" prefWidth="1130.0" style="-fx-background-color: #080736;" textAlignment="CENTER" textFill="white">
             <font>
                 <Font name="System Bold" size="92.0" />
             </font>
         </Label>
 
-        <!-- pingüino -->
-        <ImageView fitHeight="61.0" fitWidth="70.0"
-                   layoutX="1579.0" layoutY="783.0"
-                   pickOnBounds="true" preserveRatio="true">
+        <!-- ====== PINGÜINO ====== -->
+        <ImageView fitHeight="61.0" fitWidth="70.0" layoutX="1579.0" layoutY="783.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@/Image/General/StellaEsquinaSF.png" />
             </image>
         </ImageView>
 
-        <!-- nombre de la lección -->
-        <Label id="NombreLeccion2"
-               layoutX="728.0" layoutY="255.0"
-               prefHeight="47.0" prefWidth="584.0"
-               style="-fx-background-color: #080736;"
-               textFill="WHITE">
+        <!-- ====== NOMBRE DE LA LECCIÓN ====== -->
+        <Label id="NombreLeccion2" layoutX="728.0" layoutY="255.0" prefHeight="47.0" prefWidth="584.0" style="-fx-background-color: #080736;" textFill="WHITE">
             <font>
                 <Font name="Monospaced Regular" size="40.0" />
             </font>
         </Label>
 
-        <!-- descripción -->
-        <Label id="DescripcionLeccion2"
-               layoutX="416.0" layoutY="321.0"
-               prefHeight="161.0" prefWidth="1236.0"
-               style="-fx-background-color: #080736;"
-               textAlignment="JUSTIFY"
-               textFill="WHITE"
-               wrapText="true">
+        <!-- ====== DESCRIPCIÓN ====== -->
+        <Label id="DescripcionLeccion2" layoutX="420.0" layoutY="311.0" prefHeight="161.0" prefWidth="1236.0" style="-fx-background-color: #080736;" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
             <font>
                 <Font name="Arial" size="29.0" />
             </font>
         </Label>
 
-        <!-- título del video -->
-        <Label id="TitulodelVideo2"
-               layoutX="650.0" layoutY="530.0"
-               opacity="0.8"
-               prefHeight="12.0" prefWidth="768.0"
-               style="-fx-background-color: #080736;"
-               textAlignment="JUSTIFY"
-               textFill="WHITE"
-               wrapText="true">
+        <!-- ====== TÍTULO DEL VIDEO ====== -->
+        <Label id="TitulodelVideo2" layoutX="646.0" layoutY="484.0" prefHeight="35.0" prefWidth="768.0" style="-fx-background-color: #080736;" textAlignment="CENTER" textFill="WHITE">
             <font>
-                <Font name="Arial" size="29.0" />
+                <Font name="Arial Bold" size="30.0" />
             </font>
         </Label>
 
-        <!-- botón youtube -->
-        <Button id="LinkYoutube2"
-                layoutX="737.0" layoutY="591.0"
-                mnemonicParsing="false"
-                prefHeight="94.0" prefWidth="546.0"
-                style="-fx-background-color: #080736;"
-                text="LINK DE YOUTUBE"
-                textFill="WHITE">
-            <font>
-                <Font name="System Bold" size="41.0" />
-            </font>
-        </Button>
+        <!-- ====== WEBVIEW PARA EL VIDEO ====== -->
+        <WebView fx:id="videoWebView" layoutX="620.0" layoutY="530.0" prefHeight="400.0" prefWidth="800.0" style="-fx-background-color: black; border-radius: 10;" />
 
-        <!-- navegación -->
-        <Button layoutX="745.0" layoutY="795.0"
-                mnemonicParsing="false"
-                opacity="0.9"
-                prefHeight="47.0" prefWidth="242.0"
-                style="-fx-background-color: #080736;"
-                text="VOLVER"
-                onAction="#navegarALeccionAnterior"
-                textFill="WHITE">
+        <!-- ====== BOTONES DE NAVEGACIÓN ====== -->
+        <Button layoutX="746.0" layoutY="942.0" mnemonicParsing="false" onAction="#navegarALeccionAnterior" opacity="0.9" prefHeight="47.0" prefWidth="242.0" style="-fx-background-color: #080736;" text="VOLVER" textFill="WHITE">
             <font>
                 <Font name="System Bold" size="30.0" />
             </font>
         </Button>
 
-        <Button layoutX="1038.0" layoutY="796.0"
-                mnemonicParsing="false"
-                opacity="0.9"
-                prefHeight="47.0" prefWidth="242.0"
-                style="-fx-background-color: #080736;"
-                text="SIGUIENTE"
-                onAction="#navegarALeccionSiguiente"
-                textFill="WHITE">
+        <Button layoutX="1038.0" layoutY="942.0" mnemonicParsing="false" onAction="#navegarALeccionSiguiente" opacity="0.9" prefHeight="47.0" prefWidth="242.0" style="-fx-background-color: #080736;" text="SIGUIENTE" textFill="WHITE">
             <font>
                 <Font name="System Bold" size="30.0" />
             </font>
         </Button>
+
     </children>
 </Pane>

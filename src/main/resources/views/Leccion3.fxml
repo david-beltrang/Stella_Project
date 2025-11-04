@@ -34,7 +34,7 @@
         </ImageView>
 
         <!-- NOMBRE LECCIÓN -->
-        <Label id="NombreLeccion1"
+        <Label id="NombreLeccion3"
                layoutX="646.0" layoutY="249.0"
                prefHeight="47.0" prefWidth="584.0"
                style="-fx-background-color: #080736;" textFill="WHITE">
@@ -42,7 +42,7 @@
         </Label>
 
         <!-- DESCRIPCIÓN -->
-        <Label id="DescripcionLeccion1"
+        <Label id="DescripcionLeccion3"
                layoutX="416.0" layoutY="301.0"
                prefHeight="113.0" prefWidth="1166.0"
                style="-fx-background-color: #080736;"
@@ -51,7 +51,7 @@
         </Label>
 
         <!-- SUBTÍTULO CARACTERÍSTICAS -->
-        <Label id="CaracteristicasTituloLeccion1"
+        <Label id="CaracteristicasTituloLeccion3"
                layoutX="419.0" layoutY="441.0"
                prefHeight="31.0" prefWidth="358.0"
                style="-fx-background-color: #080736;"
@@ -60,7 +60,7 @@
         </Label>
 
         <!-- LISTA CARACTERÍSTICAS -->
-        <Label id="Caracteristicas1"
+        <Label id="Caracteristicas3"
                layoutX="467.0" layoutY="486.0"
                prefHeight="33.0" prefWidth="948.0"
                style="-fx-background-color: #080736;"
@@ -69,7 +69,7 @@
         </Label>
 
         <!-- SUBTÍTULO ÁMBITOS -->
-        <Label id="AmbitosdeUsoTtitulo1"
+        <Label id="AmbitosdeUsoTtitulo3"
                layoutX="415.0" layoutY="643.0"
                prefHeight="31.0" prefWidth="358.0"
                style="-fx-background-color: #080736;"
@@ -78,7 +78,7 @@
         </Label>
 
         <!-- ÁMBITOS -->
-        <Label id="Ambitos1"
+        <Label id="Ambitos3"
                layoutX="465.0" layoutY="692.0"
                prefHeight="33.0" prefWidth="948.0"
                style="-fx-background-color: #080736;"

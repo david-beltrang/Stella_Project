@@ -194,7 +194,7 @@ INSERT INTO "seccion" (curso_id, titulo, numero_orden) VALUES (2, 'Estructuras d
 INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido)
 VALUES (1, 'Historia y características de C++', 1, 'TEORIA', NULL, 'Origen y evolución del lenguaje C++. Principales características y usos actuales.');
 INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido)
-VALUES (1, 'Instalación del entorno (IDE)', 2, 'TEORIA', NULL, 'Instrucciones para instalar Code::Blocks o Visual Studio y configurar el compilador.');
+VALUES (1, 'Instalación del entorno (IDE)', 2, 'TEORIA', 'https://www.youtube.com/watch?v=OOeO2984nJI', 'Instrucciones para instalar Code::Blocks o Visual Studio y configurar el compilador.');
 INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido)
 VALUES (1, 'Estructura básica de un programa C++', 3, 'VIDEO', 'https://www.youtube.com/watch?v=Rub-JsjMhWY', 'Análisis de la estructura base de un programa: directivas, función main y sintaxis básica.');
 INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido)

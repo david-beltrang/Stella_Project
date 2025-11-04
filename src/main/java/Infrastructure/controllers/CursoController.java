@@ -28,11 +28,11 @@ public class CursoController {
     @FXML private Pane root;
     @FXML private Label NombreCurso;
 
-    // ===== datos =====
+    // ===== DATOS =====
     private int cursoActualId = -1;
     private String cursoTitulo = "CURSO DESCONOCIDO";
 
-    // ===== Cntructor =====
+    // ===== CONSTRUCTOR =====
     public CursoController(SeccionesService seccionesService, LeccionService leccionService) {
         this.seccionesService = seccionesService;
         this.leccionService = leccionService;
@@ -47,7 +47,7 @@ public class CursoController {
         this.controllerFactory = factory;
     }
 
-    // ===== Config curso =====
+    // ===== CONFIGURAR CURSO =====
     public void setCursoActual(int id, String titulo) {
         this.cursoActualId = id;
         this.cursoTitulo = titulo;
@@ -67,7 +67,7 @@ public class CursoController {
         }
     }
 
-    // ===== Carga secciones y leccciones =====
+    // ===== CARGAR SECCIONES Y LECCIONES =====
     private void cargarSeccionesYLecciones() {
         try {
             if (root == null) { System.err.println("[WARN] root es null."); return; }
@@ -135,6 +135,7 @@ public class CursoController {
                     (LeccionController c) -> {
                         c.setControllerFactory(controllerFactory);
                         c.setNumeroActual(numero);
+                        c.setCursoYSeccion(cursoActualId, seccionOrden);  // 🔹 esta línea hace toda la diferencia
                         c.setLeccionActual(dto);
                     }
             );

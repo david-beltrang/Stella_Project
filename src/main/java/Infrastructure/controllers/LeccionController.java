@@ -4,11 +4,13 @@ import Application.dtos.leccion.LeccionResponse;
 import Application.services.LeccionService;
 import Infrastructure.ui.AyudaUI;
 import Infrastructure.ui.Navigacion;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
+import javafx.scene.web.WebView;
 
 import java.util.function.Function;
 
@@ -22,6 +24,7 @@ public class LeccionController {
 
     // ===== FXML =====
     @FXML private Pane root;
+    @FXML private WebView videoWebView;
 
     // ===== ESTADO =====
     private LeccionResponse leccionActual;
@@ -29,7 +32,7 @@ public class LeccionController {
     private int cursoId = -1;
     private int seccionOrden = -1;
 
-    // ===== CONSTRUCTOR =====
+    // ===== CONSTRUCTORES =====
     public LeccionController(LeccionService leccionService) {
         this.leccionService = leccionService;
     }
@@ -38,31 +41,44 @@ public class LeccionController {
         this.leccionService = null;
     }
 
+    // ===== SETTERS =====
     public void setControllerFactory(Function<Class<?>, Object> factory) {
         this.controllerFactory = factory;
     }
 
-    // ===== SETTERS =====
-    public void setNumeroActual(int n) { this.numeroActual = Math.max(1, n); }
-    public void setLeccionActual(LeccionResponse l) { this.leccionActual = l; }
+    public void setNumeroActual(int n) {
+        this.numeroActual = Math.max(1, n);
+    }
+
     public void setCursoYSeccion(int cursoId, int seccionOrden) {
         this.cursoId = cursoId;
         this.seccionOrden = seccionOrden;
     }
 
+    public void setLeccionActual(LeccionResponse l) {
+        this.leccionActual = l;
+        if (root != null) renderLeccion();
+    }
 
     @FXML
     public void initialize() {
         if (leccionActual != null) {
             renderLeccion();
         } else {
-            System.out.println("[INFO] LeccionController inicializado sin lección actual.");
+            System.out.println("[INFO] initialize(): sin lección actual todavía.");
         }
     }
 
-    // ===== mostrar contenido =====
+    // ===== RENDERIZAR =====
     private void renderLeccion() {
-        if (root == null || leccionActual == null) return;
+        if (root == null) {
+            System.err.println("[WARN] root es null al intentar renderizar.");
+            return;
+        }
+        if (leccionActual == null) {
+            System.err.println("[WARN] No hay lección actual para renderizar.");
+            return;
+        }
 
         int numero = leccionActual.numeroOrden();
         String titulo = leccionActual.titulo();
@@ -84,8 +100,38 @@ public class LeccionController {
             case 2 -> {
                 setText("DescripcionLeccion2", contenido);
                 setText("TitulodelVideo2", "Video / recurso");
-                if (urlVideo != null && !urlVideo.isBlank()) {
-                    setText("LinkYoutube2", urlVideo);
+
+                if (urlVideo != null && !urlVideo.isBlank() && videoWebView != null) {
+                    try {
+                        // 🔹 HTML elegante: fondo oscuro y botón centrado
+                        String html = """
+                <html>
+                  <head>
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                  </head>
+                  <body style="margin:0; background-color:#080736;
+                               display:flex; justify-content:center;
+                               align-items:center; height:100vh; color:white; font-family:Arial;">
+                    <a href="%s"
+                       style="color:white; font-size:30px; text-decoration:none;
+                              padding:15px 25px; border:2px solid white; border-radius:12px;">
+                      ▶ Ver video en YouTube
+                    </a>
+                  </body>
+                </html>
+                """.formatted(urlVideo);
+
+                        javafx.application.Platform.runLater(() -> {
+                            videoWebView.getEngine().loadContent(html);
+                        });
+
+                        System.out.println("🎬 Enlace mostrado correctamente: " + urlVideo);
+                    } catch (Exception ex) {
+                        System.err.println("❌ Error al cargar enlace de video: " + ex.getMessage());
+                        uiHelper.showError("Error al mostrar video", "No se pudo generar el enlace al video.");
+                    }
+                } else {
+                    System.out.println("⚠️ No se encontró URL de video válida o el WebView no está disponible.");
                 }
             }
             case 3 -> {
@@ -110,15 +156,32 @@ public class LeccionController {
             }
             default -> setText("DescripcionLeccion1", contenido);
         }
+
+        System.out.println("✅ Renderizada lección " + numero + ": " + titulo);
     }
 
+    // ===== CONVERSIÓN DE URL YOUTUBE =====
+    private String convertirAEmbed(String url) {
+        if (url.contains("watch?v=")) {
+            return url.replace("watch?v=", "embed/");
+        } else if (url.contains("youtu.be/")) {
+            return url.replace("youtu.be/", "www.youtube.com/embed/");
+        }
+        return url;
+    }
+
+    // ===== UTILIDAD =====
     private void setText(String id, String text) {
         if (root == null) return;
         Node n = root.lookup("#" + id);
-        if (n instanceof Label lbl) lbl.setText(text != null ? text : "");
+        if (n instanceof Label lbl) {
+            lbl.setText(text != null ? text : "");
+        } else {
+            System.out.println("⚠️ No se encontró label con id #" + id);
+        }
     }
 
-    // ===== NAVEGACIÓN =====
+    // ===== NAVEGACIÓN ENTRE LECCIONES =====
     @FXML
     private void navegarALeccionAnterior(ActionEvent e) {
         int anterior = numeroActual - 1;
@@ -137,13 +200,17 @@ public class LeccionController {
 
     private void irA(int numeroDestino, Node source) {
         try {
-            // obtenemos la nueva lección directamente al declarar la variable → efectivamente final
-            final LeccionResponse nueva = (leccionService != null && cursoId > 0 && seccionOrden > 0)
+            if (cursoId <= 0 || seccionOrden <= 0) {
+                uiHelper.showError("Error de contexto", "No se definieron curso o sección para esta lección.");
+                return;
+            }
+
+            LeccionResponse nueva = leccionService != null
                     ? leccionService.obtenerLeccionPorCursoYOrden(cursoId, seccionOrden, numeroDestino)
                     : null;
 
             if (nueva == null) {
-                uiHelper.showInfo("Fin del curso", "No hay más lecciones disponibles.");
+                uiHelper.showInfo("Fin de la sección", "No hay más lecciones en esta sección.");
                 return;
             }
 
@@ -167,3 +234,4 @@ public class LeccionController {
         }
     }
 }
+
