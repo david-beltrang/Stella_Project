@@ -116,8 +116,6 @@ CREATE TABLE "progreso_leccion" (
                                     usuario_id INT NOT NULL,
                                     leccion_id INT NOT NULL,
                                     estado VARCHAR(20) NOT NULL,
-                                    fecha_inicio TIMESTAMP,
-                                    fecha_completado TIMESTAMP,
                                     FOREIGN KEY (usuario_id) REFERENCES "usuario"(id) ON DELETE CASCADE,
                                     FOREIGN KEY (leccion_id) REFERENCES "leccion"(id) ON DELETE CASCADE,
                                     UNIQUE (usuario_id, leccion_id)
@@ -263,3 +261,6 @@ INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, url_vid
 VALUES (6, 'Ciclos while y do-while', 4, 'TEORIA', NULL, 'Diferencias entre while y do-while. Ejemplos prácticos de repetición.');
 INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido)
 VALUES (6, 'Proyecto final: Conversor de temperaturas', 5, 'TEORIA', NULL, 'Proyecto final para aplicar estructuras de control en un programa que convierte temperaturas.');
+
+-- Después de insertar usuario y curso
+INSERT INTO "usuario_curso" (usuario_id, curso_id) VALUES (1, 1);
