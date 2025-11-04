@@ -94,6 +94,9 @@ public class PrincipalController implements Initializable {
 
     // Crea visualmente una tarjeta de curso inscrito.
     private VBox crearTarjetaCurso(CursoResponse curso) {
+
+        // Progreso Request mandando el id curso
+
         VBox card = new VBox(10);
         card.setPrefSize(300, 200);
         card.setStyle("-fx-background-color: rgba(8,7,54,0.6); -fx-background-radius: 15; -fx-padding: 15;");
@@ -108,6 +111,8 @@ public class PrincipalController implements Initializable {
         Button btn = new Button("Continuar");
         btn.setStyle("-fx-background-color: #4A90E2; -fx-text-fill: white; -fx-font-weight: bold;");
         btn.setOnAction(e -> uiHelper.showInfo("Curso: " + curso.titulo(), "El contenido estará disponible próximamente."));
+
+        //ActionEvent llamar a funcion
 
         card.getChildren().addAll(title, nivel, btn);
         return card;

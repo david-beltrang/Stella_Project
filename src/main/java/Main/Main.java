@@ -1,11 +1,10 @@
 package Main;
-
+/*
 import Application.services.DarAcceso.LoginService;
 import Application.services.DarAcceso.RegistroService;
 import Application.services.LeccionService;
 import Application.services.ListarCursosService;
 import Application.services.PomodoroTimer;
-import Application.services.SesionEstudioService;
 import Application.services.SesionPomodoroService;
 
 import Domain.repositoriesInterfaces.*;
@@ -78,5 +77,4 @@ public class Main extends Application {
         launch();
     }
 }
-
-
+*/
