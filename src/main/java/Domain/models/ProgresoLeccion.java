@@ -4,9 +4,9 @@ import Domain.models.LeccionValueObjects.Estado;
 import java.util.Objects;
 
 public class ProgresoLeccion {
-    private Integer id;
-    private Integer usuarioId;
-    private Integer leccionId;
+    private final Integer id;
+    private final Integer usuarioId;
+    private final Integer leccionId;
     private Estado estado;
 
     public ProgresoLeccion(Integer id, Integer usuarioId, Integer leccionId, Estado estado) {
