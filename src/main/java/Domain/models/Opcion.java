@@ -2,23 +2,30 @@ package Domain.models;
 
 import java.util.Objects;
 
-/**
- * Representa una opción de respuesta para una Pregunta.
- * Usado dentro de Pregunta.
- */
+
 public class Opcion {
-    private final int id;
+    private final Integer id;
+    private final Integer pregunta_id;
     private final String texto;
     private final boolean esCorrecta;
 
-    public Opcion(int id, String texto, boolean esCorrecta) {
+    private Opcion(Integer id, Integer pregunta_id, String texto, boolean esCorrecta) {
         this.id = id;
-        this.texto = Objects.requireNonNull(texto);
-        this.esCorrecta = esCorrecta;
+        this.pregunta_id = Objects.requireNonNull(pregunta_id, "El id de pregunta no puede ser nulo");
+        this.texto = Objects.requireNonNull(texto, "El id de pregunta no puede ser nulo");
+        this.esCorrecta = Objects.requireNonNull(esCorrecta, "El atributo 'es correcta' no puede ser nulo");
     }
 
-    // --- Getters de Dominio ---
-    public int getId() { return id; }
+    public static Opcion crear(Integer pregunta_id, String texto, boolean esCorrecta) {
+        return new Opcion(null, pregunta_id, texto, esCorrecta);
+    }
+
+    public static Opcion reconstruir(Integer id, Integer pregunta_id, String texto, boolean esCorrecta) {
+        return new Opcion(id, pregunta_id, texto, esCorrecta);
+    }
+
+    public Integer getId() { return id; }
+    public Integer getPreguntaId() { return pregunta_id; }
     public String getTexto() { return texto; }
-    public boolean esCorrecta() { return esCorrecta; }
+    public boolean isEsCorrecta() { return esCorrecta; }
 }

@@ -1,44 +1,44 @@
 package Domain.models;
 
+import Domain.models.CursoValueObjects.Titulo;
+import Domain.models.PruebaValueObjects.TipoValueObject;
+
 import java.util.Objects;
 
-/**
- * Aggregate Root: Representa una prueba o quiz dentro de una sección.
- */
+
 public class Prueba {
 
-    private Integer id;
-    private final int seccionId;
-    private final String lenguaje;
-    private final String tipo; // QUIZ o EXAMEN
+    private final Integer id;
+    private final Integer curso_id;
+    private final Integer seccion_id;
+    private final Titulo titulo;
+    private final TipoValueObject tipo;
 
-    // ------------------ CONSTRUCTOR PRIVADO ----------------------
 
-    private Prueba(Integer id, int seccionId, String lenguaje, String tipo) {
+    private Prueba(Integer id, Integer curso_id, Integer seccion_id, Titulo titulo, TipoValueObject tipo) {
         this.id = id;
-        this.seccionId = seccionId;
-        this.lenguaje = Objects.requireNonNull(lenguaje, "El lenguaje no puede ser nulo.");
-        this.tipo = Objects.requireNonNull(tipo, "El tipo de prueba no puede ser nulo.");
+        this.curso_id = Objects.requireNonNull(curso_id, "El id del curso no puede ser nulo");
+        this.seccion_id = Objects.requireNonNull(seccion_id, "El id de la sección no puede ser nulo");;
+        this.titulo = titulo;
+        this.tipo = Objects.requireNonNull(tipo, "El id de la sección no puede ser nulo");
     }
 
     // ------------------ FACTORY METHODS ------------------
 
-    public static Prueba crearNueva(int seccionId, String lenguaje, String tipo) {
-        // En un proyecto completo, 'lenguaje' y 'tipo' tendrían VOs. Aquí, se usa String por simplicidad.
-        if (lenguaje.isBlank() || tipo.isBlank()) {
-            throw new IllegalArgumentException("Lenguaje o tipo de prueba no pueden ser vacíos.");
-        }
-        return new Prueba(null, seccionId, lenguaje.toUpperCase(), tipo.toUpperCase());
+    public static Prueba crear(Integer cursoId, Integer seccionId, String titulo, String tipo) {
+        return new Prueba(null, cursoId, seccionId, new Titulo(titulo), new TipoValueObject(tipo));
     }
 
-    public static Prueba reconstruir(Integer id, int seccionId, String lenguaje, String tipo) {
-        return new Prueba(id, seccionId, lenguaje, tipo);
+    public static Prueba reconstruir(Integer id, Integer cursoId, Integer seccionId, Titulo titulo, TipoValueObject tipo) {
+        return new Prueba(id, cursoId, seccionId, titulo, tipo);
     }
+
 
     // ---------- GETTERS ---------
 
     public Integer getId() { return id; }
-    public int getSeccionId() { return seccionId; }
-    public String getLenguaje() { return lenguaje; }
-    public String getTipo() { return tipo; }
+    public Integer getCursoId() { return curso_id; }
+    public Integer getSeccionId() { return seccion_id; }
+    public Titulo getTitulo() { return titulo; }
+    public TipoValueObject getTipo() { return tipo; }
 }
