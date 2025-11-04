@@ -26,8 +26,12 @@ public class AyudaUI {
     }
 
     public void highlightSelectedButton(Button btn) {
-        btn.setStyle("-fx-background-color: #00BFA6; -fx-text-fill: white; -fx-font-weight: bold;");
+        if (btn == null) return;
+        btn.setScaleX(1.05);
+        btn.setScaleY(1.05);
+        btn.setStyle("-fx-background-color: #1E88E5; -fx-text-fill: white; -fx-font-weight: bold; -fx-border-color: white; -fx-border-width: 3;");
     }
+
 
     // Sincroniza el texto  con el temporizador Pomodoro
     // Cada vez que cambian los segundos restantes, se actualiza la etiqueta en formato mm:ss

@@ -83,11 +83,19 @@
                             <image><Image url="@/Image/General/usuario.png" /></image>
                         </ImageView></graphic>
                     </Button>
-                    <ImageView fitHeight="52.0" fitWidth="66.0" layoutX="1215.0" layoutY="12.0" preserveRatio="true">
-                        <image>
-                            <Image url="@/Image/General/pomodoro.png" />
-                        </image>
-                    </ImageView>
+
+                    <Button fx:id="pomodoroBtn" layoutX="1215.0" layoutY="12.0"
+                            onAction="#goPomodoro"
+                            style="-fx-background-color: transparent;">
+                        <graphic>
+                            <ImageView fitHeight="52.0" fitWidth="66.0" preserveRatio="true">
+                                <image>
+                                    <Image url="@/Image/General/pomodoro.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+
                 </children>
             </AnchorPane>
         </children>

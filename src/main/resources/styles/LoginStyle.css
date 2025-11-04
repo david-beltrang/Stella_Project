@@ -62,5 +62,13 @@
     -fx-background-color: transparent;
 }
 
+.button:focused, .button:selected {
+    -fx-background-color: #1E88E5;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-color: white;
+    -fx-border-width: 3;
+}
+
 
 

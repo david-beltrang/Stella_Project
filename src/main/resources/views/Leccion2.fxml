@@ -13,7 +13,7 @@
     <children>
 
         <!-- ====== TÍTULO GRANDE ====== -->
-        <Label id="TituloSeccion" layoutX="465.0" layoutY="118.0" prefHeight="158.0" prefWidth="1130.0" style="-fx-background-color: #080736;" textAlignment="CENTER" textFill="white">
+        <Label id="TituloSeccion" layoutX="465.0" layoutY="86.0" prefHeight="158.0" prefWidth="1130.0" style="-fx-background-color: #080736;" textAlignment="CENTER" textFill="white">
             <font>
                 <Font name="System Bold" size="92.0" />
             </font>
@@ -27,37 +27,37 @@
         </ImageView>
 
         <!-- ====== NOMBRE DE LA LECCIÓN ====== -->
-        <Label id="NombreLeccion2" layoutX="728.0" layoutY="255.0" prefHeight="47.0" prefWidth="584.0" style="-fx-background-color: #080736;" textFill="WHITE">
+        <Label id="NombreLeccion2" layoutX="728.0" layoutY="238.0" prefHeight="47.0" prefWidth="584.0" style="-fx-background-color: #080736;" textFill="WHITE">
             <font>
                 <Font name="Monospaced Regular" size="40.0" />
             </font>
         </Label>
 
         <!-- ====== DESCRIPCIÓN ====== -->
-        <Label id="DescripcionLeccion2" layoutX="420.0" layoutY="311.0" prefHeight="161.0" prefWidth="1236.0" style="-fx-background-color: #080736;" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
+        <Label id="DescripcionLeccion2" layoutX="420.0" layoutY="294.0" prefHeight="161.0" prefWidth="1236.0" style="-fx-background-color: #080736;" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
             <font>
                 <Font name="Arial" size="29.0" />
             </font>
         </Label>
 
         <!-- ====== TÍTULO DEL VIDEO ====== -->
-        <Label id="TitulodelVideo2" layoutX="646.0" layoutY="484.0" prefHeight="35.0" prefWidth="768.0" style="-fx-background-color: #080736;" textAlignment="CENTER" textFill="WHITE">
+        <Label id="TitulodelVideo2" layoutX="646.0" layoutY="464.0" prefHeight="35.0" prefWidth="768.0" style="-fx-background-color: #080736;" textAlignment="CENTER" textFill="WHITE">
             <font>
                 <Font name="Arial Bold" size="30.0" />
             </font>
         </Label>
 
         <!-- ====== WEBVIEW PARA EL VIDEO ====== -->
-        <WebView fx:id="videoWebView" layoutX="620.0" layoutY="530.0" prefHeight="400.0" prefWidth="800.0" style="-fx-background-color: black; border-radius: 10;" />
+        <WebView fx:id="videoWebView" layoutX="620.0" layoutY="500.0" prefHeight="400.0" prefWidth="800.0" style="-fx-background-color: black; border-radius: 10;" />
 
         <!-- ====== BOTONES DE NAVEGACIÓN ====== -->
-        <Button layoutX="746.0" layoutY="942.0" mnemonicParsing="false" onAction="#navegarALeccionAnterior" opacity="0.9" prefHeight="47.0" prefWidth="242.0" style="-fx-background-color: #080736;" text="VOLVER" textFill="WHITE">
+        <Button layoutX="746.0" layoutY="910.0" mnemonicParsing="false" onAction="#navegarALeccionAnterior" opacity="0.9" prefHeight="47.0" prefWidth="242.0" style="-fx-background-color: #080736;" text="VOLVER" textFill="WHITE">
             <font>
                 <Font name="System Bold" size="30.0" />
             </font>
         </Button>
 
-        <Button layoutX="1038.0" layoutY="942.0" mnemonicParsing="false" onAction="#navegarALeccionSiguiente" opacity="0.9" prefHeight="47.0" prefWidth="242.0" style="-fx-background-color: #080736;" text="SIGUIENTE" textFill="WHITE">
+        <Button layoutX="1038.0" layoutY="910.0" mnemonicParsing="false" onAction="#navegarALeccionSiguiente" opacity="0.9" prefHeight="47.0" prefWidth="242.0" style="-fx-background-color: #080736;" text="SIGUIENTE" textFill="WHITE">
             <font>
                 <Font name="System Bold" size="30.0" />
             </font>

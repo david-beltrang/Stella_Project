@@ -4,20 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3c791a3f-173c-427e-b5d1-4cf3b6fd8098" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/LeccionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/ControllerControladores.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/ControllerControladores.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/CursoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/CursoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/LoginController.java" afterDir="false" />
+    <list default="true" id="3c791a3f-173c-427e-b5d1-4cf3b6fd8098" name="Changes" comment="merge ramas curso-cpp y prueba">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/PruebaController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/PomodoroController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/PomodoroController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/PrincipalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/PrincipalController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/persistence/H2DataBaseInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/persistence/H2DataBaseInitializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/views/Leccion1.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Leccion1.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/ui/AyudaUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/ui/AyudaUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/styles/LoginStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/styles/LoginStyle.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/views/Leccion2.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Leccion2.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/views/Leccion3.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Leccion3.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/views/Leccion4.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Leccion4.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/views/Leccion5.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Leccion5.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/views/PlantillaCurso.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/PlantillaCurso.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/Principal.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Principal.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stella.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/stella.mv.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,9 +35,9 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 7
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectId" id="34tMU8jO9YcphGFhjh6wnl2bQxw" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -49,10 +45,11 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.Main.executor": "Run",
     "Maven.Stella [org.openjfx:javafx-maven-plugin:0.0.8:run].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "copia-feature-secciones__Pprincipal",
+    "git-widget-placeholder": "feature/curso-cpp",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true"
   }
@@ -79,5 +76,20 @@
       <updated>1762028429485</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="merge ramas curso-cpp y prueba" />
+    <option name="LAST_COMMIT_MESSAGE" value="merge ramas curso-cpp y prueba" />
   </component>
 </project>

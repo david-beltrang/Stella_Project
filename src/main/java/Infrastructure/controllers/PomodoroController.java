@@ -10,16 +10,24 @@ import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Function;
 
-// Controlador unificado para las vistas Pomodoro.fxml, PomodoroDescanso.fxml y PomodoroTiempoFinalizado.fxml.
-// Se encarga de manejar la lógica de interacción y la navegación entre las tres etapas del flujo Pomodoro:
-// 1. Selección de tiempo de estudio
-// 2. Descanso
-// 3. Pantalla de tiempo finalizado
+/**
+ * Controlador unificado para las vistas:
+ *  - Pomodoro.fxml
+ *  - PomodoroDescanso.fxml
+ *  - PomodoroTiempoFinalizado.fxml
+ *
+ * Se encarga de manejar:
+ *  1. Selección de tiempo de estudio.
+ *  2. Selección de tiempo de descanso.
+ *  3. Pantalla final de sesión.
+ */
 public class PomodoroController {
 
-    // ====== Dependencias (inyectadas por ControllerControladores) ======
+    // ====== Dependencias inyectadas ======
     private final SesionPomodoroService sesionPomodoroService;
     private final PomodoroTimer pomodoroTimer;
     private Function<Class<?>, Object> controllerFactory;
@@ -32,18 +40,19 @@ public class PomodoroController {
     @FXML private AnchorPane root;
     @FXML private Label timerLabel;
 
-    // Botones genéricos para navegación inferior
+    // Botones genéricos (navegación inferior)
     @FXML private Button homeBtn, forumBtn, achievementsBtn, profileBtn;
 
-    // Botones de selección de tiempo
+    // Botones de tiempo Pomodoro
     @FXML private Button btn3min, btn5min, btn8min, btn10min;
     @FXML private Button btn25min, btn30min, btn45min, btn60min;
 
-    // Botones de control de sesión
+    // Botones de control
     @FXML private Button startButton, pauseButton, confirmarButton;
 
-    // ====== Variables internas ======
+    // ====== Estado interno ======
     private int minutosSeleccionados;
+    private final List<Button> botonesTiempo = new ArrayList<>();
 
     // ====== Constructores ======
     public PomodoroController(SesionPomodoroService sesionPomodoroService,
@@ -57,7 +66,6 @@ public class PomodoroController {
         this.pomodoroTimer = PomodoroTimer.getInstance();
     }
 
-    // ====== Setter requerido por ControllerControladores ======
     public void setControllerFactory(Function<Class<?>, Object> factory) {
         this.controllerFactory = factory;
     }
@@ -65,39 +73,32 @@ public class PomodoroController {
     // ====== Ciclo de vida ======
     @FXML
     public void initialize() {
-        if (root == null) return; // Evita errores si alguna vista no tiene el elemento raíz identificado.
+        if (root == null) return;
 
-        String fxmlName = root.getId() != null ? root.getId() : "";
-
-        // Determina qué vista está activa según sus elementos.
         if (confirmarButton != null && (btn25min != null || btn30min != null)) {
-            // === Vista Pomodoro principal ===
             configurarVistaPomodoro();
         } else if (confirmarButton != null && (btn3min != null || btn5min != null)) {
-            // === Vista de descanso ===
             configurarVistaDescanso();
         } else if (root.lookup("#homeBtn") != null && root.lookup("#achievementsBtn") != null) {
-            // === Vista de tiempo finalizado ===
             configurarVistaFinal();
         }
     }
 
-    // ====== Configuración general ======
+    // ====== VISTA POMODORO (estudio) ======
     private void configurarVistaPomodoro() {
-        // Configura los botones de tiempo y el botón de confirmación de foco.
         setupTimeButtonsPomodoro();
         if (confirmarButton != null) confirmarButton.setOnAction(e -> confirmarTiempoDeFoco());
-        atajoTeclado();
+        configurarAtajoTeclado();
     }
 
+    // ====== VISTA DESCANSO ======
     private void configurarVistaDescanso() {
-        // Configura los botones de tiempo de descanso y el botón confirmar.
         setupTimeButtonsDescanso();
         if (confirmarButton != null) confirmarButton.setOnAction(e -> confirmarTiempoDeDescanso());
     }
 
+    // ====== VISTA FINAL ======
     private void configurarVistaFinal() {
-        // En esta vista se manejan los botones de nueva sesión y salir.
         Button newSessionBtn = (Button) root.lookup("#newStudySession");
         Button exitBtn = (Button) root.lookup("#exitToHome");
 
@@ -108,7 +109,7 @@ public class PomodoroController {
             exitBtn.setOnAction(e -> exitToHome());
     }
 
-    // ====== Configuración Pomodoro ======
+    // ====== Configuración de botones ======
     private void setupTimeButtonsPomodoro() {
         setupTimeButton(btn25min, 25);
         setupTimeButton(btn30min, 30);
@@ -116,7 +117,6 @@ public class PomodoroController {
         setupTimeButton(btn60min, 60);
     }
 
-    // ====== Configuración Descanso ======
     private void setupTimeButtonsDescanso() {
         setupTimeButton(btn3min, 3);
         setupTimeButton(btn5min, 5);
@@ -124,19 +124,29 @@ public class PomodoroController {
         setupTimeButton(btn10min, 10);
     }
 
-    // Método genérico para todos los botones de selección de tiempo.
+    // === Método genérico que asegura selección única ===
     private void setupTimeButton(Button btn, int minutes) {
         if (btn != null) {
+            botonesTiempo.add(btn);
+
             btn.setOnAction(e -> {
                 minutosSeleccionados = minutes;
+
+                // Limpia estilos de todos los botones
+                for (Button b : botonesTiempo) {
+                    b.setStyle("-fx-background-color: #00BFA5; -fx-text-fill: white; -fx-font-weight: bold;");
+                }
+
+                // Aplica estilo al seleccionado
+                btn.setStyle("-fx-background-color: #1E88E5; -fx-text-fill: white; -fx-font-weight: bold; -fx-border-color: white; -fx-border-width: 3;");
+
+                // (Opcional, mantiene compatibilidad)
                 uiHelper.highlightSelectedButton(btn);
             });
         }
     }
 
-    // ====== Eventos específicos ======
-
-    // Confirmación del tiempo de estudio (va a la vista de descanso)
+    // ====== Confirmaciones ======
     @FXML
     private void confirmarTiempoDeFoco() {
         if (minutosSeleccionados == 0) {
@@ -157,7 +167,6 @@ public class PomodoroController {
         }
     }
 
-    // Confirmación del tiempo de descanso (va a la vista final)
     @FXML
     private void confirmarTiempoDeDescanso() {
         if (minutosSeleccionados == 0) {
@@ -173,20 +182,18 @@ public class PomodoroController {
         }
     }
 
-    // Crea una nueva sesión de estudio desde la pantalla final
     @FXML
     private void newStudySession() {
         navigator.goTo("/views/Pomodoro.fxml", "Nueva sesión Pomodoro", controllerFactory, root);
     }
 
-    // Sale al menú principal desde la pantalla final
     @FXML
     private void exitToHome() {
         navigator.goTo("/views/Principal.fxml", "Principal", controllerFactory, root);
     }
 
-    // ====== Configuración de atajo de teclado ======
-    private void atajoTeclado() {
+    // ====== Atajo de teclado ======
+    private void configurarAtajoTeclado() {
         if (timerLabel == null) return;
         timerLabel.sceneProperty().addListener((obs, oldScene, newScene) -> {
             if (newScene != null) {

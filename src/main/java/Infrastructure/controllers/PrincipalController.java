@@ -293,6 +293,18 @@ public class PrincipalController implements Initializable {
     }
 
 
+    @FXML
+    private void goPomodoro() {
+        try {
+            navigator.goTo("/views/Pomodoro.fxml",
+                    "STELLA - Pomodoro",
+                    controllerFactory,
+                    null);
+        } catch (Exception e) {
+            uiHelper.showError("Error al abrir Pomodoro", e.getMessage());
+        }
+    }
+
     // ====== NAVEGACIÓN INFERIOR ======
     @FXML private void goHome()        { uiHelper.showInfo("Inicio", "Ya estás en la pantalla principal."); }
     @FXML private void goForum()       { uiHelper.showInfo("Foro", "Pantalla de foro aún no implementada."); }
