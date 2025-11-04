@@ -1,82 +1,31 @@
 package Domain.models;
 
-import Domain.models.LeccionValueObjects.EstadoProgreso;
+import Domain.models.LeccionValueObjects.Estado;
+import java.util.Objects;
 
-import java.time.Instant;
-
-/**
- * Entidad que registra el progreso de un Usuario en una Lección.
- */
 public class ProgresoLeccion {
-
-    private Integer id; // ID único del registro de progreso
+    private final Integer id;
     private final Integer usuarioId;
     private final Integer leccionId;
+    private Estado estado;
 
-    // Campos mutables/actualizables
-    private EstadoProgreso estado;
-    private Instant fechaInicio;
-    private Instant fechaCompletado; // Puede ser null
-
-    /**
-     * Constructor 1: Para cargar un registro existente desde el Repositorio (Carga Completa).
-     */
-    public ProgresoLeccion(Integer id, Integer usuarioId, Integer leccionId,
-                           EstadoProgreso estado, Instant fechaInicio, Instant fechaCompletado) {
+    public ProgresoLeccion(Integer id, Integer usuarioId, Integer leccionId, Estado estado) {
         this.id = id;
-        this.usuarioId = usuarioId;
-        this.leccionId = leccionId;
-        this.estado = estado;
-        this.fechaInicio = fechaInicio;
-        this.fechaCompletado = fechaCompletado;
+        this.usuarioId = Objects.requireNonNull(usuarioId, "usuarioId no puede ser nulo");
+        this.leccionId = Objects.requireNonNull(leccionId, "leccionId no puede ser nulo");
+        this.estado = Objects.requireNonNull(estado, "estado no puede ser nulo");
     }
 
-    /**
-     * Constructor 2: Para crear un nuevo registro de progreso (Inicialización).
-     * El ID es nulo y el estado inicial es EN_CURSO.
-     */
-    public ProgresoLeccion(Integer usuarioId, Integer leccionId) {
-        this(
-                null, // El ID se asigna al guardar en la DB por primera vez
-                usuarioId,
-                leccionId,
-                EstadoProgreso.EN_PROGRESO,
-                Instant.now(),
-                null
-        );
+    public static ProgresoLeccion crear(Integer usuarioId, Integer leccionId, Estado estado) {
+        return new ProgresoLeccion(null, usuarioId, leccionId, estado);
     }
 
-    public ProgresoLeccion(Integer id, Integer usuarioId, Integer leccionId, EstadoProgreso estadoProgreso) {
-        this.id = id;
-        this.usuarioId = usuarioId;
-        this.leccionId = leccionId;
-        this.estado = estadoProgreso;
-        this.fechaInicio = Instant.now();
+    public static ProgresoLeccion reconstruir(Integer id, Integer usuarioId, Integer leccionId, Estado estado) {
+        return new ProgresoLeccion(id, usuarioId, leccionId, estado);
     }
 
-    public ProgresoLeccion(Integer usuarioId, Integer leccionId, EstadoProgreso estadoProgreso) {
-        this.usuarioId = usuarioId;
-        this.leccionId = leccionId;
-        this.estado = estadoProgreso;
-    }
-
-    // ------------------ LÓGICA DE DOMINIO ----------------------
-
-    /**
-     * Marca la lección como completada y registra la fecha de finalización.
-     */
-    public void marcarComoCompletada() {
-        if (this.estado != EstadoProgreso.COMPLETADA) {
-            this.estado = EstadoProgreso.COMPLETADA;
-            this.fechaCompletado = Instant.now();
-        }
-    }
-
-    // Getters
     public Integer getId() { return id; }
     public Integer getUsuarioId() { return usuarioId; }
     public Integer getLeccionId() { return leccionId; }
-    public EstadoProgreso getEstado() { return estado; }
-    public Instant getFechaInicio() { return fechaInicio; }
-    public Instant getFechaCompletado() { return fechaCompletado; }
+    public Estado getEstado() { return estado; }
 }
