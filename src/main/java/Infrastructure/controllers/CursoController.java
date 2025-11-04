@@ -3,6 +3,7 @@ package Infrastructure.controllers;
 import Application.dtos.leccion.LeccionResponse;
 import Application.dtos.seccion.SeccionResponse;
 import Application.services.SeccionesService;
+import Application.services.LeccionService;
 import Infrastructure.ui.AyudaUI;
 import Infrastructure.ui.Navigacion;
 import javafx.fxml.FXML;
@@ -16,35 +17,37 @@ import java.util.function.Function;
 
 public class CursoController {
 
-    // ===== deps =====
+    // ===== DEPENDENCIAS =====
     private final SeccionesService seccionesService;
+    private final LeccionService leccionService;
     private final Navigacion navigator = new Navigacion();
     private final AyudaUI uiHelper = new AyudaUI();
     private Function<Class<?>, Object> controllerFactory;
 
     // ===== FXML =====
-    @FXML private Pane root;              // inyectado al cargar PlantillaCurso.fxml
+    @FXML private Pane root;
     @FXML private Label NombreCurso;
 
-    // ===== estado =====
+    // ===== DATOS =====
     private int cursoActualId = -1;
     private String cursoTitulo = "CURSO DESCONOCIDO";
 
-    // ctor DI
-    public CursoController(SeccionesService seccionesService) {
+    // ===== CONSTRUCTOR =====
+    public CursoController(SeccionesService seccionesService, LeccionService leccionService) {
         this.seccionesService = seccionesService;
+        this.leccionService = leccionService;
     }
 
-    // ctor vacío (FXML)
     public CursoController() {
         this.seccionesService = null;
+        this.leccionService = null;
     }
 
     public void setControllerFactory(Function<Class<?>, Object> factory) {
         this.controllerFactory = factory;
     }
 
-    // lo llama PrincipalController ANTES de cargar la vista
+    // ===== CONFIGURAR CURSO =====
     public void setCursoActual(int id, String titulo) {
         this.cursoActualId = id;
         this.cursoTitulo = titulo;
@@ -64,9 +67,10 @@ public class CursoController {
         }
     }
 
+    // ===== CARGAR SECCIONES Y LECCIONES =====
     private void cargarSeccionesYLecciones() {
         try {
-            if (root == null) { System.err.println("[WARN] root todavía es null, no pinto."); return; }
+            if (root == null) { System.err.println("[WARN] root es null."); return; }
             if (seccionesService == null) { System.err.println("[WARN] seccionesService es null."); return; }
             if (cursoActualId <= 0) { System.err.println("[WARN] cursoActualId no seteado."); return; }
 
@@ -76,7 +80,7 @@ public class CursoController {
             for (SeccionResponse seccion : secciones) {
                 for (LeccionResponse leccion : seccion.lecciones()) {
 
-                    // buscar botón por ambas convenciones: "Leccion1.1" y "Leccion1_1"
+                    // Buscar botón por convención (Leccion1.1 o Leccion1_1)
                     String idPunto = "Leccion" + seccion.numeroOrden() + "." + leccion.numeroOrden();
                     String idGuion = "Leccion" + seccion.numeroOrden() + "_" + leccion.numeroOrden();
 
@@ -92,8 +96,11 @@ public class CursoController {
                     btn.setDisable(false);
                     btn.setOpacity(1.0);
 
+                    // capturar el número de sección
+                    final int seccionOrden = seccion.numeroOrden();
                     final LeccionResponse lec = leccion;
-                    btn.setOnAction(e -> abrirLeccion(lec, (Node) e.getSource()));
+
+                    btn.setOnAction(e -> abrirLeccion(lec, seccionOrden, (Node) e.getSource()));
                 }
             }
 
@@ -107,11 +114,18 @@ public class CursoController {
         }
     }
 
-    /** Navegación simple por número de lección (sin pasar DTOs ni servicios al controller). */
-    private void abrirLeccion(LeccionResponse leccion, Node source) {
+    // ===== ABRIR LECCIÓN =====
+    private void abrirLeccion(LeccionResponse leccion, int seccionOrden, Node source) {
         try {
             int numero = (leccion != null) ? leccion.numeroOrden() : 1;
             String ruta = "/views/Leccion" + numero + ".fxml";
+
+            // Obtener contenido real desde BD
+            LeccionResponse dto = leccionService.obtenerLeccionPorCursoYOrden(
+                    cursoActualId,
+                    seccionOrden,
+                    numero
+            );
 
             navigator.goToWithInit(
                     ruta,
@@ -120,7 +134,9 @@ public class CursoController {
                     (source != null ? source : root),
                     (LeccionController c) -> {
                         c.setControllerFactory(controllerFactory);
-                        c.setNumeroActual(numero);   // <-- solo el número para navegar
+                        c.setNumeroActual(numero);
+                        c.setCursoYSeccion(cursoActualId, seccionOrden);  // 🔹 esta línea hace toda la diferencia
+                        c.setLeccionActual(dto);
                     }
             );
 

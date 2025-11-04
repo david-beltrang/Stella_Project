@@ -6,6 +6,7 @@ import Application.services.SeccionesService;
 import Application.services.ListarCursosService;
 import Application.services.PomodoroTimer;
 import Application.services.SesionPomodoroService;
+import Application.services.LeccionService;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -23,6 +24,7 @@ public class ControllerControladores {
     private final SesionPomodoroService sesionPomodoroService;
     private final LoginService loginService;
     private final RegistroService registroService;
+    private final LeccionService leccionService;
 
     // ======== Controladores ========
     private HelloController helloController;
@@ -42,7 +44,8 @@ public class ControllerControladores {
             PomodoroTimer pomodoroTimer,
             SesionPomodoroService sesionPomodoroService,
             LoginService loginService,
-            RegistroService registroService
+            RegistroService registroService,
+            LeccionService leccionService
     ) {
         this.seccionesService = Objects.requireNonNull(seccionesService);
         this.listarCursosService = Objects.requireNonNull(listarCursosService);
@@ -50,6 +53,7 @@ public class ControllerControladores {
         this.sesionPomodoroService = Objects.requireNonNull(sesionPomodoroService);
         this.loginService = Objects.requireNonNull(loginService);
         this.registroService = Objects.requireNonNull(registroService);
+        this.leccionService = Objects.requireNonNull(leccionService);
         inicializar();
     }
 
@@ -60,8 +64,8 @@ public class ControllerControladores {
         this.pomodoroController = new PomodoroController(sesionPomodoroService, pomodoroTimer);
         this.loginController = new LoginController(loginService);
         this.registroController = new RegistroController(registroService);
-        this.cursoController = new CursoController(seccionesService);
-        this.leccionController = new LeccionController();
+        this.cursoController = new CursoController(seccionesService, leccionService);
+        this.leccionController = new LeccionController(leccionService);
 
         // === Factory global ===
         this.factory = (Class<?> clazz) -> {
