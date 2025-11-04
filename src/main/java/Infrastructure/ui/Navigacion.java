@@ -4,6 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
@@ -121,4 +122,37 @@ public class Navigacion {
                         (cause != null ? cause.getMessage() : e.getMessage())
         ).showAndWait();
     }
+
+    public void cambiarPantalla(String fxmlPath, Button origen) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Parent root = loader.load();
+
+            Stage stage;
+            if (origen != null && origen.getScene() != null) {
+                stage = (Stage) origen.getScene().getWindow();
+            } else {
+                // Buscar un Stage visible si el botón es nulo o no tiene escena
+                stage = null;
+                for (Window w : Window.getWindows()) {
+                    if (w instanceof Stage s && w.isShowing()) {
+                        stage = s;
+                        break;
+                    }
+                }
+                if (stage == null) {
+                    throw new IllegalStateException("No hay Stage activo para navegar.");
+                }
+            }
+
+            stage.setScene(new Scene(root));
+            stage.setTitle("STELLA");
+            stage.centerOnScreen();
+            stage.show();
+
+        } catch (Exception e) {
+            mostrarError(fxmlPath, e);
+        }
+    }
+
 }

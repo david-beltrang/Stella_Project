@@ -47,6 +47,8 @@ public class PrincipalController implements Initializable {
     private Button homeBtn, forumBtn, achievementsBtn, profileBtn;
     @FXML
     private Button homeBtn2, forumBtn2, achievementsBtn2;
+    @FXML
+    private Button logoutBtn;
 
     // ====== DEPENDENCIAS ======
     private final ListarCursosService listarCursosService;
@@ -78,11 +80,16 @@ public class PrincipalController implements Initializable {
         configurarFlechas();
         configurarBusqueda();
 
-        // Solo carga los cursos si hay usuario logueado
+        // usar el mismo fx:id del FXML
+        if (logoutBtn != null) {
+            logoutBtn.setOnAction(e -> cerrarSesion());
+        }
+
         if (usuarioActualId != null) {
             cargarCursosDesdeBD();
         }
     }
+
 
     public void inicializarUsuario() {
         var usuario = AppServices.getUsuarioActual();
@@ -291,4 +298,18 @@ public class PrincipalController implements Initializable {
     @FXML private void goForum()       { uiHelper.showInfo("Foro", "Pantalla de foro aún no implementada."); }
     @FXML private void goAchievements(){ uiHelper.showInfo("Logros", "Pantalla de logros aún no implementada."); }
     @FXML private void goProfile()     { uiHelper.showInfo("Perfil", "Pantalla de perfil aún no implementada."); }
+
+    // ====== CERRAR SESIÓN ======
+    private void cerrarSesion() {
+        // 👉 Solo “desloguea” al usuario actual en memoria.
+        // No toca la BD ni borra cursos: AppServices.cerrarSesion() solo pone usuarioActual = null
+        AppServices.cerrarSesion();
+
+        // Volver a Login.fxml. Si tienes factory, úsala; si no, fallback simple.
+        if (controllerFactory != null) {
+            navigator.goTo("/views/Login.fxml", "STELLA - Login", controllerFactory, logoutBtn);
+        } else {
+            navigator.cambiarPantalla("/views/Login.fxml", logoutBtn);
+        }
+    }
 }
