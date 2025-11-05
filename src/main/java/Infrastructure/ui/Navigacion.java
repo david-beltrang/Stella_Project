@@ -4,6 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -19,6 +20,8 @@ public class Navigacion {
 
     /**
      * Navega a una vista FXML básica (sin inicialización de controlador adicional).
+     * Se asegura de no hacer cast forzado al tipo de controlador,
+     * evitando errores como "QuizController cannot be cast to LeccionController".
      */
     public void goTo(String fxmlPath,
                      String title,
@@ -27,12 +30,14 @@ public class Navigacion {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
 
+            // Aplica la factory global si existe
             if (controllerFactory != null) {
                 loader.setControllerFactory(controllerFactory::apply);
             }
 
             Parent next = loader.load();
 
+            // Obtiene el stage activo desde el nodo de origen
             Stage stage = resolveStage(origen);
             stage.setScene(new Scene(next));
 
@@ -49,8 +54,8 @@ public class Navigacion {
     }
 
     /**
-     * Carga un FXML, permite inicializar el controlador ANTES de mostrar la escena.
-     * Muy útil cuando se debe pasar información al siguiente controller (por ejemplo: Lección actual, usuario, etc.).
+     * Carga un FXML y permite inicializar su controlador ANTES de mostrar la escena.
+     * Útil para pasar datos (por ejemplo, usuario, curso, etc.) al siguiente controlador.
      */
     public <T> void goToWithInit(String fxmlPath,
                                  String title,
@@ -66,11 +71,16 @@ public class Navigacion {
 
             Parent next = loader.load();
 
-            // Inicializar el controlador antes de mostrar la escena
-            @SuppressWarnings("unchecked")
-            T ctrl = (T) loader.getController();
+            // Inicializa el controlador genérico sin asumir su tipo
+            Object ctrl = loader.getController();
             if (initController != null && ctrl != null) {
-                initController.accept(ctrl);
+                try {
+                    @SuppressWarnings("unchecked")
+                    T controller = (T) ctrl;
+                    initController.accept(controller);
+                } catch (ClassCastException ignored) {
+                    System.err.println("⚠️ Tipo de controlador distinto, se omitió la inicialización específica.");
+                }
             }
 
             Stage stage = resolveStage(origen);
@@ -116,35 +126,23 @@ public class Navigacion {
         while (cause.getCause() != null) {
             cause = cause.getCause();
         }
-        new javafx.scene.control.Alert(
-                javafx.scene.control.Alert.AlertType.ERROR,
+
+        new Alert(
+                Alert.AlertType.ERROR,
                 "No pude abrir la vista: " + fxmlPath + "\n\n" +
                         (cause != null ? cause.getMessage() : e.getMessage())
         ).showAndWait();
     }
 
+    /**
+     * Alternativa rápida para cambiar pantalla desde un botón.
+     */
     public void cambiarPantalla(String fxmlPath, Button origen) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             Parent root = loader.load();
 
-            Stage stage;
-            if (origen != null && origen.getScene() != null) {
-                stage = (Stage) origen.getScene().getWindow();
-            } else {
-                // Buscar un Stage visible si el botón es nulo o no tiene escena
-                stage = null;
-                for (Window w : Window.getWindows()) {
-                    if (w instanceof Stage s && w.isShowing()) {
-                        stage = s;
-                        break;
-                    }
-                }
-                if (stage == null) {
-                    throw new IllegalStateException("No hay Stage activo para navegar.");
-                }
-            }
-
+            Stage stage = resolveStage(origen);
             stage.setScene(new Scene(root));
             stage.setTitle("STELLA");
             stage.centerOnScreen();
@@ -154,5 +152,4 @@ public class Navigacion {
             mostrarError(fxmlPath, e);
         }
     }
-
 }

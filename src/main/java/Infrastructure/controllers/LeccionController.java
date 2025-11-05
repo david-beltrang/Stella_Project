@@ -141,7 +141,7 @@ public class LeccionController {
                         uiHelper.showError("Error al mostrar video", "No se pudo generar el enlace al video.");
                     }
                 } else {
-                    System.out.println("⚠️ No se encontró URL de video válida o el WebView no está disponible.");
+                    System.out.println("No se encontró URL de video válida o el WebView no está disponible.");
                 }
             }
             case 3 -> {
@@ -158,11 +158,25 @@ public class LeccionController {
                 setText("ComponentesEscenciales4", "• declaración\n• entrada/salida\n• compilación");
             }
             case 5 -> {
-                setText("DescripcionLeccion5", contenido);
-                setText("TituloInstrucciones5", "Instrucciones");
-                setText("Instrucciones5", "1. Lee el enunciado\n2. Escribe el código\n3. Ejecuta.");
-                setText("Codigo5", "cout << \"Hola\";");
-                setText("ResultadoEsperado5", "Salida esperada en consola");
+                // Mostrar breve introducción
+                setText("DescripcionLeccion5", "¡Hora de evaluar lo aprendido!");
+                setText("TituloInstrucciones5", "Evaluación final");
+                setText("Instrucciones5", "Responde las siguientes preguntas para completar el módulo.");
+
+                // Agregar un pequeño delay visual antes de redirigir (opcional)
+                javafx.application.Platform.runLater(() -> {
+                    try {
+                        Thread.sleep(500); // pequeña pausa para que se vea el texto anterior
+                        navigator.goTo(
+                                "/views/Leccion5.fxml",
+                                "Evaluación final",
+                                controllerFactory,
+                                root
+                        );
+                    } catch (Exception e) {
+                        uiHelper.showError("Error al abrir el quiz", e.getMessage());
+                    }
+                });
             }
             default -> setText("DescripcionLeccion1", contenido);
         }

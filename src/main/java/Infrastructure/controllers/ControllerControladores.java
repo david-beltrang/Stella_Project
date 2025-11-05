@@ -7,7 +7,6 @@ import Application.services.ListarCursosService;
 import Application.services.PomodoroTimer;
 import Application.services.SesionPomodoroService;
 import Application.services.LeccionService;
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -34,6 +33,7 @@ public class ControllerControladores {
     private LoginController loginController;
     private CursoController cursoController;
     private LeccionController leccionController;
+    private QuizController quizController; // ✅ Nuevo
 
     // ======== Factory global ========
     private Function<Class<?>, Object> factory;
@@ -66,6 +66,7 @@ public class ControllerControladores {
         this.registroController = new RegistroController(registroService);
         this.cursoController = new CursoController(seccionesService, leccionService);
         this.leccionController = new LeccionController(leccionService);
+        this.quizController = new QuizController(); // ✅ agregado
 
         // === Factory global ===
         this.factory = (Class<?> clazz) -> {
@@ -76,6 +77,7 @@ public class ControllerControladores {
             if (clazz == LoginController.class) return loginController;
             if (clazz == CursoController.class) return cursoController;
             if (clazz == LeccionController.class) return leccionController;
+            if (clazz == QuizController.class) return quizController; // ✅ agregado
             try {
                 return clazz.getDeclaredConstructor().newInstance();
             } catch (Exception e) {
@@ -83,7 +85,7 @@ public class ControllerControladores {
             }
         };
 
-        // === Asignar factory a todos ===
+        // === Asignar factory a todos los controladores ===
         helloController.setControllerFactory(factory);
         principalController.setControllerFactory(factory);
         pomodoroController.setControllerFactory(factory);
@@ -91,6 +93,7 @@ public class ControllerControladores {
         loginController.setControllerFactory(factory);
         cursoController.setControllerFactory(factory);
         leccionController.setControllerFactory(factory);
+        quizController.setControllerFactory(factory); // ✅ agregado
     }
 
     // ======== Getters ========
@@ -98,6 +101,7 @@ public class ControllerControladores {
     public CursoController getCursoController() { return cursoController; }
     public Function<Class<?>, Object> controllerFactory() { return factory; }
 
+    // ======== Vista inicial ========
     public void mostrarVistaInicial(Stage stage) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/hello-view.fxml"));
@@ -110,4 +114,3 @@ public class ControllerControladores {
         }
     }
 }
-
