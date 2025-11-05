@@ -88,7 +88,7 @@ public class CursoController {
                     if (btn == null) btn = (Button) root.lookup("#" + idGuion);
 
                     if (btn == null) {
-                        System.out.println("   ❌ No se encontró el botón #" + idPunto + " ni #" + idGuion);
+                        System.out.println("    No se encontró el botón #" + idPunto + " ni #" + idGuion);
                         continue;
                     }
 

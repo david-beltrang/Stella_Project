@@ -17,6 +17,9 @@ import Infrastructure.repositories.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+// 👇 importa AppServices
+import Application.config.AppServices;
+
 public class Main extends Application {
 
     @Override
@@ -30,7 +33,7 @@ public class Main extends Application {
         InterfazUsuarioRepository usuarioRepository = new UsuarioRepository(connMgr);
         InterfazCursoRepository cursoRepository = new CursoRepository(connMgr);
         InterfazSeccionRepository seccionRepository = new SeccionRepository(connMgr);
-        InterfazLeccionRepository leccionRepository = new LeccionRepository(connMgr); // 🔥 nuevo
+        InterfazLeccionRepository leccionRepository = new LeccionRepository(connMgr);
         InterfazUsuarioCursoRepository usuarioCursoRepository = new UsuarioCursoRepository(connMgr);
         InterfazUsuarioStatsRepository usuarioStatsRepository = new UsuarioStatsRepository(connMgr);
         InterfazSesionEstudioRepository sesionEstudioRepository = new SesionEstudioRepository(connMgr);
@@ -42,7 +45,10 @@ public class Main extends Application {
         SesionPomodoroService sesionPomodoroService = new SesionPomodoroService(sesionEstudioRepository);
         LoginService loginService = new LoginService(usuarioRepository);
         RegistroService registroService = new RegistroService(usuarioRepository);
-        LeccionService leccionService = new LeccionService(new LeccionRepository(connMgr)); // ✅ agregado
+        LeccionService leccionService = new LeccionService(leccionRepository);
+
+        // ======== REGISTRA Pomodoro global en AppServices ========
+        AppServices.initPomodoro(sesionPomodoroService, pomodoroTimer);
 
         // ======== Front Controller ========
         ControllerControladores frontController = new ControllerControladores(
@@ -54,7 +60,6 @@ public class Main extends Application {
                 registroService,
                 leccionService
         );
-
 
         // ======== Pantalla inicial ========
         frontController.mostrarVistaInicial(stage);
@@ -70,7 +75,3 @@ public class Main extends Application {
         launch();
     }
 }
-
-
-
-

@@ -24,12 +24,18 @@
             <font><Font name="System Bold" size="92.0" /></font>
         </Label>
 
+        <!-- ⏱ CRONÓMETRO (AGREGADO) -->
+        <Label fx:id="lblTiempoPomodoro"
+               layoutX="1720.0" layoutY="24.0"
+               prefWidth="150.0" prefHeight="36.0"
+               text="25:00"
+               style="-fx-font-size: 20px; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-color: transparent;" />
+
         <!-- PINGÜINO -->
         <ImageView fitHeight="61.0" fitWidth="70.0"
                    layoutX="1579.0" layoutY="783.0"
                    pickOnBounds="true" preserveRatio="true">
             <image>
-
             </image>
         </ImageView>
 

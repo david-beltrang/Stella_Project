@@ -1,7 +1,8 @@
 package Infrastructure.controllers;
 
+import Application.config.AppServices;
 import Application.services.PomodoroTimer;
-import Application.services.SesionPomodoroService;
+import Application.services.SesionPomodoroService; // inyectado, pero NO se usa (sin lógica de negocio)
 import Infrastructure.ui.Navigacion;
 import Infrastructure.ui.AyudaUI;
 import javafx.fxml.FXML;
@@ -14,25 +15,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-/**
- * Controlador unificado para las vistas:
- *  - Pomodoro.fxml
- *  - PomodoroDescanso.fxml
- *  - PomodoroTiempoFinalizado.fxml
- *
- * Se encarga de manejar:
- *  1. Selección de tiempo de estudio.
- *  2. Selección de tiempo de descanso.
- *  3. Pantalla final de sesión.
- */
 public class PomodoroController {
 
-    // ====== Dependencias inyectadas ======
-    private final SesionPomodoroService sesionPomodoroService;
+    // ====== Dependencias inyectadas (UI-only: NO negocio) ======
+    private final SesionPomodoroService sesionPomodoroService; // disponible pero no usado aquí
     private final PomodoroTimer pomodoroTimer;
     private Function<Class<?>, Object> controllerFactory;
 
-    // ====== Dependencias de interfaz ======
+    // ====== UI ======
     private final Navigacion navigator = new Navigacion();
     private final AyudaUI uiHelper = new AyudaUI();
 
@@ -40,30 +30,32 @@ public class PomodoroController {
     @FXML private AnchorPane root;
     @FXML private Label timerLabel;
 
-    // Botones genéricos (navegación inferior)
+    // Botones inferiores
     @FXML private Button homeBtn, forumBtn, achievementsBtn, profileBtn;
 
-    // Botones de tiempo Pomodoro
-    @FXML private Button btn3min, btn5min, btn8min, btn10min;
+    // Botones de tiempo Pomodoro (foco)
     @FXML private Button btn25min, btn30min, btn45min, btn60min;
+
+    // Botones de tiempo Descanso
+    @FXML private Button btn3min, btn5min, btn8min, btn10min;
 
     // Botones de control
     @FXML private Button startButton, pauseButton, confirmarButton;
 
-    // ====== Estado interno ======
-    private int minutosSeleccionados;
+    // ====== Estado UI ======
+    private int minutosSeleccionados = 0;
     private final List<Button> botonesTiempo = new ArrayList<>();
 
     // ====== Constructores ======
     public PomodoroController(SesionPomodoroService sesionPomodoroService,
                               PomodoroTimer pomodoroTimer) {
-        this.sesionPomodoroService = sesionPomodoroService;
+        this.sesionPomodoroService = sesionPomodoroService; // NO se usa aquí
         this.pomodoroTimer = pomodoroTimer;
     }
 
     public PomodoroController() {
-        this.sesionPomodoroService = null;
-        this.pomodoroTimer = PomodoroTimer.getInstance();
+        this.sesionPomodoroService = AppServices.getSesionPomodoroService(); // NO se usa aquí
+        this.pomodoroTimer = AppServices.getPomodoroTimer();
     }
 
     public void setControllerFactory(Function<Class<?>, Object> factory) {
@@ -75,6 +67,21 @@ public class PomodoroController {
     public void initialize() {
         if (root == null) return;
 
+        // Listener UI-only: si el tiempo llega a 0, mostrar pantalla final. (Sin persistencia aquí)
+        if (!AppServices.isPomodoroFinishListenerRegistrado() && pomodoroTimer != null) {
+            pomodoroTimer.secondsLeftProperty().addListener((obs, ov, nv) -> {
+                if (nv != null && nv.intValue() <= 0) {
+                    navigator.goTo("/views/PomodoroTiempoFinalizado.fxml",
+                            "Tiempo finalizado", controllerFactory, root);
+                }
+            });
+            AppServices.setPomodoroFinishListenerRegistrado(true);
+        }
+
+        // En pantallas NO de estudio, mantener el timer en pausa
+        try { if (pomodoroTimer != null) pomodoroTimer.pause(); } catch (Exception ignore) {}
+
+        // Detectar qué vista es (config de foco, config de descanso o final)
         if (confirmarButton != null && (btn25min != null || btn30min != null)) {
             configurarVistaPomodoro();
         } else if (confirmarButton != null && (btn3min != null || btn5min != null)) {
@@ -82,13 +89,14 @@ public class PomodoroController {
         } else if (root.lookup("#homeBtn") != null && root.lookup("#achievementsBtn") != null) {
             configurarVistaFinal();
         }
+
+        configurarAtajoTeclado();
     }
 
-    // ====== VISTA POMODORO (estudio) ======
+    // ====== VISTA POMODORO (foco) ======
     private void configurarVistaPomodoro() {
         setupTimeButtonsPomodoro();
         if (confirmarButton != null) confirmarButton.setOnAction(e -> confirmarTiempoDeFoco());
-        configurarAtajoTeclado();
     }
 
     // ====== VISTA DESCANSO ======
@@ -101,15 +109,11 @@ public class PomodoroController {
     private void configurarVistaFinal() {
         Button newSessionBtn = (Button) root.lookup("#newStudySession");
         Button exitBtn = (Button) root.lookup("#exitToHome");
-
-        if (newSessionBtn != null)
-            newSessionBtn.setOnAction(e -> newStudySession());
-
-        if (exitBtn != null)
-            exitBtn.setOnAction(e -> exitToHome());
+        if (newSessionBtn != null) newSessionBtn.setOnAction(e -> newStudySession());
+        if (exitBtn != null)      exitBtn.setOnAction(e -> exitToHome());
     }
 
-    // ====== Configuración de botones ======
+    // ====== Configuración de botones de tiempo ======
     private void setupTimeButtonsPomodoro() {
         setupTimeButton(btn25min, 25);
         setupTimeButton(btn30min, 30);
@@ -124,46 +128,36 @@ public class PomodoroController {
         setupTimeButton(btn10min, 10);
     }
 
-    // === Método genérico que asegura selección única ===
     private void setupTimeButton(Button btn, int minutes) {
-        if (btn != null) {
-            botonesTiempo.add(btn);
-
-            btn.setOnAction(e -> {
-                minutosSeleccionados = minutes;
-
-                // Limpia estilos de todos los botones
-                for (Button b : botonesTiempo) {
-                    b.setStyle("-fx-background-color: #00BFA5; -fx-text-fill: white; -fx-font-weight: bold;");
-                }
-
-                // Aplica estilo al seleccionado
-                btn.setStyle("-fx-background-color: #1E88E5; -fx-text-fill: white; -fx-font-weight: bold; -fx-border-color: white; -fx-border-width: 3;");
-
-                // (Opcional, mantiene compatibilidad)
-                uiHelper.highlightSelectedButton(btn);
-            });
-        }
+        if (btn == null) return;
+        botonesTiempo.add(btn);
+        btn.setOnAction(e -> {
+            minutosSeleccionados = minutes;
+            for (Button b : botonesTiempo) {
+                b.setStyle("-fx-background-color: #00BFA5; -fx-text-fill: white; -fx-font-weight: bold;");
+            }
+            btn.setStyle("-fx-background-color: #1E88E5; -fx-text-fill: white; -fx-font-weight: bold; -fx-border-color: white; -fx-border-width: 3;");
+            uiHelper.highlightSelectedButton(btn);
+        });
     }
 
-    // ====== Confirmaciones ======
+    // ====== Confirmaciones (UI/Navegación) ======
     @FXML
     private void confirmarTiempoDeFoco() {
         if (minutosSeleccionados == 0) {
             uiHelper.showInfo("Selecciona un tiempo", "Debes elegir un tiempo antes de continuar.");
             return;
         }
-
         try {
-            if (sesionPomodoroService != null) {
-                sesionPomodoroService.iniciarSesion(
-                        new Application.dtos.sesionEstudio.Pomodoro.IniciarSesionEstudioRequest(
-                                1, minutosSeleccionados, 5)
-                );
+            // Pre-configurar el tiempo de estudio, sin arrancar (arranca en Lección)
+            if (pomodoroTimer != null) {
+                pomodoroTimer.setSecondsLeft(minutosSeleccionados * 60);
+                pomodoroTimer.pause();
             }
+            // Ir a pantalla de elección de descanso
             navigator.goTo("/views/PomodoroDescanso.fxml", "Descanso", controllerFactory, confirmarButton);
         } catch (Exception ex) {
-            uiHelper.showError("Error al confirmar tiempo", ex.getMessage());
+            uiHelper.showError("Error", ex.getMessage());
         }
     }
 
@@ -173,14 +167,15 @@ public class PomodoroController {
             uiHelper.showInfo("Selecciona un tiempo", "Debes elegir un tiempo de descanso.");
             return;
         }
-
         try {
-            pomodoroTimer.start();
-            navigator.goTo("/views/PomodoroTiempoFinalizado.fxml", "Tiempo finalizado", controllerFactory, confirmarButton);
+            if (pomodoroTimer != null) pomodoroTimer.pause(); // en principal no corre
+            // ⚠️ Usa root como nodo de referencia para que Navigacion tenga un Node válido
+            navigator.goTo("/views/Principal.fxml", "Principal", controllerFactory, root);
         } catch (Exception ex) {
-            uiHelper.showError("Error al confirmar descanso", ex.getMessage());
+            uiHelper.showError("Error", ex.getMessage());
         }
     }
+
 
     @FXML
     private void newStudySession() {
@@ -192,7 +187,7 @@ public class PomodoroController {
         navigator.goTo("/views/Principal.fxml", "Principal", controllerFactory, root);
     }
 
-    // ====== Atajo de teclado ======
+    // ====== Atajo de teclado (demo) ======
     private void configurarAtajoTeclado() {
         if (timerLabel == null) return;
         timerLabel.sceneProperty().addListener((obs, oldScene, newScene) -> {
@@ -209,8 +204,8 @@ public class PomodoroController {
     }
 
     // ====== Navegación inferior ======
-    @FXML private void goHome()        { navigator.goTo("/views/Principal.fxml", "Principal", controllerFactory, homeBtn); }
-    @FXML private void goForum()       { uiHelper.showInfo("Foro", "Pantalla de Foro aún no implementada."); }
-    @FXML private void goAchievements(){ uiHelper.showInfo("Logros", "Pantalla de Logros aún no implementada."); }
-    @FXML private void goProfile()     { uiHelper.showInfo("Perfil", "Pantalla de Perfil aún no implementada."); }
+    @FXML private void goHome()         { navigator.goTo("/views/Principal.fxml", "Principal", controllerFactory, homeBtn); }
+    @FXML private void goForum()        { uiHelper.showInfo("Foro", "Pantalla de Foro aún no implementada."); }
+    @FXML private void goAchievements() { uiHelper.showInfo("Logros", "Pantalla de Logros aún no implementada."); }
+    @FXML private void goProfile()      { uiHelper.showInfo("Perfil", "Pantalla de Perfil aún no implementada."); }
 }

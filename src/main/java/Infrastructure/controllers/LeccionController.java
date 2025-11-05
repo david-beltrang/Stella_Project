@@ -1,11 +1,12 @@
 package Infrastructure.controllers;
 
+import Application.config.AppServices;
 import Application.dtos.leccion.LeccionResponse;
 import Application.services.LeccionService;
+import Application.services.PomodoroTimer;
 import Infrastructure.ui.AyudaUI;
 import Infrastructure.ui.Navigacion;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -25,6 +26,7 @@ public class LeccionController {
     // ===== FXML =====
     @FXML private Pane root;
     @FXML private WebView videoWebView;
+    @FXML private Label lblTiempoPomodoro; // ⏱ Label del Pomodoro (agrega en cada FXML)
 
     // ===== ESTADO =====
     private LeccionResponse leccionActual;
@@ -42,18 +44,9 @@ public class LeccionController {
     }
 
     // ===== SETTERS =====
-    public void setControllerFactory(Function<Class<?>, Object> factory) {
-        this.controllerFactory = factory;
-    }
-
-    public void setNumeroActual(int n) {
-        this.numeroActual = Math.max(1, n);
-    }
-
-    public void setCursoYSeccion(int cursoId, int seccionOrden) {
-        this.cursoId = cursoId;
-        this.seccionOrden = seccionOrden;
-    }
+    public void setControllerFactory(Function<Class<?>, Object> factory) { this.controllerFactory = factory; }
+    public void setNumeroActual(int n) { this.numeroActual = Math.max(1, n); }
+    public void setCursoYSeccion(int cursoId, int seccionOrden) { this.cursoId = cursoId; this.seccionOrden = seccionOrden; }
 
     public void setLeccionActual(LeccionResponse l) {
         this.leccionActual = l;
@@ -67,18 +60,46 @@ public class LeccionController {
         } else {
             System.out.println("[INFO] initialize(): sin lección actual todavía.");
         }
+        // ⏱ Enlazar el label al Pomodoro global
+        setupPomodoroBinding();
+    }
+
+    // ===== Pomodoro HUD =====
+    private void setupPomodoroBinding() {
+        try {
+            if (lblTiempoPomodoro == null) return; // si el FXML no tiene el label, no hacemos nada
+            PomodoroTimer timer = AppServices.getPomodoroTimer();
+            if (timer == null) return;
+
+            // Vincula el texto del label al secondsLeft del timer, formateado mm:ss
+            lblTiempoPomodoro.textProperty().unbind();
+            lblTiempoPomodoro.textProperty().bind(
+                    Bindings.createStringBinding(
+                            () -> formatMMSS(timer.secondsLeftProperty().get()),
+                            timer.secondsLeftProperty()
+                    )
+            );
+
+            // Si venimos de otra pantalla y estaba pausado, reanudar (sin reiniciar)
+            if (timer.secondsLeftProperty().get() > 0) {
+                timer.start();
+            }
+        } catch (Exception e) {
+            System.err.println("❌ Error al configurar Pomodoro HUD: " + e.getMessage());
+        }
+    }
+
+    private String formatMMSS(int total) {
+        if (total < 0) total = 0;
+        int mm = total / 60;
+        int ss = total % 60;
+        return String.format("%02d:%02d", mm, ss);
     }
 
     // ===== RENDERIZAR =====
     private void renderLeccion() {
-        if (root == null) {
-            System.err.println("[WARN] root es null al intentar renderizar.");
-            return;
-        }
-        if (leccionActual == null) {
-            System.err.println("[WARN] No hay lección actual para renderizar.");
-            return;
-        }
+        if (root == null) { System.err.println("[WARN] root es null al intentar renderizar."); return; }
+        if (leccionActual == null) { System.err.println("[WARN] No hay lección actual para renderizar."); return; }
 
         int numero = leccionActual.numeroOrden();
         String titulo = leccionActual.titulo();
@@ -103,28 +124,17 @@ public class LeccionController {
 
                 if (urlVideo != null && !urlVideo.isBlank() && videoWebView != null) {
                     try {
-                        // 🔹 HTML elegante: fondo oscuro y botón centrado
                         String html = """
-                <html>
-                  <head>
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                  </head>
-                  <body style="margin:0; background-color:#080736;
-                               display:flex; justify-content:center;
-                               align-items:center; height:100vh; color:white; font-family:Arial;">
-                    <a href="%s"
-                       style="color:white; font-size:30px; text-decoration:none;
-                              padding:15px 25px; border:2px solid white; border-radius:12px;">
-                      ▶ Ver video en YouTube
-                    </a>
-                  </body>
-                </html>
-                """.formatted(urlVideo);
-
-                        javafx.application.Platform.runLater(() -> {
-                            videoWebView.getEngine().loadContent(html);
-                        });
-
+                                <html>
+                                  <head><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+                                  <body style="margin:0; background-color:#080736; display:flex; justify-content:center; align-items:center; height:100vh; color:white; font-family:Arial;">
+                                    <a href="%s" style="color:white; font-size:30px; text-decoration:none; padding:15px 25px; border:2px solid white; border-radius:12px;">
+                                      ▶ Ver video en YouTube
+                                    </a>
+                                  </body>
+                                </html>
+                                """.formatted(urlVideo);
+                        videoWebView.getEngine().loadContent(html);
                         System.out.println("🎬 Enlace mostrado correctamente: " + urlVideo);
                     } catch (Exception ex) {
                         System.err.println("❌ Error al cargar enlace de video: " + ex.getMessage());
@@ -157,17 +167,7 @@ public class LeccionController {
             default -> setText("DescripcionLeccion1", contenido);
         }
 
-        System.out.println("✅ Renderizada lección " + numero + ": " + titulo);
-    }
-
-    // ===== CONVERSIÓN DE URL YOUTUBE =====
-    private String convertirAEmbed(String url) {
-        if (url.contains("watch?v=")) {
-            return url.replace("watch?v=", "embed/");
-        } else if (url.contains("youtu.be/")) {
-            return url.replace("youtu.be/", "www.youtube.com/embed/");
-        }
-        return url;
+        System.out.println(" Renderizada lección " + numero + ": " + titulo);
     }
 
     // ===== UTILIDAD =====
@@ -177,13 +177,13 @@ public class LeccionController {
         if (n instanceof Label lbl) {
             lbl.setText(text != null ? text : "");
         } else {
-            System.out.println("⚠️ No se encontró label con id #" + id);
+            System.out.println("⚠ No se encontró label con id #" + id);
         }
     }
 
     // ===== NAVEGACIÓN ENTRE LECCIONES =====
     @FXML
-    private void navegarALeccionAnterior(ActionEvent e) {
+    private void navegarALeccionAnterior(javafx.event.ActionEvent e) {
         int anterior = numeroActual - 1;
         if (anterior < 1) {
             uiHelper.showInfo("Inicio del curso", "Ya estás en la primera lección.");
@@ -193,7 +193,7 @@ public class LeccionController {
     }
 
     @FXML
-    private void navegarALeccionSiguiente(ActionEvent e) {
+    private void navegarALeccionSiguiente(javafx.event.ActionEvent e) {
         int siguiente = numeroActual + 1;
         irA(siguiente, (Node) e.getSource());
     }
@@ -227,11 +227,9 @@ public class LeccionController {
                         c.setLeccionActual(nueva);
                     }
             );
-
         } catch (Exception ex) {
             uiHelper.showError("Error al cambiar de lección", ex.getMessage());
             ex.printStackTrace();
         }
     }
 }
-

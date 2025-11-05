@@ -17,10 +17,18 @@
       fx:controller="Infrastructure.controllers.LeccionController">
 
     <children>
-        <Label id="TituloSeccion" layoutX="465.0" layoutY="118.0" prefHeight="158.0" prefWidth="1042.0"
+        <Label id="TituloSeccion" layoutX="465.0" layoutY="118.0"
+               prefHeight="158.0" prefWidth="1042.0"
                style="-fx-background-color: #080736;" textFill="white">
             <font><Font name="System Bold" size="92.0" /></font>
         </Label>
+
+        <!-- ⏱ CRONÓMETRO (AGREGADO) -->
+        <Label fx:id="lblTiempoPomodoro"
+               layoutX="1720.0" layoutY="24.0"
+               prefWidth="150.0" prefHeight="36.0"
+               text="25:00"
+               style="-fx-font-size: 20px; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-color: transparent;" />
 
         <ImageView fitHeight="61.0" fitWidth="70.0" layoutX="1579.0" layoutY="783.0"
                    pickOnBounds="true" preserveRatio="true">
@@ -32,7 +40,8 @@
         <Accordion layoutX="716.0" layoutY="551.0" />
 
         <Label id="DescripcionLeccion4" layoutX="420.0" layoutY="310.0"
-               prefHeight="65.0" prefWidth="1236.0" style="-fx-background-color: #080736;"
+               prefHeight="65.0" prefWidth="1236.0"
+               style="-fx-background-color: #080736;"
                textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
             <font><Font name="Arial" size="29.0" /></font>
         </Label>
