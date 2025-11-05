@@ -1,55 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.web.WebView?>
 
-<Pane maxHeight="1080.0" maxWidth="1920.0" minHeight="1080.0" minWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@/styles/LoginStyle.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Label layoutX="465.0" layoutY="118.0" prefHeight="158.0" prefWidth="1436.0" text="CURSO C++ - LECCION 1" textFill="white">
-         <font>
-            <Font name="System Bold" size="92.0" />
-         </font>
-      </Label>
-      <ImageView fitHeight="61.0" fitWidth="70.0" layoutX="1579.0" layoutY="783.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@/Image/General/StellaEsquinaSF.png" />
-         </image>
-      </ImageView>
-      <Label layoutX="748.0" layoutY="243.0" text="Primeros pasos en C++" textFill="WHITE">
-         <font>
-            <Font name="Monospaced Regular" size="40.0" />
-         </font>
-      </Label>
-      <Accordion layoutX="716.0" layoutY="551.0" />
-      <Label layoutX="416.0" layoutY="321.0" prefHeight="161.0" prefWidth="1236.0" text="Descripción:Este video muestra cómo crear tu primer programa en C++, explicando la estructura básica de un programa, la función main, y cómo compilar y ejecutar código. Aprenderás a usar cout para mostrar mensajes en pantalla y entenderás los componentes esenciales de cualquier programa en C++." textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
-         <font>
-            <Font name="Arial" size="29.0" />
-         </font>
-      </Label>
-      <Label layoutX="650.0" layoutY="530.0" opacity="0.8" prefHeight="12.0" prefWidth="768.0" text="Título del video:&quot;Introducción a C++ - Tu primer programa&quot;" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
-         <font>
-            <Font name="Arial" size="29.0" />
-         </font>
-      </Label>
-      <Button layoutX="745.0" layoutY="795.0" mnemonicParsing="false" opacity="0.9" prefHeight="47.0" prefWidth="242.0" style="-fx-background-color: #080736;" text="VOLVER" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="30.0" />
-         </font>
-      </Button>
-      <Button layoutX="1038.0" layoutY="796.0" mnemonicParsing="false" opacity="0.9" prefHeight="47.0" prefWidth="242.0" style="-fx-background-color: #080736;" text="SIGUIENTE" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="30.0" />
-         </font>
-      </Button>
-      <Button layoutX="737.0" layoutY="591.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="546.0" style="-fx-background-color: #080736;" text="LINK DE YOUTUBE" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="41.0" />
-         </font>
-      </Button>
-   </children>
+<Pane fx:id="root"
+      maxHeight="1080.0" maxWidth="1920.0"
+      minHeight="1080.0" minWidth="1920.0"
+      prefHeight="1080.0" prefWidth="1920.0"
+      stylesheets="@/styles/LoginStyle.css"
+      xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="Infrastructure.controllers.LeccionController">
+
+    <children>
+
+        <!-- ====== TÍTULO GRANDE ====== -->
+        <Label id="TituloSeccion" layoutX="465.0" layoutY="86.0"
+               prefHeight="158.0" prefWidth="1130.0"
+               style="-fx-background-color: #080736;"
+               textAlignment="CENTER" textFill="white">
+            <font><Font name="System Bold" size="92.0" /></font>
+        </Label>
+
+        <!-- CRONÓMETRO  -->
+        <Label fx:id="lblTiempoPomodoro"
+               layoutX="1720.0" layoutY="24.0"
+               prefWidth="150.0" prefHeight="36.0"
+               text="25:00"
+               style="-fx-font-size: 20px; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-color: transparent;" />
+
+        <!-- ====== PINGÜINO ====== -->
+        <ImageView fitHeight="61.0" fitWidth="70.0"
+                   layoutX="1579.0" layoutY="783.0"
+                   pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@/Image/General/StellaEsquinaSF.png" />
+            </image>
+        </ImageView>
+
+        <!-- ====== NOMBRE DE LA LECCIÓN ====== -->
+        <Label id="NombreLeccion2" layoutX="728.0" layoutY="238.0"
+               prefHeight="47.0" prefWidth="584.0"
+               style="-fx-background-color: #080736;"
+               textFill="WHITE">
+            <font><Font name="Monospaced Regular" size="40.0" /></font>
+        </Label>
+
+        <!-- ====== DESCRIPCIÓN ====== -->
+        <Label id="DescripcionLeccion2" layoutX="420.0" layoutY="294.0"
+               prefHeight="161.0" prefWidth="1236.0"
+               style="-fx-background-color: #080736;"
+               textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
+            <font><Font name="Arial" size="29.0" /></font>
+        </Label>
+
+        <!-- ====== TÍTULO DEL VIDEO ====== -->
+        <Label id="TitulodelVideo2" layoutX="646.0" layoutY="464.0"
+               prefHeight="35.0" prefWidth="768.0"
+               style="-fx-background-color: #080736;"
+               textAlignment="CENTER" textFill="WHITE">
+            <font><Font name="Arial Bold" size="30.0" /></font>
+        </Label>
+
+        <!-- ====== WEBVIEW PARA EL VIDEO ====== -->
+        <WebView fx:id="videoWebView"
+                 layoutX="620.0" layoutY="500.0"
+                 prefHeight="400.0" prefWidth="800.0"
+                 style="-fx-background-color: black; border-radius: 10;" />
+
+        <!-- ====== BOTONES DE NAVEGACIÓN ====== -->
+        <Button layoutX="746.0" layoutY="910.0"
+                mnemonicParsing="false" onAction="#navegarALeccionAnterior"
+                opacity="0.9" prefHeight="47.0" prefWidth="242.0"
+                style="-fx-background-color: #080736;"
+                text="VOLVER" textFill="WHITE">
+            <font><Font name="System Bold" size="30.0" /></font>
+        </Button>
+
+        <Button layoutX="1038.0" layoutY="910.0"
+                mnemonicParsing="false" onAction="#navegarALeccionSiguiente"
+                opacity="0.9" prefHeight="47.0" prefWidth="242.0"
+                style="-fx-background-color: #080736;"
+                text="SIGUIENTE" textFill="WHITE">
+            <font><Font name="System Bold" size="30.0" /></font>
+        </Button>
+
+    </children>
 </Pane>

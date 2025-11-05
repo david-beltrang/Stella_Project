@@ -14,3 +14,4 @@ public record RegistrarUsuarioRequest(
         String contrasena, // Contraseña
         String tipo        // Tipo de usuario "ESTUDIANTE", "ADMIN"
 ) {}
+

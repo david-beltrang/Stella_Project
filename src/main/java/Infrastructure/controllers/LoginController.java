@@ -3,93 +3,135 @@ package Infrastructure.controllers;
 import Application.config.AppServices;
 import Application.dtos.acceso.LoginRequest;
 import Application.dtos.acceso.UsuarioResponse;
-import Application.services.DarAccesoService;
+import Application.services.DarAcceso.LoginService;
+import Infrastructure.ui.Navigacion;
+import Infrastructure.ui.AyudaUI;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+import java.util.function.Function;
+
+/**
+ * Controlador de la vista Login.fxml
+ * Maneja los eventos de inicio de sesión, recuperación de contraseña y navegación hacia otras pantallas.
+ */
 public class LoginController {
 
-    private final DarAccesoService service;
+    // ===== Dependencias de negocio =====
+    private final LoginService service;
 
-    // Requerido por FXMLLoader cuando hay fx:controller
-    public LoginController() {
-        this(AppServices.service());
+    // ===== Dependencias de interfaz =====
+    private final AyudaUI uiHelper = new AyudaUI();
+    private final Navigacion navigator = new Navigacion();
+
+    // ===== Factory global =====
+    private Function<Class<?>, Object> controllerFactory;
+
+    public void setControllerFactory(Function<Class<?>, Object> controllerFactory) {
+        this.controllerFactory = controllerFactory;
     }
 
-    // Opción con DI si usas setControllerFactory
-    public LoginController(DarAccesoService service) {
+    // ===== Constructores =====
+    public LoginController(LoginService service) {
         this.service = service;
     }
 
-    @FXML private TextField correoField;       // fx:id="correoField" en Login.fxml
-    @FXML private PasswordField passwordField; // fx:id="passwordField" en Login.fxml
+    public LoginController() {
+        this.service = AppServices.service();
+    }
 
+    // ===== FXML =====
+    @FXML private TextField correoField;
+    @FXML private PasswordField passwordField;
+    @FXML private Button backButton;
+    @FXML private Button forgotPasswordButton;
+
+    // ===== Evento principal =====
     @FXML
     private void onLoginClicked() {
         String correo = correoField.getText();
         String pass   = passwordField.getText();
 
-        if (correo == null || correo.isBlank()){
-            alert("Falta el correo");
+        if (correo == null || correo.isBlank()) {
+            uiHelper.showError("Error de validación", "Debe ingresar un correo.");
             return;
         }
         if (pass == null || pass.isBlank()) {
-            alert("Falta la contraseña");
+            uiHelper.showError("Error de validación", "Debe ingresar una contraseña.");
             return;
         }
 
         try {
-            if (service == null) {
-                throw new IllegalStateException(
-                        "Servicio no inicializado. Revisa AppServices.init(...) en el arranque."
-                );
+            // 1️⃣ Autenticación
+            UsuarioResponse usuario = service.login(new LoginRequest(correo, pass));
+
+            // 2️⃣ Guardar el usuario globalmente
+            AppServices.setUsuarioActual(usuario);
+
+            // 3️⃣ Cambiar directamente de pantalla (sin duplicar controlador)
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Principal.fxml"));
+            if (controllerFactory != null) {
+                loader.setControllerFactory(controllerFactory::apply);
             }
+            Scene scene = new Scene(loader.load());
+            Stage stage = (Stage) correoField.getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("STELLA - Principal");
+            stage.centerOnScreen();
 
-            // Autentica
-            UsuarioResponse u = service.login(new LoginRequest(correo, pass));
-
-            // (Opcional) si manejan sesión global:
-            // AppServices.setUsuarioActual(u);
-
-            // Navega a la pantalla principal
-            goTo("/views/Principal.fxml");
+            // 4️⃣ Mensaje personalizado
+            uiHelper.showInfo(
+                    "Bienvenido " + usuario.nombre(),
+                    "Has iniciado sesión correctamente. Tu ID es: " + usuario.id()
+            );
 
         } catch (IllegalArgumentException ex) {
-            alert("Error de login: " + ex.getMessage());
+            uiHelper.showError("Error de inicio de sesión", ex.getMessage());
         } catch (Exception ex) {
-            alert("Ups, ocurrió un error: " + ex.getMessage());
+            uiHelper.showError("Error inesperado", ex.getMessage());
+            ex.printStackTrace();
         }
     }
 
+    // ===== Otros eventos =====
     @FXML
     private void onBackClicked() {
-        goTo("/views/hello-view.fxml");
+        navigator.goTo("/views/hello-view.fxml", "STELLA", controllerFactory, backButton);
     }
 
     @FXML
     private void onForgotClicked() {
-        goTo("/views/RecuperarContra.fxml");
+        navigator.goTo("/views/RecuperarContra.fxml",
+                "STELLA - Recuperar contraseña", controllerFactory, forgotPasswordButton);
     }
 
-    /** Navegación básica: carga el FXML indicado y lo pone en la misma ventana */
-    private void goTo(String fxmlPath) {
-        try {
-            Parent next = FXMLLoader.load(getClass().getResource(fxmlPath));
-            Stage stage = (Stage) correoField.getScene().getWindow();
-            stage.setScene(new Scene(next, 1920, 1080)); // tamaño fijo si lo necesitas
-            stage.centerOnScreen();
-        } catch (Exception e) {
-            alert("No pude cargar " + fxmlPath + " : " + e.getMessage());
+    // ===== Recuperación =====
+    @FXML private TextField recoverEmailField;
+    @FXML private Label recoveryMessage;
+    @FXML private Button sendRecoveryButton;
+    @FXML private Button backToLoginButton;
+
+    @FXML
+    private void sendRecoveryEmail() {
+        String email = recoverEmailField.getText();
+
+        if (email == null || email.isBlank()) {
+            uiHelper.showInfo("Campo vacío", "Por favor, ingresa un correo electrónico.");
+            return;
         }
+
+        uiHelper.showInfo("Recuperación de contraseña",
+                "Si el correo está registrado, recibirás un enlace para restablecer tu contraseña.");
     }
 
-    private void alert(String msg) {
-        new Alert(Alert.AlertType.INFORMATION, msg).showAndWait();
+    @FXML
+    private void goBackToLogin() {
+        navigator.goTo("/views/Login.fxml", "STELLA - Login", controllerFactory, recoverEmailField);
     }
 }
