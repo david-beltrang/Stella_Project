@@ -1,143 +1,425 @@
-2025-10-25 22:19:58.307794-05:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "USUARIO" no encontrada
-Table "USUARIO" not found; SQL statement:
+2025-10-28 16:19:46.080584-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "\000d\000a\000d\000a-- TABLA: ""curso""\000d\000aCREATE TABLE ""curso"" (\000d\000a    id INT AUTO_INCREMENT PRIMARY KEY,\000d\000a    titulo VARCHAR(255) NOT NULL,\000d\000a    descripcion VARCHAR(2000),\000d\000a    nivel VARCHAR(50),\000d\000a    categoria VARCHAR(100),\000d\000a    duracion_minutos INT\000d\000a    [*]numero_secciones INT\000d\000a)"; se esperaba "ARRAY, INVISIBLE, VISIBLE, NOT NULL, DEFAULT, GENERATED, ON UPDATE, NOT NULL, DEFAULT ON NULL, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, CHECK, REFERENCES, ,, )"
+Syntax error in SQL statement "\000d\000a\000d\000a-- TABLA: ""curso""\000d\000aCREATE TABLE ""curso"" (\000d\000a    id INT AUTO_INCREMENT PRIMARY KEY,\000d\000a    titulo VARCHAR(255) NOT NULL,\000d\000a    descripcion VARCHAR(2000),\000d\000a    nivel VARCHAR(50),\000d\000a    categoria VARCHAR(100),\000d\000a    duracion_minutos INT\000d\000a    [*]numero_secciones INT\000d\000a)"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, DEFAULT, GENERATED, ON UPDATE, NOT NULL, DEFAULT ON NULL, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, CHECK, REFERENCES, ,, )"; SQL statement:
 
 
--- TABLA: "usuario_curso"
-CREATE TABLE usuario_curso (
-    usuario_id INT NOT NULL,
-    curso_id INT NOT NULL,
-    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (usuario_id, curso_id),
-    FOREIGN KEY (usuario_id) REFERENCES usuario(id),
-    FOREIGN KEY (cu [42102-232]
-2025-10-25 22:26:06.962091-05:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: La cantidad de columnas no coincide
-Column count does not match; SQL statement:
-INSERT INTO "curso" (titulo, descripcion, nivel, categoria, duracion_minutos, numero_secciones)
-VALUES
--- 4. LECCIONES DEL CURSO "C++ Básico"
--- ------------------------------------
-
---INSERT INTO "leccion" (id, curso_id, titulo, numero_seccion, numero_orden, tipo_contenido, contenido_html, solucion, prueba_id) VALUES -- <-- Usamos comillas dobles
-                                                                                                                                     (1, 1, 'Historia y uso de C++', 1, 1, 'TEORIA', 'C++ es un lenguaje de programación creado por Bjarne Stroustrup en 1979 en los laboratorios Bell. Originalmente se llamó "C con clases"... Características principales: Lenguaje compilado, Multiparadigma, Alto rendimiento... Ámbitos de uso: Sistemas operativos, Videojuegos, etc.', NULL, NULL),
-                                                                                                                                       (2, 1, 'Primeros pasos en C++', 1, 2, 'VIDEO', '{"titulo": "Introducción a C++ - Tu primer programa", "enlace": "https://www.youtube.com/watch?v=ej_FcRlqo4A"}', NULL, NULL),
-                                                                                                                                       (3, 1, 'Pregunta sobre el video', 1, 3, 'PREGUNTA', NULL, NULL, NULL), -- Pregunta en la lección 3
-                                                                                                                                       (4, 1, 'Sintaxis básica y estructura', 1, 4, 'TEORIA', 'La estructura básica de un programa C++ incluye: #include <iostream>, int main()...', NULL, NULL),
-                                                                                                                                       (5, 1, 'Ejercicio práctico', 1, 5, 'PRACTICA', 'Ejercicio: Crea un programa que muestre el mensaje "¡Hola Mundo! Bienvenido a C++" en la pantalla.', '#include <iostream>\nusing namespace std;\n\nint main() {\n\tcout << "¡Hola Mundo! Bienvenido a C++" << endl;\n\treturn 0;\n}', NULL) [21002-232]
-	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+-- TABLA: "curso"
+CREATE TABLE "curso" (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(255) NOT NULL,
+    descripcion VARCHAR(2000),
+    nivel VARCHAR(50),
+    categoria VARCHAR(100),
+    duracion_minutos INT
+    numero_secciones INT
+) [42001-232]
+2025-10-28 16:56:18.515704-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LECCION" not found (candidates are: "leccion"); SQL statement:
+SELECT id, seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido FROM leccion WHERE id = ? [42103-232]
+2025-10-28 16:56:18.569325-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LECCION" not found (candidates are: "leccion"); SQL statement:
+SELECT id, seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido FROM leccion WHERE id = ? [42103-232]
+2025-10-28 16:56:18.649399-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LECCION" not found (candidates are: "leccion"); SQL statement:
+SELECT id, seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido FROM leccion WHERE id = ? [42103-232]
+2025-10-28 16:56:18.712559-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LECCION" not found (candidates are: "leccion"); SQL statement:
+SELECT id, seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido FROM leccion WHERE id = ? [42103-232]
+2025-10-28 16:58:53.018438-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LECCION" not found (candidates are: "leccion"); SQL statement:
+SELECT id, seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido FROM leccion WHERE id = ? [42103-232]
+2025-10-28 16:58:53.106094-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LECCION" not found (candidates are: "leccion"); SQL statement:
+SELECT id, seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido FROM leccion WHERE id = ? [42103-232]
+2025-10-28 16:58:53.184982-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LECCION" not found (candidates are: "leccion"); SQL statement:
+SELECT id, seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido FROM leccion WHERE id = ? [42103-232]
+2025-10-28 16:58:53.261734-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LECCION" not found (candidates are: "leccion"); SQL statement:
+SELECT id, seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido FROM leccion WHERE id = ? [42103-232]
+2025-10-28 17:01:30.249789-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LECCION" not found (candidates are: "leccion"); SQL statement:
+SELECT id, seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido FROM leccion WHERE id = ? [42103-232]
+2025-10-28 17:01:30.339776-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LECCION" not found (candidates are: "leccion"); SQL statement:
+SELECT id, seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido FROM leccion WHERE id = ? [42103-232]
+2025-10-28 17:01:30.415194-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LECCION" not found (candidates are: "leccion"); SQL statement:
+SELECT id, seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido FROM leccion WHERE id = ? [42103-232]
+2025-10-28 17:01:30.487156-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LECCION" not found (candidates are: "leccion"); SQL statement:
+SELECT id, seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido FROM leccion WHERE id = ? [42103-232]
+2025-10-28 17:17:46.141354-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LECCION" not found (candidates are: "leccion"); SQL statement:
+SELECT id, seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido
+FROM leccion
+WHERE seccion_id = ? AND numero_orden = ?
+ [42103-232]
+2025-10-28 17:17:46.230416-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LECCION" not found (candidates are: "leccion"); SQL statement:
+SELECT id, seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido
+FROM leccion
+WHERE seccion_id = ? AND numero_orden = ?
+ [42103-232]
+2025-10-28 17:17:46.305945-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LECCION" not found (candidates are: "leccion"); SQL statement:
+SELECT id, seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido
+FROM leccion
+WHERE seccion_id = ? AND numero_orden = ?
+ [42103-232]
+2025-10-28 17:17:46.376879-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LECCION" not found (candidates are: "leccion"); SQL statement:
+SELECT id, seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido
+FROM leccion
+WHERE seccion_id = ? AND numero_orden = ?
+ [42103-232]
+2025-10-28 17:19:30.084757-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LECCION" not found (candidates are: "leccion"); SQL statement:
+SELECT id, seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido
+FROM leccion
+WHERE seccion_id = ? AND numero_orden = ?
+ [42103-232]
+2025-10-28 17:19:30.136133-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LECCION" not found (candidates are: "leccion"); SQL statement:
+SELECT id, seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido
+FROM leccion
+WHERE seccion_id = ? AND numero_orden = ?
+ [42103-232]
+2025-10-28 17:19:30.221168-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LECCION" not found (candidates are: "leccion"); SQL statement:
+SELECT id, seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido
+FROM leccion
+WHERE seccion_id = ? AND numero_orden = ?
+ [42103-232]
+2025-10-28 17:19:30.298263-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LECCION" not found (candidates are: "leccion"); SQL statement:
+SELECT id, seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido
+FROM leccion
+WHERE seccion_id = ? AND numero_orden = ?
+ [42103-232]
+2025-10-28 17:27:56.916077-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LECCION" not found (candidates are: "leccion"); SQL statement:
+SELECT id, seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido
+FROM leccion
+WHERE seccion_id = ? AND numero_orden = ?
+ [42103-232]
+2025-10-28 17:27:57.040975-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LECCION" not found (candidates are: "leccion"); SQL statement:
+SELECT id, seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido
+FROM leccion
+WHERE seccion_id = ? AND numero_orden = ?
+ [42103-232]
+2025-10-28 17:27:57.135518-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LECCION" not found (candidates are: "leccion"); SQL statement:
+SELECT id, seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido
+FROM leccion
+WHERE seccion_id = ? AND numero_orden = ?
+ [42103-232]
+2025-10-28 17:27:57.229742-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LECCION" not found (candidates are: "leccion"); SQL statement:
+SELECT id, seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido
+FROM leccion
+WHERE seccion_id = ? AND numero_orden = ?
+ [42103-232]
+2025-10-28 17:39:09.689489-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LECCION" not found (candidates are: "leccion"); SQL statement:
+SELECT id, seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido
+FROM leccion
+WHERE seccion_id = ? AND numero_orden = ?
+ [42103-232]
+2025-10-28 17:39:09.777681-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LECCION" not found (candidates are: "leccion"); SQL statement:
+SELECT id, seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido
+FROM leccion
+WHERE seccion_id = ? AND numero_orden = ?
+ [42103-232]
+2025-10-28 17:39:09.854773-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LECCION" not found (candidates are: "leccion"); SQL statement:
+SELECT id, seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido
+FROM leccion
+WHERE seccion_id = ? AND numero_orden = ?
+ [42103-232]
+2025-10-28 17:39:09.924972-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LECCION" not found (candidates are: "leccion"); SQL statement:
+SELECT id, seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido
+FROM leccion
+WHERE seccion_id = ? AND numero_orden = ?
+ [42103-232]
+2025-10-28 17:39:09.995196-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LECCION" not found (candidates are: "leccion"); SQL statement:
+SELECT id, seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido
+FROM leccion
+WHERE seccion_id = ? AND numero_orden = ?
+ [42103-232]
+2025-10-28 17:39:10.057468-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LECCION" not found (candidates are: "leccion"); SQL statement:
+SELECT id, seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido
+FROM leccion
+WHERE seccion_id = ? AND numero_orden = ?
+ [42103-232]
+2025-10-28 17:56:55.481824-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LECCION" not found (candidates are: "leccion"); SQL statement:
+SELECT id, seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido
+            FROM leccion
+            WHERE seccion_id = ? AND numero_orden = ? [42103-232]
+2025-10-28 17:57:18.455751-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Parametro "#1" no está fijado
+Parameter "#1" is not set; SQL statement:
+SELECT id, seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido
+            FROM "leccion"
+            WHERE seccion_id = ? AND numero_orden = ? [90012-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:658)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
 	at org.h2.message.DbException.get(DbException.java:223)
 	at org.h2.message.DbException.get(DbException.java:199)
-	at org.h2.message.DbException.get(DbException.java:188)
-	at org.h2.command.dml.Insert.doPrepare(Insert.java:294)
-	at org.h2.command.dml.DataChangeStatement.prepare(DataChangeStatement.java:37)
-	at org.h2.command.Parser.prepareCommand(Parser.java:489)
-	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
-	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
-	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
-	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.expression.Parameter.checkSet(Parameter.java:97)
+	at org.h2.command.Prepared.checkParameters(Prepared.java:201)
+	at org.h2.command.CommandContainer.query(CommandContainer.java:221)
+	at org.h2.command.Command.executeQuery(Command.java:196)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:257)
 	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
-	at org.h2.tools.RunScript.execute(RunScript.java:169)
-	at Infrastructure.persistence.H2DataBaseInitializer.initialize(H2DataBaseInitializer.java:47)
-	at Infrastructure.test_temporal.ListarCursosServiceTest.main(ListarCursosServiceTest.java:21)
-2025-10-25 22:29:59.772689-05:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Imposible eliminar "curso" debido a que "CONSTRAINT_4C77" depende de él.
-Cannot drop "curso" because "CONSTRAINT_4C77" depends on it; SQL statement:
-
-DROP TABLE IF EXISTS "curs [90107-232]
-	at org.h2.message.DbException.getJdbcSQLException(DbException.java:644)
-	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
-	at org.h2.message.DbException.get(DbException.java:223)
-	at org.h2.command.ddl.DropTable.prepareDrop(DropTable.java:108)
-	at org.h2.command.ddl.DropTable.update(DropTable.java:133)
-	at org.h2.command.CommandContainer.update(CommandContainer.java:139)
-	at org.h2.command.Command.executeUpdate(Command.java:304)
-	at org.h2.command.Command.executeUpdate(Command.java:248)
-	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:262)
-	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
-	at org.h2.tools.RunScript.execute(RunScript.java:169)
-	at Infrastructure.persistence.H2DataBaseInitializer.initialize(H2DataBaseInitializer.java:47)
-	at Infrastructure.test_temporal.ListarCursosServiceTest.main(ListarCursosServiceTest.java:21)
-2025-10-25 22:31:53.868034-05:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CURSO" not found (candidates are: "curso"); SQL statement:
-SELECT id, titulo, descripcion, nivel, categoria, duracion_minutos FROM curso WHERE id NOT IN (SELECT curso_id FROM usuario_curso WHERE usuario_id = ?) [42103-232]
-2025-10-25 22:35:46.731408-05:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Columna "numero_secciones" no encontrada
-Column "numero_secciones" not found [42122-232]
-	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1108)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1095)
+	at org.h2.server.web.WebThread.process(WebThread.java:190)
+	at org.h2.server.web.WebThread.run(WebThread.java:103)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+2025-10-28 19:21:08.974099-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Parametro "#1" no está fijado
+Parameter "#1" is not set; SQL statement:
+SELECT id, seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido
+            FROM "leccion"
+            WHERE seccion_id = ? AND numero_orden = ? [90012-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:658)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
 	at org.h2.message.DbException.get(DbException.java:223)
 	at org.h2.message.DbException.get(DbException.java:199)
-	at org.h2.jdbc.JdbcResultSet.getColumnIndex(JdbcResultSet.java:3492)
-	at org.h2.jdbc.JdbcResultSet.getInt(JdbcResultSet.java:337)
-	at Infrastructure.repositories.CursoRepository.obtenerCurso(CursoRepository.java:105)
-	at Infrastructure.repositories.CursoRepository.encontrarCursosNoCursadosPorUsuarioId(CursoRepository.java:86)
-	at Application.services.ListarCursosService.obtenerCursosCompletos(ListarCursosService.java:46)
-	at Infrastructure.test_temporal.ListarCursosServiceTest.main(ListarCursosServiceTest.java:33)
-2025-10-25 22:46:58.394864-05:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CURSO" not found (candidates are: "curso"); SQL statement:
-SELECT * FROM curso [42103-232]
-2025-10-25 22:47:30.694839-05:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla  no encontrada
-Table  not found; SQL statement:
-SELECT * FROM ""curso"" [42102-232]
-2025-10-25 22:47:54.039960-05:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "select * from [*]\\""curso\\"""
-Syntax error in SQL statement "select * from [*]\\""curso\\"""; SQL statement:
-select * from \"curso\" [42000-232]
-2025-10-25 22:48:08.059766-05:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT * FROM [*]\\""curso\\"""
-Syntax error in SQL statement "SELECT * FROM [*]\\""curso\\"""; SQL statement:
-SELECT * FROM \"curso\" [42000-232]
-2025-10-25 22:49:01.587902-05:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CURSO" not found (candidates are: "curso"); SQL statement:
-SELECT * FROM CURSO [42103-232]
-2025-10-25 22:52:32.087110-05:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CURSO" not found (candidates are: "curso"); SQL statement:
-SELECT * FROM curso [42103-232]
-2025-10-27 12:45:10.626768-05:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SECCION" not found (candidates are: "seccion"); SQL statement:
-SELECT * FROM seccion WHERE curso_id = 1 [42103-232]
-2025-10-27 12:45:21.509802-05:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SECCION" not found (candidates are: "seccion"); SQL statement:
-SELECT * FROM seccion WHERE curso_id = 1 [42103-232]
-2025-10-30 12:08:22.681642-05:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "\000d\000a\000d\000a-- TABLA: ""pregunta""\000d\000aCREATE TABLE ""pregunta"" (\000d\000a    id INT PRIMARY KEY,\000d\000a    enunciado VARCHAR(500) NOT NULL,\000d\000a    prueba_id INT NOT NULL,\000d\000a    FOREIGN KEY (leccion_id) REFERENCES ""leccion""(id) ON DELETE CASCADE,\000d\000a    FOREIGN KEY (prueba_id) REFERENCES ""prueba""(id) ON DELETE CASCADE,\000d\000a[*])"; se esperaba "identifier"
-Syntax error in SQL statement "\000d\000a\000d\000a-- TABLA: ""pregunta""\000d\000aCREATE TABLE ""pregunta"" (\000d\000a    id INT PRIMARY KEY,\000d\000a    enunciado VARCHAR(500) NOT NULL,\000d\000a    prueba_id INT NOT NULL,\000d\000a    FOREIGN KEY (leccion_id) REFERENCES ""leccion""(id) ON DELETE CASCADE,\000d\000a    FOREIGN KEY (prueba_id) REFERENCES ""prueba""(id) ON DELETE CASCADE,\000d\000a[*])"; expected "identifier"; SQL statement:
+	at org.h2.expression.Parameter.checkSet(Parameter.java:97)
+	at org.h2.command.Prepared.checkParameters(Prepared.java:201)
+	at org.h2.command.CommandContainer.query(CommandContainer.java:221)
+	at org.h2.command.Command.executeQuery(Command.java:196)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:257)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1108)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1095)
+	at org.h2.server.web.WebThread.process(WebThread.java:190)
+	at org.h2.server.web.WebThread.run(WebThread.java:103)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+2025-10-28 19:22:51.975641-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT s.id, s.titulo, s.numero_orden, l.id AS leccion_id, l.seccion_id, l.titulo AS leccion_titulo, "" +\000d\000a                ""l.numero_orden AS leccion_numero_orden, l.tipo_contenido, l.url_video, l.contenido "" +\000d\000a                ""FROM [*]\\""seccion\\"" s "" +\000d\000a                ""LEFT JOIN \\""leccion\\"" l ON s.id = l.seccion_id "" +\000d\000a                ""WHERE s.curso_id = 1 "" +\000d\000a                ""ORDER BY s.numero_orden, l.numero_orden"
+Syntax error in SQL statement "SELECT s.id, s.titulo, s.numero_orden, l.id AS leccion_id, l.seccion_id, l.titulo AS leccion_titulo, "" +\000d\000a                ""l.numero_orden AS leccion_numero_orden, l.tipo_contenido, l.url_video, l.contenido "" +\000d\000a                ""FROM [*]\\""seccion\\"" s "" +\000d\000a                ""LEFT JOIN \\""leccion\\"" l ON s.id = l.seccion_id "" +\000d\000a                ""WHERE s.curso_id = 1 "" +\000d\000a                ""ORDER BY s.numero_orden, l.numero_orden"; SQL statement:
+SELECT s.id, s.titulo, s.numero_orden, l.id AS leccion_id, l.seccion_id, l.titulo AS leccion_titulo, " +
+                "l.numero_orden AS leccion_numero_orden, l.tipo_contenido, l.url_video, l.contenido " +
+                "FROM \"seccion\" s " +
+                "LEFT JOIN \"leccion\" l ON s.id = l.seccion_id " +
+                "WHERE s.curso_id = 1 " +
+                "ORDER BY s.numero_orden, l.numero_orden [42000-232]
+2025-10-28 19:24:00.139872-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT s.id, s.titulo, s.numero_orden, l.id AS leccion_id, l.seccion_id, l.titulo AS leccion_titulo, "" +\000d\000a                ""l.numero_orden AS leccion_numero_orden, l.tipo_contenido, l.url_video, l.contenido "" +\000d\000a                FROM ""seccion""\000d\000a                LEFT JOIN \\""leccion[*]\\"" l ON s.id = l.seccion_id "" +\000d\000a                WHERE s.curso_id = 1 "" +\000d\000a                ORDER BY s.numero_orden, l.numero_orden"
+Syntax error in SQL statement "SELECT s.id, s.titulo, s.numero_orden, l.id AS leccion_id, l.seccion_id, l.titulo AS leccion_titulo, "" +\000d\000a                ""l.numero_orden AS leccion_numero_orden, l.tipo_contenido, l.url_video, l.contenido "" +\000d\000a                FROM ""seccion""\000d\000a                LEFT JOIN \\""leccion[*]\\"" l ON s.id = l.seccion_id "" +\000d\000a                WHERE s.curso_id = 1 "" +\000d\000a                ORDER BY s.numero_orden, l.numero_orden"; SQL statement:
+SELECT s.id, s.titulo, s.numero_orden, l.id AS leccion_id, l.seccion_id, l.titulo AS leccion_titulo, " +
+                "l.numero_orden AS leccion_numero_orden, l.tipo_contenido, l.url_video, l.contenido " +
+                FROM "seccion"
+                LEFT JOIN \"leccion\" l ON s.id = l.seccion_id " +
+                WHERE s.curso_id = 1 " +
+                ORDER BY s.numero_orden, l.numero_orden [42000-232]
+2025-10-28 19:24:29.144913-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT s.id, s.titulo, s.numero_orden, l.id AS leccion_id, l.seccion_id, l.titulo AS leccion_titulo, "" +\000d\000a                ""l.numero_orden AS leccion_numero_orden, l.tipo_contenido, l.url_video, l.contenido "" +\000d\000a                FROM ""seccion""\000d\000a                LEFT JOIN ""leccion[*]"" ON s.id = l.seccion_id +\000d\000a                WHERE s.curso_id = 1 +\000d\000a                ORDER BY s.numero_orden, l.numero_orden"
+Syntax error in SQL statement "SELECT s.id, s.titulo, s.numero_orden, l.id AS leccion_id, l.seccion_id, l.titulo AS leccion_titulo, "" +\000d\000a                ""l.numero_orden AS leccion_numero_orden, l.tipo_contenido, l.url_video, l.contenido "" +\000d\000a                FROM ""seccion""\000d\000a                LEFT JOIN ""leccion[*]"" ON s.id = l.seccion_id +\000d\000a                WHERE s.curso_id = 1 +\000d\000a                ORDER BY s.numero_orden, l.numero_orden"; SQL statement:
+SELECT s.id, s.titulo, s.numero_orden, l.id AS leccion_id, l.seccion_id, l.titulo AS leccion_titulo, " +
+                "l.numero_orden AS leccion_numero_orden, l.tipo_contenido, l.url_video, l.contenido " +
+                FROM "seccion"
+                LEFT JOIN "leccion" ON s.id = l.seccion_id +
+                WHERE s.curso_id = 1 +
+                ORDER BY s.numero_orden, l.numero_orden [42000-232]
+2025-10-28 19:25:05.567985-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL """SELECT s.id, s.titulo, s.numero_orden, l.id AS leccion_id, l.seccion_id, l.titulo AS leccion_titulo, "" +\000d\000a                ""l.numero_orden AS leccion_numero_orden, l.tipo_contenido, l.url_video, l.contenido "" +\000d\000a                ""FROM \\""seccion[*]\\"" s "" +\000d\000a                ""LEFT JOIN \\""leccion\\"" l ON s.id = l.seccion_id "" +\000d\000a                ""WHERE s.curso_id = 2 "" +\000d\000a                ""ORDER BY s.numero_orden, l.numero_orden"""
+Syntax error in SQL statement """SELECT s.id, s.titulo, s.numero_orden, l.id AS leccion_id, l.seccion_id, l.titulo AS leccion_titulo, "" +\000d\000a                ""l.numero_orden AS leccion_numero_orden, l.tipo_contenido, l.url_video, l.contenido "" +\000d\000a                ""FROM \\""seccion[*]\\"" s "" +\000d\000a                ""LEFT JOIN \\""leccion\\"" l ON s.id = l.seccion_id "" +\000d\000a                ""WHERE s.curso_id = 2 "" +\000d\000a                ""ORDER BY s.numero_orden, l.numero_orden"""; SQL statement:
+"SELECT s.id, s.titulo, s.numero_orden, l.id AS leccion_id, l.seccion_id, l.titulo AS leccion_titulo, " +
+                "l.numero_orden AS leccion_numero_orden, l.tipo_contenido, l.url_video, l.contenido " +
+                "FROM \"seccion\" s " +
+                "LEFT JOIN \"leccion\" l ON s.id = l.seccion_id " +
+                "WHERE s.curso_id = 2 " +
+                "ORDER BY s.numero_orden, l.numero_orden" [42000-232]
+2025-10-28 19:25:11.929017-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL """SELECT s.id, s.titulo, s.numero_orden, l.id AS leccion_id, l.seccion_id, l.titulo AS leccion_titulo, "" +\000d\000a                ""l.numero_orden AS leccion_numero_orden, l.tipo_contenido, l.url_video, l.contenido "" +\000d\000a                ""FROM \\""seccion[*]\\"" s "" +\000d\000a                ""LEFT JOIN \\""leccion\\"" l ON s.id = l.seccion_id "" +\000d\000a                ""WHERE s.curso_id = 2 "" +\000d\000a                ""ORDER BY s.numero_orden, l.numero_orden"""
+Syntax error in SQL statement """SELECT s.id, s.titulo, s.numero_orden, l.id AS leccion_id, l.seccion_id, l.titulo AS leccion_titulo, "" +\000d\000a                ""l.numero_orden AS leccion_numero_orden, l.tipo_contenido, l.url_video, l.contenido "" +\000d\000a                ""FROM \\""seccion[*]\\"" s "" +\000d\000a                ""LEFT JOIN \\""leccion\\"" l ON s.id = l.seccion_id "" +\000d\000a                ""WHERE s.curso_id = 2 "" +\000d\000a                ""ORDER BY s.numero_orden, l.numero_orden"""; SQL statement:
+"SELECT s.id, s.titulo, s.numero_orden, l.id AS leccion_id, l.seccion_id, l.titulo AS leccion_titulo, " +
+                "l.numero_orden AS leccion_numero_orden, l.tipo_contenido, l.url_video, l.contenido " +
+                "FROM \"seccion\" s " +
+                "LEFT JOIN \"leccion\" l ON s.id = l.seccion_id " +
+                "WHERE s.curso_id = 2 " +
+                "ORDER BY s.numero_orden, l.numero_orden" [42000-232]
+2025-10-28 19:25:12.610274-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL """SELECT s.id, s.titulo, s.numero_orden, l.id AS leccion_id, l.seccion_id, l.titulo AS leccion_titulo, "" +\000d\000a                ""l.numero_orden AS leccion_numero_orden, l.tipo_contenido, l.url_video, l.contenido "" +\000d\000a                ""FROM \\""seccion[*]\\"" s "" +\000d\000a                ""LEFT JOIN \\""leccion\\"" l ON s.id = l.seccion_id "" +\000d\000a                ""WHERE s.curso_id = 2 "" +\000d\000a                ""ORDER BY s.numero_orden, l.numero_orden"""
+Syntax error in SQL statement """SELECT s.id, s.titulo, s.numero_orden, l.id AS leccion_id, l.seccion_id, l.titulo AS leccion_titulo, "" +\000d\000a                ""l.numero_orden AS leccion_numero_orden, l.tipo_contenido, l.url_video, l.contenido "" +\000d\000a                ""FROM \\""seccion[*]\\"" s "" +\000d\000a                ""LEFT JOIN \\""leccion\\"" l ON s.id = l.seccion_id "" +\000d\000a                ""WHERE s.curso_id = 2 "" +\000d\000a                ""ORDER BY s.numero_orden, l.numero_orden"""; SQL statement:
+"SELECT s.id, s.titulo, s.numero_orden, l.id AS leccion_id, l.seccion_id, l.titulo AS leccion_titulo, " +
+                "l.numero_orden AS leccion_numero_orden, l.tipo_contenido, l.url_video, l.contenido " +
+                "FROM \"seccion\" s " +
+                "LEFT JOIN \"leccion\" l ON s.id = l.seccion_id " +
+                "WHERE s.curso_id = 2 " +
+                "ORDER BY s.numero_orden, l.numero_orden" [42000-232]
+2025-10-28 19:25:13.504992-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL """SELECT s.id, s.titulo, s.numero_orden, l.id AS leccion_id, l.seccion_id, l.titulo AS leccion_titulo, "" +\000d\000a                ""l.numero_orden AS leccion_numero_orden, l.tipo_contenido, l.url_video, l.contenido "" +\000d\000a                ""FROM \\""seccion[*]\\"" s "" +\000d\000a                ""LEFT JOIN \\""leccion\\"" l ON s.id = l.seccion_id "" +\000d\000a                ""WHERE s.curso_id = 2 "" +\000d\000a                ""ORDER BY s.numero_orden, l.numero_orden"""
+Syntax error in SQL statement """SELECT s.id, s.titulo, s.numero_orden, l.id AS leccion_id, l.seccion_id, l.titulo AS leccion_titulo, "" +\000d\000a                ""l.numero_orden AS leccion_numero_orden, l.tipo_contenido, l.url_video, l.contenido "" +\000d\000a                ""FROM \\""seccion[*]\\"" s "" +\000d\000a                ""LEFT JOIN \\""leccion\\"" l ON s.id = l.seccion_id "" +\000d\000a                ""WHERE s.curso_id = 2 "" +\000d\000a                ""ORDER BY s.numero_orden, l.numero_orden"""; SQL statement:
+"SELECT s.id, s.titulo, s.numero_orden, l.id AS leccion_id, l.seccion_id, l.titulo AS leccion_titulo, " +
+                "l.numero_orden AS leccion_numero_orden, l.tipo_contenido, l.url_video, l.contenido " +
+                "FROM \"seccion\" s " +
+                "LEFT JOIN \"leccion\" l ON s.id = l.seccion_id " +
+                "WHERE s.curso_id = 2 " +
+                "ORDER BY s.numero_orden, l.numero_orden" [42000-232]
+2025-10-28 19:25:37.420550-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "[*]""SELECT s.id, s.titulo, s.numero_orden, l.id AS leccion_id, l.seccion_id, l.titulo AS leccion_titulo, "" +\000d\000a                ""l.numero_orden AS leccion_numero_orden, l.tipo_contenido, l.url_video, l.contenido "" +\000d\000a                ""FROM ""seccion"" s "" +\000d\000a                ""LEFT JOIN ""leccion"" l ON s.id = l.seccion_id "" +\000d\000a                ""WHERE s.curso_id = 2 "" +\000d\000a                ""ORDER BY s.numero_orden, l.numero_orden"""
+Syntax error in SQL statement "[*]""SELECT s.id, s.titulo, s.numero_orden, l.id AS leccion_id, l.seccion_id, l.titulo AS leccion_titulo, "" +\000d\000a                ""l.numero_orden AS leccion_numero_orden, l.tipo_contenido, l.url_video, l.contenido "" +\000d\000a                ""FROM ""seccion"" s "" +\000d\000a                ""LEFT JOIN ""leccion"" l ON s.id = l.seccion_id "" +\000d\000a                ""WHERE s.curso_id = 2 "" +\000d\000a                ""ORDER BY s.numero_orden, l.numero_orden"""; SQL statement:
+"SELECT s.id, s.titulo, s.numero_orden, l.id AS leccion_id, l.seccion_id, l.titulo AS leccion_titulo, " +
+                "l.numero_orden AS leccion_numero_orden, l.tipo_contenido, l.url_video, l.contenido " +
+                "FROM "seccion" s " +
+                "LEFT JOIN "leccion" l ON s.id = l.seccion_id " +
+                "WHERE s.curso_id = 2 " +
+                "ORDER BY s.numero_orden, l.numero_orden" [42000-232]
+2025-10-28 19:27:02.226444-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT s.id, s.titulo, s.numero_orden, l.id AS leccion_id, l.seccion_id, l.titulo AS leccion_titulo, \000d\000a                l.numero_orden AS leccion_numero_orden, l.tipo_contenido, l.url_video, l.contenido \000d\000a                FROM ""seccion"" s \000d\000a                LEFT JOIN ""leccion"" l ON s.id = l.seccion_id \000d\000a                WHERE s.curso_id = 2 [*]""\000d\000a                ORDER BY s.numero_orden, l.numero_orden;"
+Syntax error in SQL statement "SELECT s.id, s.titulo, s.numero_orden, l.id AS leccion_id, l.seccion_id, l.titulo AS leccion_titulo, \000d\000a                l.numero_orden AS leccion_numero_orden, l.tipo_contenido, l.url_video, l.contenido \000d\000a                FROM ""seccion"" s \000d\000a                LEFT JOIN ""leccion"" l ON s.id = l.seccion_id \000d\000a                WHERE s.curso_id = 2 [*]""\000d\000a                ORDER BY s.numero_orden, l.numero_orden;"; SQL statement:
+SELECT s.id, s.titulo, s.numero_orden, l.id AS leccion_id, l.seccion_id, l.titulo AS leccion_titulo, 
+                l.numero_orden AS leccion_numero_orden, l.tipo_contenido, l.url_video, l.contenido 
+                FROM "seccion" s 
+                LEFT JOIN "leccion" l ON s.id = l.seccion_id 
+                WHERE s.curso_id = 2 "
+                ORDER BY s.numero_orden, l.numero_orden; [42000-232]
+2025-10-28 19:27:28.783116-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Parametro "#1" no está fijado
+Parameter "#1" is not set; SQL statement:
+SELECT id, seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido
+            FROM "leccion"
+            WHERE seccion_id = ? AND numero_orden = ? [90012-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:658)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.expression.Parameter.checkSet(Parameter.java:97)
+	at org.h2.command.Prepared.checkParameters(Prepared.java:201)
+	at org.h2.command.CommandContainer.query(CommandContainer.java:221)
+	at org.h2.command.Command.executeQuery(Command.java:196)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:257)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1108)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1095)
+	at org.h2.server.web.WebThread.process(WebThread.java:190)
+	at org.h2.server.web.WebThread.run(WebThread.java:103)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+2025-10-28 19:33:41.533851-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Parametro "#1" no está fijado
+Parameter "#1" is not set; SQL statement:
+SELECT l.id, l.seccion_id, l.titulo, l.numero_orden, l.tipo_contenido, l.url_video, l.contenido
+            FROM "leccion" l
+            INNER JOIN "seccion" s ON l.seccion_id = s.id
+            WHERE s.curso_id = ?
+              AND s.numero_orden = ?
+              AND l.numero_orden = ? [90012-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:658)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.expression.Parameter.checkSet(Parameter.java:97)
+	at org.h2.command.Prepared.checkParameters(Prepared.java:201)
+	at org.h2.command.CommandContainer.query(CommandContainer.java:221)
+	at org.h2.command.Command.executeQuery(Command.java:196)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:257)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1108)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1095)
+	at org.h2.server.web.WebThread.process(WebThread.java:190)
+	at org.h2.server.web.WebThread.run(WebThread.java:103)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+2025-10-28 19:42:27.787326-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LECCION" not found (candidates are: "leccion"); SQL statement:
 
+    SELECT 
+        l.id, 
+        l.seccion_id, 
+        l.titulo, 
+        l.numero_orden, 
+        UPPER(l.tipo_contenido) AS tipo_contenido,  -- FORZAR MAYÚSCULAS
+        l.url_video, 
+        l.contenido
+    FROM leccion l
+    INNER JOIN seccion s ON l.seccion_id = s.id
+    WHERE s.curso_id = ?
+      AND s.numero_orden = ?
+      AND l.numero_orden = ?
+ [42103-232]
+2025-10-28 19:42:27.842584-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LECCION" not found (candidates are: "leccion"); SQL statement:
 
--- TABLA: "pregunta"
-CREATE TABLE "pregunta" (
-    id INT PRIMARY KEY,
-    enunciado VARCHAR(500) NOT NULL,
-    prueba_id INT NOT NULL,
-    FOREIGN KEY (leccion_id) REFERENCES "leccion"(id) ON DELETE CASCADE,
-    FOREIGN KEY (prueba_id) REFERENCES "prueba"(id) ON DELETE CASCADE,
-) [42001-232]
-2025-11-03 17:04:00.050757-05:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "\000d\000a\000d\000a-- TABLA: ""pregunta""\000d\000aCREATE TABLE ""pregunta"" (\000d\000a    id INT PRIMARY KEY,\000d\000a    enunciado VARCHAR(500) NOT NULL,\000d\000a    prueba_id INT NOT NULL,\000d\000a    FOREIGN KEY (leccion_id) REFERENCES ""leccion""(id) ON DELETE CASCADE,\000d\000a    FOREIGN KEY (prueba_id) REFERENCES ""prueba""(id) ON DELETE CASCADE,\000d\000a[*])"; se esperaba "identifier"
-Syntax error in SQL statement "\000d\000a\000d\000a-- TABLA: ""pregunta""\000d\000aCREATE TABLE ""pregunta"" (\000d\000a    id INT PRIMARY KEY,\000d\000a    enunciado VARCHAR(500) NOT NULL,\000d\000a    prueba_id INT NOT NULL,\000d\000a    FOREIGN KEY (leccion_id) REFERENCES ""leccion""(id) ON DELETE CASCADE,\000d\000a    FOREIGN KEY (prueba_id) REFERENCES ""prueba""(id) ON DELETE CASCADE,\000d\000a[*])"; expected "identifier"; SQL statement:
+    SELECT 
+        l.id, 
+        l.seccion_id, 
+        l.titulo, 
+        l.numero_orden, 
+        UPPER(l.tipo_contenido) AS tipo_contenido,  -- FORZAR MAYÚSCULAS
+        l.url_video, 
+        l.contenido
+    FROM leccion l
+    INNER JOIN seccion s ON l.seccion_id = s.id
+    WHERE s.curso_id = ?
+      AND s.numero_orden = ?
+      AND l.numero_orden = ?
+ [42103-232]
+2025-10-28 19:42:27.892260-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LECCION" not found (candidates are: "leccion"); SQL statement:
 
+    SELECT 
+        l.id, 
+        l.seccion_id, 
+        l.titulo, 
+        l.numero_orden, 
+        UPPER(l.tipo_contenido) AS tipo_contenido,  -- FORZAR MAYÚSCULAS
+        l.url_video, 
+        l.contenido
+    FROM leccion l
+    INNER JOIN seccion s ON l.seccion_id = s.id
+    WHERE s.curso_id = ?
+      AND s.numero_orden = ?
+      AND l.numero_orden = ?
+ [42103-232]
+2025-10-28 19:42:27.937897-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LECCION" not found (candidates are: "leccion"); SQL statement:
 
--- TABLA: "pregunta"
-CREATE TABLE "pregunta" (
-    id INT PRIMARY KEY,
-    enunciado VARCHAR(500) NOT NULL,
-    prueba_id INT NOT NULL,
-    FOREIGN KEY (leccion_id) REFERENCES "leccion"(id) ON DELETE CASCADE,
-    FOREIGN KEY (prueba_id) REFERENCES "prueba"(id) ON DELETE CASCADE,
-) [42001-232]
-2025-11-03 17:04:33.095634-05:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "\000d\000a\000d\000a-- TABLA: ""pregunta""\000d\000aCREATE TABLE ""pregunta"" (\000d\000a    id INT PRIMARY KEY,\000d\000a    enunciado VARCHAR(500) NOT NULL,\000d\000a    prueba_id INT NOT NULL,\000d\000a    FOREIGN KEY (leccion_id) REFERENCES ""leccion""(id) ON DELETE CASCADE,\000d\000a    FOREIGN KEY (prueba_id) REFERENCES ""prueba""(id) ON DELETE CASCADE,\000d\000a[*])"; se esperaba "identifier"
-Syntax error in SQL statement "\000d\000a\000d\000a-- TABLA: ""pregunta""\000d\000aCREATE TABLE ""pregunta"" (\000d\000a    id INT PRIMARY KEY,\000d\000a    enunciado VARCHAR(500) NOT NULL,\000d\000a    prueba_id INT NOT NULL,\000d\000a    FOREIGN KEY (leccion_id) REFERENCES ""leccion""(id) ON DELETE CASCADE,\000d\000a    FOREIGN KEY (prueba_id) REFERENCES ""prueba""(id) ON DELETE CASCADE,\000d\000a[*])"; expected "identifier"; SQL statement:
+    SELECT 
+        l.id, 
+        l.seccion_id, 
+        l.titulo, 
+        l.numero_orden, 
+        UPPER(l.tipo_contenido) AS tipo_contenido,  -- FORZAR MAYÚSCULAS
+        l.url_video, 
+        l.contenido
+    FROM leccion l
+    INNER JOIN seccion s ON l.seccion_id = s.id
+    WHERE s.curso_id = ?
+      AND s.numero_orden = ?
+      AND l.numero_orden = ?
+ [42103-232]
+2025-10-28 19:42:27.982582-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LECCION" not found (candidates are: "leccion"); SQL statement:
 
-
--- TABLA: "pregunta"
-CREATE TABLE "pregunta" (
-    id INT PRIMARY KEY,
-    enunciado VARCHAR(500) NOT NULL,
-    prueba_id INT NOT NULL,
-    FOREIGN KEY (leccion_id) REFERENCES "leccion"(id) ON DELETE CASCADE,
-    FOREIGN KEY (prueba_id) REFERENCES "prueba"(id) ON DELETE CASCADE,
-) [42001-232]
+    SELECT 
+        l.id, 
+        l.seccion_id, 
+        l.titulo, 
+        l.numero_orden, 
+        UPPER(l.tipo_contenido) AS tipo_contenido,  -- FORZAR MAYÚSCULAS
+        l.url_video, 
+        l.contenido
+    FROM leccion l
+    INNER JOIN seccion s ON l.seccion_id = s.id
+    WHERE s.curso_id = ?
+      AND s.numero_orden = ?
+      AND l.numero_orden = ?
+ [42103-232]

@@ -1,8 +1,8 @@
 package Domain.models;
 
-import Domain.models.LeccionValueObjects.TipoContenido; // <-- Importación necesaria
-import java.util.Collections;
-import java.util.List;
+import Domain.models.LeccionValueObjects.TipoContenido;
+import Domain.models.CursoValueObjects.Titulo;
+
 import java.util.Objects;
 
 /**
@@ -10,52 +10,39 @@ import java.util.Objects;
  * La entidad es responsable de gestionar sus datos estructurales.
  */
 public class Leccion {
-    private final int id;
-    private final int cursoId;
-    private final int numeroSeccion;
-    private final int numeroOrden;
-    private final String titulo;
-    private final TipoContenido tipoContenido;
-    private final String contenidoHtml;
+    private Integer id; // Usamos VO
+    private Integer seccion_id;
+    private Titulo titulo; // Usamos VO
+    private Integer numeroOrden;
+    private TipoContenido tipoContenido;
+    private String url_video;
+    private String contenido;
 
-    private final Integer pruebaId;
-
-    private List<Pregunta> preguntas;
-
-    // Constructor para reconstruir desde el repositorio
-    public Leccion(int id, int cursoId, int numeroSeccion, int numeroOrden, String titulo,
-                   String tipoContenido, String contenidoHtml, Integer pruebaId) { // <-- pruebaId es Integer
+    public Leccion(Integer id, Integer seccion_id, Titulo titulo, Integer numeroOrden,
+                   TipoContenido tipoContenido, String url_video, String contenido) {
         this.id = id;
-        this.cursoId = cursoId;
-        this.numeroSeccion = numeroSeccion;
-        this.numeroOrden = numeroOrden;
-        this.titulo = Objects.requireNonNull(titulo);
-        // Conversión del String a Value Object
-        this.tipoContenido = TipoContenido.fromString(Objects.requireNonNull(tipoContenido));
-        this.contenidoHtml = contenidoHtml;
-        this.pruebaId = pruebaId;
-        this.preguntas = Collections.emptyList(); // Inicialmente vacío
+        this.seccion_id = Objects.requireNonNull(seccion_id, "seccion_id no puede ser nulo");
+        this.titulo = Objects.requireNonNull(titulo, "titulo no puede ser nulo");
+        this.numeroOrden = Objects.requireNonNull(numeroOrden, "numero_orden no puede ser nulo");
+        this.tipoContenido = Objects.requireNonNull(tipoContenido, "tipoContenido no puede ser nulo");
+        this.url_video = url_video;
+        this.contenido = contenido;
     }
 
-    // --- Métodos para el Test Funcional ---
-    public void setPreguntas(List<Pregunta> preguntas) {
-        this.preguntas = preguntas != null ? preguntas : Collections.emptyList();
+    public static Leccion crearLeccion(Integer id, Integer seccion_id, Titulo titulo, Integer numeroOrden, TipoContenido tipoContenido, String url_video, String contenido ) {
+        return new Leccion(null, seccion_id, titulo, numeroOrden, tipoContenido, url_video, contenido);
     }
-    // ------------------------------------
 
-    // --- Getters de Dominio ---
-    public int getId() { return id; }
-    public int getCursoId() { return cursoId; }
-    public int getNumeroSeccion() { return numeroSeccion; }
+    public static Leccion reconstruir(Integer id, Integer seccion_id, Titulo titulo, Integer numeroOrden, TipoContenido tipoContenido, String url_video, String contenido ){
+        return new Leccion(id, seccion_id, titulo, numeroOrden, tipoContenido, url_video, contenido);
+    }
+
+    // Getters actualizados para devolver el VO o el valor primitivo si no tiene VO
+    public Integer getId() { return id; }
+    public Integer getSeccion_id() { return seccion_id; }
+    public Titulo getTitulo() { return this.titulo; } // Se expone el valor a la Capa de Aplicación/DTOs
     public int getNumeroOrden() { return numeroOrden; }
-    public String getTitulo() { return titulo; }
-
-    // Devolvemos la representación en String del Value Object para la capa de Servicio
-    public String getTipoContenido() {
-        return tipoContenido.valor();
-    }
-
-    public String getContenidoHtml() { return contenidoHtml; }
-    public Integer getPruebaId() { return pruebaId; }
-    public List<Pregunta> getPreguntas() { return preguntas; }
+    public TipoContenido getTipoContenido() { return tipoContenido; }
+    public String getUrl_video() {return url_video;}
+    public String getContenido() { return contenido; }
 }

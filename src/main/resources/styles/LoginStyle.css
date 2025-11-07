@@ -20,4 +20,55 @@
 .nav-btn:pressed {
     -fx-background-color: rgba(255,255,255,0.18);
 }
+/* ======== Tarjetas de cursos ======== */
+.course-card {
+    -fx-background-color: rgba(8,7,54,0.6);
+    -fx-background-radius: 15;
+    -fx-padding: 15;
+    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.1), 10, 0, 0, 0);
+}
+
+.course-card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(74,144,226,0.7), 25, 0.5, 0, 0);
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
+    -fx-cursor: hand;
+    -fx-transition: 0.3s;
+}
+
+/* ======== Barra superior ======== */
+.text-field {
+    -fx-background-color: rgba(255,255,255,0.2);
+    -fx-text-fill: white;
+    -fx-background-radius: 25;
+    -fx-prompt-text-fill: rgba(255,255,255,0.6);
+    -fx-border-color: transparent;
+}
+
+.text-field:focused {
+    -fx-background-color: rgba(255,255,255,0.3);
+}
+
+/* ======== Botones ======== */
+.button {
+    -fx-cursor: hand;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.button:focused, .button:selected {
+    -fx-background-color: #1E88E5;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-color: white;
+    -fx-border-width: 3;
+}
+
+
 

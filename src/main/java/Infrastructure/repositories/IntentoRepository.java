@@ -1,62 +1,67 @@
 package Infrastructure.repositories;
 
-import Application.dtos.internal.IntentoInternal;
-import Application.dtos.internal.RespuestaInternal;
+import Domain.models.Intento;
+import Domain.models.Respuesta;
 import Domain.repositoriesInterfaces.InterfazIntentoRepository;
-import Infrastructure.persistence.ConexionBD;
+import Infrastructure.persistence.IConexionBD;
 
 import java.sql.*;
-import java.time.LocalDateTime;
+import java.util.List;
 
-// Implementación JDBC real del repositorio de Intentos y Respuestas.
 public class IntentoRepository implements InterfazIntentoRepository {
+    private final IConexionBD connMgr;
 
-    private static final String SQL_INSERT_INTENTO =
-            "INSERT INTO intento (usuario_id, prueba_id, puntaje, fecha_intento) VALUES (?, ?, ?, ?)";
-    private static final String SQL_INSERT_RESPUESTA =
-            "INSERT INTO respuesta (intento_id, pregunta_id, opcion_seleccionada_id) VALUES (?, ?, ?)";
-
-    // Método para obtener todos los intentos de un usuario.
-    @Override
-    public int guardarIntento(IntentoInternal intento) {
-        try (Connection conn = ConexionBD.getConnection();
-             PreparedStatement ps = conn.prepareStatement(SQL_INSERT_INTENTO, Statement.RETURN_GENERATED_KEYS)) {
-
-            ps.setInt(1, intento.usuarioId());
-            ps.setInt(2, intento.pruebaId());
-            ps.setDouble(3, intento.score());
-            // Convierte LocalDateTime a Timestamp
-            ps.setTimestamp(4, Timestamp.valueOf(LocalDateTime.now()));
-
-            ps.executeUpdate();
-            
-            // Obtener el ID generado
-            try (ResultSet rs = ps.getGeneratedKeys()) {
-                if (rs.next()) {
-                    return rs.getInt(1); // Retorna el ID generado
-                }
-                throw new SQLException("Fallo al insertar intento, no se obtuvo ID generado.");
-            }
-        } catch (SQLException e) {
-            System.err.println("Error al guardar intento: " + e.getMessage());
-            throw new RuntimeException("Error de persistencia al guardar Intento", e);
-        }
+    public IntentoRepository(IConexionBD connMgr) {
+        this.connMgr = connMgr;
     }
 
-    // --- Métodos para actualizar la respuesta de un intento ---
     @Override
-    public void guardarRespuesta(RespuestaInternal respuesta) {
-        try (Connection conn = ConexionBD.getConnection();
-             PreparedStatement ps = conn.prepareStatement(SQL_INSERT_RESPUESTA)) {
+    public Intento guardar(Intento intento) {
+        String sql = "INSERT INTO \"intento\" (usuario_id, prueba_id, puntaje) VALUES (?, ?, ?)";
+        try (Connection conn = connMgr.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-            ps.setInt(1, respuesta.intentoId());
-            ps.setInt(2, respuesta.preguntaId());
-            ps.setInt(3, respuesta.opcionId());
+            pstmt.setInt(1, intento.getUsuarioId());
+            pstmt.setInt(2, intento.getPruebaId());
+            pstmt.setDouble(3, intento.getPuntaje().valorPuntaje());
 
-            ps.executeUpdate();
+            int affected = pstmt.executeUpdate();
+            if (affected == 0) throw new RuntimeException("No se pudo insertar el intento");
+
+            try (ResultSet rs = pstmt.getGeneratedKeys()) {
+                if (rs.next()) {
+                    int idGenerado = rs.getInt(1);
+                    return Intento.reconstruir(
+                            idGenerado,
+                            intento.getUsuarioId(),
+                            intento.getPruebaId(),
+                            intento.getPuntaje(),
+                            intento.getFechaIntento()
+                    );
+                }
+            }
         } catch (SQLException e) {
-            System.err.println("Error al guardar respuesta: " + e.getMessage());
-            throw new RuntimeException("Error de persistencia al guardar Respuesta", e);
+            throw new RuntimeException("Error al guardar intento", e);
+        }
+        throw new RuntimeException("No se pudo obtener el ID del intento");
+    }
+
+    @Override
+    public void guardarRespuestas(List<Respuesta> respuestas) {
+        String sql = "INSERT INTO \"respuesta\" (intento_id, pregunta_id, opcion_seleccionada_id) VALUES (?, ?, ?)";
+
+        try (Connection conn = connMgr.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            // SIN TRANSACCIÓN → cada INSERT se hace inmediatamente
+            for (Respuesta r : respuestas) {
+                pstmt.setInt(1, r.getIntentoId());
+                pstmt.setInt(2, r.getPreguntaId());
+                pstmt.setInt(3, r.getOpcionSeleccionadaId());
+                pstmt.executeUpdate();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al guardar respuestas", e);
         }
     }
 }
