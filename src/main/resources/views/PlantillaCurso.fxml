@@ -7,12 +7,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="root" maxHeight="1080.0" maxWidth="1920.0" minHeight="1080.0" minWidth="1920.0"
-      prefHeight="1080.0" prefWidth="1920.0"
-      stylesheets="@/styles/LoginStyle.css"
-      xmlns="http://javafx.com/javafx/25"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="Infrastructure.controllers.CursoController">
+<Pane fx:id="root" maxHeight="1080.0" maxWidth="1920.0" minHeight="1080.0" minWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@/styles/LoginStyle.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Infrastructure.controllers.CursoController">
 
     <ImageView fitHeight="177.0" fitWidth="165.0" layoutX="1537.0" layoutY="203.0" pickOnBounds="true" preserveRatio="true">
         <image>
@@ -21,32 +16,24 @@
     </ImageView>
 
     <!-- Título -->
-    <Label fx:id="NombreCurso" layoutX="566.0" layoutY="203.0" opacity="0.8"
-           prefHeight="177.0" prefWidth="752.0"
-           style="-fx-background-color: #080736;" text="CURSO C++" textFill="white">
+    <Label fx:id="NombreCurso" layoutX="470.0" layoutY="203.0" opacity="0.8" prefHeight="177.0" prefWidth="1244.0" textFill="white">
         <font><Font name="System Bold" size="120.0" /></font>
     </Label>
 
     <!-- columnas -->
-    <Label layoutX="261.0" layoutY="410.0" opacity="0.7" prefHeight="408.0" prefWidth="437.0"
-           style="-fx-background-color: #080737;" />
-    <Label layoutX="370.0" layoutY="422.0" prefHeight="58.0" prefWidth="238.0"
-           text="SECCIÓN 1" textAlignment="JUSTIFY" textFill="WHITE">
-        <font><Font name="Monospaced Bold" size="43.0" /></font>
+    <Label layoutX="261.0" layoutY="410.0" opacity="0.7" prefHeight="408.0" prefWidth="437.0" style="-fx-background-color: #080737;" />
+    <Label layoutX="370.0" layoutY="422.0" prefHeight="58.0" prefWidth="238.0" text="SECCIÓN 1" textAlignment="JUSTIFY" textFill="WHITE">
+        <font><Font name="MS Outlook" size="43.0" /></font>
     </Label>
 
-    <Label layoutX="771.0" layoutY="413.0" opacity="0.7" prefHeight="403.0" prefWidth="436.0"
-           style="-fx-background-color: #080737;" />
-    <Label layoutX="878.0" layoutY="425.0" prefHeight="58.0" prefWidth="235.0"
-           text="SECCIÓN 2" textAlignment="JUSTIFY" textFill="WHITE">
-        <font><Font name="Monospaced Bold" size="43.0" /></font>
+    <Label layoutX="771.0" layoutY="413.0" opacity="0.7" prefHeight="403.0" prefWidth="436.0" style="-fx-background-color: #080737;" />
+    <Label layoutX="878.0" layoutY="425.0" prefHeight="58.0" prefWidth="235.0" text="SECCIÓN 2" textAlignment="JUSTIFY" textFill="WHITE">
+        <font><Font name="MS Outlook" size="43.0" /></font>
     </Label>
 
-    <Label layoutX="1285.0" layoutY="412.0" opacity="0.7" prefHeight="405.0" prefWidth="436.0"
-           style="-fx-background-color: #080737;" />
-    <Label layoutX="1392.0" layoutY="427.0" prefHeight="58.0" prefWidth="239.0"
-           text="SECCIÓN 3" textAlignment="JUSTIFY" textFill="WHITE">
-        <font><Font name="Monospaced Bold" size="43.0" /></font>
+    <Label layoutX="1285.0" layoutY="412.0" opacity="0.7" prefHeight="405.0" prefWidth="436.0" style="-fx-background-color: #080737;" />
+    <Label layoutX="1392.0" layoutY="427.0" prefHeight="58.0" prefWidth="239.0" text="SECCIÓN 3" textAlignment="JUSTIFY" textFill="WHITE">
+        <font><Font name="MS Outlook" size="43.0" /></font>
     </Label>
 
     <!-- SECCIÓN 1 -->
