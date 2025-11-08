@@ -10,6 +10,9 @@ DROP TABLE IF EXISTS "seccion";
 DROP TABLE IF EXISTS "usuario_curso";
 DROP TABLE IF EXISTS "sesion_estudio";
 DROP TABLE IF EXISTS "usuario_stats";
+DROP TABLE IF EXISTS "usuario_item";
+DROP TABLE IF EXISTS "stella_item";
+DROP TABLE IF EXISTS "item";
 DROP TABLE IF EXISTS "curso";
 DROP TABLE IF EXISTS "usuario";
 
@@ -154,12 +157,44 @@ CREATE TABLE "sesion_estudio" (
                                   FOREIGN KEY (usuario_id) REFERENCES "usuario"(id) ON DELETE CASCADE
 );
 
+-- TABLA: "item"
+CREATE TABLE "item" (
+                        id INT AUTO_INCREMENT PRIMARY KEY,
+                        nombre VARCHAR(255) NOT NULL,
+                        descripcion VARCHAR(500) NOT NULL,
+                        precio INT NOT NULL,
+                        image_path VARCHAR(500)
+);
+
+-- TABLA: "stella_item"
+CREATE TABLE "stella_item" (
+                               id INT AUTO_INCREMENT PRIMARY KEY,
+                               item_id INT NOT NULL,
+                               image_path VARCHAR(500),
+                               FOREIGN KEY (item_id) REFERENCES "item"(id) ON DELETE CASCADE
+);
+
+-- TABLA: "usuario_item"
+CREATE TABLE "usuario_item" (
+                                usuario_id INT NOT NULL,
+                                item_id INT NOT NULL,
+                                fecha_compra TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+                                es_activo BOOLEAN DEFAULT TRUE NOT NULL,
+                                PRIMARY KEY (usuario_id, item_id),
+                                FOREIGN KEY (usuario_id) REFERENCES "usuario"(id) ON DELETE CASCADE,
+                                FOREIGN KEY (item_id) REFERENCES "item"(id) ON DELETE CASCADE
+);
+
 -- DATOS INICIALES PARA TESTING
 -- =========================================================================
 
 -- 1. USUARIO DE PRUEBA
 INSERT INTO "usuario" (username, correo, nombre, contrasena, tipo)
 VALUES ('testestudio', 'test@estudio.com', 'Usuario Estudio', 'pass123', 'ESTUDIANTE');
+
+-- 2. ESTADÍSTICAS (100 pescaditos)
+INSERT INTO "usuario_stats" (usuario_id, pescaditos, racha_dias, tiempo_total_estudio_segundos)
+VALUES (1, 100, 0, 0);
 
 -- 2. CURSOS
 INSERT INTO "curso" (titulo, descripcion, nivel, categoria, duracion_minutos, numero_secciones)
@@ -262,5 +297,50 @@ VALUES (6, 'Ciclos while y do-while', 4, 'TEORIA', NULL, 'Diferencias entre whil
 INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido)
 VALUES (6, 'Proyecto final: Conversor de temperaturas', 5, 'TEORIA', NULL, 'Proyecto final para aplicar estructuras de control en un programa que convierte temperaturas.');
 
--- Después de insertar usuario y curso
-INSERT INTO "usuario_curso" (usuario_id, curso_id) VALUES (1, 1);
+
+-- 5. ITEMS DE ROPA EN LA TIENDA
+-- Sombrero Vuelteado
+INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
+    ('Sombrero Vuelteado','Un sombrero elegante y sofisticado, con un diseño único que añade misterio y estilo a cualquier atuendo. Perfecto para quienes buscan destacar con un toque Colombiano.',
+     80, '/images/tienda/sombreroVuelteado.png');
+
+-- Gorra
+INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
+    ('Gorra','Gorra casual con elementos bordados que aporta un toque de estilo moderno. Ideal para el día a día, tanto para una caminata por la ciudad como para un día de descanso.',
+     40, '/images/tienda/gorra.png');
+
+-- Gafas
+INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
+    ('Gafas', 'Gafas de sol con protección UV, diseñadas para ofrecer una protección total frente a los rayos solares sin sacrificar el estilo. Perfectas para cualquier ocasión al aire libre.',
+     60, '/images/tienda/gafas.png');
+
+-- Camiseta FIS
+INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
+    ('Camiseta FIS', 'Camiseta oficial de Fundamentos en Ingeniería de Software, con un diseño moderno y cómodo. Ideal para los estudiantes y exalumnos que quieren lucir su orgullo académico con estilo.',
+     50, '/images/tienda/camisetaFIS.png');
+
+-- Hoodie
+INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
+    ('Hoodie', 'Sudadera de alta calidad, cómoda y abrigada, ideal para mantenerte caliente durante esas largas horas de estudio o para disfrutar de un día relajado con amigos. Su diseño versátil la hace perfecta para cualquier ocasión.',
+     120, '/images/tienda/hoodie.png');
+
+-- Crop Top
+INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
+    ('Crop Top', 'Un crop top fresco y moderno, perfecto para los días soleados o cálidos. Su corte y estilo te aseguran comodidad y libertad de movimiento, ideal para lucir relajada y con estilo.',
+     45, '/images/tienda/crop-top.png');
+
+-- 6. STELLA USANDO ITEMS
+INSERT INTO "stella_item" (item_id, image_path) VALUES (1, '/images/stellas/stellaSombrero.png');
+
+INSERT INTO "stella_item" (item_id, image_path) VALUES (2, '/images/stellas/stellaGorra.png');
+
+INSERT INTO "stella_item" (item_id, image_path) VALUES (3, '/images/stellas/stellaGafas.png');
+
+INSERT INTO "stella_item" (item_id, image_path) VALUES (4, '/images/stellas/stellaCamiseta.png');
+
+INSERT INTO "stella_item" (item_id, image_path) VALUES (5, '/images/stellas/stellaHoodie.png');
+
+INSERT INTO "stella_item" (item_id, image_path) VALUES (6, '/images/stellas/stellaCrop.png');
+
+-- 7. COMPRA INICIAL
+INSERT INTO "usuario_item" (usuario_id, item_id) VALUES (1, 4);
