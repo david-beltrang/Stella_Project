@@ -9,5 +9,6 @@ public record PostResponse(
         String contenido,
         int likes,
         LocalDateTime fechaCreacion,
+        String etiqueta,
         List<ComentarioResponse> comentarios
 ) {}

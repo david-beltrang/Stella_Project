@@ -423,3 +423,122 @@ org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LECCION" not found (candidates a
       AND s.numero_orden = ?
       AND l.numero_orden = ?
  [42103-232]
+2025-11-07 20:01:04.444806-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "POST" not found (candidates are: "post"); SQL statement:
+
+
+-- Insertar un post
+INSERT INTO post (usuario_id, contenido_texto, fecha, etiqueta) VALUES
+(1, '¿Alguien sabe cómo usar JavaFX para un foro?', '2025-11-07 18:00:00', 'JavaFX') [42103-232]
+2025-11-07 20:02:30.497301-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Imposible eliminar "usuario" debido a que "CONSTRAINT_349, CONSTRAINT_9E0" depende de él.
+Cannot drop "usuario" because "CONSTRAINT_349, CONSTRAINT_9E0" depends on it; SQL statement:
+
+DROP TABLE IF EXISTS "usuari [90107-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:644)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.command.ddl.DropTable.prepareDrop(DropTable.java:108)
+	at org.h2.command.ddl.DropTable.update(DropTable.java:133)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:139)
+	at org.h2.command.Command.executeUpdate(Command.java:304)
+	at org.h2.command.Command.executeUpdate(Command.java:248)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:262)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.tools.RunScript.execute(RunScript.java:169)
+	at Infrastructure.persistence.H2DataBaseInitializer.initialize(H2DataBaseInitializer.java:31)
+	at Infrastructure.test_temporal.ForoServiceTest.main(ForoServiceTest.java:20)
+2025-11-07 20:04:03.228488-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Columna "ETIQUETA" no encontrada
+Column "ETIQUETA" not found; SQL statement:
+
+
+-- Insertar un post
+INSERT INTO "post" (usuario_id, contenido_texto, fecha, etiqueta) VALUES
+(1, '¿Alguien sabe cómo usar JavaFX para un foro?', '2025-11-07 18:00:00', 'JavaFX') [42122-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.table.Table.getColumn(Table.java:786)
+	at org.h2.command.Parser.parseColumn(Parser.java:1171)
+	at org.h2.command.Parser.parseColumnList(Parser.java:1156)
+	at org.h2.command.Parser.parseInsert(Parser.java:1530)
+	at org.h2.command.Parser.parsePrepared(Parser.java:698)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.tools.RunScript.execute(RunScript.java:169)
+	at Infrastructure.persistence.H2DataBaseInitializer.initialize(H2DataBaseInitializer.java:31)
+	at Infrastructure.test_temporal.ForoServiceTest.main(ForoServiceTest.java:20)
+2025-11-07 20:05:43.265160-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "\000d\000a\000d\000a-- Insertar comentarios para el post\000d\000aINSERT INTO ""comentario"" (post_id, usuario_id, contenido_texto, fecha) VALUES\000d\000a(1, 2, 'Sí, usa FXML para la interfaz.', '2025-11-07 18:05:00'),\000d\000a(1, 2, 'También puedes agregar un ListView para los posts.', '2025-11-07 18:10:00')\000d\000a\000d\000a[*]INSERT INTO ""post"" (usuario_id, contenido_texto, fecha, etiqueta) VALUES\000d\000a(2, '¿Alguien sabe cómo utilizar la memoria dinámica en c++?', '2025-11-07 18:20:00', 'C++')"
+Syntax error in SQL statement "\000d\000a\000d\000a-- Insertar comentarios para el post\000d\000aINSERT INTO ""comentario"" (post_id, usuario_id, contenido_texto, fecha) VALUES\000d\000a(1, 2, 'Sí, usa FXML para la interfaz.', '2025-11-07 18:05:00'),\000d\000a(1, 2, 'También puedes agregar un ListView para los posts.', '2025-11-07 18:10:00')\000d\000a\000d\000a[*]INSERT INTO ""post"" (usuario_id, contenido_texto, fecha, etiqueta) VALUES\000d\000a(2, '¿Alguien sabe cómo utilizar la memoria dinámica en c++?', '2025-11-07 18:20:00', 'C++')"; SQL statement:
+
+
+-- Insertar comentarios para el post
+INSERT INTO "comentario" (post_id, usuario_id, contenido_texto, fecha) VALUES
+(1, 2, 'Sí, usa FXML para la interfaz.', '2025-11-07 18:05:00'),
+(1, 2, 'También puedes agregar un ListView para los posts.', '2025-11-07 18:10:00')
+
+INSERT INTO "post" (usuario_id, contenido_texto, fecha, etiqueta) VALUES
+(2, '¿Alguien sabe cómo utilizar la memoria dinámica en c++?', '2025-11-07 18:20:00', 'C++') [42000-232]
+2025-11-07 20:07:28.088263-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Columna "C.IMAGEN_PATH" no encontrada
+Column "C.IMAGEN_PATH" not found; SQL statement:
+SELECT p.id, p.usuario_id, p.contenido_texto, p.likes, p.fecha,
+       c.id AS comentario_id, c.usuario_id AS c_usuario_id, c.contenido_texto AS c_contenido,
+       c.imagen_path, c.fecha AS c_fecha, c.likes AS c_likes
+FROM "post" p
+LEFT JOIN "comentario" c ON c.post_id = p.id
+ORDER BY p.id, c.id [42122-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.expression.ExpressionColumn.getColumnException(ExpressionColumn.java:244)
+	at org.h2.expression.ExpressionColumn.optimizeOther(ExpressionColumn.java:226)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:213)
+	at org.h2.command.query.Select.prepareExpressions(Select.java:1228)
+	at org.h2.command.query.Query.prepare(Query.java:232)
+	at org.h2.command.Parser.prepareCommand(Parser.java:489)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:93)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:315)
+	at Infrastructure.repositories.ForoRepository.obtenerTodos(ForoRepository.java:36)
+	at Application.services.ForoService.obtenerTodosLosPosts(ForoService.java:23)
+	at Infrastructure.test_temporal.ForoServiceTest.main(ForoServiceTest.java:29)
+2025-11-07 20:10:04.684973-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No hay datos disponibles.
+No data is available [2000-232]
+2025-11-07 20:21:33.482721-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No hay datos disponibles.
+No data is available [2000-232]
+2025-11-07 20:23:06.333987-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No hay datos disponibles.
+No data is available [2000-232]
+2025-11-07 20:29:44.052875-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No hay datos disponibles.
+No data is available [2000-232]
+2025-11-07 20:33:57.043066-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "INSERT INTO ""post"" (usuario_id, contenido_texto, fecha, etiqueta) VALUES (?, ?, ?, ?) [*]RETURNING id"
+Syntax error in SQL statement "INSERT INTO ""post"" (usuario_id, contenido_texto, fecha, etiqueta) VALUES (?, ?, ?, ?) [*]RETURNING id"; SQL statement:
+INSERT INTO "post" (usuario_id, contenido_texto, fecha, etiqueta) VALUES (?, ?, ?, ?) RETURNING id [42000-232]
+2025-11-07 20:40:25.325475-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "INSERT INTO ""post"" (usuario_id, contenido_texto, fecha, etiqueta) VALUES (?, ?, ?, ?) [*]RETURNING id"
+Syntax error in SQL statement "INSERT INTO ""post"" (usuario_id, contenido_texto, fecha, etiqueta) VALUES (?, ?, ?, ?) [*]RETURNING id"; SQL statement:
+INSERT INTO "post" (usuario_id, contenido_texto, fecha, etiqueta) VALUES (?, ?, ?, ?) RETURNING id [42000-232]
+2025-11-07 20:45:29.694526-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "INSERT INTO ""comentario"" (post_id, usuario_id, contenido_texto, fecha) VALUES (?, ?, ?, ?) [*]RETURNING id"
+Syntax error in SQL statement "INSERT INTO ""comentario"" (post_id, usuario_id, contenido_texto, fecha) VALUES (?, ?, ?, ?) [*]RETURNING id"; SQL statement:
+INSERT INTO "comentario" (post_id, usuario_id, contenido_texto, fecha) VALUES (?, ?, ?, ?) RETURNING id [42000-232]
+2025-11-07 20:52:39.304017-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No hay datos disponibles.
+No data is available [2000-232]

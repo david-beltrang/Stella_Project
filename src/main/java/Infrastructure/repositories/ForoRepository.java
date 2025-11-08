@@ -25,43 +25,77 @@ public class ForoRepository implements InterfazForoRepository {
     public List<PostResponse> obtenerTodos() {
         List<PostResponse> posts = new ArrayList<>();
         String sql = """
-            SELECT p.id, p.usuario_id, p.contenido_texto, p.likes, p.fecha, 
-                   c.id AS comentario_id, c.usuario_id AS c_usuario_id, c.contenido_texto AS c_contenido, 
-                   c.imagen_path, c.fecha AS c_fecha, c.likes AS c_likes
-            FROM \"post\" p
-            LEFT JOIN \"comentario\" c ON c.post_id = p.id
-            ORDER BY p.id, c.id
-            """;
+        SELECT p.id, p.usuario_id, p.contenido_texto, p.likes, p.fecha, p.etiqueta,
+               c.id AS comentario_id, c.usuario_id AS c_usuario_id, c.contenido_texto AS c_contenido, 
+               c.fecha AS c_fecha, c.likes AS c_likes
+        FROM "post" p
+        LEFT JOIN "comentario" c ON c.post_id = p.id
+        ORDER BY p.id, c.id
+        """;
+
         try (Connection conn = connMgr.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
 
-            int currentPostId = -1;
+            if (!rs.next()) {
+                return posts; // Retornar lista vacía si no hay datos
+            }
+
+            int postId = rs.getInt("id");
+            int usuarioId = rs.getInt("usuario_id");
+            String contenidoTexto = rs.getString("contenido_texto");
+            int likes = rs.getInt("likes");
+            LocalDateTime fecha = rs.getTimestamp("fecha").toLocalDateTime();
+            String etiqueta = rs.getString("etiqueta");
+
             List<ComentarioResponse> comentarios = new ArrayList<>();
-            while (rs.next()) {
-                int postId = rs.getInt("id");
-                if (postId != currentPostId) {
-                    if (currentPostId != -1) {
-                        posts.add(new PostResponse(currentPostId, rs.getInt("usuario_id"), rs.getString("contenido_texto"),
-                                rs.getInt("likes"), rs.getTimestamp("fecha").toLocalDateTime(), new ArrayList<>(comentarios)));
-                        comentarios.clear();
-                    }
-                    currentPostId = postId;
-                }
-                int comentarioId = rs.getInt("comentario_id");
-                if (rs.wasNull()) continue;
+
+            // Procesar la primera fila válida
+            int currentPostId = postId;
+            int currentComentarioId = rs.getInt("comentario_id");
+            if (!rs.wasNull()) {
                 comentarios.add(new ComentarioResponse(
-                        comentarioId,
+                        currentComentarioId,
                         rs.getInt("c_usuario_id"),
                         rs.getString("c_contenido"),
                         rs.getTimestamp("c_fecha").toLocalDateTime(),
                         rs.getInt("c_likes")
                 ));
             }
-            if (currentPostId != -1) {
-                posts.add(new PostResponse(currentPostId, rs.getInt("usuario_id"), rs.getString("contenido_texto"),
-                        rs.getInt("likes"), rs.getTimestamp("fecha").toLocalDateTime(), new ArrayList<>(comentarios)));
+
+            // Iterar sobre el resto de las filas
+            while (rs.next()) {
+                postId = rs.getInt("id");
+                if (postId != currentPostId) {
+                    // Agregar el post anterior con sus comentarios
+                    posts.add(new PostResponse(currentPostId, usuarioId, contenidoTexto, likes, fecha, etiqueta, new ArrayList<>(comentarios)));
+                    comentarios.clear();
+
+                    // Inicializar el nuevo post
+                    usuarioId = rs.getInt("usuario_id");
+                    contenidoTexto = rs.getString("contenido_texto");
+                    likes = rs.getInt("likes");
+                    fecha = rs.getTimestamp("fecha").toLocalDateTime();
+                    etiqueta = rs.getString("etiqueta");
+                    currentPostId = postId;
+                }
+                currentComentarioId = rs.getInt("comentario_id");
+                if (!rs.wasNull()) {
+                    comentarios.add(new ComentarioResponse(
+                            currentComentarioId,
+                            rs.getInt("c_usuario_id"),
+                            rs.getString("c_contenido"),
+                            rs.getTimestamp("c_fecha").toLocalDateTime(),
+                            rs.getInt("c_likes")
+                    ));
+                }
             }
+
+            // Agregar el último post con sus comentarios
+            if (!comentarios.isEmpty() || currentPostId != -1) {
+                posts.add(new PostResponse(currentPostId, usuarioId, contenidoTexto, likes, fecha, etiqueta, new ArrayList<>(comentarios)));
+            }
+
         } catch (SQLException e) {
             throw new RuntimeException("Error al obtener posts", e);
         }
@@ -71,40 +105,58 @@ public class ForoRepository implements InterfazForoRepository {
     @Override
     public PostResponse obtenerPostResponsePorId(int id) {
         String sql = """
-            SELECT p.id, p.usuario_id, p.contenido_texto, p.likes, p.fecha, 
-                   c.id AS comentario_id, c.usuario_id AS c_usuario_id, c.contenido_texto AS c_contenido, 
-                   c.imagen_path, c.fecha AS c_fecha, c.likes AS c_likes
-            FROM \"post\" p
-            LEFT JOIN \"comentario\" c ON c.post_id = p.id
-            WHERE p.id = ?
-            ORDER BY c.id
-            """;
+        SELECT p.id, p.usuario_id, p.contenido_texto, p.likes, p.fecha, p.etiqueta,
+               c.id AS comentario_id, c.usuario_id AS c_usuario_id, c.contenido_texto AS c_contenido, 
+               c.fecha AS c_fecha, c.likes AS c_likes
+        FROM "post" p
+        LEFT JOIN "comentario" c ON c.post_id = p.id
+        WHERE p.id = ?
+        ORDER BY c.id
+        """;
         try (Connection conn = connMgr.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, id);
             try (ResultSet rs = pstmt.executeQuery()) {
-                if (!rs.next()) return null;
+                if (!rs.next()) {
+                    return null; // No se encontró el post
+                }
+
+                // Leer los datos del post de la primera fila
                 int postId = rs.getInt("id");
+                int usuarioId = rs.getInt("usuario_id");
+                String contenidoTexto = rs.getString("contenido_texto");
+                int likes = rs.getInt("likes");
+                LocalDateTime fecha = rs.getTimestamp("fecha").toLocalDateTime();
+                String etiqueta = rs.getString("etiqueta");
+
                 List<ComentarioResponse> comentarios = new ArrayList<>();
-                do {
-                    int comentarioId = rs.getInt("comentario_id");
-                    if (rs.wasNull()) break;
+                int currentComentarioId = rs.getInt("comentario_id");
+                if (!rs.wasNull()) {
                     comentarios.add(new ComentarioResponse(
-                            comentarioId,
+                            currentComentarioId,
                             rs.getInt("c_usuario_id"),
                             rs.getString("c_contenido"),
                             rs.getTimestamp("c_fecha").toLocalDateTime(),
                             rs.getInt("c_likes")
                     ));
-                } while (rs.next());
-                return new PostResponse(
-                        postId,
-                        rs.getInt("usuario_id"),
-                        rs.getString("contenido_texto"),
-                        rs.getInt("likes"),
-                        rs.getTimestamp("fecha").toLocalDateTime(),
-                        comentarios
-                );
+                }
+
+                // Iterar sobre las filas restantes para los comentarios
+                while (rs.next()) {
+                    currentComentarioId = rs.getInt("comentario_id");
+                    if (!rs.wasNull()) {
+                        comentarios.add(new ComentarioResponse(
+                                currentComentarioId,
+                                rs.getInt("c_usuario_id"),
+                                rs.getString("c_contenido"),
+                                rs.getTimestamp("c_fecha").toLocalDateTime(),
+                                rs.getInt("c_likes")
+                        ));
+                    }
+                }
+
+                // Retornar el PostResponse con los datos del post y los comentarios
+                return new PostResponse(postId, usuarioId, contenidoTexto, likes, fecha, etiqueta, comentarios);
             }
         } catch (SQLException e) {
             throw new RuntimeException("Error al obtener post por ID", e);
@@ -124,7 +176,8 @@ public class ForoRepository implements InterfazForoRepository {
                             rs.getInt("usuario_id"),
                             new Contenido(rs.getString("contenido_texto")),
                             rs.getInt("likes"),
-                            rs.getTimestamp("fecha").toLocalDateTime()
+                            rs.getTimestamp("fecha").toLocalDateTime(),
+                            rs.getString("etiqueta")
                     );
                 }
             }
@@ -181,20 +234,29 @@ public class ForoRepository implements InterfazForoRepository {
 
     @Override
     public Post guardarPost(Post post) {
-        String sql = "INSERT INTO \"post\" (usuario_id, contenido_texto, fecha) VALUES (?, ?, ?) RETURNING id";
+        String sql = "INSERT INTO \"post\" (usuario_id, contenido_texto, fecha, etiqueta) VALUES (?, ?, ?, ?)";
         try (Connection conn = connMgr.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+             PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             pstmt.setInt(1, post.getUsuarioId());
             pstmt.setString(2, post.getContenido().texto());
             pstmt.setTimestamp(3, java.sql.Timestamp.valueOf(LocalDateTime.now()));
-            try (ResultSet rs = pstmt.executeQuery()) {
+            pstmt.setString(4, post.getEtiqueta());
+
+            int affectedRows = pstmt.executeUpdate();
+            if (affectedRows == 0) {
+                throw new RuntimeException("No se insertó ningún registro.");
+            }
+
+            try (ResultSet rs = pstmt.getGeneratedKeys()) {
                 if (rs.next()) {
+                    int generatedId = rs.getInt(1); // Obtener el ID generado (columna 1)
                     return Post.reconstruir(
-                            rs.getInt("id"),
+                            generatedId,
                             post.getUsuarioId(),
                             post.getContenido(),
                             0,
-                            LocalDateTime.now()
+                            LocalDateTime.now(),
+                            post.getEtiqueta()
                     );
                 }
             }
@@ -206,17 +268,24 @@ public class ForoRepository implements InterfazForoRepository {
 
     @Override
     public Comentario guardarComentario(Comentario comentario) {
-        String sql = "INSERT INTO \"comentario\" (post_id, usuario_id, contenido_texto, fecha) VALUES (?, ?, ?, ?) RETURNING id";
+        String sql = "INSERT INTO \"comentario\" (post_id, usuario_id, contenido_texto, fecha) VALUES (?, ?, ?, ?)";
         try (Connection conn = connMgr.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+             PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             pstmt.setInt(1, comentario.getPostId());
             pstmt.setInt(2, comentario.getUsuarioId());
             pstmt.setString(3, comentario.getContenido().texto());
             pstmt.setTimestamp(4, java.sql.Timestamp.valueOf(LocalDateTime.now()));
-            try (ResultSet rs = pstmt.executeQuery()) {
+
+            int affectedRows = pstmt.executeUpdate();
+            if (affectedRows == 0) {
+                throw new RuntimeException("No se insertó ningún registro.");
+            }
+
+            try (ResultSet rs = pstmt.getGeneratedKeys()) {
                 if (rs.next()) {
+                    int generatedId = rs.getInt(1); // Obtener el ID generado (columna 1)
                     return Comentario.reconstruir(
-                            rs.getInt("id"),
+                            generatedId,
                             comentario.getPostId(),
                             comentario.getUsuarioId(),
                             comentario.getContenido(),

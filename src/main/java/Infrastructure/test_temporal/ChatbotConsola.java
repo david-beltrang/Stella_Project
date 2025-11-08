@@ -1,5 +1,8 @@
+// Infrastructure/test_temporal/ChatbotConsola.java
 package Infrastructure.test_temporal;
 
+import Application.dtos.Chatbot.ChatMessageRequest;
+import Application.dtos.Chatbot.ChatMessageResponse;
 import Application.services.ChatbotService;
 import java.util.Scanner;
 
@@ -21,11 +24,12 @@ public class ChatbotConsola {
                 break;
             }
 
-            // Obtener respuesta del modelo
-            String respuesta = chatbot.obtenerRespuesta(mensajeUsuario);
+            // Crear solicitud DTO y obtener respuesta
+            ChatMessageRequest request = new ChatMessageRequest(mensajeUsuario);
+            ChatMessageResponse response = chatbot.obtenerRespuesta(request);
 
             // Mostrar solo el contenido limpio del modelo
-            System.out.println("Stella: " + respuesta);
+            System.out.println("Stella: " + response.content());
         }
 
         scanner.close();
