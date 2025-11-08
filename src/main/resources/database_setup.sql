@@ -14,6 +14,8 @@ DROP TABLE IF EXISTS "usuario_item";
 DROP TABLE IF EXISTS "stella_item";
 DROP TABLE IF EXISTS "item";
 DROP TABLE IF EXISTS "curso";
+DROP TABLE IF EXISTS "comentario";
+DROP TABLE IF EXISTS "post";
 DROP TABLE IF EXISTS "usuario";
 
 -- CREACIÓN DE TABLAS (con Claves Foráneas y ON DELETE CASCADE)
@@ -157,6 +159,30 @@ CREATE TABLE "sesion_estudio" (
                                   FOREIGN KEY (usuario_id) REFERENCES "usuario"(id) ON DELETE CASCADE
 );
 
+-- TABLA: "post"
+CREATE TABLE "post" (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT NOT NULL,
+    contenido_texto TEXT NOT NULL,
+    likes INT DEFAULT 0,
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    etiqueta TEXT NOT NULL,
+    FOREIGN KEY (usuario_id) REFERENCES "usuario"(id) ON DELETE CASCADE
+);
+
+-- TABLA "comentario"
+CREATE TABLE "comentario" (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    post_id INT NOT NULL,
+    usuario_id INT NOT NULL,
+    contenido_texto TEXT NOT NULL,
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    likes INT DEFAULT 0,
+    FOREIGN KEY (post_id) REFERENCES "post"(id) ON DELETE CASCADE,
+    FOREIGN KEY (usuario_id) REFERENCES "usuario"(id) ON DELETE CASCADE
+);
+
+
 -- TABLA: "item"
 CREATE TABLE "item" (
                         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -297,6 +323,11 @@ VALUES (6, 'Ciclos while y do-while', 4, 'TEORIA', NULL, 'Diferencias entre whil
 INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido)
 VALUES (6, 'Proyecto final: Conversor de temperaturas', 5, 'TEORIA', NULL, 'Proyecto final para aplicar estructuras de control en un programa que convierte temperaturas.');
 
+-- Después de insertar usuario y curso
+INSERT INTO "usuario_curso" (usuario_id, curso_id) VALUES (1, 1);
+
+
+--PARA LA TIENDA Y LOS ITEMS
 
 -- 5. ITEMS DE ROPA EN LA TIENDA
 -- Sombrero Vuelteado
@@ -344,3 +375,28 @@ INSERT INTO "stella_item" (item_id, image_path) VALUES (6, '/images/stellas/stel
 
 -- 7. COMPRA INICIAL
 INSERT INTO "usuario_item" (usuario_id, item_id) VALUES (1, 4);
+
+--PARA EL FORO
+
+--Insertar usuario de prueba para crear comentario en el post, el usuario tendrá el ID 2
+INSERT INTO "usuario" (username, correo, nombre, contrasena, tipo)
+VALUES ('testestudio1', 'test@estudio1.com', 'Usuario Estudio1', 'pass123', 'ESTUDIANTE');
+
+-- Insertar un post
+INSERT INTO "post" (usuario_id, contenido_texto, fecha, etiqueta) VALUES
+(1, '¿Alguien sabe cómo usar JavaFX para un foro?', '2025-11-07 18:00:00', 'JavaFX');
+
+-- Insertar comentarios para el post
+INSERT INTO "comentario" (post_id, usuario_id, contenido_texto, fecha) VALUES
+(1, 2, 'Sí, usa FXML para la interfaz.', '2025-11-07 18:05:00');
+
+INSERT INTO "comentario" (post_id, usuario_id, contenido_texto, fecha) VALUES
+(1, 2, 'También puedes agregar un ListView para los posts.', '2025-11-07 18:10:00');
+
+INSERT INTO "post" (usuario_id, contenido_texto, fecha, etiqueta) VALUES
+(2, '¿Alguien sabe cómo utilizar la memoria dinámica en c++?', '2025-11-07 18:20:00', 'C++');
+
+INSERT INTO "comentario" (post_id, usuario_id, contenido_texto, fecha) VALUES
+(2, 1, 'Sí, debes asignar y liberar memoria así: int *arr = new int[10]; y delete[] arr;', '2025-11-07 18:25:00')
+
+

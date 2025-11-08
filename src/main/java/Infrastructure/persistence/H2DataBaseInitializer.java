@@ -26,7 +26,6 @@ public class H2DataBaseInitializer {
                     throw new RuntimeException("No se encontró el archivo database_setup.sql en el classpath.");
                 }
 
-                // 🔥 Aquí está el cambio clave:
                 try (InputStreamReader reader = new InputStreamReader(is, StandardCharsets.UTF_8)) {
                     RunScript.execute(conn, reader);
                 }
