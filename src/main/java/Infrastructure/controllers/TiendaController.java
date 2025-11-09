@@ -19,7 +19,7 @@ import javafx.scene.layout.Pane;
 import java.util.List;
 import java.util.function.Function;
 
-public class TiendaController {
+public class tiendaController {
 
     // ========= Dependencias =========
     private final TiendaService tiendaService;

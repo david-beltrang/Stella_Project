@@ -16,7 +16,7 @@ import java.util.function.Function;
 
 public class ControllerControladores {
 
-    // ======== Servicios ========
+    // ======== Servicios =======
     private final SeccionesService seccionesService;
     private final ListarCursosService listarCursosService;
     private final PomodoroTimer pomodoroTimer;
