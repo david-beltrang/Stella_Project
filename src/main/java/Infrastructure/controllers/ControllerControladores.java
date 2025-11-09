@@ -25,6 +25,7 @@ public class ControllerControladores {
     private final RegistroService registroService;
     private final LeccionService leccionService;
 
+
     // ======== Controladores ========
     private HelloController helloController;
     private PrincipalController principalController;
