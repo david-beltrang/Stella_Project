@@ -348,7 +348,7 @@ INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
 -- Camiseta FIS
 INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
     ('Camiseta FIS', 'Camiseta oficial de Fundamentos en Ingeniería de Software, con un diseño moderno y cómodo. Ideal para los estudiantes y exalumnos que quieren lucir su orgullo académico con estilo.',
-     50, '/Image/TiendaStella/sombreroVuelteado.png');
+     50, '/Image/TiendaStella/Camiseta.png');
 
 -- Hoodie
 INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
@@ -358,20 +358,20 @@ INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
 -- Crop Top
 INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
     ('Crop Top', 'Un crop top fresco y moderno, perfecto para los días soleados o cálidos. Su corte y estilo te aseguran comodidad y libertad de movimiento, ideal para lucir relajada y con estilo.',
-     45, '/Image/TiendaStella/sombreroVuelteado.png');
+     45, '/Image/TiendaStella/Croptop.png');
 
 -- 6. STELLA USANDO ITEMS
 INSERT INTO "stella_item" (item_id, image_path) VALUES (1, '/Image/stellas/stellaSombrero.png');
 
 INSERT INTO "stella_item" (item_id, image_path) VALUES (2, '/Image/stellas/stellaGorra.png');
 
-INSERT INTO "stella_item" (item_id, image_path) VALUES (3, '/images/stellas/stellaGafas.png');
+INSERT INTO "stella_item" (item_id, image_path) VALUES (3, '/Image/stellas/stellaGafas.png');
 
-INSERT INTO "stella_item" (item_id, image_path) VALUES (4, '/images/stellas/stellaCamiseta.png');
+INSERT INTO "stella_item" (item_id, image_path) VALUES (4, '/Image/stellas/StellaCamisa.png');
 
-INSERT INTO "stella_item" (item_id, image_path) VALUES (5, '/images/stellas/stellaHoodie.png');
+INSERT INTO "stella_item" (item_id, image_path) VALUES (5, '/Image/stellas/StellaHoodie.png');
 
-INSERT INTO "stella_item" (item_id, image_path) VALUES (6, '/images/stellas/stellaCrop.png');
+INSERT INTO "stella_item" (item_id, image_path) VALUES (6, '/Image/stellas/StellaCroptop.png');
 
 -- 7. COMPRA INICIAL
 INSERT INTO "usuario_item" (usuario_id, item_id) VALUES (1, 4);

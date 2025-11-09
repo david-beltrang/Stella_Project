@@ -75,7 +75,7 @@ public class TiendaController {
     private void initialize() {
         System.out.println("[INIT] Iniciando TiendaController...");
         if (tiendaService == null) {
-            System.out.println("[INIT] tiendaService es NULL ❌");
+            System.out.println("[INIT] tiendaService es NULL ");
             return;
         }
 
@@ -91,7 +91,7 @@ public class TiendaController {
         poblarBotonesConItems();
 
         imgItem.setImage(null);
-        System.out.println("[INIT] Tienda inicializada correctamente ✅");
+        System.out.println("[INIT] Tienda inicializada correctamente ");
     }
 
     private void cargarItemsDesdeBD() {
@@ -100,7 +100,7 @@ public class TiendaController {
             System.out.println("[BD] Se cargaron " + items.size() + " ítems desde la base de datos.");
         } catch (Exception e) {
             uiHelper.showError("Error cargando la tienda", e.getMessage());
-            System.out.println("[BD] ❌ Error: " + e.getMessage());
+            System.out.println("[BD] Error: " + e.getMessage());
         }
     }
 
@@ -167,7 +167,7 @@ public class TiendaController {
 
         } catch (Exception e) {
             uiHelper.showError("Error cargando detalle del ítem", e.getMessage());
-            System.out.println("[ITEM] ❌ Error detalle: " + e.getMessage());
+            System.out.println("[ITEM] Error detalle: " + e.getMessage());
         }
     }
 
@@ -200,11 +200,11 @@ public class TiendaController {
             popupStage.setOnHidden(e -> root.setEffect(null));
 
             popupStage.showAndWait();
-            System.out.println("[POPUP] Cerrado correctamente ✅");
+            System.out.println("[POPUP] Cerrado correctamente ");
 
         } catch (Exception e) {
             uiHelper.showError("Error mostrando producto", e.getMessage());
-            System.out.println("[POPUP] ❌ Error: " + e.getMessage());
+            System.out.println("[POPUP]  Error: " + e.getMessage());
         }
     }
 
@@ -225,7 +225,7 @@ public class TiendaController {
             }
             System.out.println(prefixLog + " Imagen cargada: " + path);
         } else {
-            System.out.println(prefixLog + " ❌ Imagen no encontrada: " + path);
+            System.out.println(prefixLog + "  Imagen no encontrada: " + path);
             uiHelper.showError("Imagen no encontrada", "No se encontró la imagen en: " + path);
         }
     }
@@ -241,7 +241,7 @@ public class TiendaController {
                 " (Precio: " + itemSeleccionado.precio() + ", Saldo: " + saldoUsuario + ")");
 
         if (itemSeleccionado.precio() > saldoUsuario) {
-            System.out.println("[COMPRA] ❌ Saldo insuficiente. Falta dinero.");
+            System.out.println("[COMPRA]  Saldo insuficiente. Falta dinero.");
             uiHelper.showError(
                     "Pescaditos insuficientes",
                     "Necesitas " + itemSeleccionado.precio() +
@@ -255,14 +255,14 @@ public class TiendaController {
             tiendaService.comprarItem(usuarioId, request);
             saldoUsuario -= itemSeleccionado.precio();
 
-            System.out.println("[COMPRA] ✅ Compra exitosa. Nuevo saldo: " + saldoUsuario);
+            System.out.println("[COMPRA]  Compra exitosa. Nuevo saldo: " + saldoUsuario);
             uiHelper.showInfo("Compra exitosa", "¡Has comprado " + itemSeleccionado.nombre() + "!");
 
         } catch (RuntimeException e) {
-            System.out.println("[COMPRA] ❌ Error de lógica: " + e.getMessage());
+            System.out.println("[COMPRA]  Error de lógica: " + e.getMessage());
             uiHelper.showError("No se pudo completar la compra", e.getMessage());
         } catch (Exception e) {
-            System.out.println("[COMPRA] ⚠️ Error inesperado: " + e.getMessage());
+            System.out.println("[COMPRA] ⚠ Error inesperado: " + e.getMessage());
             uiHelper.showError("Error inesperado al comprar", e.getMessage());
         }
     }
