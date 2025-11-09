@@ -1,7 +1,7 @@
 // Application/services/ForoService.java
 package Application.services;
 
-import Application.dtos.Foro.*;
+import Application.dtos.foro.*;
 import Domain.models.Post;
 import Domain.models.Comentario;
 import Domain.repositoriesInterfaces.InterfazForoRepository;

@@ -1,10 +1,10 @@
 package Infrastructure.test_temporal;
 
-import Application.dtos.Foro.ComentarioResponse;
-import Application.dtos.Foro.PostResponse;
+import Application.dtos.foro.ComentarioResponse;
+import Application.dtos.foro.PostResponse;
 import Application.services.ForoService;
-import Application.dtos.Foro.CrearPostRequest;
-import Application.dtos.Foro.CrearComentarioRequest;
+import Application.dtos.foro.CrearPostRequest;
+import Application.dtos.foro.CrearComentarioRequest;
 import Domain.repositoriesInterfaces.InterfazForoRepository;
 import Infrastructure.persistence.ConexionBD;
 import Infrastructure.persistence.H2DataBaseInitializer;

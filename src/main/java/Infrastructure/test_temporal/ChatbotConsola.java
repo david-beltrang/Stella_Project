@@ -1,8 +1,8 @@
 // Infrastructure/test_temporal/ChatbotConsola.java
 package Infrastructure.test_temporal;
 
-import Application.dtos.Chatbot.ChatMessageRequest;
-import Application.dtos.Chatbot.ChatMessageResponse;
+import Application.dtos.chatbot.ChatMessageRequest;
+import Application.dtos.chatbot.ChatMessageResponse;
 import Application.services.ChatbotService;
 import java.util.Scanner;
 

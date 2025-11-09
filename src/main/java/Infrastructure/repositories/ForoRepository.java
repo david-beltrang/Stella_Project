@@ -5,7 +5,7 @@ import Domain.models.Post;
 import Domain.models.Comentario;
 import Domain.models.ForoValueObjects.Contenido;
 
-import Application.dtos.Foro.*;
+import Application.dtos.foro.*;
 import Domain.repositoriesInterfaces.InterfazForoRepository;
 import Infrastructure.persistence.IConexionBD;
 

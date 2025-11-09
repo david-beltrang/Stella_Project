@@ -1,7 +1,7 @@
 // Application/services/ChatbotService.java
 package Application.services;
 
-import Application.dtos.Chatbot.*;
+import Application.dtos.chatbot.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
