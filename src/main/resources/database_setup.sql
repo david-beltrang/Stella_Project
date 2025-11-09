@@ -333,37 +333,37 @@ INSERT INTO "usuario_curso" (usuario_id, curso_id) VALUES (1, 1);
 -- Sombrero Vuelteado
 INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
     ('Sombrero Vuelteado','Un sombrero elegante y sofisticado, con un diseño único que añade misterio y estilo a cualquier atuendo. Perfecto para quienes buscan destacar con un toque Colombiano.',
-     80, '/images/tienda/sombreroVuelteado.png');
+     800, '/Image/TiendaStella/sombreroVuelteado.png');
 
 -- Gorra
 INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
     ('Gorra','Gorra casual con elementos bordados que aporta un toque de estilo moderno. Ideal para el día a día, tanto para una caminata por la ciudad como para un día de descanso.',
-     40, '/images/tienda/gorra.png');
+     40, '/Image/TiendaStella/gorra.png');
 
 -- Gafas
 INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
     ('Gafas', 'Gafas de sol con protección UV, diseñadas para ofrecer una protección total frente a los rayos solares sin sacrificar el estilo. Perfectas para cualquier ocasión al aire libre.',
-     60, '/images/tienda/gafas.png');
+     60, '/Image/TiendaStella/gafasDeSol.png');
 
 -- Camiseta FIS
 INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
     ('Camiseta FIS', 'Camiseta oficial de Fundamentos en Ingeniería de Software, con un diseño moderno y cómodo. Ideal para los estudiantes y exalumnos que quieren lucir su orgullo académico con estilo.',
-     50, '/images/tienda/camisetaFIS.png');
+     50, '/Image/TiendaStella/sombreroVuelteado.png');
 
 -- Hoodie
 INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
     ('Hoodie', 'Sudadera de alta calidad, cómoda y abrigada, ideal para mantenerte caliente durante esas largas horas de estudio o para disfrutar de un día relajado con amigos. Su diseño versátil la hace perfecta para cualquier ocasión.',
-     120, '/images/tienda/hoodie.png');
+     120, '/Image/TiendaStella/HoodieGit.png');
 
 -- Crop Top
 INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
     ('Crop Top', 'Un crop top fresco y moderno, perfecto para los días soleados o cálidos. Su corte y estilo te aseguran comodidad y libertad de movimiento, ideal para lucir relajada y con estilo.',
-     45, '/images/tienda/crop-top.png');
+     45, '/Image/TiendaStella/sombreroVuelteado.png');
 
 -- 6. STELLA USANDO ITEMS
-INSERT INTO "stella_item" (item_id, image_path) VALUES (1, '/images/stellas/stellaSombrero.png');
+INSERT INTO "stella_item" (item_id, image_path) VALUES (1, '/Image/stellas/stellaSombrero.png');
 
-INSERT INTO "stella_item" (item_id, image_path) VALUES (2, '/images/stellas/stellaGorra.png');
+INSERT INTO "stella_item" (item_id, image_path) VALUES (2, '/Image/stellas/stellaGorra.png');
 
 INSERT INTO "stella_item" (item_id, image_path) VALUES (3, '/images/stellas/stellaGafas.png');
 

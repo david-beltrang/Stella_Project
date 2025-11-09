@@ -11,13 +11,13 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1080.0" maxWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../styles/LoginStyle.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Infrastructure.controllers.PrincipalController">
+<AnchorPane fx:id="root" maxHeight="1080.0" maxWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../styles/LoginStyle.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Infrastructure.controllers.TiendaController">
 
-                      <!-- Fondo -->
+    <!-- Fondo -->
     <ImageView fx:id="background" fitHeight="1080" fitWidth="1920" layoutX="2.0" preserveRatio="false">
         <image>
-         <Image url="@../Image/General/FondoStella.jpg" />
-      </image>
+            <Image url="@../Image/General/FondoStella.jpg" />
+        </image>
     </ImageView>
 
     <!-- Barra inferior -->
@@ -52,11 +52,11 @@
                             </ImageView>
                         </graphic>
                     </Button>
-                    <Button fx:id="ChatBtn" layoutX="991.0" layoutY="12.0" onAction="#goForum" styleClass="nav-btn">
+                    <Button fx:id="Tienda" layoutX="991.0" layoutY="12.0" onAction="#goForum" styleClass="nav-btn">
                         <graphic>
                             <ImageView fitHeight="32.0" fitWidth="48.0" preserveRatio="true">
                                 <image>
-                                    <Image url="@../Image/General/ChatBot.png" />
+                                    <Image url="@../Image/General/tienda.png" />
                                 </image>
                             </ImageView>
                         </graphic>
@@ -104,90 +104,90 @@
             </AnchorPane>
         </children>
     </StackPane>
-   <ScrollPane hbarPolicy="NEVER" layoutX="861.0" layoutY="265.0" prefHeight="498.0" prefWidth="850.0" vbarPolicy="ALWAYS">
-      <content>
-         <VBox prefHeight="498.0" prefWidth="832.0">
-            <children>
-               <HBox prefHeight="230.0" prefWidth="822.0">
-                  <children>
-                     <Button fx:id="AccesorioBtn1"  opacity="0.86" prefHeight="200.0" prefWidth="245.0" styleClass="nav-btn">
-                        <graphic>
-                           <ImageView fitHeight="138.0" fitWidth="164.0" preserveRatio="true" />
-                        </graphic>
-                     </Button>
-                     <Button fx:id="AccesorioBtn2"  opacity="0.86" prefHeight="200.0" prefWidth="245.0" styleClass="nav-btn">
-                        <graphic>
-                           <ImageView fitHeight="114.0" fitWidth="164.0" preserveRatio="true" />
-                        </graphic>
-                     </Button>
-                     <Button fx:id="AccesorioBtn3"  opacity="0.86" prefHeight="200.0" prefWidth="245.0" styleClass="nav-btn">
-                        <graphic>
-                           <ImageView fitHeight="124.0" fitWidth="168.0" preserveRatio="true" />
-                        </graphic>
-                     </Button>
-                     <Button fx:id="AccesorioBtn4"  opacity="0.86" prefHeight="200.0" prefWidth="245.0" styleClass="nav-btn">
-                        <graphic>
-                           <ImageView fitHeight="136.0" fitWidth="178.0" preserveRatio="true" />
-                        </graphic>
-                     </Button>
-                  </children>
-               </HBox>
-               <HBox prefHeight="230.0" prefWidth="822.0">
-                  <children>
-                     <Button fx:id="AccesorioBtn5"  opacity="0.86" prefHeight="200.0" prefWidth="245.0" styleClass="nav-btn">
-                        <graphic>
-                           <ImageView fitHeight="124.0" fitWidth="172.0" preserveRatio="true" />
-                        </graphic>
-                     </Button>
-                     <Button fx:id="AccesorioBtn6"  opacity="0.86" prefHeight="200.0" prefWidth="245.0" styleClass="nav-btn">
-                        <graphic>
-                           <ImageView fitHeight="132.0" fitWidth="158.0" preserveRatio="true" />
-                        </graphic>
-                     </Button>
-                     <Button fx:id="AccesorioBtn7"  opacity="0.86" prefHeight="200.0" prefWidth="245.0" styleClass="nav-btn">
-                        <graphic>
-                           <ImageView fitHeight="134.0" fitWidth="166.0" preserveRatio="true" />
-                        </graphic>
-                     </Button>
-                     <Button fx:id="AccesorioBtn8"  opacity="0.86" prefHeight="200.0" prefWidth="245.0" styleClass="nav-btn">
-                        <graphic>
-                           <ImageView fitHeight="132.0" fitWidth="168.0" preserveRatio="true" />
-                        </graphic>
-                     </Button>
-                  </children>
-               </HBox>
-               <HBox prefHeight="230.0" prefWidth="822.0">
-                  <children>
-                     <Button fx:id="AccesorioBtn9"  opacity="0.86" prefHeight="200.0" prefWidth="245.0" styleClass="nav-btn">
-                        <graphic>
-                           <ImageView fitHeight="122.0" fitWidth="174.0" preserveRatio="true" />
-                        </graphic>
-                     </Button>
-                     <Button fx:id="AccesorioBtn10"  opacity="0.86" prefHeight="200.0" prefWidth="245.0" styleClass="nav-btn">
-                        <graphic>
-                           <ImageView fitHeight="128.0" fitWidth="164.0" preserveRatio="true" />
-                        </graphic>
-                     </Button>
-                     <Button fx:id="AccesorioBtn11"  opacity="0.86" prefHeight="200.0" prefWidth="245.0" styleClass="nav-btn">
-                        <graphic>
-                           <ImageView fitHeight="136.0" fitWidth="166.0" preserveRatio="true" />
-                        </graphic>
-                     </Button>
-                     <Button fx:id="AccesorioBtn12"  opacity="0.86" prefHeight="200.0" prefWidth="245.0" styleClass="nav-btn">
-                        <graphic>
-                           <ImageView fitHeight="132.0" fitWidth="164.0" preserveRatio="true" />
-                        </graphic>
-                     </Button>
-                  </children>
-               </HBox>
-            </children>
-         </VBox>
-      </content>
-   </ScrollPane>
-   <ImageView fitHeight="694.0" fitWidth="896.0" layoutX="99.0" layoutY="133.0" pickOnBounds="true" preserveRatio="true">
-      <image>
-         <Image url="@../Image/General/BaseTienda.png" />
-      </image>
-   </ImageView>
-   <ImageView fitHeight="382.0" fitWidth="304.0" layoutX="293.0" layoutY="297.0" pickOnBounds="true" preserveRatio="true" />
+    <ScrollPane hbarPolicy="NEVER" layoutX="861.0" layoutY="265.0" prefHeight="498.0" prefWidth="850.0" vbarPolicy="ALWAYS">
+        <content>
+            <VBox prefHeight="498.0" prefWidth="832.0">
+                <children>
+                    <HBox prefHeight="230.0" prefWidth="822.0">
+                        <children>
+                            <Button fx:id="AccesorioBtn1"  opacity="0.86" prefHeight="200.0" prefWidth="245.0" styleClass="nav-btn">
+                                <graphic>
+                                    <ImageView fitHeight="138.0" fitWidth="164.0" preserveRatio="true" />
+                                </graphic>
+                            </Button>
+                            <Button fx:id="AccesorioBtn2"  opacity="0.86" prefHeight="200.0" prefWidth="245.0" styleClass="nav-btn">
+                                <graphic>
+                                    <ImageView fitHeight="114.0" fitWidth="164.0" preserveRatio="true" />
+                                </graphic>
+                            </Button>
+                            <Button fx:id="AccesorioBtn3"  opacity="0.86" prefHeight="200.0" prefWidth="245.0" styleClass="nav-btn">
+                                <graphic>
+                                    <ImageView fitHeight="124.0" fitWidth="168.0" preserveRatio="true" />
+                                </graphic>
+                            </Button>
+                            <Button fx:id="AccesorioBtn4"  opacity="0.86" prefHeight="200.0" prefWidth="245.0" styleClass="nav-btn">
+                                <graphic>
+                                    <ImageView fitHeight="136.0" fitWidth="178.0" preserveRatio="true" />
+                                </graphic>
+                            </Button>
+                        </children>
+                    </HBox>
+                    <HBox prefHeight="230.0" prefWidth="822.0">
+                        <children>
+                            <Button fx:id="AccesorioBtn5"  opacity="0.86" prefHeight="200.0" prefWidth="245.0" styleClass="nav-btn">
+                                <graphic>
+                                    <ImageView fitHeight="124.0" fitWidth="172.0" preserveRatio="true" />
+                                </graphic>
+                            </Button>
+                            <Button fx:id="AccesorioBtn6"  opacity="0.86" prefHeight="200.0" prefWidth="245.0" styleClass="nav-btn">
+                                <graphic>
+                                    <ImageView fitHeight="132.0" fitWidth="158.0" preserveRatio="true" />
+                                </graphic>
+                            </Button>
+                            <Button fx:id="AccesorioBtn7"  opacity="0.86" prefHeight="200.0" prefWidth="245.0" styleClass="nav-btn">
+                                <graphic>
+                                    <ImageView fitHeight="134.0" fitWidth="166.0" preserveRatio="true" />
+                                </graphic>
+                            </Button>
+                            <Button fx:id="AccesorioBtn8"  opacity="0.86" prefHeight="200.0" prefWidth="245.0" styleClass="nav-btn">
+                                <graphic>
+                                    <ImageView fitHeight="132.0" fitWidth="168.0" preserveRatio="true" />
+                                </graphic>
+                            </Button>
+                        </children>
+                    </HBox>
+                    <HBox prefHeight="230.0" prefWidth="822.0">
+                        <children>
+                            <Button fx:id="AccesorioBtn9"  opacity="0.86" prefHeight="200.0" prefWidth="245.0" styleClass="nav-btn">
+                                <graphic>
+                                    <ImageView fitHeight="122.0" fitWidth="174.0" preserveRatio="true" />
+                                </graphic>
+                            </Button>
+                            <Button fx:id="AccesorioBtn10"  opacity="0.86" prefHeight="200.0" prefWidth="245.0" styleClass="nav-btn">
+                                <graphic>
+                                    <ImageView fitHeight="128.0" fitWidth="164.0" preserveRatio="true" />
+                                </graphic>
+                            </Button>
+                            <Button fx:id="AccesorioBtn11"  opacity="0.86" prefHeight="200.0" prefWidth="245.0" styleClass="nav-btn">
+                                <graphic>
+                                    <ImageView fitHeight="136.0" fitWidth="166.0" preserveRatio="true" />
+                                </graphic>
+                            </Button>
+                            <Button fx:id="AccesorioBtn12"  opacity="0.86" prefHeight="200.0" prefWidth="245.0" styleClass="nav-btn">
+                                <graphic>
+                                    <ImageView fitHeight="132.0" fitWidth="164.0" preserveRatio="true" />
+                                </graphic>
+                            </Button>
+                        </children>
+                    </HBox>
+                </children>
+            </VBox>
+        </content>
+    </ScrollPane>
+    <ImageView fitHeight="694.0" fitWidth="896.0" layoutX="99.0" layoutY="133.0" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@../Image/General/BaseTienda.png" />
+        </image>
+    </ImageView>
+    <ImageView fx:id="imgItem" fitHeight="382.0" fitWidth="304.0" layoutX="293.0" layoutY="297.0" pickOnBounds="true" preserveRatio="true" />
 </AnchorPane>

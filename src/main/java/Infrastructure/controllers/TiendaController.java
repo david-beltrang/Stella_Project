@@ -1,155 +1,284 @@
 package Infrastructure.controllers;
 
-import Application.dtos.tienda.ItemCompraRequest;
-import Application.dtos.tienda.ItemDetalleRequest;
-import Application.dtos.tienda.ItemDetalleResponse;
-import Application.dtos.tienda.ItemTiendaResponse;
+import Application.dtos.tienda.*;
 import Application.services.TiendaService;
 import Infrastructure.ui.AyudaUI;
 import Infrastructure.ui.Navigacion;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
 public class TiendaController {
 
-    // ========= Dependencias =========
-    private final TiendaService tiendaService;
+    private TiendaService tiendaService;
     private final Navigacion navigator = new Navigacion();
     private final AyudaUI uiHelper = new AyudaUI();
     private Function<Class<?>, Object> controllerFactory;
 
-    // Usuario logueado (inyéctalo desde fuera)
-    private int usuarioId;
+    private int usuarioId = 1;
+    private int saldoUsuario = 0;
 
-    // ========= FXML =========
-    @FXML private Pane root;
+    @FXML private AnchorPane root;
 
-    @FXML private ListView<ItemTiendaResponse> listaItems;
-    @FXML private Label lblNombreItem;
-    @FXML private Label lblPrecioItem;
-    @FXML private TextArea txtDescripcionItem;
+    @FXML private Button AccesorioBtn1;
+    @FXML private Button AccesorioBtn2;
+    @FXML private Button AccesorioBtn3;
+    @FXML private Button AccesorioBtn4;
+    @FXML private Button AccesorioBtn5;
+    @FXML private Button AccesorioBtn6;
+    @FXML private Button AccesorioBtn7;
+    @FXML private Button AccesorioBtn8;
+    @FXML private Button AccesorioBtn9;
+    @FXML private Button AccesorioBtn10;
+    @FXML private Button AccesorioBtn11;
+    @FXML private Button AccesorioBtn12;
+
     @FXML private ImageView imgItem;
-    @FXML private Button btnComprar;
 
-    // ========= Estado interno =========
+    private List<ItemTiendaResponse> items = new ArrayList<>();
     private ItemTiendaResponse itemSeleccionado;
 
-    // ========= Constructor =========
     public TiendaController(TiendaService tiendaService) {
         this.tiendaService = tiendaService;
     }
 
+    public TiendaController() {}
+
     public void setControllerFactory(Function<Class<?>, Object> controllerFactory) {
         this.controllerFactory = controllerFactory;
+    }
+
+    public void setTiendaService(TiendaService tiendaService) {
+        this.tiendaService = tiendaService;
     }
 
     public void setUsuarioId(int usuarioId) {
         this.usuarioId = usuarioId;
     }
 
-    // ========= Inicialización =========
     @FXML
     private void initialize() {
-        configurarListaItems();
-        cargarItemsTienda();
-        limpiarDetalle();
-    }
+        System.out.println("[INIT] Iniciando TiendaController...");
+        if (tiendaService == null) {
+            System.out.println("[INIT] tiendaService es NULL ❌");
+            return;
+        }
 
-    private void configurarListaItems() {
-        listaItems.setCellFactory(listView -> new ListCell<>() {
-            @Override
-            protected void updateItem(ItemTiendaResponse item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                } else {
-                    setText(item.nombre() + " - " + item.precio() + " pescaditos");
-                }
-            }
-        });
-
-        listaItems.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
-            itemSeleccionado = newVal;
-            if (newVal != null) {
-                cargarDetalleItem(newVal.id());
-            } else {
-                limpiarDetalle();
-            }
-        });
-    }
-
-    // ========= Lógica de tienda =========
-    private void cargarItemsTienda() {
         try {
-            List<ItemTiendaResponse> items = tiendaService.obtenerItemsTienda();
-            listaItems.getItems().setAll(items);
+            saldoUsuario = tiendaService.obtenerSaldoUsuario(usuarioId);
+            System.out.println("[INIT] Saldo cargado correctamente -> " + saldoUsuario + " pescaditos 🪙");
+        } catch (Exception e) {
+            saldoUsuario = 0;
+            System.out.println("[INIT] Error obteniendo saldo: " + e.getMessage());
+        }
+
+        cargarItemsDesdeBD();
+        poblarBotonesConItems();
+
+        imgItem.setImage(null);
+        System.out.println("[INIT] Tienda inicializada correctamente ✅");
+    }
+
+    private void cargarItemsDesdeBD() {
+        try {
+            items = tiendaService.obtenerItemsTienda();
+            System.out.println("[BD] Se cargaron " + items.size() + " ítems desde la base de datos.");
         } catch (Exception e) {
             uiHelper.showError("Error cargando la tienda", e.getMessage());
+            System.out.println("[BD] ❌ Error: " + e.getMessage());
         }
     }
 
-    private void cargarDetalleItem(int itemId) {
-        try {
-            ItemDetalleResponse detalle = tiendaService.obtenerDetalleItem(
-                    new ItemDetalleRequest(itemId)
-            );
+    private void poblarBotonesConItems() {
+        if (items == null || items.isEmpty()) {
+            System.out.println("[BOTONES] No hay ítems para poblar.");
+            return;
+        }
 
-            lblNombreItem.setText(detalle.nombre());
-            lblPrecioItem.setText(detalle.precio() + " pescaditos");
-            txtDescripcionItem.setText(detalle.descripcion());
+        Button[] botones = {
+                AccesorioBtn1, AccesorioBtn2, AccesorioBtn3, AccesorioBtn4,
+                AccesorioBtn5, AccesorioBtn6, AccesorioBtn7, AccesorioBtn8,
+                AccesorioBtn9, AccesorioBtn10, AccesorioBtn11, AccesorioBtn12
+        };
 
-            if (imgItem != null && detalle.stellaImagePath() != null && !detalle.stellaImagePath().isBlank()) {
-                try {
-                    Image image = new Image(getClass().getResourceAsStream(detalle.stellaImagePath()));
-                    imgItem.setImage(image);
-                } catch (Exception ignored) {
-                    imgItem.setImage(null);
-                }
+        for (int i = 0; i < botones.length; i++) {
+            Button btn = botones[i];
+            if (btn == null) continue;
+
+            if (i < items.size()) {
+                ItemTiendaResponse item = items.get(i);
+                btn.setDisable(false);
+                btn.setOpacity(1.0);
+
+                ImageView iv = extraerImageViewDeBoton(btn);
+                if (iv != null)
+                    cargarImagenEnImageView(iv, item.imagePath(), "[TIENDA-BOTON] ");
+
+                btn.setOnAction(e -> mostrarItem(item));
+                btn.setOnMouseClicked(e -> {
+                    if (e.getClickCount() == 2) mostrarPopupProducto(item);
+                });
+
+                System.out.println("[BOTONES] Botón " + (i+1) + " -> " + item.nombre());
+            } else {
+                btn.setDisable(true);
+                btn.setOpacity(0.3);
             }
+        }
+    }
+
+    private ImageView extraerImageViewDeBoton(Button btn) {
+        if (btn.getGraphic() instanceof ImageView iv) return iv;
+        return null;
+    }
+
+    private void mostrarItem(ItemTiendaResponse item) {
+        if (item == null) return;
+
+        this.itemSeleccionado = item;
+        System.out.println("[ITEM] Seleccionado: " + item.nombre() + " (precio: " + item.precio() + ")");
+
+        try {
+            ItemDetalleResponse detalle =
+                    tiendaService.obtenerDetalleItem(new ItemDetalleRequest(item.id()));
+
+            String stellaPath = detalle.stellaImagePath();
+            String pathParaMostrar = (stellaPath != null && !stellaPath.isBlank())
+                    ? stellaPath
+                    : item.imagePath();
+
+            cargarImagenEnImageView(imgItem, pathParaMostrar, "[TIENDA-DETALLE] ");
+            System.out.println("[ITEM] Mostrando imagen: " + pathParaMostrar);
 
         } catch (Exception e) {
             uiHelper.showError("Error cargando detalle del ítem", e.getMessage());
+            System.out.println("[ITEM] ❌ Error detalle: " + e.getMessage());
         }
     }
 
-    private void limpiarDetalle() {
-        if (lblNombreItem != null) lblNombreItem.setText("");
-        if (lblPrecioItem != null) lblPrecioItem.setText("");
-        if (txtDescripcionItem != null) txtDescripcionItem.clear();
-        if (imgItem != null) imgItem.setImage(null);
+    private void mostrarPopupProducto(ItemTiendaResponse item) {
+        System.out.println("[POPUP] Abriendo detalle para " + item.nombre());
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ProductoTienda.fxml"));
+            if (controllerFactory != null)
+                loader.setControllerFactory(controllerFactory::apply);
+
+            Parent popupRoot = loader.load();
+            ProductoTiendaController ctrl = loader.getController();
+            ItemDetalleResponse detalle = tiendaService.obtenerDetalleItem(new ItemDetalleRequest(item.id()));
+            ctrl.setProducto(detalle);
+
+            // 🔹 Configuración del popup con referencia al controlador principal
+            Scene popupScene = new Scene(popupRoot, 1100, 750);
+            popupScene.setFill(Color.TRANSPARENT);
+
+            Stage popupStage = new Stage(StageStyle.TRANSPARENT);
+            popupStage.initModality(Modality.APPLICATION_MODAL);
+            popupStage.initOwner(root.getScene().getWindow());
+            popupStage.setScene(popupScene);
+            popupStage.centerOnScreen();
+
+            // 💡 Guardamos referencia al controlador de tienda en el Stage
+            popupStage.getProperties().put("controller", this);
+
+            root.setEffect(new GaussianBlur(10));
+            popupStage.setOnHidden(e -> root.setEffect(null));
+
+            popupStage.showAndWait();
+            System.out.println("[POPUP] Cerrado correctamente ✅");
+
+        } catch (Exception e) {
+            uiHelper.showError("Error mostrando producto", e.getMessage());
+            System.out.println("[POPUP] ❌ Error: " + e.getMessage());
+        }
+    }
+
+    private void cargarImagenEnImageView(ImageView destino, String rawPath, String prefixLog) {
+        if (destino == null) return;
+        String path = rawPath == null ? "" : rawPath.trim();
+        if (path.isBlank()) return;
+
+        if (!path.startsWith("/")) path = "/" + path;
+        URL url = getClass().getResource(path);
+        if (url != null) {
+            Image image = new Image(url.toExternalForm());
+            destino.setImage(image);
+            destino.setPreserveRatio(true);
+            if (destino.getFitWidth() <= 0 && destino.getFitHeight() <= 0) {
+                destino.setFitWidth(150);
+                destino.setFitHeight(150);
+            }
+            System.out.println(prefixLog + " Imagen cargada: " + path);
+        } else {
+            System.out.println(prefixLog + " ❌ Imagen no encontrada: " + path);
+            uiHelper.showError("Imagen no encontrada", "No se encontró la imagen en: " + path);
+        }
     }
 
     @FXML
     private void onComprarItem() {
         if (itemSeleccionado == null) {
-            uiHelper.showInfo("Selecciona un ítem", "Primero elige un producto de la lista.");
+            uiHelper.showInfo("Selecciona un ítem", "Primero elige un producto.");
+            return;
+        }
+
+        System.out.println("[COMPRA] Intentando comprar " + itemSeleccionado.nombre() +
+                " (Precio: " + itemSeleccionado.precio() + ", Saldo: " + saldoUsuario + ")");
+
+        if (itemSeleccionado.precio() > saldoUsuario) {
+            System.out.println("[COMPRA] ❌ Saldo insuficiente. Falta dinero.");
+            uiHelper.showError(
+                    "Pescaditos insuficientes",
+                    "Necesitas " + itemSeleccionado.precio() +
+                            " pescaditos, pero solo tienes " + saldoUsuario + "."
+            );
             return;
         }
 
         try {
             ItemCompraRequest request = new ItemCompraRequest(itemSeleccionado.id());
             tiendaService.comprarItem(usuarioId, request);
+            saldoUsuario -= itemSeleccionado.precio();
 
+            System.out.println("[COMPRA] ✅ Compra exitosa. Nuevo saldo: " + saldoUsuario);
             uiHelper.showInfo("Compra exitosa", "¡Has comprado " + itemSeleccionado.nombre() + "!");
-        } catch (Exception e) {
+
+        } catch (RuntimeException e) {
+            System.out.println("[COMPRA] ❌ Error de lógica: " + e.getMessage());
             uiHelper.showError("No se pudo completar la compra", e.getMessage());
+        } catch (Exception e) {
+            System.out.println("[COMPRA] ⚠️ Error inesperado: " + e.getMessage());
+            uiHelper.showError("Error inesperado al comprar", e.getMessage());
         }
     }
 
-    // ========= Navegación =========
-    @FXML
-    private void onVolverAPrincipal() {
-        navigator.goTo(
-                "/fxml/Principal.fxml",   // ajusta la ruta si tu principal tiene otra
-                "STELLA",
-                controllerFactory,
-                root
-        );
+    // 🔁 Método llamado desde el popup
+    public void forzarCompraDesdePopup(ItemDetalleResponse producto) {
+        if (producto == null || itemSeleccionado == null) {
+            System.err.println("[POPUP->TIENDA] No hay item seleccionado o producto nulo.");
+            return;
+        }
+        onComprarItem(); // Reutiliza la lógica principal
     }
+
+    // ========= Navegación =========
+    @FXML private void goHome() { uiHelper.showInfo("Inicio", "Ya estás en la tienda."); }
+    @FXML private void goForum() { uiHelper.showInfo("Foro", "Pantalla de foro aún no conectada."); }
+    @FXML private void goProfile() { uiHelper.showInfo("Perfil", "Pantalla de perfil aún no implementada."); }
+    @FXML private void goPomodoro() { uiHelper.showInfo("Pomodoro", "Desde tienda aún no se ha conectado."); }
 }

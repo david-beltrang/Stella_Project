@@ -76,4 +76,13 @@ public class TiendaService {
         int saldoFinal = usuarioItemRepo.obtenerPescaditos(1);
         System.out.println("Pescaditos finales: " + saldoFinal);
     }
+    // === 4. Obtener saldo actual del usuario ===
+    public int obtenerSaldoUsuario(int usuarioId) {
+        try {
+            return usuarioItemRepo.obtenerPescaditos(usuarioId);
+        } catch (Exception e) {
+            throw new RuntimeException("No se pudo obtener el saldo del usuario", e);
+        }
+    }
+
 }

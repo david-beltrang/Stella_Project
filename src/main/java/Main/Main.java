@@ -7,6 +7,7 @@ import Application.services.PomodoroTimer;
 import Application.services.SesionPomodoroService;
 import Application.services.SeccionesService;
 import Application.services.LeccionService;
+import Application.services.TiendaService;                    // ✅ NUEVO
 
 import Domain.repositoriesInterfaces.*;
 import Infrastructure.controllers.ControllerControladores;
@@ -17,7 +18,6 @@ import Infrastructure.repositories.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-// 👇 importa AppServices
 import Application.config.AppServices;
 
 public class Main extends Application {
@@ -38,6 +38,11 @@ public class Main extends Application {
         InterfazUsuarioStatsRepository usuarioStatsRepository = new UsuarioStatsRepository(connMgr);
         InterfazSesionEstudioRepository sesionEstudioRepository = new SesionEstudioRepository(connMgr);
 
+        // ✅ REPOS para tienda (ajusta nombres si tus clases se llaman distinto)
+        InterfazItemRepository itemRepository = new ItemRepository(connMgr);
+        InterfazStellaItemRepository stellaItemRepository = new StellaItemRepository(connMgr);
+        InterfazUsuarioItemRepository usuarioItemRepository = new UsuarioItemRepository(connMgr);
+
         // ======== Servicios ========
         SeccionesService seccionesService = new SeccionesService(seccionRepository);
         ListarCursosService listarCursosService = new ListarCursosService(cursoRepository, usuarioCursoRepository);
@@ -46,6 +51,13 @@ public class Main extends Application {
         LoginService loginService = new LoginService(usuarioRepository);
         RegistroService registroService = new RegistroService(usuarioRepository);
         LeccionService leccionService = new LeccionService(leccionRepository);
+
+        // ✅ Servicio de tienda usando EXACTAMENTE la firma que tiene tu TiendaService
+        TiendaService tiendaService = new TiendaService(
+                itemRepository,
+                stellaItemRepository,
+                usuarioItemRepository
+        );
 
         // ======== REGISTRA Pomodoro global en AppServices ========
         AppServices.initPomodoro(sesionPomodoroService, pomodoroTimer);
@@ -58,7 +70,8 @@ public class Main extends Application {
                 sesionPomodoroService,
                 loginService,
                 registroService,
-                leccionService
+                leccionService,
+                tiendaService                         // ✅ NUEVO PARÁMETRO
         );
 
         // ======== Pantalla inicial ========

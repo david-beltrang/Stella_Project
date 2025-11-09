@@ -7,6 +7,8 @@ import Application.services.ListarCursosService;
 import Application.services.PomodoroTimer;
 import Application.services.SesionPomodoroService;
 import Application.services.LeccionService;
+import Application.services.TiendaService;              // ✅ NUEVO
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -24,7 +26,7 @@ public class ControllerControladores {
     private final LoginService loginService;
     private final RegistroService registroService;
     private final LeccionService leccionService;
-
+    private final TiendaService tiendaService;          // ✅ NUEVO
 
     // ======== Controladores ========
     private HelloController helloController;
@@ -34,7 +36,8 @@ public class ControllerControladores {
     private LoginController loginController;
     private CursoController cursoController;
     private LeccionController leccionController;
-    private QuizController quizController; // ✅ Nuevo
+    private QuizController quizController;
+    private TiendaController tiendaController;          // ✅ NUEVO
 
     // ======== Factory global ========
     private Function<Class<?>, Object> factory;
@@ -46,7 +49,8 @@ public class ControllerControladores {
             SesionPomodoroService sesionPomodoroService,
             LoginService loginService,
             RegistroService registroService,
-            LeccionService leccionService
+            LeccionService leccionService,
+            TiendaService tiendaService                  // ✅ NUEVO parámetro
     ) {
         this.seccionesService = Objects.requireNonNull(seccionesService);
         this.listarCursosService = Objects.requireNonNull(listarCursosService);
@@ -55,6 +59,7 @@ public class ControllerControladores {
         this.loginService = Objects.requireNonNull(loginService);
         this.registroService = Objects.requireNonNull(registroService);
         this.leccionService = Objects.requireNonNull(leccionService);
+        this.tiendaService = Objects.requireNonNull(tiendaService);   // ✅
         inicializar();
     }
 
@@ -67,7 +72,8 @@ public class ControllerControladores {
         this.registroController = new RegistroController(registroService);
         this.cursoController = new CursoController(seccionesService, leccionService);
         this.leccionController = new LeccionController(leccionService);
-        this.quizController = new QuizController(); // ✅ agregado
+        this.quizController = new QuizController();
+        this.tiendaController = new TiendaController(tiendaService);  // ✅ le pasamos el servicio
 
         // === Factory global ===
         this.factory = (Class<?> clazz) -> {
@@ -78,7 +84,9 @@ public class ControllerControladores {
             if (clazz == LoginController.class) return loginController;
             if (clazz == CursoController.class) return cursoController;
             if (clazz == LeccionController.class) return leccionController;
-            if (clazz == QuizController.class) return quizController; // ✅ agregado
+            if (clazz == QuizController.class) return quizController;
+            if (clazz == TiendaController.class) return tiendaController;
+            if (clazz == ProductoTiendaController.class) return new ProductoTiendaController(tiendaService);
             try {
                 return clazz.getDeclaredConstructor().newInstance();
             } catch (Exception e) {
@@ -94,7 +102,8 @@ public class ControllerControladores {
         loginController.setControllerFactory(factory);
         cursoController.setControllerFactory(factory);
         leccionController.setControllerFactory(factory);
-        quizController.setControllerFactory(factory); // ✅ agregado
+        quizController.setControllerFactory(factory);
+        tiendaController.setControllerFactory(factory);    // ✅
     }
 
     // ======== Getters ========

@@ -12,7 +12,11 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1080.0" maxWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../styles/LoginStyle.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Infrastructure.controllers.PrincipalController">
+<AnchorPane maxHeight="1080.0" maxWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0"
+            stylesheets="@../styles/LoginStyle.css"
+            xmlns="http://javafx.com/javafx/25"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Infrastructure.controllers.PrincipalController">
 
     <!-- Fondo -->
     <ImageView fx:id="background" fitHeight="1080" fitWidth="1920" preserveRatio="false">
@@ -22,21 +26,26 @@
     <!-- Barra superior (buscador) -->
     <HBox layoutX="283.0" layoutY="158.0" spacing="20">
         <children>
-            <TextField fx:id="searchField" prefWidth="600" promptText="Buscar curso..." style="-fx-background-radius: 20; -fx-padding: 8 20 8 20;">
-            <font>
-               <Font size="15.0" />
-            </font></TextField>
+            <TextField fx:id="searchField" prefWidth="600" promptText="Buscar curso..."
+                       style="-fx-background-radius: 20; -fx-padding: 8 20 8 20;">
+                <font><Font size="15.0" /></font>
+            </TextField>
             <Button onAction="#buscarCurso" style="-fx-background-color: transparent; -fx-font-size: 20; -fx-text-fill: #00BFFF;" text="🔍" />
         </children>
     </HBox>
 
     <!-- MIS CURSOS -->
-    <Label layoutX="298.0" layoutY="198.0" style="-fx-text-fill: white; -fx-font-size: 36; -fx-font-weight: bold;" text="Mis Cursos" />
+    <Label layoutX="298.0" layoutY="198.0"
+           style="-fx-text-fill: white; -fx-font-size: 36; -fx-font-weight: bold;"
+           text="Mis Cursos" />
 
     <AnchorPane layoutX="283.0" layoutY="262.0" prefHeight="200" prefWidth="1720">
         <children>
-            <Label fx:id="noCoursesLabel" layoutX="760" layoutY="80" style="-fx-text-fill: white; -fx-font-size: 20; -fx-font-weight: bold;" text="Aún no tienes cursos." visible="false" />
-            <ScrollPane fx:id="misCursosScroll" hbarPolicy="NEVER" prefHeight="200" prefWidth="1720" style="-fx-background-color: transparent;" vbarPolicy="NEVER">
+            <Label fx:id="noCoursesLabel" layoutX="760" layoutY="80"
+                   style="-fx-text-fill: white; -fx-font-size: 20; -fx-font-weight: bold;"
+                   text="Aún no tienes cursos." visible="false" />
+            <ScrollPane fx:id="misCursosScroll" hbarPolicy="NEVER" prefHeight="200" prefWidth="1720"
+                        style="-fx-background-color: transparent;" vbarPolicy="NEVER">
                 <content>
                     <HBox fx:id="misCursosContainer" alignment="CENTER_LEFT" spacing="30" />
                 </content>
@@ -45,19 +54,25 @@
     </AnchorPane>
 
     <!-- CURSOS DISPONIBLES -->
-    <Label layoutX="283.0" layoutY="479.0" style="-fx-text-fill: white; -fx-font-size: 36; -fx-font-weight: bold;" text="Cursos Disponibles" />
+    <Label layoutX="283.0" layoutY="479.0"
+           style="-fx-text-fill: white; -fx-font-size: 36; -fx-font-weight: bold;"
+           text="Cursos Disponibles" />
 
     <AnchorPane layoutX="272.0" layoutY="540.0" prefHeight="240.0" prefWidth="1222.0">
         <children>
-            <Button fx:id="leftArrow" layoutX="0" layoutY="100" onAction="#scrollLeft" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 40;" text="◀" />
+            <Button fx:id="leftArrow" layoutX="0" layoutY="100" onAction="#scrollLeft"
+                    style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 40;" text="◀" />
 
-            <ScrollPane fx:id="cursosDisponiblesScroll" hbarPolicy="NEVER" layoutX="60" layoutY="0" prefHeight="240" prefWidth="1100" style="-fx-background-color: transparent;" vbarPolicy="NEVER">
+            <ScrollPane fx:id="cursosDisponiblesScroll" hbarPolicy="NEVER" layoutX="60" layoutY="0"
+                        prefHeight="240" prefWidth="1100" style="-fx-background-color: transparent;"
+                        vbarPolicy="NEVER">
                 <content>
                     <HBox fx:id="cursosDisponiblesContainer" alignment="CENTER_LEFT" spacing="30" />
                 </content>
             </ScrollPane>
 
-            <Button fx:id="rightArrow" layoutX="1170" layoutY="100" onAction="#scrollRight" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 40;" text="▶" />
+            <Button fx:id="rightArrow" layoutX="1170" layoutY="100" onAction="#scrollRight"
+                    style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 40;" text="▶" />
         </children>
     </AnchorPane>
 
@@ -85,7 +100,7 @@
                         </ImageView></graphic>
                     </Button>
 
-                    <!-- 2) NUEVO: botón Pomodoro en la barra inferior (entre fueguito y pescado) -->
+                    <!-- Botón Pomodoro -->
                     <Button fx:id="pomodoroBtn" layoutX="1293.0" layoutY="10.0" onAction="#goPomodoro" style="-fx-background-color: transparent;">
                         <graphic>
                             <ImageView fitHeight="52.0" fitWidth="66.0" preserveRatio="true">
@@ -93,24 +108,21 @@
                             </ImageView>
                         </graphic>
                     </Button>
-               <Button fx:id="forumBtn3" layoutX="991.0" layoutY="12.0" onAction="#goForum" styleClass="nav-btn">
-                  <graphic>
-                     <ImageView fitHeight="32.0" fitWidth="48.0" preserveRatio="true">
-                        <image>
-                           <Image url="@../Image/General/ChatBot.png" />
-                        </image>
-                     </ImageView>
-                  </graphic>
-               </Button>
 
-                    <!-- 1) ELIMINADO: botón pomodoro de la barra inferior -->
-                    <!-- (se movió a la barra superior) -->
+                    <!-- ✅ Botón Tienda -->
+                    <Button fx:id="tiendaBtn" layoutX="991.0" layoutY="12.0" onAction="#goTienda" style="-fx-background-color: transparent;">
+                        <graphic>
+                            <ImageView fitHeight="32.0" fitWidth="48.0" preserveRatio="true">
+                                <image><Image url="@../Image/General/tienda.png" /></image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
                 </children>
             </AnchorPane>
         </children>
     </StackPane>
 
-    <!-- Barra superior con el botón "Cerrar sesión" -->
+    <!-- Barra superior -->
     <StackPane layoutX="-1.0" layoutY="32.0" prefHeight="80" prefWidth="1920.0">
         <children>
             <Rectangle arcHeight="0" arcWidth="0" height="80" style="-fx-fill: rgba(8,7,54,0.55);" width="1923.0" />
@@ -119,29 +131,26 @@
                     <Button fx:id="homeBtn2" layoutX="346.0" layoutY="12.0" onAction="#goHome" prefWidth="60.0" styleClass="nav-btn">
                         <graphic>
                             <ImageView fitHeight="36.0" fitWidth="38.0" preserveRatio="true">
-                                <image><Image url="@../Image/General/trofeo.png" /></image>
+                                <image><Image url="@../Image/General/Trofeo.png" /></image>
                             </ImageView>
                         </graphic>
                     </Button>
 
                     <Button fx:id="forumBtn2" layoutX="754.0" layoutY="21.0" onAction="#goForum" prefHeight="45.0" prefWidth="130.0" styleClass="nav-btn" />
 
-                    <!-- Fueguito (racha) -->
                     <ImageView fitHeight="61.0" fitWidth="65.0" layoutX="701.0" layoutY="14.0" preserveRatio="true">
                         <image><Image url="@../Image/General/racha.png" /></image>
                     </ImageView>
 
-                    <!-- Pescaditos -->
                     <ImageView fitHeight="237.0" fitWidth="90.0" layoutX="1123.0" preserveRatio="true">
                         <image><Image url="@../Image/General/pescaditos.png" /></image>
                     </ImageView>
 
-                    <!-- Cerrar sesión (sin cambios) -->
-                    <Button fx:id="logoutBtn" layoutX="1628.0" layoutY="19.0" style="-fx-background-color: #4DA3FF; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 6 14;" text="Cerrar sesión">
-                        <font>
-                            <Font name="System Bold Italic" size="27.0" />
-                        </font></Button>
-               <Button fx:id="forumBtn1" layoutX="1207.0" layoutY="23.0" onAction="#goForum" prefWidth="157.0" styleClass="nav-btn" />
+                    <Button fx:id="logoutBtn" layoutX="1628.0" layoutY="19.0"
+                            style="-fx-background-color: #4DA3FF; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 6 14;"
+                            text="Cerrar sesión">
+                        <font><Font name="System Bold Italic" size="27.0" /></font>
+                    </Button>
                 </children>
             </AnchorPane>
         </children>

@@ -292,6 +292,14 @@ public class PrincipalController implements Initializable {
     @FXML private void goForum()       { uiHelper.showInfo("Foro", "Pantalla de foro aún no implementada."); }
     @FXML private void goAchievements(){ uiHelper.showInfo("Logros", "Pantalla de logros aún no implementada."); }
     @FXML private void goProfile()     { uiHelper.showInfo("Perfil", "Pantalla de perfil aún no implementada."); }
+    @FXML
+    private void goTienda() {
+        try {
+            navigator.goTo("/views/Tienda.fxml", "STELLA - Tienda", controllerFactory, null);
+        } catch (Exception e) {
+            uiHelper.showError("Error al abrir la Tienda", e.getMessage());
+        }
+    }
 
     // ====== CERRAR SESIÓN ======
     private void cerrarSesion() {
