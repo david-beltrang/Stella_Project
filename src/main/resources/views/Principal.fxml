@@ -15,7 +15,7 @@
 <AnchorPane maxHeight="1080.0" maxWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../styles/LoginStyle.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Infrastructure.controllers.PrincipalController">
 
     <!-- Fondo -->
-    <ImageView fx:id="background" fitHeight="1080" fitWidth="1920" preserveRatio="false">
+    <ImageView fx:id="background" fitHeight="1080" fitWidth="1920" layoutX="1.0" preserveRatio="false">
         <image><Image url="@../Image/General/FondoStella.jpg" /></image>
     </ImageView>
 
@@ -85,26 +85,26 @@
                         </ImageView></graphic>
                     </Button>
 
-                    <!-- 2) NUEVO: botón Pomodoro en la barra inferior (entre fueguito y pescado) -->
-                    <Button fx:id="pomodoroBtn" layoutX="1293.0" layoutY="10.0" onAction="#goPomodoro" style="-fx-background-color: transparent;">
+
+                    <Button fx:id="iguluBtn" layoutX="1293.0" layoutY="10.0" style="-fx-background-color: transparent;">
                         <graphic>
                             <ImageView fitHeight="52.0" fitWidth="66.0" preserveRatio="true">
-                                <image><Image url="@../Image/General/pomodoro.png" /></image>
+                                <image>
+                           <Image url="@../Image/General/Iglu.png" />
+                        </image>
                             </ImageView>
                         </graphic>
                     </Button>
-               <Button fx:id="forumBtn3" layoutX="991.0" layoutY="12.0" onAction="#goForum" styleClass="nav-btn">
+               <Button fx:id="tiendaBtn" layoutX="994.0" layoutY="10.0" styleClass="nav-btn">
                   <graphic>
-                     <ImageView fitHeight="32.0" fitWidth="48.0" preserveRatio="true">
+                     <ImageView fitHeight="35.0" fitWidth="35.0" preserveRatio="true">
                         <image>
-                           <Image url="@../Image/General/ChatBot.png" />
+                           <Image url="@../Image/General/Tienda.png" />
                         </image>
                      </ImageView>
                   </graphic>
                </Button>
 
-                    <!-- 1) ELIMINADO: botón pomodoro de la barra inferior -->
-                    <!-- (se movió a la barra superior) -->
                 </children>
             </AnchorPane>
         </children>
@@ -119,20 +119,20 @@
                     <Button fx:id="homeBtn2" layoutX="346.0" layoutY="12.0" onAction="#goHome" prefWidth="60.0" styleClass="nav-btn">
                         <graphic>
                             <ImageView fitHeight="36.0" fitWidth="38.0" preserveRatio="true">
-                                <image><Image url="@../Image/General/trofeo.png" /></image>
+                                <image><Image url="@../Image/General/Trofeo.png" /></image>
                             </ImageView>
                         </graphic>
                     </Button>
 
-                    <Button fx:id="forumBtn2" layoutX="754.0" layoutY="21.0" onAction="#goForum" prefHeight="45.0" prefWidth="130.0" styleClass="nav-btn" />
+                    <Button fx:id="forumBtn2" layoutX="698.0" layoutY="22.0" onAction="#goForum" prefHeight="45.0" prefWidth="30.0" styleClass="nav-btn" />
 
                     <!-- Fueguito (racha) -->
-                    <ImageView fitHeight="61.0" fitWidth="65.0" layoutX="701.0" layoutY="14.0" preserveRatio="true">
+                    <ImageView fitHeight="61.0" fitWidth="65.0" layoutX="633.0" layoutY="16.0" preserveRatio="true">
                         <image><Image url="@../Image/General/racha.png" /></image>
                     </ImageView>
 
                     <!-- Pescaditos -->
-                    <ImageView fitHeight="237.0" fitWidth="90.0" layoutX="1123.0" preserveRatio="true">
+                    <ImageView fitHeight="237.0" fitWidth="90.0" layoutX="1201.0" preserveRatio="true">
                         <image><Image url="@../Image/General/pescaditos.png" /></image>
                     </ImageView>
 
@@ -141,9 +141,27 @@
                         <font>
                             <Font name="System Bold Italic" size="27.0" />
                         </font></Button>
-               <Button fx:id="forumBtn1" layoutX="1207.0" layoutY="23.0" onAction="#goForum" prefWidth="157.0" styleClass="nav-btn" />
+               <Button fx:id="forumBtn1" layoutX="1300.0" layoutY="23.0"  prefWidth="157.0" styleClass="nav-btn" />
+               <Button fx:id="tiendaBtn1" layoutX="975.0" layoutY="14.0" styleClass="nav-btn">
+                  <graphic>
+                     <ImageView fitHeight="35.0" fitWidth="35.0" preserveRatio="true">
+                        <image>
+                           <Image url="@../Image/General/ChatBot.png" />
+                        </image>
+                     </ImageView>
+                  </graphic>
+               </Button>
                 </children>
             </AnchorPane>
         </children>
     </StackPane>
+   <Button fx:id="pomodoroBtn1" layoutX="1604.0" layoutY="206.0" onAction="#goPomodoro" prefHeight="115.0" prefWidth="130.0" style="-fx-background-color: transparent;">
+      <graphic>
+         <ImageView fitHeight="134.0" fitWidth="133.0" preserveRatio="true">
+            <image>
+               <Image url="@../Image/General/pomodoro.png" />
+            </image>
+         </ImageView>
+      </graphic>
+   </Button>
 </AnchorPane>

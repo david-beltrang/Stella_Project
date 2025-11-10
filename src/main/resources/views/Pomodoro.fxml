@@ -28,13 +28,13 @@
     <ImageView fitHeight="312.0" fitWidth="295.0"
                layoutX="1158.0" layoutY="485.0"
                preserveRatio="true">
-        <image><Image url="@/Image/General/StellaPomodoroSF.png" /></image>
+        <image><Image url="@../Image/General/StellaPomodoroSF.png" /></image>
     </ImageView>
 
     <ImageView fitHeight="61.0" fitWidth="70.0"
                layoutX="1569.0" layoutY="773.0"
                preserveRatio="true">
-        <image><Image url="@/Image/General/StellaEsquinaSF.png" /></image>
+        <image><Image url="@../Image/General/StellaEsquinaSF.png" /></image>
     </ImageView>
 
     <!-- Botón confirmar -->
@@ -87,53 +87,50 @@
         <font><Font name="System Bold" size="38.0" /></font>
     </Button>
 
-    <!-- ======= Bottom Nav ======= -->
-    <StackPane layoutX="-1.0" layoutY="867.0"
-               prefHeight="80" prefWidth="1920.0">
+    <!-- Barra inferior -->
+    <StackPane layoutX="-1.0" layoutY="867.0" prefHeight="80" prefWidth="1920.0">
         <children>
-            <Rectangle arcHeight="0" arcWidth="0" height="80"
-                       style="-fx-fill: rgba(8,7,54,0.55);" width="1923.0" />
+            <Rectangle arcHeight="0" arcWidth="0" height="80" style="-fx-fill: rgba(8,7,54,0.55);" width="1923.0" />
             <AnchorPane prefHeight="56.0" prefWidth="1876.0">
                 <children>
-                    <!-- HOME -->
-                    <Button fx:id="homeBtn" layoutX="346.0" layoutY="12.0"
-                            onAction="#goHome" styleClass="nav-btn">
+                    <Button fx:id="homeBtn" layoutX="346.0" layoutY="12.0" onAction="#goHome" styleClass="nav-btn">
+                        <graphic><ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                            <image><Image url="@../Image/General/home.png" /></image>
+                        </ImageView></graphic>
+                    </Button>
+
+                    <Button fx:id="forumBtn" layoutX="687.0" layoutY="10.0" onAction="#goForum" styleClass="nav-btn">
+                        <graphic><ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                            <image><Image url="@../Image/General/foro.png" /></image>
+                        </ImageView></graphic>
+                    </Button>
+
+                    <Button fx:id="profileBtn" layoutX="1585.0" layoutY="12.0" onAction="#goProfile" styleClass="nav-btn">
+                        <graphic><ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                            <image><Image url="@../Image/General/usuario.png" /></image>
+                        </ImageView></graphic>
+                    </Button>
+
+
+                    <Button fx:id="iguluBtn" layoutX="1293.0" layoutY="10.0"  style="-fx-background-color: transparent;">
                         <graphic>
-                            <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
-                                <image><Image url="@/Image/General/home.png" /></image>
+                            <ImageView fitHeight="52.0" fitWidth="66.0" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Image/General/Iglu.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    <Button fx:id="tiendaBtn" layoutX="994.0" layoutY="10.0"  styleClass="nav-btn">
+                        <graphic>
+                            <ImageView fitHeight="35.0" fitWidth="35.0" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Image/General/Tienda.png" />
+                                </image>
                             </ImageView>
                         </graphic>
                     </Button>
 
-                    <!-- FORO -->
-                    <Button fx:id="forumBtn" layoutX="688.0" layoutY="12.0"
-                            onAction="#goForum" styleClass="nav-btn">
-                        <graphic>
-                            <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
-                                <image><Image url="@/Image/General/foro.png" /></image>
-                            </ImageView>
-                        </graphic>
-                    </Button>
-
-                    <!-- LOGROS -->
-                    <Button fx:id="achievementsBtn" layoutX="1202.0" layoutY="12.0"
-                            onAction="#goAchievements" styleClass="nav-btn">
-                        <graphic>
-                            <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
-                                <image><Image url="@/Image/General/trofeo.png" /></image>
-                            </ImageView>
-                        </graphic>
-                    </Button>
-
-                    <!-- PERFIL -->
-                    <Button fx:id="profileBtn" layoutX="1585.0" layoutY="12.0"
-                            onAction="#goProfile" styleClass="nav-btn">
-                        <graphic>
-                            <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
-                                <image><Image url="@/Image/General/usuario.png" /></image>
-                            </ImageView>
-                        </graphic>
-                    </Button>
                 </children>
             </AnchorPane>
         </children>

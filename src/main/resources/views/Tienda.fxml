@@ -44,26 +44,26 @@
                         </ImageView></graphic>
                     </Button>
 
-                    <!-- 2) NUEVO: botón Pomodoro en la barra inferior (entre fueguito y pescado) -->
-                    <Button fx:id="pomodoroBtn" layoutX="1293.0" layoutY="10.0" onAction="#goPomodoro" style="-fx-background-color: transparent;">
+
+                    <Button fx:id="iguluBtn" layoutX="1293.0" layoutY="10.0"  style="-fx-background-color: transparent;">
                         <graphic>
                             <ImageView fitHeight="52.0" fitWidth="66.0" preserveRatio="true">
-                                <image><Image url="@../Image/General/pomodoro.png" /></image>
+                                <image>
+                                    <Image url="@../Image/General/Iglu.png" />
+                                </image>
                             </ImageView>
                         </graphic>
                     </Button>
-                    <Button fx:id="ChatBtn" layoutX="991.0" layoutY="12.0" onAction="#goForum" styleClass="nav-btn">
+                    <Button fx:id="tiendaBtn" layoutX="994.0" layoutY="10.0"  styleClass="nav-btn">
                         <graphic>
-                            <ImageView fitHeight="32.0" fitWidth="48.0" preserveRatio="true">
+                            <ImageView fitHeight="35.0" fitWidth="35.0" preserveRatio="true">
                                 <image>
-                                    <Image url="@../Image/General/ChatBot.png" />
+                                    <Image url="@../Image/General/Tienda.png" />
                                 </image>
                             </ImageView>
                         </graphic>
                     </Button>
 
-                    <!-- 1) ELIMINADO: botón pomodoro de la barra inferior -->
-                    <!-- (se movió a la barra superior) -->
                 </children>
             </AnchorPane>
         </children>
