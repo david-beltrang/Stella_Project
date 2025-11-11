@@ -1,69 +1,41 @@
-name: Compilación y ejecución de pruebas
+name: CI - Build & Test
 
 on:
-  workflow_dispatch:
   push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions: write-all
+    permissions:
+      checks: write
 
     steps:
-      - name: Descargar del repositorio
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Instalar Oracle JDK 17
+      - name: Set up JDK 17 (Temurin)
         uses: actions/setup-java@v4
         with:
           java-version: '17'
-          distribution: 'oracle'
+          distribution: 'temurin'
           cache: 'maven'
 
-      # NUEVO PASO: Crear toolchains.xml con Oracle JDK 17
-      - name: Crear toolchains.xml para Oracle JDK 17
-        run: |
-          mkdir -p ~/.m2
-          cat > ~/.m2/toolchains.xml << 'EOF'
-          <?xml version="1.0" encoding="UTF-8"?>
-          <toolchains>
-            <toolchain>
-              <type>jdk</type>
-              <provides>
-                <version>17</version>
-                <vendor>oracle</vendor>
-              </provides>
-              <configuration>
-                <jdkHome>${env.JAVA_HOME}</jdkHome>
-              </configuration>
-            </toolchain>
-          </toolchains>
-          EOF
-          echo "toolchains.xml creado:"
-          cat ~/.m2/toolchains.xml
+      - name: Build & Test
+        run: mvn -B verify
 
-      # Verificar que Maven lo detecta (opcional, para debug)
-      - name: Verificar toolchain (debug)
-        run: |
-          echo "JAVA_HOME: $JAVA_HOME"
-          mvn -X -q -Dexec.args="toolchain" exec:exec | grep -i oracle || true
-
-      - name: Compilar y empaquetar (sin tests)
-        run: mvn --batch-mode -DskipTests package
-
-      - name: Ejecutar pruebas (JUnit)
-        run: mvn --batch-mode test
-
-      - name: Reporte de pruebas (JUnit XML a Checks)
+      - name: Test Report
         uses: mikepenz/action-junit-report@v5
-        if: success() || failure()
+        if: always()
         with:
           report_paths: '**/target/surefire-reports/TEST-*.xml'
 
-      - name: Publicar cobertura (JaCoCo)
+      - name: Coverage Report
         uses: PavanMudigonda/jacoco-reporter@v4.8
+        if: always()
         with:
           coverage_results_path: 'target/site/jacoco/jacoco.xml'
-          coverage_report_title: 'Test coverage results'
-          coverage_report_name: 'Test coverage results'
           github_token: ${{ secrets.GITHUB_TOKEN }}
