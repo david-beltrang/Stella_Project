@@ -42,20 +42,32 @@ public class PrincipalController implements Initializable {
     private Function<Class<?>, Object> controllerFactory;
 
     // ====== ELEMENTOS FXML ======
-    @FXML private TextField searchField;
-    @FXML private ScrollPane misCursosScroll;
-    @FXML private ScrollPane cursosDisponiblesScroll;
-    @FXML private HBox misCursosContainer;
-    @FXML private HBox cursosDisponiblesContainer;
-    @FXML private Label noCoursesLabel;
-    @FXML private Button leftArrow, rightArrow;
-    @FXML private Button homeBtn, forumBtn, achievementsBtn, profileBtn;
-    @FXML private Button homeBtn2, forumBtn2, achievementsBtn2;
-    @FXML private Button logoutBtn;
-    @FXML private AnchorPane root;
+    @FXML
+    private TextField searchField;
+    @FXML
+    private ScrollPane misCursosScroll;
+    @FXML
+    private ScrollPane cursosDisponiblesScroll;
+    @FXML
+    private HBox misCursosContainer;
+    @FXML
+    private HBox cursosDisponiblesContainer;
+    @FXML
+    private Label noCoursesLabel;
+    @FXML
+    private Button leftArrow, rightArrow;
+    @FXML
+    private Button homeBtn, forumBtn, achievementsBtn, profileBtn;
+    @FXML
+    private Button homeBtn2, forumBtn2, achievementsBtn2;
+    @FXML
+    private Button logoutBtn;
+    @FXML
+    private AnchorPane root;
 
     // ⏱ NUEVO: label del reloj en principal
-    @FXML private Label lblTiempoPomodoro;
+    @FXML
+    private Label lblTiempoPomodoro;
 
     // ====== DEPENDENCIAS ======
     private final ListarCursosService listarCursosService;
@@ -114,7 +126,10 @@ public class PrincipalController implements Initializable {
         );
 
         // En principal solo se muestra (pausado)
-        try { t.pause(); } catch (Exception ignore) {}
+        try {
+            t.pause();
+        } catch (Exception ignore) {
+        }
     }
 
     private String formatMMSS(int total) {
@@ -277,8 +292,15 @@ public class PrincipalController implements Initializable {
         }
     }
 
-    @FXML private void scrollLeft()  { scrollHorizontally(cursosDisponiblesScroll, -0.3); }
-    @FXML private void scrollRight() { scrollHorizontally(cursosDisponiblesScroll,  0.3); }
+    @FXML
+    private void scrollLeft() {
+        scrollHorizontally(cursosDisponiblesScroll, -0.3);
+    }
+
+    @FXML
+    private void scrollRight() {
+        scrollHorizontally(cursosDisponiblesScroll, 0.3);
+    }
 
     private void scrollHorizontally(ScrollPane scrollPane, double delta) {
         double newValue = scrollPane.getHvalue() + delta;
@@ -300,10 +322,26 @@ public class PrincipalController implements Initializable {
     }
 
     // ====== NAVEGACIÓN INFERIOR ======
-    @FXML private void goHome()        { uiHelper.showInfo("Inicio", "Ya estás en la pantalla principal."); }
-    @FXML private void goForum()       { uiHelper.showInfo("Foro", "Pantalla de foro aún no implementada."); }
-    @FXML private void goAchievements(){ uiHelper.showInfo("Logros", "Pantalla de logros aún no implementada."); }
-    @FXML private void goProfile()     { uiHelper.showInfo("Perfil", "Pantalla de perfil aún no implementada."); }
+    @FXML
+    private void goHome() {
+        uiHelper.showInfo("Inicio", "Ya estás en la pantalla principal.");
+    }
+
+    @FXML
+    private void goForum() {
+        uiHelper.showInfo("Foro", "Pantalla de foro aún no implementada.");
+    }
+
+    @FXML
+    private void goAchievements() {
+        uiHelper.showInfo("Logros", "Pantalla de logros aún no implementada.");
+    }
+
+    @FXML
+    private void goProfile() {
+        uiHelper.showInfo("Perfil", "Pantalla de perfil aún no implementada.");
+    }
+
     @FXML
     private void goTienda() {
         try {
@@ -312,6 +350,7 @@ public class PrincipalController implements Initializable {
             uiHelper.showError("Error al abrir la Tienda", e.getMessage());
         }
     }
+
     @FXML
     private void goChatbot() {
         try {
@@ -343,14 +382,15 @@ public class PrincipalController implements Initializable {
     }
 
 
-
     // ====== CERRAR SESIÓN ======
+    @FXML
     private void cerrarSesion() {
-        AppServices.cerrarSesion();
-        if (controllerFactory != null) {
-            navigator.goTo("/views/Login.fxml", "STELLA - Login", controllerFactory, logoutBtn);
-        } else {
-            navigator.cambiarPantalla("/views/Login.fxml", logoutBtn);
+        try {
+            Application.config.AppServices.cerrarSesion();
+            navigator.goTo("/views/Login.fxml", "STELLA - Login", controllerFactory, null);
+        } catch (Exception e) {
+            uiHelper.showError("Error al cerrar sesión", e.getMessage());
         }
     }
 }
+

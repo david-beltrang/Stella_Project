@@ -1,5 +1,6 @@
 package Infrastructure.controllers;
 
+import Application.config.AppServices;            // 🔹 NUEVO
 import Application.dtos.tienda.*;
 import Application.services.TiendaService;
 import Infrastructure.ui.AyudaUI;
@@ -30,6 +31,7 @@ public class TiendaController {
     private final AyudaUI uiHelper = new AyudaUI();
     private Function<Class<?>, Object> controllerFactory;
 
+    // 🔹 Este id ahora se va a llenar con el usuario actual, no fijo en 1
     private int usuarioId = 1;
     private int saldoUsuario = 0;
 
@@ -71,9 +73,25 @@ public class TiendaController {
         this.usuarioId = usuarioId;
     }
 
+    // 🔹 NUEVO: igualito a PrincipalController pero para tienda
+    private void inicializarUsuario() {
+        var usuario = AppServices.getUsuarioActual();
+        if (usuario != null) {
+            this.usuarioId = usuario.id();
+            System.out.println("[TIENDA] Usuario activo: " + usuario.nombre() +
+                    " (id=" + usuarioId + ")");
+        } else {
+            System.err.println("[TIENDA] No hay usuario activo. Se usará usuarioId=" + usuarioId);
+        }
+    }
+
     @FXML
     private void initialize() {
         System.out.println("[INIT] Iniciando TiendaController...");
+
+        // 🔹 Primero obtenemos el id real del usuario logueado
+        inicializarUsuario();
+
         if (tiendaService == null) {
             System.out.println("[INIT] tiendaService es NULL ");
             return;
@@ -238,7 +256,8 @@ public class TiendaController {
         }
 
         System.out.println("[COMPRA] Intentando comprar " + itemSeleccionado.nombre() +
-                " (Precio: " + itemSeleccionado.precio() + ", Saldo: " + saldoUsuario + ")");
+                " (Precio: " + itemSeleccionado.precio() + ", Saldo: " + saldoUsuario +
+                ", UsuarioId: " + usuarioId + ")");
 
         if (itemSeleccionado.precio() > saldoUsuario) {
             System.out.println("[COMPRA]  Saldo insuficiente. Falta dinero.");
@@ -290,4 +309,21 @@ public class TiendaController {
     @FXML private void goForum() { uiHelper.showInfo("Foro", "Pantalla de foro aún no conectada."); }
     @FXML private void goProfile() { uiHelper.showInfo("Perfil", "Pantalla de perfil aún no implementada."); }
     @FXML private void goPomodoro() { uiHelper.showInfo("Pomodoro", "Desde tienda aún no se ha conectado."); }
+    @FXML
+    private void cerrarSesion() {
+        try {
+            // Cierra la sesión actual (borra el usuario en memoria)
+            Application.config.AppServices.cerrarSesion();
+
+            // 🔹 Redirige al login usando el mismo Navigacion que usas para las demás vistas
+            navigator.goTo("/views/Login.fxml", "STELLA - Login", controllerFactory, null);
+
+            System.out.println("[NAV] Sesión cerrada correctamente. Redirigiendo al Login...");
+        } catch (Exception e) {
+            uiHelper.showError("Error al cerrar sesión", e.getMessage());
+            e.printStackTrace();
+        }
+    }
 }
+
+
