@@ -218,10 +218,6 @@ CREATE TABLE "usuario_item" (
 INSERT INTO "usuario" (username, correo, nombre, contrasena, tipo)
 VALUES ('testestudio', 'test@estudio.com', 'Usuario Estudio', 'pass123', 'ESTUDIANTE');
 
--- 2. ESTADÍSTICAS (100 pescaditos)
-INSERT INTO "usuario_stats" (usuario_id, pescaditos, racha_dias, tiempo_total_estudio_segundos)
-VALUES (1, 100, 0, 0);
-
 -- 2. CURSOS
 INSERT INTO "curso" (titulo, descripcion, nivel, categoria, duracion_minutos, numero_secciones)
 VALUES ('Curso de C++ basico', 'En este curso aprenderas a manejar variables', 'BÁSICO', 'categoria c++', 0, 0);
@@ -329,49 +325,111 @@ INSERT INTO "usuario_curso" (usuario_id, curso_id) VALUES (1, 1);
 
 --PARA LA TIENDA Y LOS ITEMS
 
--- 5. ITEMS DE ROPA EN LA TIENDA
--- Sombrero Vuelteado
+-- 5. ITEMS DE LA TIENDA Y STELLA CON EL OBJETO
+-- 👕 HOODIE GITHUB
 INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
-    ('Sombrero Vuelteado','Un sombrero elegante y sofisticado, con un diseño único que añade misterio y estilo a cualquier atuendo. Perfecto para quienes buscan destacar con un toque Colombiano.',
-     800, '/Image/TiendaStella/sombreroVuelteado.png');
+    ('Hoodie GitHub','Sudadera con capucha inspirada en GitHub, ideal para desarrolladores que quieren vestir con estilo tech.',
+     1150, '/Image/TiendaStella/hoodieGithub.png');
+INSERT INTO "stella_item" (item_id, image_path) VALUES
+    (1, '/Image/stellas/stellaHoodieGithub.png');
 
--- Gorra
+-- 👕 CAMISETA APPLE
 INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
-    ('Gorra','Gorra casual con elementos bordados que aporta un toque de estilo moderno. Ideal para el día a día, tanto para una caminata por la ciudad como para un día de descanso.',
-     40, '/Image/TiendaStella/gorra.png');
+    ('Camiseta Apple','Camiseta minimalista con logo de Apple, ideal para los amantes de la tecnología y el diseño limpio.',
+     950, '/Image/TiendaStella/camisetaApple.png');
+INSERT INTO "stella_item" (item_id, image_path) VALUES
+    (2, '/Image/stellas/stellaCamisetaApple.png');
 
--- Gafas
+-- 🏫 CAMISETA FIS
 INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
-    ('Gafas', 'Gafas de sol con protección UV, diseñadas para ofrecer una protección total frente a los rayos solares sin sacrificar el estilo. Perfectas para cualquier ocasión al aire libre.',
-     60, '/Image/TiendaStella/gafasDeSol.png');
+    ('Camiseta FIS','Camiseta deportiva con diseño institucional FIS, ideal para eventos y actividades académicas.',
+     800, '/Image/TiendaStella/camisetaFIS.png');
+INSERT INTO "stella_item" (item_id, image_path) VALUES
+    (3, '/Image/stellas/stellaFIS.png');
 
--- Camiseta FIS
+-- 🇨🇴 CAMISETA COLOMBIA
 INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
-    ('Camiseta FIS', 'Camiseta oficial de Fundamentos en Ingeniería de Software, con un diseño moderno y cómodo. Ideal para los estudiantes y exalumnos que quieren lucir su orgullo académico con estilo.',
-     50, '/Image/TiendaStella/Camiseta.png');
+    ('Camiseta Colombia','Camiseta de la selección Colombia, fabricada con tela transpirable y cómoda para mostrar el orgullo nacional.',
+     1050, '/Image/TiendaStella/camisetaColombia.png');
+INSERT INTO "stella_item" (item_id, image_path) VALUES
+    (4, '/Image/stellas/stellaCamisetaColombia.png');
 
--- Hoodie
+-- 🧢 BALACA DISNEY
 INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
-    ('Hoodie', 'Sudadera de alta calidad, cómoda y abrigada, ideal para mantenerte caliente durante esas largas horas de estudio o para disfrutar de un día relajado con amigos. Su diseño versátil la hace perfecta para cualquier ocasión.',
-     120, '/Image/TiendaStella/HoodieGit.png');
+    ('Balaca Disney','Balaca con diseño inspirado en personajes clásicos de Disney, cómoda y divertida para toda ocasión.',
+     450, '/Image/TiendaStella/balacaDisney.png');
+INSERT INTO "stella_item" (item_id, image_path) VALUES
+    (5, '/Image/stellas/stellaDisney.png');
 
--- Crop Top
+-- 🍹 JUGO HIT
 INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
-    ('Crop Top', 'Un crop top fresco y moderno, perfecto para los días soleados o cálidos. Su corte y estilo te aseguran comodidad y libertad de movimiento, ideal para lucir relajada y con estilo.',
-     45, '/Image/TiendaStella/Croptop.png');
+    ('Jugo Hit','Bebida refrescante de frutas naturales, ideal para acompañar tus comidas o hidratarte en cualquier momento.',
+     350, '/Image/TiendaStella/jugoHit.png');
+INSERT INTO "stella_item" (item_id, image_path) VALUES
+    (6, '/Image/stellas/stellaJugoHit.png');
 
--- 6. STELLA USANDO ITEMS
-INSERT INTO "stella_item" (item_id, image_path) VALUES (1, '/Image/stellas/stellaSombrero.png');
+-- ⚽ CAMISETA MILLOS
+INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
+    ('Camiseta Millos','Camiseta oficial del equipo Millonarios, perfecta para hinchas que quieren lucir sus colores con pasión.',
+     1000, '/Image/TiendaStella/camisetaMillos.png');
+INSERT INTO "stella_item" (item_id, image_path) VALUES
+    (7, '/Image/stellas/stellaCamisetaMillos.png');
 
-INSERT INTO "stella_item" (item_id, image_path) VALUES (2, '/Image/stellas/stellaGorra.png');
+-- 👒 SOMBRERO VUELTEAO
+INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
+    ('Sombrero Vuelteao','Sombrero típico colombiano elaborado con caña flecha, símbolo de tradición y estilo.',
+     900, '/Image/TiendaStella/sombreroVuelteao.png');
+INSERT INTO "stella_item" (item_id, image_path) VALUES
+    (8, '/Image/stellas/stellaSombreroVuelteao.png');
 
-INSERT INTO "stella_item" (item_id, image_path) VALUES (3, '/Image/stellas/stellaGafas.png');
+-- 👚 CROPTOP
+INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
+    ('Croptop','Croptop moderno y cómodo, ideal para climas cálidos y estilos urbanos.',
+     700, '/Image/TiendaStella/croptop.png');
+INSERT INTO "stella_item" (item_id, image_path) VALUES
+    (9, '/Image/stellas/stellaCroptop.png');
 
-INSERT INTO "stella_item" (item_id, image_path) VALUES (4, '/Image/stellas/StellaCamisa.png');
+-- 🧣 BUFANDA
+INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
+    ('Bufanda','Bufanda tejida con materiales suaves y cálidos, perfecta para protegerte del frío con estilo.',
+     850, '/Image/TiendaStella/bufanda.png');
+INSERT INTO "stella_item" (item_id, image_path) VALUES
+    (10, '/Image/stellas/stellaBufanda.png');
 
-INSERT INTO "stella_item" (item_id, image_path) VALUES (5, '/Image/stellas/StellaHoodie.png');
+-- 🕶️ GAFAS DE SOL
+INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
+    ('Gafas de Sol','Gafas elegantes con protección UV400, perfectas para un look moderno y proteger tus ojos del sol.',
+     600, '/Image/TiendaStella/gafasDeSol.png');
+INSERT INTO "stella_item" (item_id, image_path) VALUES
+    (11, '/Image/stellas/stellaGafas.png');
 
-INSERT INTO "stella_item" (item_id, image_path) VALUES (6, '/Image/stellas/StellaCroptop.png');
+-- 🕶️ GAFAS DE SKI
+INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
+    ('Gafas de Ski','Gafas diseñadas para nieve y deporte extremo, resistentes al viento y la neblina.',
+     1100, '/Image/TiendaStella/gafasSki.png');
+INSERT INTO "stella_item" (item_id, image_path) VALUES
+    (12, '/Image/stellas/stellaSki.png');
+
+-- 🧢 GORRA
+INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
+    ('Gorra','Gorra clásica ajustable, con visera curva y diseño casual ideal para cualquier día.',
+     500, '/Image/TiendaStella/gorra.png');
+INSERT INTO "stella_item" (item_id, image_path) VALUES
+    (13, '/Image/stellas/stellaGorra.png');
+
+-- 🧢 GORRA ROJA
+INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
+    ('Gorra Roja','Gorra de color rojo intenso, ajustable y cómoda, perfecta para destacar en cualquier ocasión.',
+     520, '/Image/TiendaStella/gorraRoja.png');
+INSERT INTO "stella_item" (item_id, image_path) VALUES
+    (14, '/Image/stellas/stellaGorraRoja.png');
+
+-- 🧢 GORRA ROSA
+INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
+    ('Gorra Rosa','Gorra color rosa con diseño moderno, perfecta para un look casual y alegre.',
+     520, '/Image/TiendaStella/gorraRosa.png');
+INSERT INTO "stella_item" (item_id, image_path) VALUES
+    (15, '/Image/stellas/stellaGorraRosa.png');
 
 -- 7. COMPRA INICIAL
 INSERT INTO "usuario_item" (usuario_id, item_id) VALUES (1, 4);
