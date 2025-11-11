@@ -12,9 +12,58 @@
       maxHeight="1080.0" maxWidth="1920.0"
       minHeight="1080.0" minWidth="1920.0"
       prefHeight="1080.0" prefWidth="1920.0"
-      stylesheets="@/styles/LoginStyle.css"
+      stylesheets="@../styles/LoginStyle.css"
       xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="Infrastructure.controllers.LeccionController">
+
+    <!-- Barra inferior -->
+    <StackPane layoutX="-1.0" layoutY="867.0" prefHeight="80" prefWidth="1920.0">
+        <children>
+            <Rectangle arcHeight="0" arcWidth="0" height="80" style="-fx-fill: rgba(8,7,54,0.55);" width="1923.0" />
+            <AnchorPane prefHeight="56.0" prefWidth="1876.0">
+                <children>
+                    <Button fx:id="homeBtn" layoutX="346.0" layoutY="12.0" onAction="#goHome" styleClass="nav-btn">
+                        <graphic><ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                            <image><Image url="@../Image/General/home.png" /></image>
+                        </ImageView></graphic>
+                    </Button>
+
+                    <Button fx:id="forumBtn" layoutX="687.0" layoutY="10.0" onAction="#goForum" styleClass="nav-btn">
+                        <graphic><ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                            <image><Image url="@../Image/General/foro.png" /></image>
+                        </ImageView></graphic>
+                    </Button>
+
+                    <Button fx:id="profileBtn" layoutX="1585.0" layoutY="12.0" onAction="#goProfile" styleClass="nav-btn">
+                        <graphic><ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                            <image><Image url="@../Image/General/usuario.png" /></image>
+                        </ImageView></graphic>
+                    </Button>
+
+                    <!-- 2) NUEVO: botón Pomodoro en la barra inferior (entre fueguito y pescado) -->
+                    <Button fx:id="pomodoroBtn" layoutX="1293.0" layoutY="10.0" onAction="#goPomodoro" style="-fx-background-color: transparent;">
+                        <graphic>
+                            <ImageView fitHeight="52.0" fitWidth="66.0" preserveRatio="true">
+                                <image><Image url="@../Image/General/pomodoro.png" /></image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    <Button fx:id="Tienda" layoutX="991.0" layoutY="12.0" onAction="#goForum" styleClass="nav-btn">
+                        <graphic>
+                            <ImageView fitHeight="32.0" fitWidth="48.0" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Image/General/tienda.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+
+                    <!-- 1) ELIMINADO: botón pomodoro de la barra inferior -->
+                    <!-- (se movió a la barra superior) -->
+                </children>
+            </AnchorPane>
+        </children>
+    </StackPane>
 
     <children>
 
@@ -45,7 +94,6 @@
         <!-- ====== NOMBRE DE LA LECCIÓN ====== -->
         <Label id="NombreLeccion2" layoutX="728.0" layoutY="238.0"
                prefHeight="47.0" prefWidth="584.0"
-               style="-fx-background-color: #080736;"
                textFill="WHITE">
             <font><Font name="Monospaced Regular" size="40.0" /></font>
         </Label>
@@ -53,7 +101,6 @@
         <!-- ====== DESCRIPCIÓN ====== -->
         <Label id="DescripcionLeccion2" layoutX="420.0" layoutY="294.0"
                prefHeight="161.0" prefWidth="1236.0"
-               style="-fx-background-color: #080736;"
                textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
             <font><Font name="Arial" size="29.0" /></font>
         </Label>
@@ -61,7 +108,6 @@
         <!-- ====== TÍTULO DEL VIDEO ====== -->
         <Label id="TitulodelVideo2" layoutX="646.0" layoutY="464.0"
                prefHeight="35.0" prefWidth="768.0"
-               style="-fx-background-color: #080736;"
                textAlignment="CENTER" textFill="WHITE">
             <font><Font name="Arial Bold" size="30.0" /></font>
         </Label>
