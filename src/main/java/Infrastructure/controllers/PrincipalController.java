@@ -6,18 +6,17 @@ import Application.dtos.Listado_Cursos.CursosResponse;
 import Application.dtos.Listado_Cursos.InscripcionRequest;
 import Application.services.ListarCursosService;
 import Application.services.SeccionesService;
-import Application.services.PomodoroTimer;       // ⏱
+import Application.services.PomodoroTimer; // ⏱
 import Infrastructure.ui.AyudaUI;
 import Infrastructure.ui.Navigacion;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.beans.binding.Bindings;            // ⏱
+import javafx.beans.binding.Bindings; // ⏱
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -42,32 +41,20 @@ public class PrincipalController implements Initializable {
     private Function<Class<?>, Object> controllerFactory;
 
     // ====== ELEMENTOS FXML ======
-    @FXML
-    private TextField searchField;
-    @FXML
-    private ScrollPane misCursosScroll;
-    @FXML
-    private ScrollPane cursosDisponiblesScroll;
-    @FXML
-    private HBox misCursosContainer;
-    @FXML
-    private HBox cursosDisponiblesContainer;
-    @FXML
-    private Label noCoursesLabel;
-    @FXML
-    private Button leftArrow, rightArrow;
-    @FXML
-    private Button homeBtn, forumBtn, achievementsBtn, profileBtn;
-    @FXML
-    private Button homeBtn2, forumBtn2, achievementsBtn2;
-    @FXML
-    private Button logoutBtn;
-    @FXML
-    private AnchorPane root;
+    @FXML private TextField searchField;
+    @FXML private ScrollPane misCursosScroll;
+    @FXML private ScrollPane cursosDisponiblesScroll;
+    @FXML private HBox misCursosContainer;
+    @FXML private HBox cursosDisponiblesContainer;
+    @FXML private Label noCoursesLabel;
+    @FXML private Button leftArrow, rightArrow;
+    @FXML private Button homeBtn, forumBtn, achievementsBtn, profileBtn;
+    @FXML private Button homeBtn2, forumBtn2, achievementsBtn2;
+    @FXML private Button logoutBtn;
+    @FXML private AnchorPane root;
 
-    // ⏱ NUEVO: label del reloj en principal
-    @FXML
-    private Label lblTiempoPomodoro;
+    // 🔧 CORREGIDO: el label ahora se llama igual que en FXML (timerLabel)
+    @FXML private Label timerLabel;
 
     // ====== DEPENDENCIAS ======
     private final ListarCursosService listarCursosService;
@@ -80,9 +67,15 @@ public class PrincipalController implements Initializable {
     private CursosResponse cursosActuales;
 
     // ====== CONSTRUCTOR ======
+
     public PrincipalController(ListarCursosService listarCursosService, SeccionesService seccionesService) {
         this.listarCursosService = listarCursosService;
         this.seccionesService = seccionesService;
+    }
+    public PrincipalController() {
+        // Requerido por FXMLLoader
+        this.listarCursosService = AppServices.getListarCursosService();
+        this.seccionesService = AppServices.getSeccionesService();
     }
 
     // ==============================
@@ -103,7 +96,7 @@ public class PrincipalController implements Initializable {
             logoutBtn.setOnAction(e -> cerrarSesion());
         }
 
-        // ⏱ Enlazar HUD Pomodoro (solo UI)
+        // ⏱ Inicializa el HUD Pomodoro dinámico
         setupPomodoroHud();
 
         if (usuarioActualId != null) {
@@ -111,25 +104,28 @@ public class PrincipalController implements Initializable {
         }
     }
 
-    // ⏱ Enlaza el label al PomodoroTimer global y lo deja en pausa en Principal
+    // ==============================
+    //    ⏱ HUD POMODORO DINÁMICO
+    // ==============================
     private void setupPomodoroHud() {
-        if (lblTiempoPomodoro == null) return;
+        if (timerLabel == null) return;
+
         PomodoroTimer t = AppServices.getPomodoroTimer();
         if (t == null) return;
 
-        lblTiempoPomodoro.textProperty().unbind();
-        lblTiempoPomodoro.textProperty().bind(
+        // Vincular el texto del label al temporizador global
+        timerLabel.textProperty().unbind();
+        timerLabel.textProperty().bind(
                 Bindings.createStringBinding(
                         () -> formatMMSS(t.secondsLeftProperty().get()),
                         t.secondsLeftProperty()
                 )
         );
 
-        // En principal solo se muestra (pausado)
+        // En principal el timer solo se muestra (pausado)
         try {
             t.pause();
-        } catch (Exception ignore) {
-        }
+        } catch (Exception ignore) {}
     }
 
     private String formatMMSS(int total) {
@@ -138,6 +134,9 @@ public class PrincipalController implements Initializable {
         return String.format("%02d:%02d", mm, ss);
     }
 
+    // ==============================
+    //    CARGA DE USUARIO Y CURSOS
+    // ==============================
     public void inicializarUsuario() {
         var usuario = AppServices.getUsuarioActual();
         if (usuario != null) {
@@ -150,7 +149,6 @@ public class PrincipalController implements Initializable {
         }
     }
 
-    // ====== CARGA DE DATOS ======
     private void cargarCursosDesdeBD() {
         try {
             cursosActuales = listarCursosService.obtenerCursosCompletos(usuarioActualId);
@@ -262,6 +260,9 @@ public class PrincipalController implements Initializable {
         }
     }
 
+    // ==============================
+    //          BÚSQUEDA
+    // ==============================
     private void configurarBusqueda() {
         if (searchField != null) {
             searchField.textProperty().addListener((obs, oldVal, newVal) -> buscarCurso());
@@ -290,6 +291,9 @@ public class PrincipalController implements Initializable {
         }
     }
 
+    // ==============================
+    //        SCROLL Y FLECHAS
+    // ==============================
     private void configurarFlechas() {
         if (leftArrow != null && rightArrow != null) {
             leftArrow.setOnAction(e -> scrollLeft());
@@ -297,15 +301,8 @@ public class PrincipalController implements Initializable {
         }
     }
 
-    @FXML
-    private void scrollLeft() {
-        scrollHorizontally(cursosDisponiblesScroll, -0.3);
-    }
-
-    @FXML
-    private void scrollRight() {
-        scrollHorizontally(cursosDisponiblesScroll, 0.3);
-    }
+    @FXML private void scrollLeft()  { scrollHorizontally(cursosDisponiblesScroll, -0.3); }
+    @FXML private void scrollRight() { scrollHorizontally(cursosDisponiblesScroll, 0.3); }
 
     private void scrollHorizontally(ScrollPane scrollPane, double delta) {
         double newValue = scrollPane.getHvalue() + delta;
@@ -316,41 +313,27 @@ public class PrincipalController implements Initializable {
         timeline.play();
     }
 
+    // ==============================
+    //       NAVEGACIÓN Y UI
+    // ==============================
     @FXML
     private void goPomodoro() {
         try {
-            navigator.goTo("/views/Pomodoro.fxml", "STELLA - Pomodoro", controllerFactory, null);
+            navigator.goTo("/views/Pomodoro.fxml", "STELLA - Pomodoro", controllerFactory, root);
         } catch (Exception e) {
             uiHelper.showError("Error al abrir Pomodoro", e.getMessage());
         }
-        // En la pantalla de Pomodoro el controller ya pausa/gestiona el timer
     }
 
-    // ====== NAVEGACIÓN INFERIOR ======
-    @FXML
-    private void goHome() {
-        uiHelper.showInfo("Inicio", "Ya estás en la pantalla principal.");
-    }
-
-    @FXML
-    private void goForum() {
-        uiHelper.showInfo("Foro", "Pantalla de foro aún no implementada.");
-    }
-
-    @FXML
-    private void goAchievements() {
-        uiHelper.showInfo("Logros", "Pantalla de logros aún no implementada.");
-    }
-
-    @FXML
-    private void goProfile() {
-        uiHelper.showInfo("Perfil", "Pantalla de perfil aún no implementada.");
-    }
+    @FXML private void goHome()         { uiHelper.showInfo("Inicio", "Ya estás en la pantalla principal."); }
+    @FXML private void goForum()        { uiHelper.showInfo("Foro", "Pantalla de foro aún no implementada."); }
+    @FXML private void goAchievements() { uiHelper.showInfo("Logros", "Pantalla de logros aún no implementada."); }
+    @FXML private void goProfile()      { uiHelper.showInfo("Perfil", "Pantalla de perfil aún no implementada."); }
 
     @FXML
     private void goTienda() {
         try {
-            navigator.goTo("/views/Tienda.fxml", "STELLA - Tienda", controllerFactory, null);
+            navigator.goTo("/views/Tienda.fxml", "STELLA - Tienda", controllerFactory, root);
         } catch (Exception e) {
             uiHelper.showError("Error al abrir la Tienda", e.getMessage());
         }
@@ -364,7 +347,6 @@ public class PrincipalController implements Initializable {
                 loader.setControllerFactory(controllerFactory::apply);
 
             Parent popupRoot = loader.load();
-
             Scene popupScene = new Scene(popupRoot, 1100, 750);
             popupScene.setFill(Color.TRANSPARENT);
 
@@ -386,16 +368,16 @@ public class PrincipalController implements Initializable {
         }
     }
 
-
-    // ====== CERRAR SESIÓN ======
+    // ==============================
+    //         CERRAR SESIÓN
+    // ==============================
     @FXML
     private void cerrarSesion() {
         try {
-            Application.config.AppServices.cerrarSesion();
-            navigator.goTo("/views/Login.fxml", "STELLA - Login", controllerFactory, null);
+            AppServices.cerrarSesion();
+            navigator.goTo("/views/Login.fxml", "STELLA - Login", controllerFactory, root);
         } catch (Exception e) {
             uiHelper.showError("Error al cerrar sesión", e.getMessage());
         }
     }
 }
-

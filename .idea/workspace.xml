@@ -5,17 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3c791a3f-173c-427e-b5d1-4cf3b6fd8098" name="Changes" comment="se agregan configural boton de pomodoro para poder ser usado">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Image/General/Enviar.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Image/General/Iglu.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Image/General/Tienda.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/views/ChatBot.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/views/Pomodoro.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Pomodoro.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/views/PomodoroDescanso.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/PomodoroDescanso.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/views/PomodoroTiempoFinalizado.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/PomodoroTiempoFinalizado.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/views/Principal.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Principal.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/views/ProductoTienda.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/ProductoTienda.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/views/Tienda.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Tienda.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/Leccion1.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Leccion1.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/Leccion2.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Leccion2.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/Leccion3.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Leccion3.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/Leccion4.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Leccion4.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/Leccion5.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Leccion5.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,23 +41,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "Maven.Stella [javafx:run].executor": "Run",
-    "Maven.Stella [org.openjfx:javafx-maven-plugin:0.0.8:run].executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "feature/curso-cpp",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/StellaFIS/Stella_Project/src/main/resources/Image/General",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.JavaFX"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Stella [javafx:run].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Stella [org.openjfx:javafx-maven-plugin:0.0.8:run].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/curso-cpp&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/StellaFIS/Stella_Project/src/main/resources/Image/General&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.JavaFX&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\StellaFIS\Stella_Project\src\main\resources\Image\General" />

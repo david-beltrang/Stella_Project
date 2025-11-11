@@ -12,66 +12,36 @@ import javafx.stage.Window;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-/**
- * Clase utilitaria para navegación entre pantallas en JavaFX.
- * Permite cambiar vistas y opcionalmente inicializar el controlador antes de mostrarla.
- */
 public class Navigacion {
 
-    /**
-     * Navega a una vista FXML básica (sin inicialización de controlador adicional).
-     * Se asegura de no hacer cast forzado al tipo de controlador,
-     * evitando errores como "QuizController cannot be cast to LeccionController".
-     */
-    public void goTo(String fxmlPath,
-                     String title,
-                     Function<Class<?>, Object> controllerFactory,
-                     Node origen) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-
-            // Aplica la factory global si existe
-            if (controllerFactory != null) {
-                loader.setControllerFactory(controllerFactory::apply);
-            }
-
-            Parent next = loader.load();
-
-            // Obtiene el stage activo desde el nodo de origen
-            Stage stage = resolveStage(origen);
-            stage.setScene(new Scene(next));
-
-            if (title != null && !title.isBlank()) {
-                stage.setTitle(title);
-            }
-
-            stage.centerOnScreen();
-            stage.show();
-
-        } catch (Exception e) {
-            mostrarError(fxmlPath, e);
-        }
+    /** Navegación simple sin inicialización adicional */
+    public void goTo(String fxmlPath, String title, Function<Class<?>, Object> controllerFactory, Node origen) {
+        cargarYMostrarVista(fxmlPath, title, controllerFactory, origen, null);
     }
 
-    /**
-     * Carga un FXML y permite inicializar su controlador ANTES de mostrar la escena.
-     * Útil para pasar datos (por ejemplo, usuario, curso, etc.) al siguiente controlador.
-     */
-    public <T> void goToWithInit(String fxmlPath,
-                                 String title,
-                                 Function<Class<?>, Object> controllerFactory,
-                                 Node origen,
-                                 Consumer<T> initController) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+    /** Navegación con inicialización previa del controlador */
+    public <T> void goToWithInit(String fxmlPath, String title, Function<Class<?>, Object> controllerFactory,
+                                 Node origen, Consumer<T> initController) {
+        cargarYMostrarVista(fxmlPath, title, controllerFactory, origen, initController);
+    }
 
-            if (controllerFactory != null) {
-                loader.setControllerFactory(controllerFactory::apply);
+    /** Método centralizado para cargar y mostrar vistas. */
+    private <T> void cargarYMostrarVista(String fxmlPath, String title, Function<Class<?>, Object> controllerFactory,
+                                         Node origen, Consumer<T> initController) {
+        try {
+            System.out.println("[NAV] Intentando cargar vista: " + fxmlPath);
+            var resource = getClass().getResource(fxmlPath);
+            if (resource == null) {
+                throw new IllegalArgumentException("No se encontró el recurso FXML: " + fxmlPath);
             }
+
+            FXMLLoader loader = new FXMLLoader(resource);
+            if (controllerFactory != null)
+                loader.setControllerFactory(controllerFactory::apply);
 
             Parent next = loader.load();
 
-            // Inicializa el controlador genérico sin asumir su tipo
+            // Inicializa el controlador (si corresponde)
             Object ctrl = loader.getController();
             if (initController != null && ctrl != null) {
                 try {
@@ -83,73 +53,68 @@ public class Navigacion {
                 }
             }
 
+            // Resolver stage actual
             Stage stage = resolveStage(origen);
-            stage.setScene(new Scene(next));
-
-            if (title != null && !title.isBlank()) {
-                stage.setTitle(title);
+            if (stage == null) {
+                System.err.println("[NAV] ⚠️ No se encontró Stage a partir del nodo. Buscando uno visible...");
+                stage = buscarStageVisible();
             }
 
+            if (stage == null) {
+                throw new IllegalStateException("❌ No hay Stage activo para mostrar la vista.");
+            }
+
+            System.out.println("[NAV] Stage detectado: " + stage);
+            stage.setScene(new Scene(next));
+
+            if (title != null && !title.isBlank()) stage.setTitle(title);
             stage.centerOnScreen();
             stage.show();
+
+            System.out.println("[NAV] Vista cargada correctamente: " + fxmlPath);
 
         } catch (Exception e) {
             mostrarError(fxmlPath, e);
         }
     }
 
-    // ===== Métodos privados =====
-
-    /**
-     * Determina el Stage actual a partir de un nodo, o busca el primer Stage visible.
-     */
+    /** Determina el Stage actual a partir de un nodo, o busca el primero activo. */
     private Stage resolveStage(Node origen) {
         try {
             if (origen != null && origen.getScene() != null) {
-                return (Stage) origen.getScene().getWindow();
-            }
-            for (Window w : Window.getWindows()) {
-                if (w instanceof Stage s && w.isShowing()) {
-                    return s;
-                }
+                var stage = (Stage) origen.getScene().getWindow();
+                if (stage != null) return stage;
             }
         } catch (Exception ignored) {}
-        throw new IllegalStateException("No hay Stage activo para navegar.");
+        return null;
     }
 
-    /**
-     * Muestra un diálogo de error con información detallada.
-     */
+    /** Busca cualquier Stage visible si el origen no tiene uno asociado */
+    private Stage buscarStageVisible() {
+        for (Window w : Window.getWindows()) {
+            if (w instanceof Stage s && w.isShowing()) {
+                System.out.println("[NAV] ✅ Usando stage visible encontrado: " + s);
+                return s;
+            }
+        }
+        System.err.println("[NAV] ❌ No se encontró ningún stage visible.");
+        return null;
+    }
+
+    /** Muestra diálogo de error detallado. */
     private void mostrarError(String fxmlPath, Exception e) {
         e.printStackTrace();
         Throwable cause = e;
-        while (cause.getCause() != null) {
-            cause = cause.getCause();
-        }
+        while (cause.getCause() != null) cause = cause.getCause();
 
-        new Alert(
-                Alert.AlertType.ERROR,
-                "No pude abrir la vista: " + fxmlPath + "\n\n" +
-                        (cause != null ? cause.getMessage() : e.getMessage())
-        ).showAndWait();
+        new Alert(Alert.AlertType.ERROR,
+                "Error al abrir vista:\n" + fxmlPath +
+                        "\n\n" + (cause != null ? cause.getMessage() : e.getMessage()))
+                .showAndWait();
     }
 
-    /**
-     * Alternativa rápida para cambiar pantalla desde un botón.
-     */
+    /** Atajo rápido para cambiar de pantalla desde un botón */
     public void cambiarPantalla(String fxmlPath, Button origen) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-            Parent root = loader.load();
-
-            Stage stage = resolveStage(origen);
-            stage.setScene(new Scene(root));
-            stage.setTitle("STELLA");
-            stage.centerOnScreen();
-            stage.show();
-
-        } catch (Exception e) {
-            mostrarError(fxmlPath, e);
-        }
+        goTo(fxmlPath, "STELLA", null, origen);
     }
 }

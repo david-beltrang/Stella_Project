@@ -54,8 +54,9 @@ public class Main extends Application {
                 usuarioItemRepository
         );
 
-        // ======== REGISTRA Pomodoro global en AppServices ========
+        AppServices.initCursos(listarCursosService, seccionesService);
         AppServices.initPomodoro(sesionPomodoroService, pomodoroTimer);
+
 
         // ======== Front Controller ========
         ChatbotService chatbotService = new ChatbotService();
