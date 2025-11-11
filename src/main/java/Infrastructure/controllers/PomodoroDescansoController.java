@@ -2,23 +2,19 @@ package Infrastructure.controllers;
 
 import Application.config.AppServices;
 import Application.services.PomodoroTimer;
-import Application.services.SesionPomodoroService;
 import Infrastructure.ui.AyudaUI;
 import Infrastructure.ui.Navigacion;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-public class PomodoroController {
+public class PomodoroDescansoController {
 
     // ===== Dependencias =====
-    private final SesionPomodoroService sesionPomodoroService;
     private final PomodoroTimer pomodoroTimer;
     private Function<Class<?>, Object> controllerFactory;
 
@@ -28,13 +24,12 @@ public class PomodoroController {
 
     // ===== FXML =====
     @FXML private AnchorPane root;
-    @FXML private Label timerLabel;
 
     // Barra inferior
     @FXML private Button homeBtn, forumBtn, achievementsBtn, profileBtn, tiendaBtn, iguluBtn;
 
-    // Selección de foco
-    @FXML private Button btn25min, btn30min, btn45min, btn60min;
+    // Selección descanso
+    @FXML private Button btn3min, btn5min, btn8min, btn10min;
 
     // Confirmar
     @FXML private Button confirmarButton;
@@ -44,13 +39,11 @@ public class PomodoroController {
     private final List<Button> botonesTiempo = new ArrayList<>();
 
     // ===== Constructores =====
-    public PomodoroController(SesionPomodoroService sesionPomodoroService, PomodoroTimer pomodoroTimer) {
-        this.sesionPomodoroService = sesionPomodoroService;
+    public PomodoroDescansoController(PomodoroTimer pomodoroTimer) {
         this.pomodoroTimer = pomodoroTimer;
     }
 
-    public PomodoroController() {
-        this.sesionPomodoroService = AppServices.getSesionPomodoroService();
+    public PomodoroDescansoController() {
         this.pomodoroTimer = AppServices.getPomodoroTimer();
     }
 
@@ -64,19 +57,17 @@ public class PomodoroController {
         if (pomodoroTimer != null) {
             try { pomodoroTimer.pause(); } catch (Exception ignore) {}
         }
-        configurarVistaPomodoro();
-        configurarAtajoTeclado();
+        configurarVistaDescanso();
     }
 
-    // ===== Vista Foco =====
-    private void configurarVistaPomodoro() {
-        setupTimeButton(btn25min, 25);
-        setupTimeButton(btn30min, 30);
-        setupTimeButton(btn45min, 45);
-        setupTimeButton(btn60min, 60);
+    private void configurarVistaDescanso() {
+        setupTimeButton(btn3min, 3);
+        setupTimeButton(btn5min, 5);
+        setupTimeButton(btn8min, 8);
+        setupTimeButton(btn10min, 10);
 
         if (confirmarButton != null) {
-            confirmarButton.setOnAction(e -> confirmarTiempoDeFoco());
+            confirmarButton.setOnAction(e -> confirmarTiempoDeDescanso());
         }
     }
 
@@ -91,23 +82,24 @@ public class PomodoroController {
             }
             // seleccionado
             btn.setStyle("-fx-background-color: #1E88E5; -fx-text-fill: white; -fx-border-color: white; -fx-border-width: 3;");
+            System.out.println("[DEBUG] Descanso seleccionado: " + minutosSeleccionados + " min");
         });
     }
 
     @FXML
-    private void confirmarTiempoDeFoco() {
+    private void confirmarTiempoDeDescanso() {
         if (minutosSeleccionados == 0) {
-            uiHelper.showInfo("Selecciona un tiempo", "Debes elegir un tiempo antes de continuar.");
+            uiHelper.showInfo("Selecciona un tiempo", "Debes elegir un tiempo de descanso.");
             return;
         }
 
         PomodoroTimer pomodoroTimer = AppServices.getPomodoroTimer();
         if (pomodoroTimer != null) {
             pomodoroTimer.setSecondsLeft(minutosSeleccionados * 60);
-            pomodoroTimer.start(); // ✅ Iniciar el conteo real
+            pomodoroTimer.start(); // ✅ Asegura inicio real
         }
 
-        navigator.goTo("/views/PomodoroDescanso.fxml", "Descanso", controllerFactory, confirmarButton);
+        navigator.goTo("/views/Principal.fxml", "STELLA - Principal", controllerFactory, confirmarButton);
     }
 
 
@@ -117,19 +109,4 @@ public class PomodoroController {
     @FXML private void goAchievements() { uiHelper.showInfo("Logros", "Pantalla de Logros aún no implementada."); }
     @FXML private void goProfile()      { uiHelper.showInfo("Perfil", "Pantalla de Perfil aún no implementada."); }
     @FXML private void goTienda()       { navigator.goTo("/views/Tienda.fxml", "STELLA - Tienda", controllerFactory, tiendaBtn); }
-
-    // ===== Atajo demo =====
-    private void configurarAtajoTeclado() {
-        if (timerLabel == null) return;
-        timerLabel.sceneProperty().addListener((obs, oldScene, newScene) -> {
-            if (newScene != null) {
-                newScene.addEventFilter(KeyEvent.KEY_PRESSED, ev -> {
-                    if ("F12".equals(ev.getCode().toString())) {
-                        navigator.goTo("/views/PomodoroTiempoFinalizado.fxml", "¡Tiempo terminado!", controllerFactory, timerLabel);
-                        ev.consume();
-                    }
-                });
-            }
-        });
-    }
 }
