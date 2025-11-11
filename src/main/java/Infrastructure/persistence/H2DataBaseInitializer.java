@@ -2,14 +2,13 @@ package Infrastructure.persistence;
 
 import Infrastructure.persistence.IConexionBD;
 import org.h2.tools.RunScript;
-
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class H2DataBaseInitializer {
-
     private static final AtomicBoolean isInitialized = new AtomicBoolean(false);
     private final IConexionBD connMgr;
 
@@ -21,7 +20,6 @@ public class H2DataBaseInitializer {
         if (isInitialized.compareAndSet(false, true)) {
             System.out.println(">>> [H2 Setup] Inicializando esquema de la base de datos...");
             try (Connection conn = connMgr.getConnection()) {
-                // Cargar el archivo desde resources
                 InputStream is = H2DataBaseInitializer.class.getClassLoader()
                         .getResourceAsStream("database_setup.sql");
 
@@ -29,7 +27,7 @@ public class H2DataBaseInitializer {
                     throw new RuntimeException("No se encontró el archivo database_setup.sql en el classpath.");
                 }
 
-                try (InputStreamReader reader = new InputStreamReader(is)) {
+                try (InputStreamReader reader = new InputStreamReader(is, StandardCharsets.UTF_8)) {
                     RunScript.execute(conn, reader);
                 }
 
@@ -42,8 +40,5 @@ public class H2DataBaseInitializer {
             }
         }
     }
-
-    public static void main(String[] args) {
-        new H2DataBaseInitializer(new ConexionBD()).initialize();
-    }
 }
+

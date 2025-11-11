@@ -1,11 +1,8 @@
 package Main;
-/*
+
+import Application.services.*;
 import Application.services.DarAcceso.LoginService;
 import Application.services.DarAcceso.RegistroService;
-import Application.services.LeccionService;
-import Application.services.ListarCursosService;
-import Application.services.PomodoroTimer;
-import Application.services.SesionPomodoroService;
 
 import Domain.repositoriesInterfaces.*;
 import Infrastructure.controllers.ControllerControladores;
@@ -16,55 +13,67 @@ import Infrastructure.repositories.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+import Application.config.AppServices;
+
 public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
-
-        // Aqui se inicializa la conexion con la base de datos
+        // Base de datos
         var connMgr = new ConexionBD();
         var initializer = new H2DataBaseInitializer(connMgr);
         initializer.initialize();
 
-        // Se instancias todos los repositorios
+        // Repositorios
         InterfazUsuarioRepository usuarioRepository = new UsuarioRepository(connMgr);
-        InterfazLeccionRepository leccionRepository = new LeccionRepository(connMgr);
         InterfazCursoRepository cursoRepository = new CursoRepository(connMgr);
-        InterfazProgresoRepository progresoRepository = new ProgresoRepository(connMgr);
-        InterfazIntentoRepository intentoRepository = new IntentoRepository(connMgr);
-        InterfazPruebaRepository pruebaRepository = new PruebaRepository(connMgr);
+        InterfazSeccionRepository seccionRepository = new SeccionRepository(connMgr);
+        InterfazLeccionRepository leccionRepository = new LeccionRepository(connMgr);
+        InterfazUsuarioCursoRepository usuarioCursoRepository = new UsuarioCursoRepository(connMgr);
         InterfazUsuarioStatsRepository usuarioStatsRepository = new UsuarioStatsRepository(connMgr);
         InterfazSesionEstudioRepository sesionEstudioRepository = new SesionEstudioRepository(connMgr);
-        InterfazUsuarioCursoRepository usuarioCursoRepository = new UsuarioCursoRepository(connMgr);
 
-        // Se instancian todos los servicios de aplicación
-        LeccionService leccionService = new LeccionService(
-                leccionRepository, progresoRepository, intentoRepository, pruebaRepository
-        );
-        ListarCursosService listarCursosService = new ListarCursosService(
-                cursoRepository, usuarioCursoRepository
-        );
+        // ✅ REPOS para tienda (ajusta nombres si tus clases se llaman distinto)
+        InterfazItemRepository itemRepository = new ItemRepository(connMgr);
+        InterfazStellaItemRepository stellaItemRepository = new StellaItemRepository(connMgr);
+        InterfazUsuarioItemRepository usuarioItemRepository = new UsuarioItemRepository(connMgr);
+
+        // ======== Servicios ========
+        SeccionesService seccionesService = new SeccionesService(seccionRepository);
+        ListarCursosService listarCursosService = new ListarCursosService(cursoRepository, usuarioCursoRepository);
         PomodoroTimer pomodoroTimer = PomodoroTimer.getInstance();
-        SesionEstudioService sesionEstudioService = new SesionEstudioService(leccionRepository, progresoRepository);
         SesionPomodoroService sesionPomodoroService = new SesionPomodoroService(sesionEstudioRepository);
         LoginService loginService = new LoginService(usuarioRepository);
         RegistroService registroService = new RegistroService(usuarioRepository);
+        LeccionService leccionService = new LeccionService(leccionRepository);
 
-        // Se crea el front controller y asignandole los servicios
-        ControllerControladores controllerControladores = new ControllerControladores(
-                leccionService,
-                listarCursosService,
-                pomodoroTimer,
-                sesionEstudioService,
-                sesionPomodoroService,
-                loginService,
-                registroService
+        // ✅ Servicio de tienda usando EXACTAMENTE la firma que tiene tu TiendaService
+        TiendaService tiendaService = new TiendaService(
+                itemRepository,
+                stellaItemRepository,
+                usuarioItemRepository
         );
 
-        // Se muestra la primera vista de la aplicación desde el front controller
-        controllerControladores.mostrarVistaInicial(stage);
+        // ======== REGISTRA Pomodoro global en AppServices ========
+        AppServices.initPomodoro(sesionPomodoroService, pomodoroTimer);
 
-        // Configuración visual del Stage
+        // ======== Front Controller ========
+        ChatbotService chatbotService = new ChatbotService();
+        ControllerControladores frontController = new ControllerControladores(
+                seccionesService,
+                listarCursosService,
+                pomodoroTimer,
+                sesionPomodoroService,
+                loginService,
+                registroService,
+                leccionService,
+                tiendaService,
+                chatbotService // ✅ pásalo aquí
+        );
+
+
+        // ======== Pantalla inicial ========
+        frontController.mostrarVistaInicial(stage);
         stage.setTitle("STELLA - Inicio");
         stage.setResizable(false);
         stage.setWidth(1920);
@@ -77,4 +86,3 @@ public class Main extends Application {
         launch();
     }
 }
-*/

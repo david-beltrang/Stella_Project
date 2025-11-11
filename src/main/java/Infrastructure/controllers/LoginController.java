@@ -7,29 +7,30 @@ import Application.services.DarAcceso.LoginService;
 import Infrastructure.ui.Navigacion;
 import Infrastructure.ui.AyudaUI;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
+
 import java.util.function.Function;
 
-// Controlador de la vista Login.fxml
-// Maneja los eventos de inicio de sesión, recuperación de contraseña y navegación hacia otras pantallas.
+/**
+ * Controlador de la vista Login.fxml
+ * Maneja los eventos de inicio de sesión, recuperación de contraseña y navegación hacia otras pantallas.
+ */
 public class LoginController {
 
     // ===== Dependencias de negocio =====
-    // Servicio que realiza la validación de credenciales y maneja la autenticación.
     private final LoginService service;
 
-    // ===== Dependencias de interfaz (UI Helpers) =====
-    // AyudaUI muestra mensajes visuales (errores, alertas, etc.)
-    // Navigacion controla los cambios entre pantallas.
+    // ===== Dependencias de interfaz =====
     private final AyudaUI uiHelper = new AyudaUI();
     private final Navigacion navigator = new Navigacion();
 
-    // ===== Factory global (inyectada) =====
-    // Permite mantener las mismas instancias de controladores al cambiar de escena.
+    // ===== Factory global =====
     private Function<Class<?>, Object> controllerFactory;
 
     public void setControllerFactory(Function<Class<?>, Object> controllerFactory) {
@@ -37,31 +38,26 @@ public class LoginController {
     }
 
     // ===== Constructores =====
-    // Constructor principal (usado cuando ControllerControladores inyecta el servicio)
     public LoginController(LoginService service) {
         this.service = service;
     }
 
-    // Constructor alternativo (para casos donde no se use inyección manual)
     public LoginController() {
         this.service = AppServices.service();
     }
 
-    // ===== Referencias a los elementos de la vista =====
+    // ===== FXML =====
     @FXML private TextField correoField;
     @FXML private PasswordField passwordField;
     @FXML private Button backButton;
     @FXML private Button forgotPasswordButton;
 
-    // ===== Eventos principales =====
-
-    // Ejecuta el proceso de inicio de sesión cuando se presiona el botón "Ingresar".
+    // ===== Evento principal =====
     @FXML
     private void onLoginClicked() {
         String correo = correoField.getText();
         String pass   = passwordField.getText();
 
-        // Validación de campos vacíos
         if (correo == null || correo.isBlank()) {
             uiHelper.showError("Error de validación", "Debe ingresar un correo.");
             return;
@@ -72,44 +68,52 @@ public class LoginController {
         }
 
         try {
-            if (service == null) {
-                throw new IllegalStateException("LoginService no inicializado correctamente.");
-            }
-
-            // Autenticación mediante el servicio
+            // 1️⃣ Autenticación
             UsuarioResponse usuario = service.login(new LoginRequest(correo, pass));
 
-            // Ejemplo: guardar el usuario actual en sesión (opcional)
-            // AppServices.setUsuarioActual(usuario);
+            // 2️⃣ Guardar el usuario globalmente
+            AppServices.setUsuarioActual(usuario);
 
-            // Redirección al menú principal si el login es exitoso
-            navigator.goTo("/views/Principal.fxml", "STELLA - Principal", controllerFactory, correoField);
+            // 3️⃣ Cambiar directamente de pantalla (sin duplicar controlador)
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Principal.fxml"));
+            if (controllerFactory != null) {
+                loader.setControllerFactory(controllerFactory::apply);
+            }
+            Scene scene = new Scene(loader.load());
+            Stage stage = (Stage) correoField.getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("STELLA - Principal");
+            stage.centerOnScreen();
+
+            // 4️⃣ Mensaje personalizado
+            uiHelper.showInfo(
+                    "Bienvenido " + usuario.nombre(),
+                    "Has iniciado sesión correctamente. Tu ID es: " + usuario.id()
+            );
 
         } catch (IllegalArgumentException ex) {
             uiHelper.showError("Error de inicio de sesión", ex.getMessage());
         } catch (Exception ex) {
             uiHelper.showError("Error inesperado", ex.getMessage());
+            ex.printStackTrace();
         }
     }
 
-    // Regresa a la vista principal (pantalla de bienvenida)
+    // ===== Otros eventos =====
     @FXML
     private void onBackClicked() {
         navigator.goTo("/views/hello-view.fxml", "STELLA", controllerFactory, backButton);
     }
 
-    // Navega a la vista de recuperación de contraseña.
     @FXML
     private void onForgotClicked() {
         navigator.goTo("/views/RecuperarContra.fxml",
                 "STELLA - Recuperar contraseña", controllerFactory, forgotPasswordButton);
     }
 
-    @FXML
-    private TextField recoverEmailField;
-    @FXML
-    private Label recoveryMessage;
-
+    // ===== Recuperación =====
+    @FXML private TextField recoverEmailField;
+    @FXML private Label recoveryMessage;
     @FXML private Button sendRecoveryButton;
     @FXML private Button backToLoginButton;
 
@@ -122,7 +126,6 @@ public class LoginController {
             return;
         }
 
-        // Espacio reservado para la lógica real de backend
         uiHelper.showInfo("Recuperación de contraseña",
                 "Si el correo está registrado, recibirás un enlace para restablecer tu contraseña.");
     }
@@ -131,6 +134,4 @@ public class LoginController {
     private void goBackToLogin() {
         navigator.goTo("/views/Login.fxml", "STELLA - Login", controllerFactory, recoverEmailField);
     }
-
-
 }

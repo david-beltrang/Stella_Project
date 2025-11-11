@@ -1,11 +1,12 @@
-/* styles/LoginStyle.css */
+/* ======== Fondo general ======== */
 .root {
     -fx-background-image: url("/Image/General/FondoStella.jpg");
     -fx-background-repeat: no-repeat;
     -fx-background-position: center center;
     -fx-background-size: cover;
 }
-/* Botón de la barra inferior (icon-only) */
+
+/* ======== Botón de barra inferior (icon-only) ======== */
 .nav-btn {
     -fx-background-color: transparent;
     -fx-padding: 12px;
@@ -20,6 +21,7 @@
 .nav-btn:pressed {
     -fx-background-color: rgba(255,255,255,0.18);
 }
+
 /* ======== Tarjetas de cursos ======== */
 .course-card {
     -fx-background-color: rgba(8,7,54,0.6);
@@ -36,7 +38,7 @@
     -fx-transition: 0.3s;
 }
 
-/* ======== Barra superior ======== */
+/* ======== Campos de texto ======== */
 .text-field {
     -fx-background-color: rgba(255,255,255,0.2);
     -fx-text-fill: white;
@@ -49,11 +51,7 @@
     -fx-background-color: rgba(255,255,255,0.3);
 }
 
-/* ======== Botones ======== */
-.button {
-    -fx-cursor: hand;
-}
-
+/* ======== ScrollPane transparente ======== */
 .scroll-pane {
     -fx-background-color: transparent;
 }
@@ -62,5 +60,115 @@
     -fx-background-color: transparent;
 }
 
+/* ======== Botones generales ======== */
+.button {
+    -fx-cursor: hand;
+    -fx-background-color: #1a1a5e;
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-text-fill: white;
+    -fx-border-color: #2d2d86;
+    -fx-border-width: 2;
+}
 
+.button:hover {
+    -fx-background-color: #2d2d86;
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+}
 
+.button:pressed {
+    -fx-background-color: #0d0d42;
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+}
+
+.button:focused, .button:selected {
+    -fx-background-color: #1E88E5;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-color: white;
+    -fx-border-width: 3;
+}
+
+/* ======== Botones exclusivos del popup (ProductoTienda) ======== */
+.popup-btn {
+    -fx-background-color: #444C9E;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 20px;
+    -fx-background-radius: 15;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(68,76,158,0.4), 8, 0.2, 0, 3);
+    -fx-transition: 0.3s ease-in-out;
+}
+
+.popup-btn:hover {
+    -fx-background-color: #5A63C1;
+    -fx-effect: dropshadow(gaussian, rgba(68,76,158,0.7), 18, 0.3, 0, 5);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.popup-btn-primary {
+    -fx-background-color: linear-gradient(to bottom, #00BFFF, #008CBA);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 20px;
+    -fx-background-radius: 15;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,191,255,0.5), 10, 0.2, 0, 3);
+    -fx-transition: 0.3s ease-in-out;
+}
+
+.popup-btn-primary:hover {
+    -fx-background-color: linear-gradient(to bottom, #33D1FF, #00AEEF);
+    -fx-effect: dropshadow(gaussian, rgba(0,191,255,0.8), 20, 0.4, 0, 6);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+/* ======== Efecto general de ventana modal ======== */
+.popup-pane {
+    -fx-background-color: rgba(8,7,54,0.93);
+    -fx-background-radius: 25;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 40, 0.25, 0, 8);
+    -fx-padding: 25;
+    -fx-opacity: 0.95;
+    -fx-transition: 0.3s ease-in-out;
+}
+/* ======== Estilos premium para popup de tienda ======== */
+
+.popup-btn {
+    -fx-background-color: #444C9E;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 20px;
+    -fx-background-radius: 15;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(68,76,158,0.5), 8, 0.3, 0, 3);
+}
+
+.popup-btn:hover {
+    -fx-background-color: #5A63C1;
+    -fx-effect: dropshadow(gaussian, rgba(68,76,158,0.8), 15, 0.4, 0, 4);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.popup-btn-primary {
+    -fx-background-color: linear-gradient(to bottom, #00BFFF, #008CBA);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 20px;
+    -fx-background-radius: 15;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,191,255,0.6), 10, 0.2, 0, 4);
+}
+
+.popup-btn-primary:hover {
+    -fx-background-color: linear-gradient(to bottom, #33D1FF, #00AEEF);
+    -fx-effect: dropshadow(gaussian, rgba(0,191,255,0.9), 18, 0.4, 0, 5);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}

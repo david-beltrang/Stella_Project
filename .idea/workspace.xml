@@ -4,7 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="51597e74-c3d4-4a99-ad6b-5f4c9d498175" name="Changes" comment="Se realiza modificacione para que funcione el progreso" />
+    <list default="true" id="3c791a3f-173c-427e-b5d1-4cf3b6fd8098" name="Changes" comment="se agregan configural boton de pomodoro para poder ser usado">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Image/General/Enviar.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Image/General/Iglu.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Image/General/Tienda.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/views/ChatBot.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/Pomodoro.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Pomodoro.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/PomodoroDescanso.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/PomodoroDescanso.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/PomodoroTiempoFinalizado.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/PomodoroTiempoFinalizado.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/Principal.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Principal.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/ProductoTienda.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/ProductoTienda.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/Tienda.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Tienda.fxml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,78 +25,59 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Enum" />
-        <option value="Record" />
-        <option value="Interface" />
         <option value="Class" />
+        <option value="FxmlFile" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="fix-pantalla_principal" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;LOUWPII&quot;
-  }
-}</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/david-beltrang/Stella_Project.git&quot;,
-    &quot;accountId&quot;: &quot;8699c3d3-f6ea-4f43-85a2-9fc0e3854c5c&quot;
-  }
-}</component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
-  </component>
   <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 2
+  &quot;associatedIndex&quot;: 7
 }</component>
-  <component name="ProjectId" id="341LXB2xZDeO3siRlfWXuDYp9PK" />
+  <component name="ProjectId" id="34tMU8jO9YcphGFhjh6wnl2bQxw" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.LeccionServiceTest.executor&quot;: &quot;Run&quot;,
-    &quot;Application.ListarCursosServiceTest.executor&quot;: &quot;Run&quot;,
-    &quot;Application.ProgresoServiceTest.executor&quot;: &quot;Run&quot;,
-    &quot;Application.SeccionesServiceTest.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Stella.executor&quot;: &quot;Run&quot;,
-    &quot;Application.TestSesionEstudioService.executor&quot;: &quot;Run&quot;,
-    &quot;Application.h2webconsole.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.Stella [javafx:run].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature/curso-cpp&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15274803&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.29173693&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "Maven.Stella [javafx:run].executor": "Run",
+    "Maven.Stella [org.openjfx:javafx-maven-plugin:0.0.8:run].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "feature/curso-cpp",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/StellaFIS/Stella_Project/src/main/resources/Image/General",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.JavaFX"
   }
-}</component>
-  <component name="RunManager" selected="Application.ProgresoServiceTest">
-    <configuration name="LeccionServiceTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Infrastructure.test_temporal.LeccionServiceTest" />
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\StellaFIS\Stella_Project\src\main\resources\Image\General" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <envs>
+        <env name="--module-path &quot;C:\Program Files\Java\javafx-sdk-17\lib&quot; --add-modules javafx.controls,javafx.fxml -Dprism.allowh" value="dpi=false " />
+      </envs>
+      <option name="MAIN_CLASS_NAME" value="Main.Main" />
       <module name="Stella" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="Infrastructure.test_temporal.*" />
+          <option name="PATTERN" value="Main.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -92,49 +85,35 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ListarCursosServiceTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Infrastructure.test_temporal.ListarCursosServiceTest" />
-      <module name="Stella" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="Infrastructure.test_temporal.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="Stella_Project" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ProgresoServiceTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Infrastructure.test_temporal.ProgresoServiceTest" />
-      <module name="Stella" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="Infrastructure.test_temporal.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="Stella_Project" />
+      <option name="filePath" />
+      <method v="2" />
     </configuration>
-    <configuration name="SeccionesServiceTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Infrastructure.test_temporal.SeccionesServiceTest" />
-      <module name="Stella" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="Infrastructure.test_temporal.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Stella [javafx:run]" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
+    <configuration name="Stella [javafx:run]" type="MavenRunConfiguration" factoryName="Maven" temporary="true">
       <MavenSettings>
         <option name="myGeneralSettings" />
-        <option name="myRunnerSettings" />
+        <option name="myRunnerSettings">
+          <MavenRunnerSettings>
+            <option name="delegateBuildToMaven" value="false" />
+            <option name="environmentProperties">
+              <map />
+            </option>
+            <option name="jreName" value="#USE_PROJECT_JDK" />
+            <option name="mavenProperties">
+              <map />
+            </option>
+            <option name="passParentEnv" value="true" />
+            <option name="skipTests" value="false" />
+            <option name="vmOptions" value="-Dprism.allowhidpi=false " />
+          </MavenRunnerSettings>
+        </option>
         <option name="myRunnerParameters">
           <MavenRunnerParameters>
             <option name="cmdOptions" />
@@ -147,7 +126,7 @@
               </list>
             </option>
             <option name="multimoduleDir" />
-            <option name="pomFileName" />
+            <option name="pomFileName" value="pom.xml" />
             <option name="profilesMap">
               <map />
             </option>
@@ -161,196 +140,50 @@
       </MavenSettings>
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Application.Main" />
+      <item itemvalue="Maven.Stella [javafx:run]" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.ProgresoServiceTest" />
-        <item itemvalue="Application.LeccionServiceTest" />
-        <item itemvalue="Application.ListarCursosServiceTest" />
-        <item itemvalue="Application.SeccionesServiceTest" />
+        <item itemvalue="Maven.Stella [javafx:run]" />
+        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.26830.84" />
-        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-IU-252.26830.84" />
-      </set>
-    </attachedChunks>
-  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="51597e74-c3d4-4a99-ad6b-5f4c9d498175" name="Changes" comment="" />
-      <created>1760376168853</created>
+      <changelist id="3c791a3f-173c-427e-b5d1-4cf3b6fd8098" name="Changes" comment="" />
+      <created>1762028429485</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1760376168853</updated>
-      <workItem from="1761005856938" duration="5906000" />
-      <workItem from="1761607997206" duration="3566000" />
-      <workItem from="1761681722826" duration="18017000" />
-      <workItem from="1761791798534" duration="744000" />
-      <workItem from="1762185572020" duration="20503000" />
+      <updated>1762028429485</updated>
     </task>
-    <task id="LOCAL-00001" summary="Se realizan las motificaciones para poder mostrar en pantalla el curso, secciones y lecciones.">
+    <task id="LOCAL-00001" summary="se agregan configural boton de pomodoro para poder ser usado">
       <option name="closed" value="true" />
-      <created>1760925927452</created>
+      <created>1762224496150</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1760925927452</updated>
+      <updated>1762224496150</updated>
     </task>
-    <task id="LOCAL-00002" summary="Se eliminan las clases CursoRepository.java y InterfazCursoRepository.java, se elimina el dto CursoId.java. Para poder realizar integración con el desarollo del otro grupo de developers.">
-      <option name="closed" value="true" />
-      <created>1761014076891</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1761014076891</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Se eliminan los Value Objects de LeccionId.java, UsuarioId.java y ProgresoLeccionId.java. Estos Id se dejan como Integer para facilitar el manejo en la Aplicación, adicionalmente se modifican las Interfaces y Repositorios que usaban estos Value Objects.">
-      <option name="closed" value="true" />
-      <created>1761434063606</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1761434063606</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Se crea el Test manual para probar el funcionamiento de CursoService.java.">
-      <option name="closed" value="true" />
-      <created>1761452501059</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1761452501059</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Se crea el Test manual para probar el funcionamiento de LeccionService.java">
-      <option name="closed" value="true" />
-      <created>1762186347004</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1762186347004</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Se eliminan las carpetas que no estan siendo utilizadas y no contienen archivos.">
-      <option name="closed" value="true" />
-      <created>1762226953149</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1762226953149</updated>
-    </task>
-    <task id="LOCAL-00007" summary="Se crean los dtos necesarios para el funcionamiento del progreso en el codigo.">
-      <option name="closed" value="true" />
-      <created>1762227101269</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1762227101269</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Se crea la entidad ProgesoLeccion.java para poder implementar la logica del progreso leccion en la DataBase.">
-      <option name="closed" value="true" />
-      <created>1762227157753</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1762227157753</updated>
-    </task>
-    <task id="LOCAL-00009" summary="Se agregan los insert necesarios para poder probar el progreso.">
-      <option name="closed" value="true" />
-      <created>1762227324510</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1762227324510</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Se crea el Servicio para el funcionamiento del progreso para poder marcar lecciones como completadas y obtener el progreos del curso.">
-      <option name="closed" value="true" />
-      <created>1762227452867</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1762227452867</updated>
-    </task>
-    <task id="LOCAL-00011" summary="Se crea el test para probar cada uno de los metodos del ProgresoService.">
-      <option name="closed" value="true" />
-      <created>1762227545365</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1762227545365</updated>
-    </task>
-    <task id="LOCAL-00012" summary="Se crea el Repositorio de Progeso para poder comunicar con la Base de Datos.">
-      <option name="closed" value="true" />
-      <created>1762227636817</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1762227636817</updated>
-    </task>
-    <task id="LOCAL-00013" summary="Se crea la interfaz del ProgresoRepository, para poder aislar la implementación.">
-      <option name="closed" value="true" />
-      <created>1762227720585</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1762227720585</updated>
-    </task>
-    <task id="LOCAL-00014" summary="Se crea el enum de para el progreso de la Leccion y tener los diferentes estados que puede tener cada una">
-      <option name="closed" value="true" />
-      <created>1762227819373</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1762227819373</updated>
-    </task>
-    <task id="LOCAL-00015" summary="Se modifica para poner los atributos de la clase Final">
-      <option name="closed" value="true" />
-      <created>1762228144909</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1762228144909</updated>
-    </task>
-    <task id="LOCAL-00016" summary="Se reelizan modificaciones para el correcto funcionamiento.">
-      <option name="closed" value="true" />
-      <created>1762228852531</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1762228852531</updated>
-    </task>
-    <task id="LOCAL-00017" summary="Se realiza modificacione para que funcione el progreso">
-      <option name="closed" value="true" />
-      <created>1762229174948</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1762229174948</updated>
-    </task>
-    <option name="localTasksCounter" value="18" />
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Se realizan las motificaciones para poder mostrar en pantalla el curso, secciones y lecciones." />
-    <MESSAGE value="Se eliminan las clases CursoRepository.java y InterfazCursoRepository.java, se elimina el dto CursoId.java. Para poder realizar integración con el desarollo del otro grupo de developers." />
-    <MESSAGE value="Se eliminan los Value Objects de LeccionId.java, UsuarioId.java y ProgresoLeccionId.java. Estos Id se dejan como Integer para facilitar el manejo en la Aplicación, adicionalmente se modifican las Interfaces y Repositorios que usaban estos Value Objects." />
-    <MESSAGE value="Se crea el Test manual para probar el funcionamiento de CursoService.java." />
-    <MESSAGE value="Se crea el Test manual para probar el funcionamiento de LeccionService.java" />
-    <MESSAGE value="Se eliminan las carpetas que no estan siendo utilizadas y no contienen archivos." />
-    <MESSAGE value="Se crean los dtos necesarios para el funcionamiento del progreso en el codigo." />
-    <MESSAGE value="Se crea la entidad ProgesoLeccion.java para poder implementar la logica del progreso leccion en la DataBase." />
-    <MESSAGE value="Se agregan los insert necesarios para poder probar el progreso." />
-    <MESSAGE value="Se crea el Servicio para el funcionamiento del progreso para poder marcar lecciones como completadas y obtener el progreos del curso." />
-    <MESSAGE value="Se crea el test para probar cada uno de los metodos del ProgresoService." />
-    <MESSAGE value="Se crea el Repositorio de Progeso para poder comunicar con la Base de Datos." />
-    <MESSAGE value="Se crea la interfaz del ProgresoRepository, para poder aislar la implementación." />
-    <MESSAGE value="Se crea el enum de para el progreso de la Leccion y tener los diferentes estados que puede tener cada una" />
-    <MESSAGE value="Se modifica para poner los atributos de la clase Final" />
-    <MESSAGE value="Se reelizan modificaciones para el correcto funcionamiento." />
-    <MESSAGE value="Se realiza modificacione para que funcione el progreso" />
-    <option name="LAST_COMMIT_MESSAGE" value="Se realiza modificacione para que funcione el progreso" />
+    <MESSAGE value="merge ramas curso-cpp y prueba" />
+    <MESSAGE value="se agregan configural boton de pomodoro para poder ser usado" />
+    <option name="LAST_COMMIT_MESSAGE" value="se agregan configural boton de pomodoro para poder ser usado" />
   </component>
 </project>

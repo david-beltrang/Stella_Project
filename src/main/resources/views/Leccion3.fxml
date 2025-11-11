@@ -2,198 +2,105 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="1080.0" maxWidth="1920.0" minHeight="1080.0" minWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../../../../../Users/Personal/IdeaProjects/Stellaa/target/classes/CssStyle/LoginStyle.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="root"
+      maxHeight="1080.0" maxWidth="1920.0"
+      minHeight="1080.0" minWidth="1920.0"
+      prefHeight="1080.0" prefWidth="1920.0"
+      stylesheets="@/styles/LoginStyle.css"
+      xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="Infrastructure.controllers.LeccionController">
 
     <children>
-        <!-- Título del curso -->
-<<<<<<< Updated upstream
-        <Label layoutX="465.0" layoutY="118.0" prefHeight="158.0" prefWidth="1436.0"
-               text="CURSO C++ - LECCIÓN 3" textFill="white">
-            <font><Font name="System Bold" size="92.0"/></font>
+        <!-- TÍTULO GRANDE -->
+        <Label id="TituloSeccion"
+               layoutX="311.0" layoutY="118.0"
+               prefHeight="158.0" prefWidth="1168.0"
+               style="-fx-background-color: #080736;" textFill="white">
+            <font><Font name="System Bold" size="92.0" /></font>
         </Label>
 
-        <!-- Pregunta -->
-        <Label layoutX="492.0" layoutY="340.0" prefHeight="50.0" prefWidth="1043.0"
-               text="¿Cuál es la función principal que debe estar presente en todo programa C++?"
-               textFill="white">
-            <font><Font size="30.0"/></font>
-        </Label>
-
-        <!-- Opciones (agregado fx:id y toggleGroup) -->
-        <RadioButton fx:id="rbStart" layoutX="560.0" layoutY="430.0"
-                     text="a) start()" textFill="white" toggleGroup="$q1Group">
-            <font><Font size="26.0"/></font>
-        </RadioButton>
-
-        <RadioButton fx:id="rbMain" layoutX="560.0" layoutY="490.0"
-                     text="b) main()" textFill="white" toggleGroup="$q1Group">
-            <font><Font size="26.0"/></font>
-        </RadioButton>
-
-        <RadioButton fx:id="rbBegin" layoutX="560.0" layoutY="550.0"
-                     text="c) begin()" textFill="white" toggleGroup="$q1Group">
-            <font><Font size="26.0"/></font>
-        </RadioButton>
-
-        <RadioButton fx:id="rbRun" layoutX="560.0" layoutY="610.0"
-                     text="d) run()" textFill="white" toggleGroup="$q1Group">
-            <font><Font size="26.0"/></font>
-        </RadioButton>
-
-        <!-- Botón para verificar (agregado onAction) -->
-        <Button layoutX="560.0" layoutY="690.0" opacity="0.95"
-                prefHeight="50.0" prefWidth="242.0"
-                style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 20px;"
-                text="VERIFICAR RESPUESTA"
-                onAction="#verificarLeccion3"/> <!-- + -->
-
-        <!-- Resultado (agregado fx:id) -->
-        <Label fx:id="lbResultadoL3" layoutX="800.0" layoutY="695.0"
-               prefWidth="600.0" text=" " textFill="white">
-            <font><Font size="24.0"/></font>
-        </Label>
-
-        <ImageView fitHeight="61.0" fitWidth="70.0" layoutX="1589.0" layoutY="793.0"
+        <!-- PINGÜINO -->
+        <ImageView fitHeight="61.0" fitWidth="70.0"
+                   layoutX="1579.0" layoutY="783.0"
                    pickOnBounds="true" preserveRatio="true">
-            <image><Image url="@/Image/General/StellaEsquinaSF.png"/></image>
+            <image>
+                <Image url="@/Image/General/StellaEsquinaSF.png" />
+            </image>
         </ImageView>
 
-        <Label layoutX="492.0" layoutY="240.0"
-               text="Cuestionario - ¡Utiliza tus conocimientos!" textFill="WHITE">
-            <font><Font name="Monospaced Regular" size="40.0"/></font>
+        <!-- NOMBRE LECCIÓN -->
+        <Label id="NombreLeccion3"
+               layoutX="646.0" layoutY="249.0"
+               prefHeight="47.0" prefWidth="584.0"
+               style="-fx-background-color: #080736;" textFill="WHITE">
+            <font><Font name="Monospaced Regular" size="40.0" /></font>
         </Label>
 
-        <!-- Botones de navegación existentes -->
-        <Button layoutX="755.0" layoutY="805.0" onAction="#prevFrom3" opacity="0.9"
-                prefHeight="47.0" prefWidth="242.0" style="-fx-background-color: #080736;"
-                text="VOLVER" textFill="WHITE">
-            <font><Font name="System Bold" size="30.0"/></font>
+        <!-- DESCRIPCIÓN -->
+        <Label id="DescripcionLeccion3"
+               layoutX="416.0" layoutY="301.0"
+               prefHeight="113.0" prefWidth="1166.0"
+               style="-fx-background-color: #080736;"
+               textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
+            <font><Font name="Arial" size="29.0" /></font>
+        </Label>
+
+        <!-- SUBTÍTULO CARACTERÍSTICAS -->
+        <Label id="CaracteristicasTituloLeccion3"
+               layoutX="419.0" layoutY="441.0"
+               prefHeight="31.0" prefWidth="358.0"
+               style="-fx-background-color: #080736;"
+               textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
+            <font><Font name="Arial" size="29.0" /></font>
+        </Label>
+
+        <!-- LISTA CARACTERÍSTICAS -->
+        <Label id="Caracteristicas3"
+               layoutX="467.0" layoutY="486.0"
+               prefHeight="33.0" prefWidth="948.0"
+               style="-fx-background-color: #080736;"
+               textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
+            <font><Font name="Arial" size="29.0" /></font>
+        </Label>
+
+        <!-- SUBTÍTULO ÁMBITOS -->
+        <Label id="AmbitosdeUsoTtitulo3"
+               layoutX="415.0" layoutY="643.0"
+               prefHeight="31.0" prefWidth="358.0"
+               style="-fx-background-color: #080736;"
+               textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
+            <font><Font name="Arial" size="29.0" /></font>
+        </Label>
+
+        <!-- ÁMBITOS -->
+        <Label id="Ambitos3"
+               layoutX="465.0" layoutY="692.0"
+               prefHeight="33.0" prefWidth="948.0"
+               style="-fx-background-color: #080736;"
+               textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
+            <font><Font name="Arial" size="29.0" /></font>
+        </Label>
+
+        <!-- BOTONES -->
+        <Button layoutX="745.0" layoutY="795.0"
+                mnemonicParsing="false" opacity="0.9"
+                prefHeight="47.0" prefWidth="242.0"
+                style="-fx-background-color: #080736;"
+                text="VOLVER" onAction="#navegarALeccionAnterior" textFill="WHITE">
+            <font><Font name="System Bold" size="30.0" /></font>
         </Button>
 
-        <Button layoutX="1048.0" layoutY="806.0" onAction="#nextFrom3" opacity="0.9"
-                prefHeight="47.0" prefWidth="242.0" style="-fx-background-color: #080736;"
-                text="SIGUIENTE" textFill="WHITE">
-            <font><Font name="System Bold" size="30.0"/></font>
+        <Button layoutX="1038.0" layoutY="796.0"
+                mnemonicParsing="false" opacity="0.9"
+                prefHeight="47.0" prefWidth="242.0"
+                style="-fx-background-color: #080736;"
+                text="SIGUIENTE" onAction="#navegarALeccionSiguiente" textFill="WHITE">
+            <font><Font name="System Bold" size="30.0" /></font>
         </Button>
-
-        <!-- Barra inferior -->
-        <StackPane layoutX="-1.0" layoutY="867.0" prefHeight="80" prefWidth="1920.0">
-            <children>
-                <Rectangle arcHeight="0" arcWidth="0" height="80"
-                           style="-fx-fill: rgba(8,7,54,0.55);" width="1923.0"/>
-                <AnchorPane prefHeight="56.0" prefWidth="1876.0">
-                    <children>
-                        <Button fx:id="homeBtn" layoutX="346.0" layoutY="12.0"
-                                onAction="#goHome" styleClass="nav-btn">
-                            <graphic>
-                                <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
-                                    <image><Image url="@/Image/General/home.png"/></image>
-                                </ImageView>
-                            </graphic>
-                        </Button>
-
-                        <Button fx:id="forumBtn" layoutX="688.0" layoutY="12.0"
-                                onAction="#goForum" styleClass="nav-btn">
-                            <graphic>
-                                <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
-                                    <image><Image url="@/Image/General/foro.png"/></image>
-                                </ImageView>
-                            </graphic>
-                        </Button>
-
-                        <Button fx:id="achievementsBtn" layoutX="1202.0" layoutY="12.0"
-                                onAction="#goAchievements" styleClass="nav-btn">
-                            <graphic>
-                                <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
-                                    <image><Image url="@/Image/General/trofeo.png"/></image>
-                                </ImageView>
-                            </graphic>
-                        </Button>
-
-                        <Button fx:id="profileBtn" layoutX="1585.0" layoutY="12.0"
-                                onAction="#goProfile" styleClass="nav-btn">
-                            <graphic>
-                                <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
-                                    <image><Image url="@/Image/General/usuario.png"/></image>
-                                </ImageView>
-                            </graphic>
-                        </Button>
-                    </children>
-                </AnchorPane>
-            </children>
-        </StackPane>
-
-=======
-        <Label id="TituloSeccion" layoutX="465.0" layoutY="118.0" prefHeight="158.0" prefWidth="1070.0" style="-fx-background-color: #080736;" textFill="white">
-            <font>
-                <Font name="System Bold" size="92.0" />
-            </font>
-        </Label>
-
-        <!-- Pregunta -->
-        <Label id="TextoPreguntaQuiz.3" layoutX="492.0" layoutY="340.0" prefHeight="50.0" prefWidth="1043.0" style="-fx-background-color: #080736;" textFill="white">
-            <font>
-                <Font size="30.0" />
-            </font>
-        </Label>
-
-        <!-- Opciones -->
-        <RadioButton id="Opciona.3" layoutX="560.0" layoutY="430.0" mnemonicParsing="false" textFill="white">
-            <font>
-                <Font size="26.0" />
-            </font>
-        </RadioButton>
-
-        <RadioButton id="Opcionb.3" layoutX="560.0" layoutY="490.0" mnemonicParsing="false" textFill="white">
-            <font>
-                <Font size="26.0" />
-            </font>
-        </RadioButton>
-
-        <RadioButton id="Opcionc.3" layoutX="560.0" layoutY="550.0" mnemonicParsing="false" textFill="white">
-            <font>
-                <Font size="26.0" />
-            </font>
-        </RadioButton>
-
-        <RadioButton id="Opciond.3" layoutX="560.0" layoutY="610.0" mnemonicParsing="false" textFill="white">
-            <font>
-                <Font size="26.0" />
-            </font>
-        </RadioButton>
-
-        <!-- Resultado -->
-        <Label layoutX="800.0" layoutY="695.0" prefWidth="600.0" text=" " textFill="white">
-            <font>
-                <Font size="24.0" />
-            </font>
-        </Label>
-      <ImageView fitHeight="61.0" fitWidth="70.0" layoutX="1589.0" layoutY="793.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../../../Users/Personal/IdeaProjects/Stellaa/src/main/resources/Image/StellaEsquinaSF.png" />
-         </image>
-      </ImageView>
-      <Button layoutX="755.0" layoutY="805.0" mnemonicParsing="false" opacity="0.9" prefHeight="47.0" prefWidth="242.0" style="-fx-background-color: #080736;" text="VOLVER" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="30.0" />
-         </font>
-      </Button>
-      <Button layoutX="1048.0" layoutY="806.0" mnemonicParsing="false" opacity="0.9" prefHeight="47.0" prefWidth="242.0" style="-fx-background-color: #080736;" text="SIGUIENTE" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="30.0" />
-         </font>
-      </Button>
-      <Label id="NombreLeccion.3" layoutX="738.0" layoutY="265.0" prefHeight="47.0" prefWidth="584.0" style="-fx-background-color: #080736;" textFill="WHITE">
-         <font>
-            <Font name="Monospaced Regular" size="40.0" />
-         </font>
-      </Label>
->>>>>>> Stashed changes
     </children>
 </Pane>

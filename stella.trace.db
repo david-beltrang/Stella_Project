@@ -423,182 +423,126 @@ org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LECCION" not found (candidates a
       AND s.numero_orden = ?
       AND l.numero_orden = ?
  [42103-232]
-2025-11-03 20:13:00.617749-05:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "PROGRESO_LECCION" not found (candidates are: "progreso_leccion"); SQL statement:
-MERGE INTO progreso_leccion (usuario_id, leccion_id, estado)
-KEY (usuario_id, leccion_id)
-VALUES (?, ?, 'COMPLETADA');
- [42103-232]
-2025-11-03 20:13:00.656229-05:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "PROGRESO_LECCION" not found (candidates are: "progreso_leccion"); SQL statement:
-SELECT COUNT(*) AS completadas
-FROM progreso_leccion pl
-JOIN leccion l ON pl.leccion_id = l.id
-JOIN seccion s ON l.seccion_id = s.id
-WHERE pl.usuario_id = ?
-  AND s.curso_id = ?
-  AND pl.estado = 'COMPLETADA';
- [42103-232]
-2025-11-03 20:15:56.094509-05:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "PROGRESO_LECCION" not found (candidates are: "progreso_leccion"); SQL statement:
-INSERT INTO progreso_leccion (usuario_id, leccion_id, estado)
-VALUES (?, ?, 'COMPLETADA')
-ON DUPLICATE KEY UPDATE estado = 'COMPLETADA';
- [42103-232]
-2025-11-03 20:15:56.127987-05:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "PROGRESO_LECCION" not found (candidates are: "progreso_leccion"); SQL statement:
-SELECT COUNT(*) AS completadas
-FROM progreso_leccion pl
-JOIN leccion l ON pl.leccion_id = l.id
-JOIN seccion s ON l.seccion_id = s.id
-WHERE pl.usuario_id = ?
-  AND s.curso_id = ?
-  AND pl.estado = 'COMPLETADA';
- [42103-232]
-2025-11-03 20:20:44.022315-05:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "PROGRESO_LECCION" not found (candidates are: "progreso_leccion"); SQL statement:
-INSERT INTO progreso_leccion (usuario_id, leccion_id, estado)
-VALUES (?, ?, 'COMPLETADA')
-ON DUPLICATE KEY UPDATE estado = 'COMPLETADA';
- [42103-232]
-2025-11-03 20:20:44.058085-05:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "PROGRESO_LECCION" not found (candidates are: "progreso_leccion"); SQL statement:
-SELECT COUNT(*) AS completadas
-FROM progreso_leccion pl
-JOIN leccion l ON pl.leccion_id = l.id
-JOIN seccion s ON l.seccion_id = s.id
-WHERE pl.usuario_id = ?
-  AND s.curso_id = ?
-  AND pl.estado = 'COMPLETADA';
- [42103-232]
-2025-11-03 20:22:21.532476-05:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "INSERT INTO ""progreso_leccion"" (usuario_id, leccion_id, estado)\000aVALUES (?, ?, 'COMPLETADA')\000a[*]ON DUPLICATE KEY UPDATE estado = 'COMPLETADA';\000a"
-Syntax error in SQL statement "INSERT INTO ""progreso_leccion"" (usuario_id, leccion_id, estado)\000aVALUES (?, ?, 'COMPLETADA')\000a[*]ON DUPLICATE KEY UPDATE estado = 'COMPLETADA';\000a"; SQL statement:
-INSERT INTO "progreso_leccion" (usuario_id, leccion_id, estado)
-VALUES (?, ?, 'COMPLETADA')
-ON DUPLICATE KEY UPDATE estado = 'COMPLETADA';
- [42000-232]
-2025-11-03 20:22:21.578981-05:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LECCION" not found (candidates are: "leccion"); SQL statement:
-SELECT COUNT(*) AS completadas
-FROM "progreso_leccion" pl
-JOIN leccion l ON pl.leccion_id = l.id
-JOIN seccion s ON l.seccion_id = s.id
-WHERE pl.usuario_id = ?
-  AND s.curso_id = ?
-  AND pl.estado = 'COMPLETADA';
- [42103-232]
-2025-11-03 20:29:16.875029-05:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "INSERT INTO ""progreso_leccion"" (usuario_id, leccion_id, estado)\000aVALUES (?, ?, 'COMPLETADA')\000a[*]ON DUPLICATE KEY UPDATE estado = 'COMPLETADA';\000a"
-Syntax error in SQL statement "INSERT INTO ""progreso_leccion"" (usuario_id, leccion_id, estado)\000aVALUES (?, ?, 'COMPLETADA')\000a[*]ON DUPLICATE KEY UPDATE estado = 'COMPLETADA';\000a"; SQL statement:
-INSERT INTO "progreso_leccion" (usuario_id, leccion_id, estado)
-VALUES (?, ?, 'COMPLETADA')
-ON DUPLICATE KEY UPDATE estado = 'COMPLETADA';
- [42000-232]
-2025-11-03 20:29:16.907952-05:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LECCION" not found (candidates are: "leccion"); SQL statement:
-SELECT COUNT(*) AS completadas
-FROM "progreso_leccion" pl
-JOIN leccion l ON pl.leccion_id = l.id
-JOIN seccion s ON l.seccion_id = s.id
-WHERE pl.usuario_id = ?
-  AND s.curso_id = ?
-  AND pl.estado = 'COMPLETADA';
- [42103-232]
-2025-11-03 20:29:24.040684-05:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "INSERT INTO ""progreso_leccion"" (usuario_id, leccion_id, estado)\000aVALUES (?, ?, 'COMPLETADA')\000a[*]ON DUPLICATE KEY UPDATE estado = 'COMPLETADA';\000a"
-Syntax error in SQL statement "INSERT INTO ""progreso_leccion"" (usuario_id, leccion_id, estado)\000aVALUES (?, ?, 'COMPLETADA')\000a[*]ON DUPLICATE KEY UPDATE estado = 'COMPLETADA';\000a"; SQL statement:
-INSERT INTO "progreso_leccion" (usuario_id, leccion_id, estado)
-VALUES (?, ?, 'COMPLETADA')
-ON DUPLICATE KEY UPDATE estado = 'COMPLETADA';
- [42000-232]
-2025-11-03 20:29:24.108430-05:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LECCION" not found (candidates are: "leccion"); SQL statement:
-SELECT COUNT(*) AS completadas
-FROM "progreso_leccion" pl
-JOIN leccion l ON pl.leccion_id = l.id
-JOIN seccion s ON l.seccion_id = s.id
-WHERE pl.usuario_id = ?
-  AND s.curso_id = ?
-  AND pl.estado = 'COMPLETADA';
- [42103-232]
-2025-11-03 20:30:10.037923-05:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLNonTransientException: Tipo de dato desconocido : "USUARIO_ID"
-Unknown data type: "USUARIO_ID"; SQL statement:
-MERGE INTO "progreso_leccion" AS target
-USING (SELECT ? AS usuario_id, ? AS leccion_id) AS source
-ON (target.usuario_id = source.usuario_id AND target.leccion_id = source.leccion_id)
-WHEN MATCHED THEN
-    UPDATE SET estado = 'COMPLETADA'
-WHEN NOT MATCHED THEN
-    INSERT (usuario_id, leccion_id, estado)
-    VALUES (source.usuario_id, source.leccion_id, 'COMPLETADA');
- [50004-232]
-	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+2025-11-07 20:01:04.444806-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "POST" not found (candidates are: "post"); SQL statement:
+
+
+-- Insertar un post
+INSERT INTO post (usuario_id, contenido_texto, fecha, etiqueta) VALUES
+(1, '¿Alguien sabe cómo usar JavaFX para un foro?', '2025-11-07 18:00:00', 'JavaFX') [42103-232]
+2025-11-07 20:02:30.497301-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Imposible eliminar "usuario" debido a que "CONSTRAINT_349, CONSTRAINT_9E0" depende de él.
+Cannot drop "usuario" because "CONSTRAINT_349, CONSTRAINT_9E0" depends on it; SQL statement:
+
+DROP TABLE IF EXISTS "usuari [90107-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:644)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.command.ddl.DropTable.prepareDrop(DropTable.java:108)
+	at org.h2.command.ddl.DropTable.update(DropTable.java:133)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:139)
+	at org.h2.command.Command.executeUpdate(Command.java:304)
+	at org.h2.command.Command.executeUpdate(Command.java:248)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:262)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.tools.RunScript.execute(RunScript.java:169)
+	at Infrastructure.persistence.H2DataBaseInitializer.initialize(H2DataBaseInitializer.java:31)
+	at Infrastructure.test_temporal.ForoServiceTest.main(ForoServiceTest.java:20)
+2025-11-07 20:04:03.228488-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Columna "ETIQUETA" no encontrada
+Column "ETIQUETA" not found; SQL statement:
+
+
+-- Insertar un post
+INSERT INTO "post" (usuario_id, contenido_texto, fecha, etiqueta) VALUES
+(1, '¿Alguien sabe cómo usar JavaFX para un foro?', '2025-11-07 18:00:00', 'JavaFX') [42122-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
 	at org.h2.message.DbException.get(DbException.java:223)
 	at org.h2.message.DbException.get(DbException.java:199)
-	at org.h2.table.Table.setColumns(Table.java:482)
-	at org.h2.table.DerivedTable.<init>(DerivedTable.java:50)
-	at org.h2.command.query.Query.toTable(Query.java:1088)
-	at org.h2.command.Parser.readDerivedTableWithCorrelation(Parser.java:1824)
-	at org.h2.command.Parser.readTablePrimary(Parser.java:1701)
-	at org.h2.command.Parser.readTableReference(Parser.java:2249)
-	at org.h2.command.Parser.parseMergeUsing(Parser.java:1453)
-	at org.h2.command.Parser.parseMerge(Parser.java:1420)
-	at org.h2.command.Parser.parsePrepared(Parser.java:703)
+	at org.h2.table.Table.getColumn(Table.java:786)
+	at org.h2.command.Parser.parseColumn(Parser.java:1171)
+	at org.h2.command.Parser.parseColumnList(Parser.java:1156)
+	at org.h2.command.Parser.parseInsert(Parser.java:1530)
+	at org.h2.command.Parser.parsePrepared(Parser.java:698)
 	at org.h2.command.Parser.parse(Parser.java:581)
 	at org.h2.command.Parser.parse(Parser.java:556)
 	at org.h2.command.Parser.prepareCommand(Parser.java:484)
 	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
 	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
 	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.tools.RunScript.execute(RunScript.java:169)
+	at Infrastructure.persistence.H2DataBaseInitializer.initialize(H2DataBaseInitializer.java:31)
+	at Infrastructure.test_temporal.ForoServiceTest.main(ForoServiceTest.java:20)
+2025-11-07 20:05:43.265160-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "\000d\000a\000d\000a-- Insertar comentarios para el post\000d\000aINSERT INTO ""comentario"" (post_id, usuario_id, contenido_texto, fecha) VALUES\000d\000a(1, 2, 'Sí, usa FXML para la interfaz.', '2025-11-07 18:05:00'),\000d\000a(1, 2, 'También puedes agregar un ListView para los posts.', '2025-11-07 18:10:00')\000d\000a\000d\000a[*]INSERT INTO ""post"" (usuario_id, contenido_texto, fecha, etiqueta) VALUES\000d\000a(2, '¿Alguien sabe cómo utilizar la memoria dinámica en c++?', '2025-11-07 18:20:00', 'C++')"
+Syntax error in SQL statement "\000d\000a\000d\000a-- Insertar comentarios para el post\000d\000aINSERT INTO ""comentario"" (post_id, usuario_id, contenido_texto, fecha) VALUES\000d\000a(1, 2, 'Sí, usa FXML para la interfaz.', '2025-11-07 18:05:00'),\000d\000a(1, 2, 'También puedes agregar un ListView para los posts.', '2025-11-07 18:10:00')\000d\000a\000d\000a[*]INSERT INTO ""post"" (usuario_id, contenido_texto, fecha, etiqueta) VALUES\000d\000a(2, '¿Alguien sabe cómo utilizar la memoria dinámica en c++?', '2025-11-07 18:20:00', 'C++')"; SQL statement:
+
+
+-- Insertar comentarios para el post
+INSERT INTO "comentario" (post_id, usuario_id, contenido_texto, fecha) VALUES
+(1, 2, 'Sí, usa FXML para la interfaz.', '2025-11-07 18:05:00'),
+(1, 2, 'También puedes agregar un ListView para los posts.', '2025-11-07 18:10:00')
+
+INSERT INTO "post" (usuario_id, contenido_texto, fecha, etiqueta) VALUES
+(2, '¿Alguien sabe cómo utilizar la memoria dinámica en c++?', '2025-11-07 18:20:00', 'C++') [42000-232]
+2025-11-07 20:07:28.088263-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Columna "C.IMAGEN_PATH" no encontrada
+Column "C.IMAGEN_PATH" not found; SQL statement:
+SELECT p.id, p.usuario_id, p.contenido_texto, p.likes, p.fecha,
+       c.id AS comentario_id, c.usuario_id AS c_usuario_id, c.contenido_texto AS c_contenido,
+       c.imagen_path, c.fecha AS c_fecha, c.likes AS c_likes
+FROM "post" p
+LEFT JOIN "comentario" c ON c.post_id = p.id
+ORDER BY p.id, c.id [42122-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.expression.ExpressionColumn.getColumnException(ExpressionColumn.java:244)
+	at org.h2.expression.ExpressionColumn.optimizeOther(ExpressionColumn.java:226)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:213)
+	at org.h2.command.query.Select.prepareExpressions(Select.java:1228)
+	at org.h2.command.query.Query.prepare(Query.java:232)
+	at org.h2.command.Parser.prepareCommand(Parser.java:489)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
 	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:93)
 	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:315)
-	at Infrastructure.repositories.ProgresoRepository.marcarCompletada(ProgresoRepository.java:34)
-	at Application.services.ProgresoService.marcarCompletada(ProgresoService.java:17)
-	at Infrastructure.test_temporal.ProgresoServiceTest.main(ProgresoServiceTest.java:32)
-2025-11-03 20:30:10.104172-05:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LECCION" not found (candidates are: "leccion"); SQL statement:
-SELECT COUNT(*) AS completadas
-FROM "progreso_leccion" pl
-JOIN leccion l ON pl.leccion_id = l.id
-JOIN seccion s ON l.seccion_id = s.id
-WHERE pl.usuario_id = ?
-  AND s.curso_id = ?
-  AND pl.estado = 'COMPLETADA';
- [42103-232]
-2025-11-03 20:34:01.403307-05:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LECCION" not found (candidates are: "leccion"); SQL statement:
-SELECT COUNT(*)
-FROM leccion l
-JOIN seccion s ON l.seccion_id = s.id
-WHERE s.curso_id = ?
- [42103-232]
-2025-11-03 20:34:01.869261-05:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LECCION" not found (candidates are: "leccion"); SQL statement:
-SELECT COUNT(*) AS completadas
-FROM "progreso_leccion" pl
-JOIN leccion l ON pl.leccion_id = l.id
-JOIN seccion s ON l.seccion_id = s.id
-WHERE pl.usuario_id = ?
-  AND s.curso_id = ?
-  AND pl.estado = 'COMPLETADA';
- [42103-232]
-2025-11-03 20:35:45.149877-05:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SECCION" not found (candidates are: "seccion"); SQL statement:
-SELECT COUNT(*)
-FROM "leccion" l
-JOIN seccion s ON l.seccion_id = s.id
-WHERE s.curso_id = ?
- [42103-232]
-2025-11-03 20:35:45.592195-05:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LECCION" not found (candidates are: "leccion"); SQL statement:
-SELECT COUNT(*) AS completadas
-FROM "progreso_leccion" pl
-JOIN leccion l ON pl.leccion_id = l.id
-JOIN seccion s ON l.seccion_id = s.id
-WHERE pl.usuario_id = ?
-  AND s.curso_id = ?
-  AND pl.estado = 'COMPLETADA';
- [42103-232]
+	at Infrastructure.repositories.ForoRepository.obtenerTodos(ForoRepository.java:36)
+	at Application.services.ForoService.obtenerTodosLosPosts(ForoService.java:23)
+	at Infrastructure.test_temporal.ForoServiceTest.main(ForoServiceTest.java:29)
+2025-11-07 20:10:04.684973-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No hay datos disponibles.
+No data is available [2000-232]
+2025-11-07 20:21:33.482721-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No hay datos disponibles.
+No data is available [2000-232]
+2025-11-07 20:23:06.333987-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No hay datos disponibles.
+No data is available [2000-232]
+2025-11-07 20:29:44.052875-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No hay datos disponibles.
+No data is available [2000-232]
+2025-11-07 20:33:57.043066-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "INSERT INTO ""post"" (usuario_id, contenido_texto, fecha, etiqueta) VALUES (?, ?, ?, ?) [*]RETURNING id"
+Syntax error in SQL statement "INSERT INTO ""post"" (usuario_id, contenido_texto, fecha, etiqueta) VALUES (?, ?, ?, ?) [*]RETURNING id"; SQL statement:
+INSERT INTO "post" (usuario_id, contenido_texto, fecha, etiqueta) VALUES (?, ?, ?, ?) RETURNING id [42000-232]
+2025-11-07 20:40:25.325475-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "INSERT INTO ""post"" (usuario_id, contenido_texto, fecha, etiqueta) VALUES (?, ?, ?, ?) [*]RETURNING id"
+Syntax error in SQL statement "INSERT INTO ""post"" (usuario_id, contenido_texto, fecha, etiqueta) VALUES (?, ?, ?, ?) [*]RETURNING id"; SQL statement:
+INSERT INTO "post" (usuario_id, contenido_texto, fecha, etiqueta) VALUES (?, ?, ?, ?) RETURNING id [42000-232]
+2025-11-07 20:45:29.694526-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "INSERT INTO ""comentario"" (post_id, usuario_id, contenido_texto, fecha) VALUES (?, ?, ?, ?) [*]RETURNING id"
+Syntax error in SQL statement "INSERT INTO ""comentario"" (post_id, usuario_id, contenido_texto, fecha) VALUES (?, ?, ?, ?) [*]RETURNING id"; SQL statement:
+INSERT INTO "comentario" (post_id, usuario_id, contenido_texto, fecha) VALUES (?, ?, ?, ?) RETURNING id [42000-232]
+2025-11-07 20:52:39.304017-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No hay datos disponibles.
+No data is available [2000-232]
+2025-11-09 13:23:25.159843-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "item" no encontrada
+Table "item" not found; SQL statement:
+SELECT id, nombre, descripcion, precio, image_path FROM "item" [42102-232]
