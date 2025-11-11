@@ -14,10 +14,21 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.beans.binding.Bindings;            // ⏱
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.effect.GaussianBlur;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.net.URL;
@@ -41,6 +52,7 @@ public class PrincipalController implements Initializable {
     @FXML private Button homeBtn, forumBtn, achievementsBtn, profileBtn;
     @FXML private Button homeBtn2, forumBtn2, achievementsBtn2;
     @FXML private Button logoutBtn;
+    @FXML private AnchorPane root;
 
     // ⏱ NUEVO: label del reloj en principal
     @FXML private Label lblTiempoPomodoro;
@@ -151,7 +163,7 @@ public class PrincipalController implements Initializable {
         VBox card = new VBox(10);
         card.setPrefSize(300, 200);
         card.setStyle("-fx-background-color: rgba(8,7,54,0.6); -fx-background-radius: 15; -fx-padding: 15;");
-        card.setAlignment(javafx.geometry.Pos.CENTER);
+        card.setAlignment(Pos.CENTER);
 
         Label title = new Label(curso.titulo());
         title.setStyle("-fx-text-fill: white; -fx-font-size: 20; -fx-font-weight: bold;");
@@ -199,7 +211,7 @@ public class PrincipalController implements Initializable {
         VBox card = new VBox(10);
         card.setPrefSize(300, 200);
         card.setStyle("-fx-background-color: rgba(8,7,54,0.65); -fx-background-radius: 20; -fx-padding: 15;");
-        card.setAlignment(javafx.geometry.Pos.CENTER);
+        card.setAlignment(Pos.CENTER);
 
         Label title = new Label(curso.titulo());
         title.setStyle("-fx-text-fill: white; -fx-font-size: 20; -fx-font-weight: bold;");
@@ -300,6 +312,37 @@ public class PrincipalController implements Initializable {
             uiHelper.showError("Error al abrir la Tienda", e.getMessage());
         }
     }
+    @FXML
+    private void goChatbot() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Chatbot.fxml"));
+            if (controllerFactory != null)
+                loader.setControllerFactory(controllerFactory::apply);
+
+            Parent popupRoot = loader.load();
+
+            Scene popupScene = new Scene(popupRoot, 1100, 750);
+            popupScene.setFill(Color.TRANSPARENT);
+
+            Stage popupStage = new Stage(StageStyle.TRANSPARENT);
+            popupStage.initModality(Modality.APPLICATION_MODAL);
+            popupStage.initOwner(root.getScene().getWindow());
+            popupStage.setScene(popupScene);
+            popupStage.centerOnScreen();
+
+            // Efecto blur en el fondo
+            root.setEffect(new GaussianBlur(10));
+            popupStage.setOnHidden(e -> root.setEffect(null));
+
+            popupStage.showAndWait();
+
+        } catch (Exception e) {
+            System.err.println("[CHATBOT] Error abriendo chatbot: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+
 
     // ====== CERRAR SESIÓN ======
     private void cerrarSesion() {

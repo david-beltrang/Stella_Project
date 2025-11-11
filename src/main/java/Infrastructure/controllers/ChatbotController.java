@@ -8,9 +8,16 @@ import Infrastructure.ui.AyudaUI;
 import Infrastructure.ui.Navigacion;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.control.Label;
 
 import java.util.function.Function;
 
@@ -23,15 +30,18 @@ public class ChatbotController {
     private Function<Class<?>, Object> controllerFactory;
 
     // ========= FXML =========
-    @FXML private Pane root;
-    @FXML private TextArea txtHistorial;
-    @FXML private TextField txtMensajeUsuario;
-    @FXML private Button btnEnviar;
-    @FXML private Button btnLimpiar;
+    @FXML private Pane popupRoot;
+    @FXML private VBox chatContainer;
+    @FXML private TextArea messageInput;
+    @FXML private ScrollPane chatScrollPane;
+    @FXML private Button sendButton;
 
     // ========= Constructor =========
     public ChatbotController(ChatbotService chatbotService) {
         this.chatbotService = chatbotService;
+    }
+    public ChatbotController() {
+        this.chatbotService = null;
     }
 
     public void setControllerFactory(Function<Class<?>, Object> controllerFactory) {
@@ -41,77 +51,101 @@ public class ChatbotController {
     // ========= Inicialización =========
     @FXML
     private void initialize() {
-        if (txtHistorial != null) {
-            txtHistorial.setEditable(false);
+        if (messageInput != null) {
+            messageInput.setWrapText(true);
         }
-        refrescarHistorial();
+        cargarHistorial();
     }
 
-    // ========= Lógica chatbot =========
+    // ========= Enviar mensaje =========
     @FXML
-    private void onEnviarMensaje() {
-        String mensaje = txtMensajeUsuario.getText();
-        if (mensaje == null || mensaje.isBlank()) {
-            return;
-        }
+    private void enviarMensaje() {
+        String mensaje = messageInput.getText().trim();
+        if (mensaje.isEmpty()) return;
 
         try {
+            // Mostrar mensaje del usuario en pantalla
+            agregarMensajeUsuario(mensaje);
+
+            // Enviar al servicio
             ChatMessageRequest request = new ChatMessageRequest(mensaje);
-            // Usa el método que tengas en tu servicio (ajusta el nombre si es diferente)
             chatbotService.obtenerRespuesta(request);
 
-            txtMensajeUsuario.clear();
-            refrescarHistorial();
+            messageInput.clear();
+            cargarHistorial();  // refresca con la respuesta del bot
         } catch (Exception e) {
             uiHelper.showError("Error en el chatbot", e.getMessage());
         }
     }
 
-    private void refrescarHistorial() {
+    // ========= Mostrar historial =========
+    private void cargarHistorial() {
         try {
+            chatContainer.getChildren().clear();
+
             ChatConversation conv = chatbotService.obtenerHistorial();
-
-            StringBuilder sb = new StringBuilder();
             for (ChatMessageResponse msg : conv.messages()) {
-                String prefix;
                 switch (msg.role()) {
-                    case "user" -> prefix = "Tú: ";
-                    case "assistant" -> prefix = "Stella: ";
-                    case "system" -> prefix = "[Sistema]: ";
-                    default -> prefix = "";
+                    case "user" -> agregarMensajeUsuario(msg.content());
+                    case "assistant" -> agregarMensajeBot(msg.content());
+                    case "system" -> agregarMensajeSistema(msg.content());
                 }
-
-                sb.append(prefix)
-                        .append(msg.content())
-                        .append("\n(").append(msg.timestamp()).append(")")
-                        .append("\n\n");
             }
 
-            txtHistorial.setText(sb.toString());
-            txtHistorial.positionCaret(txtHistorial.getText().length());
+            chatScrollPane.layout();
+            chatScrollPane.setVvalue(1.0); // siempre al final
         } catch (Exception e) {
             uiHelper.showError("Error cargando historial", e.getMessage());
         }
     }
 
-    @FXML
-    private void onLimpiarHistorial() {
-        try {
-            chatbotService.limpiarHistorial();
-            refrescarHistorial();
-        } catch (Exception e) {
-            uiHelper.showError("Error limpiando historial", e.getMessage());
-        }
+    // ========= Render visual de mensajes =========
+    private void agregarMensajeUsuario(String texto) {
+        HBox userBox = new HBox();
+        userBox.setStyle("-fx-alignment: center-right;");
+
+        Label label = new Label(texto);
+        label.setStyle("-fx-background-color: #4DA3FF; -fx-text-fill: white; -fx-padding: 10 15; -fx-background-radius: 15;");
+        label.setFont(Font.font(16));
+
+        ImageView userIcon = new ImageView(new Image(getClass().getResourceAsStream("/Image/General/usuario.png")));
+        userIcon.setFitHeight(40);
+        userIcon.setFitWidth(40);
+
+        userBox.getChildren().addAll(label, userIcon);
+        userBox.setSpacing(10);
+
+        chatContainer.getChildren().add(userBox);
     }
 
+    private void agregarMensajeBot(String texto) {
+        HBox botBox = new HBox();
+        botBox.setStyle("-fx-alignment: center-left;");
+
+        ImageView botIcon = new ImageView(new Image(getClass().getResourceAsStream("/Image/General/ChatBot.png")));
+        botIcon.setFitHeight(40);
+        botIcon.setFitWidth(40);
+
+        Label label = new Label(texto);
+        label.setStyle("-fx-background-color: #E8E8E8; -fx-text-fill: #333; -fx-padding: 10 15; -fx-background-radius: 15;");
+        label.setFont(Font.font(16));
+
+        botBox.getChildren().addAll(botIcon, label);
+        botBox.setSpacing(10);
+
+        chatContainer.getChildren().add(botBox);
+    }
+
+    private void agregarMensajeSistema(String texto) {
+        Label systemMsg = new Label("[Sistema] " + texto);
+        systemMsg.setStyle("-fx-text-fill: gray; -fx-font-style: italic;");
+        chatContainer.getChildren().add(systemMsg);
+    }
+
+    // ========= Cerrar popup =========
     @FXML
-    private void onVolverAPrincipal() {
-        // Usamos tu Navigacion.goTo en vez de irAPrincipal (que no existe)
-        navigator.goTo(
-                "/fxml/Principal.fxml",   // ruta de tu principal, ajusta si usas otra
-                "STELLA",                 // título de la ventana
-                controllerFactory,        // factory global de controladores
-                root                      // nodo origen para resolver el Stage
-        );
+    private void cerrarPopup() {
+        Pane rootPane = this.popupRoot;
+        rootPane.getScene().getWindow().hide();
     }
 }

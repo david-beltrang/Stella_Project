@@ -277,7 +277,16 @@ public class TiendaController {
     }
 
     // ========= Navegación =========
-    @FXML private void goHome() { uiHelper.showInfo("Inicio", "Ya estás en la tienda."); }
+    @FXML
+    private void goHome() {
+        try {
+            Navigacion nav = new Navigacion();
+            nav.goTo("/views/Principal.fxml", "STELLA - Principal", controllerFactory, null);
+        } catch (Exception e) {
+            uiHelper.showError("Error al volver al inicio", e.getMessage());
+            e.printStackTrace();
+        }
+    }
     @FXML private void goForum() { uiHelper.showInfo("Foro", "Pantalla de foro aún no conectada."); }
     @FXML private void goProfile() { uiHelper.showInfo("Perfil", "Pantalla de perfil aún no implementada."); }
     @FXML private void goPomodoro() { uiHelper.showInfo("Pomodoro", "Desde tienda aún no se ha conectado."); }

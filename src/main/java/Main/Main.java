@@ -1,13 +1,8 @@
 package Main;
 
+import Application.services.*;
 import Application.services.DarAcceso.LoginService;
 import Application.services.DarAcceso.RegistroService;
-import Application.services.ListarCursosService;
-import Application.services.PomodoroTimer;
-import Application.services.SesionPomodoroService;
-import Application.services.SeccionesService;
-import Application.services.LeccionService;
-import Application.services.TiendaService;                    // ✅ NUEVO
 
 import Domain.repositoriesInterfaces.*;
 import Infrastructure.controllers.ControllerControladores;
@@ -63,6 +58,7 @@ public class Main extends Application {
         AppServices.initPomodoro(sesionPomodoroService, pomodoroTimer);
 
         // ======== Front Controller ========
+        ChatbotService chatbotService = new ChatbotService();
         ControllerControladores frontController = new ControllerControladores(
                 seccionesService,
                 listarCursosService,
@@ -71,8 +67,10 @@ public class Main extends Application {
                 loginService,
                 registroService,
                 leccionService,
-                tiendaService                         // ✅ NUEVO PARÁMETRO
+                tiendaService,
+                chatbotService // ✅ pásalo aquí
         );
+
 
         // ======== Pantalla inicial ========
         frontController.mostrarVistaInicial(stage);

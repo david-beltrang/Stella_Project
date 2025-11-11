@@ -1,13 +1,8 @@
 package Infrastructure.controllers;
 
+import Application.services.*;
 import Application.services.DarAcceso.LoginService;
 import Application.services.DarAcceso.RegistroService;
-import Application.services.SeccionesService;
-import Application.services.ListarCursosService;
-import Application.services.PomodoroTimer;
-import Application.services.SesionPomodoroService;
-import Application.services.LeccionService;
-import Application.services.TiendaService;              // ✅ NUEVO
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -27,7 +22,7 @@ public class ControllerControladores {
     private final RegistroService registroService;
     private final LeccionService leccionService;
     private final TiendaService tiendaService;          // ✅ NUEVO
-
+    private final ChatbotService chatbotService;
     // ======== Controladores ========
     private HelloController helloController;
     private PrincipalController principalController;
@@ -50,7 +45,8 @@ public class ControllerControladores {
             LoginService loginService,
             RegistroService registroService,
             LeccionService leccionService,
-            TiendaService tiendaService                  // ✅ NUEVO parámetro
+            TiendaService tiendaService,
+            ChatbotService chatbotService// ✅ NUEVO parámetro
     ) {
         this.seccionesService = Objects.requireNonNull(seccionesService);
         this.listarCursosService = Objects.requireNonNull(listarCursosService);
@@ -59,7 +55,8 @@ public class ControllerControladores {
         this.loginService = Objects.requireNonNull(loginService);
         this.registroService = Objects.requireNonNull(registroService);
         this.leccionService = Objects.requireNonNull(leccionService);
-        this.tiendaService = Objects.requireNonNull(tiendaService);   // ✅
+        this.tiendaService = Objects.requireNonNull(tiendaService);
+        this.chatbotService = new ChatbotService();// ✅
         inicializar();
     }
 
@@ -77,6 +74,7 @@ public class ControllerControladores {
 
         // === Factory global ===
         this.factory = (Class<?> clazz) -> {
+            if (clazz == ChatbotController.class) return new ChatbotController(chatbotService);
             if (clazz == HelloController.class) return helloController;
             if (clazz == PrincipalController.class) return principalController;
             if (clazz == PomodoroController.class) return pomodoroController;

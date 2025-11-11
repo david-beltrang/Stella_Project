@@ -1,245 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1080.0" maxWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../styles/LoginStyle.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Infrastructure.controllers.PrincipalController">
+<AnchorPane fx:id="popupRoot" prefHeight="750.0" prefWidth="1100.0"
+            xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Infrastructure.controllers.ChatbotController"
+            style="-fx-background-color: rgba(8,7,54,0.93);
+                   -fx-background-radius: 25;
+                   -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.45), 45, 0.3, 0, 6);"
+            stylesheets="@../styles/LoginStyle.css">
 
-    <!-- Fondo -->
-    <ImageView fx:id="background" fitHeight="1080" fitWidth="1920" layoutX="-1.0" preserveRatio="false">
-        <image>
-            <Image url="@../Image/General/FondoStella.jpg" />
-        </image>
-    </ImageView>
+    <!-- Fondo translúcido -->
+    <Rectangle width="1100.0" height="750.0" arcWidth="25.0" arcHeight="25.0"
+               style="-fx-fill: rgba(8,7,54,0.93);" />
 
-    <!-- Barra inferior -->
-    <StackPane layoutX="-1.0" layoutY="867.0" prefHeight="80" prefWidth="1920.0">
+    <!-- Encabezado del Chatbot -->
+    <HBox alignment="CENTER_LEFT" layoutX="0.0" layoutY="0.0" prefHeight="80.0" prefWidth="1100.0"
+          style="-fx-background-color: rgba(77,163,255,0.7); -fx-background-radius: 25 25 0 0;">
         <children>
-            <Rectangle arcHeight="0" arcWidth="0" height="80" style="-fx-fill: rgba(8,7,54,0.55);" width="1923.0" />
-            <AnchorPane prefHeight="56.0" prefWidth="1876.0">
-                <children>
-                    <Button fx:id="homeBtn" layoutX="346.0" layoutY="12.0" onAction="#goHome" styleClass="nav-btn">
-                        <graphic><ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
-                            <image><Image url="@../Image/General/home.png" /></image>
-                        </ImageView></graphic>
-                    </Button>
-
-                    <Button fx:id="forumBtn" layoutX="687.0" layoutY="10.0" onAction="#goForum" styleClass="nav-btn">
-                        <graphic><ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
-                            <image><Image url="@../Image/General/foro.png" /></image>
-                        </ImageView></graphic>
-                    </Button>
-
-                    <Button fx:id="profileBtn" layoutX="1585.0" layoutY="12.0" onAction="#goProfile" styleClass="nav-btn">
-                        <graphic><ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
-                            <image><Image url="@../Image/General/usuario.png" /></image>
-                        </ImageView></graphic>
-                    </Button>
-
-
-                    <Button fx:id="iguluBtn" layoutX="1293.0" layoutY="10.0" style="-fx-background-color: transparent;">
-                        <graphic>
-                            <ImageView fitHeight="52.0" fitWidth="66.0" preserveRatio="true">
-                                <image>
-                                    <Image url="@../Image/General/Iglu.png" />
-                                </image>
-                            </ImageView>
-                        </graphic>
-                    </Button>
-                    <Button fx:id="tiendaBtn" layoutX="994.0" layoutY="10.0" styleClass="nav-btn">
-                        <graphic>
-                            <ImageView fitHeight="35.0" fitWidth="35.0" preserveRatio="true">
-                                <image>
-                                    <Image url="@../Image/General/Tienda.png" />
-                                </image>
-                            </ImageView>
-                        </graphic>
-                    </Button>
-
-                </children>
-            </AnchorPane>
+            <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="20.0" preserveRatio="true">
+                <image>
+                    <Image url="@../Image/General/ChatBot.png" />
+                </image>
+            </ImageView>
+            <Label text="Stella ChatBot" style="-fx-text-fill: white; -fx-font-weight: bold;">
+                <font>
+                    <Font name="System Bold" size="28.0" />
+                </font>
+            </Label>
+            <Button fx:id="btnCerrar" text="✕" layoutX="1000.0" layoutY="10.0"
+                    style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 24;"
+                    onAction="#cerrarPopup"/>
         </children>
-    </StackPane>
+        <padding>
+            <Insets left="20.0" />
+        </padding>
+    </HBox>
 
-    <!-- Barra superior con el botón "Cerrar sesión" -->
-    <StackPane layoutX="-1.0" layoutY="32.0" prefHeight="80" prefWidth="1920.0">
+    <!-- Contenedor principal -->
+    <VBox alignment="TOP_CENTER" layoutY="80.0" prefHeight="670.0" prefWidth="1100.0" spacing="10.0">
         <children>
-            <Rectangle arcHeight="0" arcWidth="0" height="80" style="-fx-fill: rgba(8,7,54,0.55);" width="1923.0" />
-            <AnchorPane prefHeight="56.0" prefWidth="1876.0">
-                <children>
-                    <Button fx:id="homeBtn2" layoutX="346.0" layoutY="12.0" onAction="#goHome" prefWidth="60.0" styleClass="nav-btn">
-                        <graphic>
-                            <ImageView fitHeight="36.0" fitWidth="38.0" preserveRatio="true">
-                                <image><Image url="@../Image/General/Trofeo.png" /></image>
-                            </ImageView>
-                        </graphic>
-                    </Button>
-
-                    <Button fx:id="forumBtn2" layoutX="698.0" layoutY="22.0" onAction="#goForum" prefHeight="45.0" prefWidth="30.0" styleClass="nav-btn" />
-
-                    <!-- Fueguito (racha) -->
-                    <ImageView fitHeight="61.0" fitWidth="65.0" layoutX="633.0" layoutY="16.0" preserveRatio="true">
-                        <image><Image url="@../Image/General/racha.png" /></image>
-                    </ImageView>
-
-                    <!-- Pescaditos -->
-                    <ImageView fitHeight="237.0" fitWidth="90.0" layoutX="1201.0" preserveRatio="true">
-                        <image><Image url="@../Image/General/pescaditos.png" /></image>
-                    </ImageView>
-
-                    <!-- Cerrar sesión (sin cambios) -->
-                    <Button fx:id="logoutBtn" layoutX="1628.0" layoutY="19.0" style="-fx-background-color: #4DA3FF; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 6 14;" text="Cerrar sesión">
-                        <font>
-                            <Font name="System Bold Italic" size="27.0" />
-                        </font></Button>
-                    <Button fx:id="forumBtn1" layoutX="1300.0" layoutY="23.0" prefWidth="157.0" styleClass="nav-btn" />
-                    <Button fx:id="tiendaBtn1" layoutX="975.0" layoutY="14.0" styleClass="nav-btn">
-                        <graphic>
-                            <ImageView fitHeight="35.0" fitWidth="35.0" preserveRatio="true">
-                                <image>
-                                    <Image url="@../Image/General/ChatBot.png" />
-                                </image>
-                            </ImageView>
-                        </graphic>
-                    </Button>
-                </children>
-            </AnchorPane>
-        </children>
-    </StackPane>
-
-    <!-- Área principal del chatbot -->
-    <StackPane layoutX="356.0" layoutY="174.0" prefHeight="650.0" prefWidth="1200.0">
-        <children>
-            <!-- Fondo del área del chat -->
-            <Rectangle arcHeight="20.0" arcWidth="20.0" fill="rgba(255,255,255,0.85)" height="650.0" stroke="BLACK" strokeType="INSIDE" width="1200.0" />
-
-            <VBox alignment="TOP_CENTER" prefHeight="650.0" prefWidth="1200.0" spacing="10.0">
-                <children>
-                    <!-- Encabezado del chatbot -->
-                    <HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="1200.0" style="-fx-background-color: rgba(77,163,255,0.7); -fx-background-radius: 20 20 0 0;">
-                        <children>
-                            <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                                <image>
-                                    <Image url="@../Image/General/ChatBot.png" />
-                                </image>
-                            </ImageView>
-                            <Label style="-fx-text-fill: white; -fx-font-weight: bold;" text="Stella ChatBot">
-                                <font>
-                                    <Font name="System Bold" size="28.0" />
-                                </font>
-                            </Label>
-                        </children>
+            <!-- Área de mensajes -->
+            <ScrollPane fx:id="chatScrollPane" fitToWidth="true" prefHeight="530.0" prefWidth="1050.0"
+                        style="-fx-background: transparent; -fx-background-color: transparent;">
+                <content>
+                    <VBox fx:id="chatContainer" alignment="TOP_CENTER" prefHeight="530.0" prefWidth="1020.0" spacing="15.0">
                         <padding>
-                            <javafx.geometry.Insets left="20.0" />
+                            <Insets top="10" bottom="10" left="10" right="10" />
                         </padding>
-                    </HBox>
+                    </VBox>
+                </content>
+            </ScrollPane>
 
-                    <!-- Área de mensajes -->
-                    <ScrollPane fx:id="chatScrollPane" fitToWidth="true" prefHeight="480.0" prefWidth="1180.0" style="-fx-background: transparent; -fx-background-color: transparent;">
-                        <content>
-                            <VBox fx:id="chatContainer" alignment="TOP_CENTER" prefHeight="480.0" prefWidth="1160.0" spacing="15.0">
-                                <padding>
-                                    <javafx.geometry.Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                </padding>
-
-                                <!-- Mensaje del chatbot (ejemplo) -->
-                                <HBox alignment="CENTER_LEFT" prefWidth="1160.0">
-                                    <children>
-                                        <ImageView fitHeight="40.0" fitWidth="40.0" preserveRatio="true">
-                                            <image>
-                                                <Image url="@../Image/General/ChatBot.png" />
-                                            </image>
-                                        </ImageView>
-                                        <StackPane style="-fx-background-color: #E8E8E8; -fx-background-radius: 15;">
-                                            <Label style="-fx-padding: 10 15; -fx-text-fill: #333;" wrapText="true">
-                                                <font>
-                                                    <Font size="16.0" />
-                                                </font>
-                                            </Label>
-                                        </StackPane>
-                                    </children>
-                                    <padding>
-                                        <javafx.geometry.Insets left="10.0" />
-                                    </padding>
-                                </HBox>
-
-                                <!-- Mensaje del usuario (ejemplo) -->
-                                <HBox alignment="CENTER_RIGHT" prefWidth="1160.0">
-                                    <children>
-                                        <StackPane style="-fx-background-color: #4DA3FF; -fx-background-radius: 15;">
-                                            <Label style="-fx-padding: 10 15; -fx-text-fill: white;" wrapText="true">
-                                                <font>
-                                                    <Font size="16.0" />
-                                                </font>
-                                            </Label>
-                                        </StackPane>
-                                        <ImageView fitHeight="40.0" fitWidth="40.0" preserveRatio="true">
-                                            <image>
-                                                <Image url="@../Image/General/usuario.png" />
-                                            </image>
-                                        </ImageView>
-                                    </children>
-                                    <padding>
-                                        <javafx.geometry.Insets right="10.0" />
-                                    </padding>
-                                </HBox>
-
-                                <!-- Respuesta del chatbot (ejemplo) -->
-                                <HBox alignment="CENTER_LEFT" prefWidth="1160.0">
-                                    <children>
-                                        <ImageView fitHeight="40.0" fitWidth="40.0" preserveRatio="true">
-                                            <image>
-                                                <Image url="@../Image/General/ChatBot.png" />
-                                            </image>
-                                        </ImageView>
-                                        <StackPane style="-fx-background-color: #E8E8E8; -fx-background-radius: 15;">
-                                            <Label style="-fx-padding: 10 15; -fx-text-fill: #333;" wrapText="true">
-                                                <font>
-                                                    <Font size="16.0" />
-                                                </font>
-                                            </Label>
-                                        </StackPane>
-                                    </children>
-                                    <padding>
-                                        <javafx.geometry.Insets left="10.0" />
-                                    </padding>
-                                </HBox>
-                            </VBox>
-                        </content>
-                    </ScrollPane>
-
-                    <!-- Área de entrada de texto -->
-                    <HBox alignment="CENTER" prefHeight="70.0" prefWidth="1180.0" spacing="10.0" style="-fx-background-color: rgba(240,240,240,0.9); -fx-background-radius: 0 0 20 20;">
-                        <children>
-                            <TextArea fx:id="messageInput" prefHeight="50.0" prefWidth="1000.0" promptText="Escribe tu mensaje aquí..." style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-font-size: 16;" wrapText="true" />
-                            <Button fx:id="sendButton" mnemonicParsing="false" onAction="#sendMessage" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #4DA3FF; -fx-background-radius: 25;">
-                                <graphic>
-                                    <ImageView fitHeight="25.0" fitWidth="25.0" preserveRatio="true">
-                                        <image>
-                                            <Image url="@../Image/General/Enviar.png" />
-                                        </image>
-                                    </ImageView>
-                                </graphic>
-                            </Button>
-                        </children>
-                        <padding>
-                            <javafx.geometry.Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                        </padding>
-                    </HBox>
+            <!-- Área de texto + botón enviar -->
+            <HBox alignment="CENTER" spacing="10.0" prefHeight="70.0" prefWidth="1050.0"
+                  style="-fx-background-color: rgba(240,240,240,0.9); -fx-background-radius: 15;">
+                <children>
+                    <TextArea fx:id="messageInput" prefHeight="50.0" prefWidth="900.0"
+                              promptText="Escribe tu mensaje aquí..."
+                              style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-font-size: 16;"
+                              wrapText="true"/>
+                    <Button fx:id="sendButton" onAction="#enviarMensaje"
+                            prefHeight="50.0" prefWidth="50.0"
+                            style="-fx-background-color: #4DA3FF; -fx-background-radius: 25;">
+                        <graphic>
+                            <ImageView fitHeight="25.0" fitWidth="25.0" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Image/General/Enviar.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
                 </children>
-            </VBox>
+                <padding>
+                    <Insets top="10" bottom="10" left="10" right="10" />
+                </padding>
+            </HBox>
         </children>
-    </StackPane>
-
+    </VBox>
 </AnchorPane>

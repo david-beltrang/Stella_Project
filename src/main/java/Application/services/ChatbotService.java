@@ -16,7 +16,7 @@ import org.json.JSONObject;
 
 public class ChatbotService {
 
-    private static final String API_KEY = "";
+    private static final String API_KEY = "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";
     private static final String API_URL = "https://openrouter.ai/api/v1/chat/completions";
 
     // Historial de mensajes como lista de ChatMessageResponse para DTOs
