@@ -7,8 +7,7 @@
 <?import javafx.scene.text.*?>
 
 <AnchorPane fx:id="popupRoot" prefHeight="750.0" prefWidth="1100.0"
-            xmlns="http://javafx.com/javafx/17.0.12"
-            xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/18.0.2" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="Infrastructure.controllers.ProductoTiendaController"
             stylesheets="@../styles/LoginStyle.css"
             style="-fx-background-color: rgba(8,7,54,0.93);
