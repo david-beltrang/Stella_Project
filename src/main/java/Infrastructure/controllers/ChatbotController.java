@@ -5,7 +5,7 @@ import Application.dtos.chatbot.ChatMessageRequest;
 import Application.dtos.chatbot.ChatMessageResponse;
 import Application.services.ChatbotService;
 import Infrastructure.ui.AyudaUI;
-import Infrastructure.ui.Navigacion;
+import Infrastructure.ui.Navegacion;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -14,7 +14,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.control.Label;
@@ -25,7 +24,7 @@ public class ChatbotController {
 
     // ========= Dependencias =========
     private final ChatbotService chatbotService;
-    private final Navigacion navigator = new Navigacion();
+    private final Navegacion navigator = new Navegacion();
     private final AyudaUI uiHelper = new AyudaUI();
     private Function<Class<?>, Object> controllerFactory;
 

@@ -10,8 +10,11 @@ import javafx.stage.Stage;
 
 import java.util.Objects;
 import java.util.function.Function;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ControllerControladores {
+    private static final Logger logger = LoggerFactory.getLogger(ControllerControladores.class);
 
     // ======== Servicios =======
     private final SeccionesService seccionesService;
@@ -21,8 +24,10 @@ public class ControllerControladores {
     private final LoginService loginService;
     private final RegistroService registroService;
     private final LeccionService leccionService;
-    private final TiendaService tiendaService;          // ✅ NUEVO
+    private final TiendaService tiendaService;
+    private final PerfilService perfilService; // ✅ NUEVO
     private final ChatbotService chatbotService;
+
     // ======== Controladores ========
     private HelloController helloController;
     private PrincipalController principalController;
@@ -32,7 +37,9 @@ public class ControllerControladores {
     private CursoController cursoController;
     private LeccionController leccionController;
     private QuizController quizController;
-    private TiendaController tiendaController;          // ✅ NUEVO
+    private TiendaController tiendaController;
+    private PerfilController perfilController; // ✅
+    private ForoController foroController; // ✅ NUEVO NUEVO
 
     // ======== Factory global ========
     private Function<Class<?>, Object> factory;
@@ -46,7 +53,8 @@ public class ControllerControladores {
             RegistroService registroService,
             LeccionService leccionService,
             TiendaService tiendaService,
-            ChatbotService chatbotService// ✅ NUEVO parámetro
+            ChatbotService chatbotService,
+            PerfilService perfilService // ✅ NUEVO parámetro
     ) {
         this.seccionesService = Objects.requireNonNull(seccionesService);
         this.listarCursosService = Objects.requireNonNull(listarCursosService);
@@ -56,7 +64,8 @@ public class ControllerControladores {
         this.registroService = Objects.requireNonNull(registroService);
         this.leccionService = Objects.requireNonNull(leccionService);
         this.tiendaService = Objects.requireNonNull(tiendaService);
-        this.chatbotService = new ChatbotService();// ✅
+        this.chatbotService = Objects.requireNonNull(chatbotService);
+        this.perfilService = Objects.requireNonNull(perfilService);
         inicializar();
     }
 
@@ -70,21 +79,38 @@ public class ControllerControladores {
         this.cursoController = new CursoController(seccionesService, leccionService);
         this.leccionController = new LeccionController(leccionService);
         this.quizController = new QuizController();
-        this.tiendaController = new TiendaController(tiendaService);  // ✅ le pasamos el servicio
+        this.tiendaController = new TiendaController(tiendaService);
+        this.perfilController = new PerfilController(perfilService);
+        this.foroController = new ForoController(); // ✅ NUEVO
 
         // === Factory global ===
         this.factory = (Class<?> clazz) -> {
-            if (clazz == ChatbotController.class) return new ChatbotController(chatbotService);
-            if (clazz == HelloController.class) return helloController;
-            if (clazz == PrincipalController.class) return principalController;
-            if (clazz == PomodoroController.class) return pomodoroController;
-            if (clazz == RegistroController.class) return registroController;
-            if (clazz == LoginController.class) return loginController;
-            if (clazz == CursoController.class) return cursoController;
-            if (clazz == LeccionController.class) return leccionController;
-            if (clazz == QuizController.class) return quizController;
-            if (clazz == TiendaController.class) return tiendaController;
-            if (clazz == ProductoTiendaController.class) return new ProductoTiendaController(tiendaService);
+            if (clazz == ChatbotController.class)
+                return new ChatbotController(chatbotService);
+            if (clazz == HelloController.class)
+                return helloController;
+            if (clazz == PrincipalController.class)
+                return principalController;
+            if (clazz == PomodoroController.class)
+                return pomodoroController;
+            if (clazz == RegistroController.class)
+                return registroController;
+            if (clazz == LoginController.class)
+                return loginController;
+            if (clazz == CursoController.class)
+                return cursoController;
+            if (clazz == LeccionController.class)
+                return leccionController;
+            if (clazz == QuizController.class)
+                return quizController;
+            if (clazz == TiendaController.class)
+                return tiendaController;
+            if (clazz == PerfilController.class)
+                return perfilController; // ✅
+            if (clazz == ForoController.class)
+                return foroController; // ✅ NUEVO
+            if (clazz == ProductoTiendaController.class)
+                return new ProductoTiendaController(tiendaService);
             try {
                 return clazz.getDeclaredConstructor().newInstance();
             } catch (Exception e) {
@@ -101,13 +127,40 @@ public class ControllerControladores {
         cursoController.setControllerFactory(factory);
         leccionController.setControllerFactory(factory);
         quizController.setControllerFactory(factory);
-        tiendaController.setControllerFactory(factory);    // ✅
+        tiendaController.setControllerFactory(factory);
+        perfilController.setControllerFactory(factory);
+        foroController.setControllerFactory(factory); // ✅ NUEVO
+    }
+
+    // Helper for navigation if needed
+    private void navegar(String fxml) {
+        // This logic usually resides in the controller that has the Stage or Scene.
+        // But `ControllerControladores` has `mostrarVistaInicial`.
+        // I might need to implement `Navigacion` here or pass a method that does
+        // `FXMLLoader` loading using `this.factory`.
+        // Let's assume for now I can pass a lambda that does nothing or logs, until I
+        // see how other controllers do it.
+        // `LoginController` receives `Navigacion`. Who implements it?
+        // `Main` passes `loginService` to `LoginController`.
+        // `LoginController` has `setNavigacion`? Or constructor?
+        // In `inicializar`: `this.loginController = new LoginController(loginService);`
+        // It doesn't take navigation in constructor.
+        // So it must be set later or it implements it?
+        // Let's check `LoginController` source again.
     }
 
     // ======== Getters ========
-    public PrincipalController getPrincipalController() { return principalController; }
-    public CursoController getCursoController() { return cursoController; }
-    public Function<Class<?>, Object> controllerFactory() { return factory; }
+    public PrincipalController getPrincipalController() {
+        return principalController;
+    }
+
+    public CursoController getCursoController() {
+        return cursoController;
+    }
+
+    public Function<Class<?>, Object> controllerFactory() {
+        return factory;
+    }
 
     // ======== Vista inicial ========
     public void mostrarVistaInicial(Stage stage) {
@@ -117,8 +170,8 @@ public class ControllerControladores {
             Scene scene = new Scene(loader.load());
             stage.setScene(scene);
         } catch (Exception e) {
-            System.err.println("❌ Error al cargar la vista inicial: " + e.getMessage());
-            e.printStackTrace();
+            logger.error("Error al cargar la vista inicial", e);
+            throw new RuntimeException("No se pudo cargar la vista inicial", e);
         }
     }
 }

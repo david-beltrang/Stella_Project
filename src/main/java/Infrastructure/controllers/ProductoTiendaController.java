@@ -3,26 +3,29 @@ package Infrastructure.controllers;
 import Application.dtos.tienda.ItemDetalleResponse;
 import Application.services.TiendaService;
 import Infrastructure.ui.AyudaUI;
+import Infrastructure.ui.ImageLoader;
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.ScaleTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.net.URL;
 import java.util.function.Function;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ProductoTiendaController {
+    private static final Logger logger = LoggerFactory.getLogger(ProductoTiendaController.class);
 
     // ======== Dependencias ========
     private final TiendaService tiendaService;
     private final AyudaUI uiHelper = new AyudaUI();
+    private final ImageLoader imageLoader = new ImageLoader();
     private Function<Class<?>, Object> controllerFactory;
 
     // ======== FXML ========
@@ -80,11 +83,9 @@ public class ProductoTiendaController {
         lblPrecio.setText("$" + producto.precio());
 
         if (producto.stellaImagePath() != null) {
-            URL url = getClass().getResource(producto.stellaImagePath());
-            if (url != null) {
-                imgProducto.setImage(new Image(url.toExternalForm()));
-            } else {
-                System.err.println("[ProductoTienda] Imagen no encontrada: " + producto.stellaImagePath());
+            // Delegar carga de imagen al servicio (Separation of Concerns)
+            if (!imageLoader.cargarImagen(imgProducto, producto.stellaImagePath())) {
+                logger.warn("No se pudo cargar la imagen: {}", producto.stellaImagePath());
             }
         }
     }
@@ -93,7 +94,7 @@ public class ProductoTiendaController {
     @FXML
     private void onComprar() {
         try {
-            System.out.println("[POPUP] Intentando comprar desde popup: " + producto.nombre());
+            logger.debug("Intentando comprar desde popup: {}", producto.nombre());
 
             Stage stageActual = (Stage) btnComprar.getScene().getWindow();
             TiendaController tiendaCtrl = (TiendaController) stageActual.getProperties().get("controller");
@@ -101,7 +102,7 @@ public class ProductoTiendaController {
             if (tiendaCtrl != null) {
                 tiendaCtrl.forzarCompraDesdePopup(producto);
             } else {
-                System.err.println("[POPUP] No se encontró el controlador de tienda ❌");
+                logger.error("No se encontró el controlador de tienda en el popup");
             }
 
             cerrar();

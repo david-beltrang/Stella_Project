@@ -5,7 +5,7 @@ import Application.dtos.leccion.LeccionResponse;
 import Application.services.LeccionService;
 import Application.services.PomodoroTimer;
 import Infrastructure.ui.AyudaUI;
-import Infrastructure.ui.Navigacion;
+import Infrastructure.ui.Navegacion;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -14,11 +14,14 @@ import javafx.scene.layout.Pane;
 import javafx.scene.web.WebView;
 
 import java.util.function.Function;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class LeccionController {
+    private static final Logger logger = LoggerFactory.getLogger(LeccionController.class);
 
     // ===== DEPENDENCIAS =====
-    private final Navigacion navigator = new Navigacion();
+    private final Navegacion navigator = new Navegacion();
     private final AyudaUI uiHelper = new AyudaUI();
     private final LeccionService leccionService;
     private Function<Class<?>, Object> controllerFactory;
@@ -58,7 +61,7 @@ public class LeccionController {
         if (leccionActual != null) {
             renderLeccion();
         } else {
-            System.out.println("[INFO] initialize(): sin lección actual todavía.");
+            logger.debug("initialize(): sin lección actual todavía");
         }
         // ⏱ Enlazar el label al Pomodoro global
         setupPomodoroBinding();
@@ -85,7 +88,7 @@ public class LeccionController {
                 timer.start();
             }
         } catch (Exception e) {
-            System.err.println("❌ Error al configurar Pomodoro HUD: " + e.getMessage());
+            logger.error("Error al configurar Pomodoro HUD", e);
         }
     }
 
@@ -98,8 +101,8 @@ public class LeccionController {
 
     // ===== RENDERIZAR =====
     private void renderLeccion() {
-        if (root == null) { System.err.println("[WARN] root es null al intentar renderizar."); return; }
-        if (leccionActual == null) { System.err.println("[WARN] No hay lección actual para renderizar."); return; }
+        if (root == null) { logger.warn("root es null al intentar renderizar"); return; }
+        if (leccionActual == null) { logger.warn("No hay lección actual para renderizar"); return; }
 
         int numero = leccionActual.numeroOrden();
         String titulo = leccionActual.titulo();
@@ -135,13 +138,13 @@ public class LeccionController {
                                 </html>
                                 """.formatted(urlVideo);
                         videoWebView.getEngine().loadContent(html);
-                        System.out.println("🎬 Enlace mostrado correctamente: " + urlVideo);
+                        logger.debug("Enlace de video mostrado correctamente: {}", urlVideo);
                     } catch (Exception ex) {
-                        System.err.println("❌ Error al cargar enlace de video: " + ex.getMessage());
+                        logger.error("Error al cargar enlace de video", ex);
                         uiHelper.showError("Error al mostrar video", "No se pudo generar el enlace al video.");
                     }
                 } else {
-                    System.out.println("No se encontró URL de video válida o el WebView no está disponible.");
+                    logger.debug("No se encontró URL de video válida o el WebView no está disponible");
                 }
             }
             case 3 -> {
@@ -181,7 +184,7 @@ public class LeccionController {
             default -> setText("DescripcionLeccion1", contenido);
         }
 
-        System.out.println(" Renderizada lección " + numero + ": " + titulo);
+        logger.debug("Renderizada lección {}: {}", numero, titulo);
     }
 
     // ===== UTILIDAD =====
@@ -191,7 +194,7 @@ public class LeccionController {
         if (n instanceof Label lbl) {
             lbl.setText(text != null ? text : "");
         } else {
-            System.out.println("⚠ No se encontró label con id #" + id);
+            logger.debug("No se encontró label con id #{}", id);
         }
     }
 
@@ -242,8 +245,8 @@ public class LeccionController {
                     }
             );
         } catch (Exception ex) {
+            logger.error("Error al cambiar de lección", ex);
             uiHelper.showError("Error al cambiar de lección", ex.getMessage());
-            ex.printStackTrace();
         }
     }
 }

@@ -4,7 +4,7 @@ import Application.config.AppServices;
 import Application.services.PomodoroTimer;
 import Application.services.SesionPomodoroService;
 import Infrastructure.ui.AyudaUI;
-import Infrastructure.ui.Navigacion;
+import Infrastructure.ui.Navegacion;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -23,21 +23,26 @@ public class PomodoroController {
     private Function<Class<?>, Object> controllerFactory;
 
     // ===== UI helpers =====
-    private final Navigacion navigator = new Navigacion();
+    private final Navegacion navigator = new Navegacion();
     private final AyudaUI uiHelper = new AyudaUI();
 
     // ===== FXML =====
-    @FXML private AnchorPane root;
-    @FXML private Label timerLabel;
+    @FXML
+    private AnchorPane root;
+    @FXML
+    private Label timerLabel;
 
     // Barra inferior
-    @FXML private Button homeBtn, forumBtn, achievementsBtn, profileBtn, tiendaBtn, iguluBtn;
+    @FXML
+    private Button homeBtn, forumBtn, achievementsBtn, profileBtn, tiendaBtn, iguluBtn;
 
     // Selección de foco
-    @FXML private Button btn25min, btn30min, btn45min, btn60min;
+    @FXML
+    private Button btn25min, btn30min, btn45min, btn60min;
 
     // Confirmar
-    @FXML private Button confirmarButton;
+    @FXML
+    private Button confirmarButton;
 
     // Estado
     private int minutosSeleccionados = 0;
@@ -62,7 +67,10 @@ public class PomodoroController {
     @FXML
     public void initialize() {
         if (pomodoroTimer != null) {
-            try { pomodoroTimer.pause(); } catch (Exception ignore) {}
+            try {
+                pomodoroTimer.pause();
+            } catch (Exception ignore) {
+            }
         }
         configurarVistaPomodoro();
         configurarAtajoTeclado();
@@ -81,7 +89,8 @@ public class PomodoroController {
     }
 
     private void setupTimeButton(Button btn, int minutes) {
-        if (btn == null) return;
+        if (btn == null)
+            return;
         botonesTiempo.add(btn);
         btn.setOnAction(e -> {
             minutosSeleccionados = minutes;
@@ -90,7 +99,8 @@ public class PomodoroController {
                 b.setStyle("-fx-background-color: #4A90E2; -fx-text-fill: white;");
             }
             // seleccionado
-            btn.setStyle("-fx-background-color: #1E88E5; -fx-text-fill: white; -fx-border-color: white; -fx-border-width: 3;");
+            btn.setStyle(
+                    "-fx-background-color: #1E88E5; -fx-text-fill: white; -fx-border-color: white; -fx-border-width: 3;");
         });
     }
 
@@ -110,22 +120,50 @@ public class PomodoroController {
         navigator.goTo("/views/PomodoroDescanso.fxml", "Descanso", controllerFactory, confirmarButton);
     }
 
-
     // ===== Navegación inferior =====
-    @FXML private void goHome()         { navigator.goTo("/views/Principal.fxml", "Principal", controllerFactory, homeBtn); }
-    @FXML private void goForum()        { uiHelper.showInfo("Foro", "Pantalla de Foro aún no implementada."); }
-    @FXML private void goAchievements() { uiHelper.showInfo("Logros", "Pantalla de Logros aún no implementada."); }
-    @FXML private void goProfile()      { uiHelper.showInfo("Perfil", "Pantalla de Perfil aún no implementada."); }
-    @FXML private void goTienda()       { navigator.goTo("/views/Tienda.fxml", "STELLA - Tienda", controllerFactory, tiendaBtn); }
+    @FXML
+    private void goHome() {
+        navigator.goTo("/views/Principal.fxml", "Principal", controllerFactory, homeBtn);
+    }
+
+    @FXML
+    private void goForum() {
+        try {
+            navigator.goTo("/views/Foro.fxml", "STELLA - Foro", controllerFactory, forumBtn);
+        } catch (Exception e) {
+            uiHelper.showError("Error al navegar al foro", e.getMessage());
+        }
+    }
+
+    @FXML
+    private void goAchievements() {
+        uiHelper.showInfo("Logros", "Pantalla de Logros aún no implementada.");
+    }
+
+    @FXML
+    private void goProfile() {
+        try {
+            navigator.goTo("/views/Perfil.fxml", "STELLA - Perfil", controllerFactory, profileBtn);
+        } catch (Exception e) {
+            uiHelper.showError("Error al navegar al perfil", e.getMessage());
+        }
+    }
+
+    @FXML
+    private void goTienda() {
+        navigator.goTo("/views/Tienda.fxml", "STELLA - Tienda", controllerFactory, tiendaBtn);
+    }
 
     // ===== Atajo demo =====
     private void configurarAtajoTeclado() {
-        if (timerLabel == null) return;
+        if (timerLabel == null)
+            return;
         timerLabel.sceneProperty().addListener((obs, oldScene, newScene) -> {
             if (newScene != null) {
                 newScene.addEventFilter(KeyEvent.KEY_PRESSED, ev -> {
                     if ("F12".equals(ev.getCode().toString())) {
-                        navigator.goTo("/views/PomodoroTiempoFinalizado.fxml", "¡Tiempo terminado!", controllerFactory, timerLabel);
+                        navigator.goTo("/views/PomodoroTiempoFinalizado.fxml", "¡Tiempo terminado!", controllerFactory,
+                                timerLabel);
                         ev.consume();
                     }
                 });

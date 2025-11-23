@@ -4,31 +4,43 @@ import Application.config.AppServices;
 import Application.dtos.acceso.LoginRequest;
 import Application.dtos.acceso.UsuarioResponse;
 import Application.services.DarAcceso.LoginService;
-import Infrastructure.ui.Navigacion;
+import Infrastructure.ui.Navegacion;
 import Infrastructure.ui.AyudaUI;
+import Infrastructure.ui.viewmodels.LoginViewModel;
+import Domain.strategies.ValidationStrategy;
+import Domain.strategies.EmailValidationStrategy;
+import Domain.strategies.PasswordValidationStrategy;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
 
 import java.util.function.Function;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Controlador de la vista Login.fxml
- * Maneja los eventos de inicio de sesión, recuperación de contraseña y navegación hacia otras pantallas.
+ * Maneja los eventos de inicio de sesión, recuperación de contraseña y
+ * navegación hacia otras pantallas.
  */
 public class LoginController {
+    private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     // ===== Dependencias de negocio =====
     private final LoginService service;
 
+    // ===== ViewModel (Observer Pattern) =====
+    private final LoginViewModel viewModel = new LoginViewModel();
+
+    // ===== Strategies (Strategy Pattern) =====
+    private final ValidationStrategy emailValidator = new EmailValidationStrategy();
+    private final ValidationStrategy passwordValidator = new PasswordValidationStrategy();
+
     // ===== Dependencias de interfaz =====
     private final AyudaUI uiHelper = new AyudaUI();
-    private final Navigacion navigator = new Navigacion();
+    private final Navegacion navigator = new Navegacion();
 
     // ===== Factory global =====
     private Function<Class<?>, Object> controllerFactory;
@@ -47,55 +59,58 @@ public class LoginController {
     }
 
     // ===== FXML =====
-    @FXML private TextField correoField;
-    @FXML private PasswordField passwordField;
-    @FXML private Button backButton;
-    @FXML private Button forgotPasswordButton;
+    @FXML
+    private TextField correoField;
+    @FXML
+    private PasswordField passwordField;
+    @FXML
+    private Button backButton;
+    @FXML
+    private Button forgotPasswordButton;
+
+    @FXML
+    public void initialize() {
+        // Clear previous login credentials
+        viewModel.emailProperty().set("");
+        viewModel.passwordProperty().set("");
+
+        // Bindings (Observer Pattern)
+        // Bind ViewModel properties to FXML controls
+        correoField.textProperty().bindBidirectional(viewModel.emailProperty());
+        passwordField.textProperty().bindBidirectional(viewModel.passwordProperty());
+    }
 
     // ===== Evento principal =====
     @FXML
     private void onLoginClicked() {
-        String correo = correoField.getText();
-        String pass   = passwordField.getText();
-
-        if (correo == null || correo.isBlank()) {
-            uiHelper.showError("Error de validación", "Debe ingresar un correo.");
-            return;
-        }
-        if (pass == null || pass.isBlank()) {
-            uiHelper.showError("Error de validación", "Debe ingresar una contraseña.");
-            return;
-        }
+        String correo = viewModel.getEmail();
+        String pass = viewModel.getPassword();
 
         try {
-            // 1️⃣ Autenticación
+            // 1️⃣ Validación (Strategy Pattern)
+            emailValidator.validate(correo);
+            passwordValidator.validate(pass);
+
+            // 2️⃣ Autenticación (delegado al servicio - Controller Pattern)
             UsuarioResponse usuario = service.login(new LoginRequest(correo, pass));
 
-            // 2️⃣ Guardar el usuario globalmente
+            // 3️⃣ Guardar el usuario globalmente (delegado al servicio de sesión)
             AppServices.setUsuarioActual(usuario);
 
-            // 3️⃣ Cambiar directamente de pantalla (sin duplicar controlador)
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Principal.fxml"));
-            if (controllerFactory != null) {
-                loader.setControllerFactory(controllerFactory::apply);
-            }
-            Scene scene = new Scene(loader.load());
-            Stage stage = (Stage) correoField.getScene().getWindow();
-            stage.setScene(scene);
-            stage.setTitle("STELLA - Principal");
-            stage.centerOnScreen();
+            // 4️⃣ Navegación delegada a Navigacion (Separation of Concerns)
+            navigator.goTo("/views/Principal.fxml", "STELLA - Principal", controllerFactory, correoField);
 
-            // 4️⃣ Mensaje personalizado
+            // 5️⃣ Mensaje personalizado
             uiHelper.showInfo(
                     "Bienvenido " + usuario.nombre(),
-                    "Has iniciado sesión correctamente. Tu ID es: " + usuario.id()
-            );
+                    "Has iniciado sesión correctamente. Tu ID es: " + usuario.id());
 
         } catch (IllegalArgumentException ex) {
-            uiHelper.showError("Error de inicio de sesión", ex.getMessage());
+            logger.warn("Error de validación en login para correo: {}", correo);
+            uiHelper.showError("Error de validación", ex.getMessage());
         } catch (Exception ex) {
+            logger.error("Error inesperado durante el login", ex);
             uiHelper.showError("Error inesperado", ex.getMessage());
-            ex.printStackTrace();
         }
     }
 
@@ -112,10 +127,14 @@ public class LoginController {
     }
 
     // ===== Recuperación =====
-    @FXML private TextField recoverEmailField;
-    @FXML private Label recoveryMessage;
-    @FXML private Button sendRecoveryButton;
-    @FXML private Button backToLoginButton;
+    @FXML
+    private TextField recoverEmailField;
+    @FXML
+    private Label recoveryMessage;
+    @FXML
+    private Button sendRecoveryButton;
+    @FXML
+    private Button backToLoginButton;
 
     @FXML
     private void sendRecoveryEmail() {

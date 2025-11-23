@@ -5,7 +5,7 @@ import Application.dtos.seccion.SeccionResponse;
 import Application.services.SeccionesService;
 import Application.services.LeccionService;
 import Infrastructure.ui.AyudaUI;
-import Infrastructure.ui.Navigacion;
+import Infrastructure.ui.Navegacion;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -14,13 +14,16 @@ import javafx.scene.layout.Pane;
 
 import java.util.List;
 import java.util.function.Function;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CursoController {
+    private static final Logger logger = LoggerFactory.getLogger(CursoController.class);
 
     // ===== DEPENDENCIAS =====
     private final SeccionesService seccionesService;
     private final LeccionService leccionService;
-    private final Navigacion navigator = new Navigacion();
+    private final Navegacion navigator = new Navegacion();
     private final AyudaUI uiHelper = new AyudaUI();
     private Function<Class<?>, Object> controllerFactory;
 
@@ -70,12 +73,12 @@ public class CursoController {
     // ===== CARGAR SECCIONES Y LECCIONES =====
     private void cargarSeccionesYLecciones() {
         try {
-            if (root == null) { System.err.println("[WARN] root es null."); return; }
-            if (seccionesService == null) { System.err.println("[WARN] seccionesService es null."); return; }
-            if (cursoActualId <= 0) { System.err.println("[WARN] cursoActualId no seteado."); return; }
+            if (root == null) { logger.warn("root es null"); return; }
+            if (seccionesService == null) { logger.warn("seccionesService es null"); return; }
+            if (cursoActualId <= 0) { logger.warn("cursoActualId no seteado"); return; }
 
             List<SeccionResponse> secciones = seccionesService.ListarSeccionesConLecciones(cursoActualId);
-            System.out.println("📘 Secciones encontradas: " + secciones.size());
+            logger.debug("Secciones encontradas: {}", secciones.size());
 
             for (SeccionResponse seccion : secciones) {
                 for (LeccionResponse leccion : seccion.lecciones()) {
@@ -88,7 +91,7 @@ public class CursoController {
                     if (btn == null) btn = (Button) root.lookup("#" + idGuion);
 
                     if (btn == null) {
-                        System.out.println("    No se encontró el botón #" + idPunto + " ni #" + idGuion);
+                        logger.debug("No se encontró el botón #{} ni #{}", idPunto, idGuion);
                         continue;
                     }
 
@@ -109,8 +112,8 @@ public class CursoController {
             }
 
         } catch (Exception e) {
+            logger.error("Error al cargar curso", e);
             uiHelper.showError("Error al cargar curso", e.getMessage());
-            e.printStackTrace();
         }
     }
 
@@ -141,8 +144,8 @@ public class CursoController {
             );
 
         } catch (Exception e) {
+            logger.error("Error al abrir lección", e);
             uiHelper.showError("Error al abrir lección", e.getMessage());
-            e.printStackTrace();
         }
     }
 }

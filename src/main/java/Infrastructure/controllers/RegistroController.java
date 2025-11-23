@@ -3,7 +3,7 @@ package Infrastructure.controllers;
 import Application.dtos.acceso.RegistrarUsuarioRequest;
 import Application.dtos.acceso.UsuarioResponse;
 import Application.services.DarAcceso.RegistroService;
-import Infrastructure.ui.Navigacion;
+import Infrastructure.ui.Navegacion;
 import Infrastructure.ui.AyudaUI;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -18,7 +18,7 @@ public class RegistroController {
 
     // ===== UI=====
     private final AyudaUI uiHelper = new AyudaUI();
-    private final Navigacion navigator = new Navigacion();
+    private final Navegacion navigator = new Navegacion();
 
     // ===== Factory para navegación =====
     private Function<Class<?>, Object> controllerFactory;
