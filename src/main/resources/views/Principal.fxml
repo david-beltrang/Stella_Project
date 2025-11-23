@@ -47,9 +47,9 @@
 
     <!-- CURSOS DISPONIBLES -->
     <Label layoutX="283.0" layoutY="481.0" style="-fx-text-fill: white; -fx-font-size: 36; -fx-font-weight: bold;" text="Cursos Disponibles">
-      <font>
-         <Font size="10.0" />
-      </font></Label>
+        <font>
+            <Font size="10.0" />
+        </font></Label>
 
     <AnchorPane layoutX="272.0" layoutY="540.0" prefHeight="240.0" prefWidth="1222.0">
         <children>
@@ -73,50 +73,50 @@
                 <children>
                     <Button fx:id="homeBtn" layoutX="346.0" layoutY="12.0" onAction="#goHome" styleClass="nav-btn">
                         <graphic>
-                     <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
-                            <image>
-                           <Image url="@../Image/General/home.png" />
-                        </image>
-                        </ImageView>
-                  </graphic>
-                    </Button>
-      
-                          <Button fx:id="forumBtn" layoutX="687.0" layoutY="10.0" onAction="#goForum" styleClass="nav-btn">
-                        <graphic>
-                     <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
-                            <image>
-                           <Image url="@../Image/General/foro.png" />
-                        </image>
-                        </ImageView>
-                  </graphic>
-                    </Button>
-      
-                          <Button fx:id="profileBtn" layoutX="1553.0" layoutY="12.0" onAction="#goProfile" styleClass="nav-btn">
-                        <graphic>
-                     <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
-                            <image>
-                           <Image url="@../Image/General/usuario.png" />
-                        </image>
-                        </ImageView>
-                  </graphic>
-                    </Button>
-      
-                          <Button fx:id="iguluBtn" layoutX="1293.0" layoutY="10.0" style="-fx-background-color: transparent;">
-                        <graphic>
-                            <ImageView fitHeight="52.0" fitWidth="66.0" preserveRatio="true">
+                            <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
                                 <image>
-                           <Image url="@../Image/General/Iglu.png" />
-                        </image>
+                                    <Image url="@../Image/General/home.png" />
+                                </image>
                             </ImageView>
                         </graphic>
                     </Button>
-      
-                          <Button fx:id="tiendaBtn" layoutX="994.0" layoutY="10.0" onAction="#goTienda" styleClass="nav-btn">
+
+                    <Button fx:id="forumBtn" layoutX="687.0" layoutY="10.0" onAction="#goForum" styleClass="nav-btn">
+                        <graphic>
+                            <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Image/General/foro.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+
+                    <Button fx:id="profileBtn" layoutX="1553.0" layoutY="12.0" onAction="#goProfile" styleClass="nav-btn">
+                        <graphic>
+                            <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Image/General/usuario.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+
+                    <Button fx:id="iguluBtn" layoutX="1293.0" layoutY="10.0" style="-fx-background-color: transparent;">
+                        <graphic>
+                            <ImageView fitHeight="52.0" fitWidth="66.0" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Image/General/Iglu.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+
+                    <Button fx:id="tiendaBtn" layoutX="994.0" layoutY="10.0" onAction="#goTienda" styleClass="nav-btn">
                         <graphic>
                             <ImageView fitHeight="35.0" fitWidth="35.0" preserveRatio="true">
                                 <image>
-                           <Image url="@../Image/General/tienda.png" />
-                        </image>
+                                    <Image url="@../Image/General/tienda.png" />
+                                </image>
                             </ImageView>
                         </graphic>
                     </Button>
@@ -165,8 +165,8 @@
                             <Font name="System Bold Italic" size="27.0" />
                         </font>
                     </Button>
-               <Button layoutX="644.0" layoutY="23.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="123.0" />
-               <Button layoutX="1203.0" layoutY="22.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="123.0" />
+                    <Button layoutX="644.0" layoutY="23.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="123.0" />
+                    <Button layoutX="1203.0" layoutY="22.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="123.0" />
                 </children>
             </AnchorPane>
         </children>
@@ -177,13 +177,13 @@
         <graphic>
             <ImageView fitHeight="134.0" fitWidth="133.0" preserveRatio="true">
                 <image>
-               <Image url="@../Image/General/pomodoro.png" />
-            </image>
+                    <Image url="@../Image/General/pomodoro.png" />
+                </image>
             </ImageView>
         </graphic>
     </Button>
 
-        <!-- 🔧 Temporizador Pomodoro dinámico -->
-        <Label fx:id="timerLabel" layoutX="1468.0" layoutY="187.0" prefHeight="39.0" prefWidth="64.0" style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;" text="00:00" />
+    <!-- 🔧 Temporizador Pomodoro dinámico -->
+    <Label fx:id="timerLabel" layoutX="1468.0" layoutY="187.0" prefHeight="39.0" prefWidth="64.0" style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;" text="00:00" />
 
 </AnchorPane>

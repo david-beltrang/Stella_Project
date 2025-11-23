@@ -88,59 +88,59 @@
     <Button fx:id="Leccion3_5" layoutX="1243.0" layoutY="679.0" prefHeight="51.0" prefWidth="332.0" text="Button">
         <font><Font name="System Bold Italic" size="19.0" /></font>
     </Button>
-   <StackPane layoutY="781.0" prefHeight="80" prefWidth="1920.0">
-      <children>
-         <Rectangle arcHeight="0" arcWidth="0" height="80" style="-fx-fill: rgba(8,7,54,0.55);" width="1923.0" />
-         <AnchorPane prefHeight="56.0" prefWidth="1876.0">
-            <children>
-               <Button fx:id="homeBtn" layoutX="346.0" layoutY="12.0" styleClass="nav-btn">
-                  <graphic>
-                     <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
-                        <image>
-                           <Image url="@../Image/General/home.png" />
-                        </image>
-                     </ImageView>
-                  </graphic>
-               </Button>
-               <Button fx:id="forumBtn" layoutX="687.0" layoutY="10.0" styleClass="nav-btn">
-                  <graphic>
-                     <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
-                        <image>
-                           <Image url="@../Image/General/foro.png" />
-                        </image>
-                     </ImageView>
-                  </graphic>
-               </Button>
-               <Button fx:id="profileBtn" layoutX="1553.0" layoutY="12.0" styleClass="nav-btn">
-                  <graphic>
-                     <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
-                        <image>
-                           <Image url="@../Image/General/usuario.png" />
-                        </image>
-                     </ImageView>
-                  </graphic>
-               </Button>
-               <Button fx:id="iguluBtn" layoutX="1293.0" layoutY="10.0" style="-fx-background-color: transparent;">
-                  <graphic>
-                     <ImageView fitHeight="52.0" fitWidth="66.0" preserveRatio="true">
-                        <image>
-                           <Image url="@../Image/General/Iglu.png" />
-                        </image>
-                     </ImageView>
-                  </graphic>
-               </Button>
-               <Button fx:id="tiendaBtn" layoutX="994.0" layoutY="10.0" styleClass="nav-btn">
-                  <graphic>
-                     <ImageView fitHeight="35.0" fitWidth="35.0" preserveRatio="true">
-                        <image>
-                           <Image url="@../Image/General/tienda.png" />
-                        </image>
-                     </ImageView>
-                  </graphic>
-               </Button>
-            </children>
-         </AnchorPane>
-      </children>
-   </StackPane>
+    <StackPane layoutY="781.0" prefHeight="80" prefWidth="1920.0">
+        <children>
+            <Rectangle arcHeight="0" arcWidth="0" height="80" style="-fx-fill: rgba(8,7,54,0.55);" width="1923.0" />
+            <AnchorPane prefHeight="56.0" prefWidth="1876.0">
+                <children>
+                    <Button fx:id="homeBtn" layoutX="346.0" layoutY="12.0" styleClass="nav-btn">
+                        <graphic>
+                            <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Image/General/home.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    <Button fx:id="forumBtn" layoutX="687.0" layoutY="10.0" styleClass="nav-btn">
+                        <graphic>
+                            <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Image/General/foro.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    <Button fx:id="profileBtn" layoutX="1553.0" layoutY="12.0" styleClass="nav-btn">
+                        <graphic>
+                            <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Image/General/usuario.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    <Button fx:id="iguluBtn" layoutX="1293.0" layoutY="10.0" style="-fx-background-color: transparent;">
+                        <graphic>
+                            <ImageView fitHeight="52.0" fitWidth="66.0" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Image/General/Iglu.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    <Button fx:id="tiendaBtn" layoutX="994.0" layoutY="10.0" styleClass="nav-btn">
+                        <graphic>
+                            <ImageView fitHeight="35.0" fitWidth="35.0" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Image/General/tienda.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                </children>
+            </AnchorPane>
+        </children>
+    </StackPane>
 
 </AnchorPane>

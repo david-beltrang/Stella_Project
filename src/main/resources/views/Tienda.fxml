@@ -35,7 +35,7 @@
                             </ImageView>
                         </graphic>
                     </Button>
-                    <Button fx:id="forumBtn" layoutX="687.0" layoutY="10.0" styleClass="nav-btn">
+                    <Button fx:id="forumBtn" layoutX="687.0" layoutY="10.0" onAction="#goForum" styleClass="nav-btn">
                         <graphic>
                             <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
                                 <image>
@@ -44,7 +44,7 @@
                             </ImageView>
                         </graphic>
                     </Button>
-                    <Button fx:id="profileBtn" layoutX="1553.0" layoutY="12.0" styleClass="nav-btn">
+                    <Button fx:id="profileBtn" layoutX="1553.0" layoutY="12.0" onAction="#goProfile" styleClass="nav-btn">
                         <graphic>
                             <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
                                 <image>
