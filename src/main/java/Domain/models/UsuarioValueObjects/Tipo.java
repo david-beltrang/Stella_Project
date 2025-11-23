@@ -5,7 +5,7 @@ public record Tipo (String valor) {
 
     public Tipo{
 
-        if (!valor.equalsIgnoreCase("ADMIN") && !valor.equalsIgnoreCase("ESTUDIANTE")) {
+        if (!valor.equalsIgnoreCase("ADMIN") && !valor.equalsIgnoreCase("ESTUDIANTE")) { 
             throw new TipoInvalidoException(valor);
         }
         if (valor == null) {
