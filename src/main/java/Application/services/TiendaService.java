@@ -14,11 +14,18 @@ public class TiendaService {
     private final InterfazItemRepository itemRepo;
     private final InterfazStellaItemRepository stellaRepo;
     private final InterfazUsuarioItemRepository usuarioItemRepo;
+    private final UsuarioStellaService usuarioStellaService;
 
-    public TiendaService(InterfazItemRepository itemRepo, InterfazStellaItemRepository stellaRepo, InterfazUsuarioItemRepository usuarioItemRepo) {
+    public TiendaService(
+            InterfazItemRepository itemRepo,
+            InterfazStellaItemRepository stellaRepo,
+            InterfazUsuarioItemRepository usuarioItemRepo,
+            UsuarioStellaService usuarioStellaService
+    ) {
         this.itemRepo = itemRepo;
         this.stellaRepo = stellaRepo;
         this.usuarioItemRepo = usuarioItemRepo;
+        this.usuarioStellaService = usuarioStellaService;
     }
 
     // === 1. Lista de items en tienda ===
@@ -72,9 +79,16 @@ public class TiendaService {
         // Comprar el item
         usuarioItemRepo.comprarItem(usuarioId, request.itemId(), costo);
 
-        // Actualizar el saldo del usuario
-        int saldoFinal = usuarioItemRepo.obtenerPescaditos(1);
-        System.out.println("Pescaditos finales: " + saldoFinal);
+        // Si el item tiene un StellaItem asociado, cambiar automáticamente la Stella actual
+        if (stellaRepo.findByItemId(request.itemId()).isPresent() && usuarioStellaService != null) {
+            try {
+                usuarioStellaService.cambiarStellaActual(request.itemId());
+            } catch (Exception e) {
+                // Log el error pero no fallar la compra
+                org.slf4j.LoggerFactory.getLogger(TiendaService.class)
+                        .warn("No se pudo cambiar la Stella actual después de la compra: {}", e.getMessage());
+            }
+        }
     }
     // === 4. Obtener saldo actual del usuario ===
     public int obtenerSaldoUsuario(int usuarioId) {
