@@ -5,16 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3c791a3f-173c-427e-b5d1-4cf3b6fd8098" name="Changes" comment="se agregan configural boton de pomodoro para poder ser usado">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Image/General/StellaForo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Image/General/StellaQuiz.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/views/QuizPlantilla.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/views/ResponderForo.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/views/Foro.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Foro.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/views/LeccionPlantilla.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/LeccionPlantilla.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/views/Perfil.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Perfil.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/PlantillaCurso.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/PlantillaCurso.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/Pomodoro.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Pomodoro.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/PomodoroDescanso.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/PomodoroDescanso.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/views/Principal.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Principal.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/ProductoTienda.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/ProductoTienda.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/ResponderForo.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/ResponderForo.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/Tienda.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Tienda.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stella.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/stella.mv.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,9 +57,9 @@
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/StellaFIS/Stella_Project/src/main/resources/Image/General&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15274803&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.29173693&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.JavaFX&quot;
   }
 }</component>
@@ -68,7 +69,7 @@
       <recent name="C:\StellaFIS\Stella_Project\src\main\resources\views" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="Maven.Stella [javafx:run]">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <envs>
         <env name="--module-path &quot;C:\Program Files\Java\javafx-sdk-17\lib&quot; --add-modules javafx.controls,javafx.fxml -Dprism.allowh" value="dpi=false " />

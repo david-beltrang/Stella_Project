@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -16,119 +17,57 @@
 <AnchorPane fx:id="root" maxHeight="1080.0" maxWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../styles/LoginStyle.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
 
     <!-- Fondo -->
-    <ImageView fx:id="background" fitHeight="1080" fitWidth="1920" layoutX="1.0" preserveRatio="false">
+    <ImageView fx:id="background" fitHeight="1080" fitWidth="2216.0" preserveRatio="false">
         <image>
             <Image url="@../Image/General/FondoStella.jpg" />
         </image>
     </ImageView>
 
-    <!-- Contenido principal del perfil -->
-    <HBox layoutX="100.0" layoutY="120.0" prefHeight="700.0" prefWidth="1142.0" spacing="40.0">
-
-        <!-- Sección izquierda - Información del usuario -->
-        <VBox prefHeight="700.0" prefWidth="1144.0" spacing="30.0" style="-fx-background-color: transparent;">
-      
-            <!-- Título del perfil -->
-            <Label prefHeight="60.0" prefWidth="1177.0" style="-fx-text-fill: white; -fx-font-size: 36px; -fx-font-weight: bold;" text="Mi Perfil" textAlignment="CENTER">
-                <font>
-                    <Font name="System Bold" size="88.0" />
-                </font>
-            </Label>
-
-            <!-- Información personal -->
-            <VBox prefHeight="378.0" prefWidth="1142.0" spacing="20.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 15; -fx-padding: 25;">
-                <Label style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;" text="Información Personal">
-                    <font>
-                        <Font name="System Bold" size="24.0" />
-                    </font>
-                </Label>
-
-                <VBox spacing="15.0">
-                    <!-- Nombre de usuario -->
-                    <VBox spacing="5.0">
-                        <Label style="-fx-text-fill: #4DA3FF; -fx-font-size: 16px;" text="Nombre de Usuario" />
-                        <TextField fx:id="nombreField" style="-fx-background-color: rgba(255,255,255,0.9); -fx-background-radius: 5; -fx-pref-height: 35;" />
-                    </VBox>
-
-                    <!-- Nickname -->
-                    <VBox spacing="5.0">
-                        <Label style="-fx-text-fill: #4DA3FF; -fx-font-size: 16px;" text="Nickname" />
-                        <TextField fx:id="nicknameField" style="-fx-background-color: rgba(255,255,255,0.9); -fx-background-radius: 5; -fx-pref-height: 35;" />
-                    </VBox>
-
-                    <!-- Email -->
-                    <VBox spacing="5.0">
-                        <Label style="-fx-text-fill: #4DA3FF; -fx-font-size: 16px;" text="Email" />
-                        <TextField fx:id="emailField" style="-fx-background-color: rgba(255,255,255,0.9); -fx-background-radius: 5; -fx-pref-height: 35;" />
-                    </VBox>
-
-                    <!-- Contraseña -->
-                    <VBox spacing="5.0">
-                        <Label style="-fx-text-fill: #4DA3FF; -fx-font-size: 16px;" text="Contraseña" />
-                        <PasswordField fx:id="passwordField" style="-fx-background-color: rgba(255,255,255,0.9); -fx-background-radius: 5; -fx-pref-height: 35;" />
-                    </VBox>
-                </VBox>
-
-                <!-- Botones de edición -->
-                <HBox spacing="15.0" />
-            </VBox>
-
-            <!-- Cursos inscritos -->
-            <VBox spacing="20.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 15; -fx-padding: 25;">
-                <Label style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;" text="Mis Cursos">
-                    <font>
-                        <Font name="System Bold" size="24.0" />
-                    </font>
-                </Label>
-
-                <VBox spacing="10.0">
-                    <!-- Curso 1 -->
-                    <HBox spacing="15.0" style="-fx-background-color: rgba(255,255,255,0.05); -fx-background-radius: 10; -fx-padding: 15;">
-                        <Label style="-fx-font-size: 20px;" text="🎯" />
-                        <VBox prefHeight="47.0" prefWidth="702.0">
-                            <Label prefHeight="27.0" prefWidth="166.0" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;" text="Nombre Curso" />
-                            <Label style="-fx-text-fill: #4DA3FF; -fx-font-size: 14px;" text="Progreso:" />
-                        </VBox>
-                    </HBox>
-                </VBox>
-            </VBox>
-        </VBox>
-    </HBox>
-
     <!-- Barra inferior -->
-    <StackPane layoutX="-1.0" layoutY="867.0" prefHeight="80" prefWidth="1920.0">
+    <StackPane layoutY="781.0" prefHeight="80" prefWidth="1920.0">
         <children>
             <Rectangle arcHeight="0" arcWidth="0" height="80" style="-fx-fill: rgba(8,7,54,0.55);" width="1923.0" />
             <AnchorPane prefHeight="56.0" prefWidth="1876.0">
                 <children>
-                    <Button fx:id="homeBtn" layoutX="346.0" layoutY="12.0" onAction="#goHome" styleClass="nav-btn">
-                        <graphic><ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
-                            <image><Image url="@../Image/General/home.png" /></image>
-                        </ImageView></graphic>
-                    </Button>
-
-                    <Button fx:id="forumBtn" layoutX="687.0" layoutY="10.0" onAction="#goForum" styleClass="nav-btn">
-                        <graphic><ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
-                            <image><Image url="@../Image/General/foro.png" /></image>
-                        </ImageView></graphic>
-                    </Button>
-
-                    <Button fx:id="profileBtn" layoutX="1585.0" layoutY="12.0" onAction="#goProfile" styleClass="nav-btn">
-                        <graphic><ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
-                            <image><Image url="@../Image/General/usuario.png" /></image>
-                        </ImageView></graphic>
-                    </Button>
-
-                    <Button fx:id="pomodoroBtn" layoutX="1293.0" layoutY="10.0" onAction="#goPomodoro" style="-fx-background-color: transparent;">
+                    <Button fx:id="homeBtn2" layoutX="346.0" layoutY="7.0" onAction="#goHome" prefWidth="60.0" styleClass="nav-btn">
                         <graphic>
-                            <ImageView fitHeight="52.0" fitWidth="66.0" preserveRatio="true">
-                                <image><Image url="@../Image/General/pomodoro.png" /></image>
+                            <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Image/General/home.png" />
+                                </image>
                             </ImageView>
                         </graphic>
                     </Button>
-                    <Button fx:id="Tienda" layoutX="991.0" layoutY="12.0" onAction="#goForum" styleClass="nav-btn">
+                    <Button fx:id="forumBtn" layoutX="687.0" layoutY="10.0" styleClass="nav-btn">
                         <graphic>
-                            <ImageView fitHeight="32.0" fitWidth="48.0" preserveRatio="true">
+                            <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Image/General/foro.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    <Button fx:id="profileBtn" layoutX="1553.0" layoutY="12.0" styleClass="nav-btn">
+                        <graphic>
+                            <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Image/General/usuario.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    <Button fx:id="iguluBtn" layoutX="1293.0" layoutY="10.0" style="-fx-background-color: transparent;">
+                        <graphic>
+                            <ImageView fitHeight="52.0" fitWidth="66.0" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Image/General/Iglu.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    <Button fx:id="tiendaBtn" layoutX="994.0" layoutY="10.0" styleClass="nav-btn">
+                        <graphic>
+                            <ImageView fitHeight="35.0" fitWidth="35.0" preserveRatio="true">
                                 <image>
                                     <Image url="@../Image/General/tienda.png" />
                                 </image>
@@ -140,14 +79,14 @@
         </children>
     </StackPane>
 
-    <!-- Barra superior con el botón "Cerrar sesión" -->
-    <StackPane layoutX="-1.0" layoutY="32.0" prefHeight="80" prefWidth="1920.0">
+    <!-- Barra superior -->
+    <StackPane layoutY="91.0" prefHeight="80" prefWidth="1920.0">
         <children>
             <Rectangle arcHeight="0" arcWidth="0" height="80" style="-fx-fill: rgba(8,7,54,0.55);" width="1923.0" />
             <AnchorPane prefHeight="56.0" prefWidth="1876.0">
                 <children>
                     <!-- Iconos -->
-                    <Button fx:id="homeBtn2" layoutX="346.0" layoutY="7.0" onAction="#goHome" prefWidth="60.0" styleClass="nav-btn">
+                    <Button fx:id="homeBtn2" layoutX="346.0" layoutY="7.0" prefWidth="60.0" styleClass="nav-btn">
                         <graphic>
                             <ImageView fitHeight="36.0" fitWidth="38.0" preserveRatio="true">
                                 <image><Image url="@../Image/General/Trofeo.png" /></image>
@@ -156,17 +95,17 @@
                     </Button>
 
                     <!-- FUEGUITO -->
-                    <ImageView fitHeight="61.0" fitWidth="65.0" layoutX="633.0" layoutY="11.0" preserveRatio="true">
+                    <ImageView fitHeight="61.0" fitWidth="65.0" layoutX="597.0" layoutY="11.0" preserveRatio="true">
                         <image><Image url="@../Image/General/racha.png" /></image>
                     </ImageView>
 
                     <!-- PESCADITOS -->
-                    <ImageView fitHeight="237.0" fitWidth="90.0" layoutX="1205.0" layoutY="14.0" preserveRatio="true">
+                    <ImageView fitHeight="237.0" fitWidth="90.0" layoutX="1127.0" layoutY="14.0" preserveRatio="true">
                         <image><Image url="@../Image/General/pescaditos.png" /></image>
                     </ImageView>
 
                     <!-- Chatbot -->
-                    <Button fx:id="chatBtn1" layoutX="975.0" layoutY="9.0" onAction="#goChatbot" styleClass="nav-btn">
+                    <Button fx:id="chatBtn1" layoutX="895.0" layoutY="9.0" styleClass="nav-btn">
                         <graphic>
                             <ImageView fitHeight="35.0" fitWidth="35.0" preserveRatio="true">
                                 <image><Image url="@../Image/General/ChatBot.png" /></image>
@@ -175,13 +114,13 @@
                     </Button>
 
                     <!-- Botón cerrar sesión -->
-                    <Button fx:id="logoutBtn" layoutX="1630.0" layoutY="15.0" onAction="#cerrarSesion" style="-fx-background-color: #4DA3FF; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 6 14;" text="Cerrar sesión">
+                    <Button fx:id="logoutBtn" layoutX="1420.0" layoutY="15.0" onAction="#cerrarSesion" style="-fx-background-color: #4DA3FF; -fx-text-fill: white; -fx-font-weight: bold;                                    -fx-background-radius: 10; -fx-padding: 6 14;" text="Cerrar sesión">
                         <font>
                             <Font name="System Bold Italic" size="27.0" />
                         </font>
                     </Button>
-                    <Button layoutX="692.0" layoutY="23.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="123.0" />
-                    <Button layoutX="1304.0" layoutY="22.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="123.0" />
+                    <Button layoutX="644.0" layoutY="23.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="123.0" />
+                    <Button layoutX="1203.0" layoutY="22.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="123.0" />
                 </children>
             </AnchorPane>
         </children>
@@ -199,8 +138,8 @@
      </VBox>
 
       <!-- Avatar/Imagen de perfil -->
-      <StackPane layoutX="1291.0" layoutY="192.0" prefHeight="426.0" prefWidth="502.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 20; -fx-padding: 20;">
-          <ImageView fx:id="avatarImage" fitHeight="361.0" fitWidth="392.0" preserveRatio="true">
+      <StackPane layoutX="1091.0" layoutY="195.0" prefHeight="398.0" prefWidth="518.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 20; -fx-padding: 20;">
+          <ImageView fx:id="avatarImage" fitHeight="355.0" fitWidth="432.0" preserveRatio="true">
               <image>
                   <Image url="@../Image/General/avatar-placeholder.png" />
               </image>
@@ -208,7 +147,7 @@
       </StackPane>
 
       <!-- Estadísticas rápidas -->
-      <VBox layoutX="1297.0" layoutY="639.0" prefHeight="180.0" prefWidth="495.0" spacing="15.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 15; -fx-padding: 20;">
+      <VBox layoutX="1090.0" layoutY="605.0" prefHeight="155.0" prefWidth="518.0" spacing="15.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 15; -fx-padding: 20;">
           <Label prefHeight="54.0" prefWidth="454.0" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;" text="Mis Datos">
               <font>
                   <Font name="System Bold" size="29.0" />
@@ -227,4 +166,65 @@
               </HBox>
           </VBox>
       </VBox>
+
+      <!-- Información personal -->
+      <VBox layoutX="368.0" layoutY="196.0" prefHeight="398.0" prefWidth="704.0" spacing="20.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 15; -fx-padding: 25;">
+          <Label style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;" text="Información Personal">
+              <font>
+                  <Font name="System Bold" size="24.0" />
+              </font>
+          </Label>
+
+          <VBox spacing="15.0">
+              <!-- Nombre de usuario -->
+              <VBox spacing="5.0">
+                  <Label style="-fx-text-fill: #4DA3FF; -fx-font-size: 16px;" text="Nombre de Usuario" />
+                  <TextField fx:id="nombreField" style="-fx-background-color: rgba(255,255,255,0.9); -fx-background-radius: 5; -fx-pref-height: 35;" />
+              </VBox>
+
+              <!-- Nickname -->
+              <VBox spacing="5.0">
+                  <Label style="-fx-text-fill: #4DA3FF; -fx-font-size: 16px;" text="Nickname" />
+                  <TextField fx:id="nicknameField" style="-fx-background-color: rgba(255,255,255,0.9); -fx-background-radius: 5; -fx-pref-height: 35;" />
+              </VBox>
+
+              <!-- Email -->
+              <VBox spacing="5.0">
+                  <Label style="-fx-text-fill: #4DA3FF; -fx-font-size: 16px;" text="Email" />
+                  <TextField fx:id="emailField" style="-fx-background-color: rgba(255,255,255,0.9); -fx-background-radius: 5; -fx-pref-height: 35;" />
+              </VBox>
+
+              <!-- Contraseña -->
+              <VBox spacing="5.0">
+                  <Label style="-fx-text-fill: #4DA3FF; -fx-font-size: 16px;" text="Contraseña" />
+                  <PasswordField fx:id="passwordField" style="-fx-background-color: rgba(255,255,255,0.9); -fx-background-radius: 5; -fx-pref-height: 35;" />
+              </VBox>
+          </VBox>
+
+          <!-- Botones de edición -->
+          <HBox spacing="15.0" />
+      </VBox>
+        <!-- Curso 1 -->
+        <HBox layoutX="-190.0" layoutY="543.0" spacing="15.0" style="-fx-background-color: rgba(255,255,255,0.05); -fx-background-radius: 10; -fx-padding: 15;">
+            <Label style="-fx-font-size: 20px;" text="🎯" />
+        </HBox>
+   <ScrollPane layoutX="368.0" layoutY="609.0" prefHeight="155.0" prefWidth="704.0" vbarPolicy="ALWAYS">
+      <content>
+      
+                        <!-- Cursos inscritos -->
+            <VBox prefHeight="172.0" prefWidth="689.0" spacing="20.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 15; -fx-padding: 25;">
+                <Label prefHeight="35.0" prefWidth="124.0" style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;" text="Mis Cursos">
+                    <font>
+                        <Font name="System Bold" size="24.0" />
+                    </font>
+                </Label>
+      
+                            <VBox spacing="10.0" />
+                  <VBox prefHeight="47.0" prefWidth="702.0">
+                      <Label prefHeight="27.0" prefWidth="378.0" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;" text="Nombre Curso" />
+                      <Label prefHeight="20.0" prefWidth="150.0" style="-fx-text-fill: #4DA3FF; -fx-font-size: 14px;" text="Progreso:" />
+                  </VBox>
+            </VBox>
+      </content>
+   </ScrollPane>
 </AnchorPane>

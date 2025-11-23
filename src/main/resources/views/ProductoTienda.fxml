@@ -1,108 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="popupRoot" prefHeight="750.0" prefWidth="1100.0"
-            xmlns="http://javafx.com/javafx/17.0.12"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="Infrastructure.controllers.ProductoTiendaController"
-            stylesheets="@../styles/LoginStyle.css"
-            style="-fx-background-color: rgba(8,7,54,0.93);
-                   -fx-background-radius: 25;
-                   -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.45), 45, 0.3, 0, 6);">
+<AnchorPane fx:id="popupRoot" prefHeight="750.0" prefWidth="1100.0" style="-fx-background-color: rgba(8,7,54,0.93);                    -fx-background-radius: 25;                    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.45), 45, 0.3, 0, 6);" stylesheets="@../styles/LoginStyle.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Infrastructure.controllers.ProductoTiendaController">
 
     <children>
 
         <!-- Fondo translúcido -->
-        <Rectangle width="1100.0" height="750.0" arcWidth="25.0" arcHeight="25.0"
-                   style="-fx-fill: rgba(8,7,54,0.93);" />
+        <Rectangle arcHeight="25.0" arcWidth="25.0" height="750.0" style="-fx-fill: rgba(8,7,54,0.93);" width="1100.0" />
 
         <!-- Base de plataforma -->
-        <ImageView fitHeight="420.0" fitWidth="540.0"
-                   layoutX="60.0" layoutY="160.0"
-                   preserveRatio="true">
+        <ImageView fitHeight="420.0" fitWidth="540.0" layoutX="130.0" layoutY="120.0" preserveRatio="true">
             <image>
                 <Image url="@../Image/General/BaseTienda.png" />
             </image>
         </ImageView>
 
         <!-- Imagen del producto -->
-        <ImageView fx:id="imgProducto"
-                   fitHeight="260.0" fitWidth="260.0"
-                   layoutX="200.0" layoutY="200.0"
-                   preserveRatio="true" />
+        <ImageView fx:id="imgProducto" fitHeight="260.0" fitWidth="260.0" layoutX="210.0" layoutY="200.0" preserveRatio="true" />
 
         <!-- Nombre del producto -->
-        <Label fx:id="lblNombre"
-               layoutX="650.0" layoutY="80.0"
-               prefWidth="390.0" wrapText="true"
-               text="Nombre del producto"
-               textFill="WHITE">
+        <Label fx:id="lblNombre" layoutX="563.0" layoutY="95.0" prefWidth="390.0" text="Nombre del producto" textFill="WHITE" wrapText="true">
             <font>
                 <Font name="System Bold" size="34.0" />
             </font>
         </Label>
 
         <!-- Título descripción -->
-        <Label layoutX="650.0" layoutY="145.0"
-               text="Descripción" textFill="WHITE">
+        <Label layoutX="563.0" layoutY="143.0" text="Descripción" textFill="WHITE">
             <font>
                 <Font name="System Bold" size="24.0" />
             </font>
         </Label>
 
         <!-- Descripción -->
-        <Label fx:id="lblDescripcion"
-               layoutX="650.0" layoutY="185.0"
-               prefHeight="180.0" prefWidth="400.0"
-               style="-fx-background-color: rgba(8,7,54,0.65);
-                      -fx-background-radius: 10;
-                      -fx-padding: 10;"
-               textAlignment="JUSTIFY" wrapText="true" textFill="WHITE">
+        <Label fx:id="lblDescripcion" layoutX="563.0" layoutY="178.0" prefHeight="180.0" prefWidth="400.0" style="-fx-background-color: rgba(8,7,54,0.65);                       -fx-background-radius: 10;                       -fx-padding: 10;" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
             <font><Font size="17.0" /></font>
         </Label>
 
         <!-- Valor -->
-        <Label layoutX="650.0" layoutY="395.0"
-               text="Valor:" textFill="WHITE">
+        <Label layoutX="563.0" layoutY="391.0" text="Valor:" textFill="WHITE">
             <font>
                 <Font name="System Bold" size="26.0" />
             </font>
         </Label>
 
-        <Button fx:id="Preciobtn"
-                layoutX="730.0" layoutY="390.0"
-                prefHeight="40.0" prefWidth="170.0"
-                style="-fx-background-color: rgba(255,255,255,0.18);
-                       -fx-background-radius: 8;" />
+        <Button fx:id="Preciobtn" layoutX="660.0" layoutY="390.0" prefHeight="40.0" prefWidth="170.0" style="-fx-background-color: rgba(255,255,255,0.18);                        -fx-background-radius: 8;" />
 
-        <Label fx:id="lblPrecio"
-               layoutX="745.0" layoutY="398.0"
-               text="\$0" textFill="#00BFFF">
+        <Label fx:id="lblPrecio" layoutX="669.0" layoutY="394.0" text="\$0" textFill="#00BFFF">
             <font>
                 <Font name="System Bold" size="22.0" />
             </font>
         </Label>
 
         <!-- Botones inferiores -->
-        <HBox layoutX="640.0" layoutY="560.0" spacing="25.0">
-            <children>
-                <Button fx:id="btnCancelar"
-                        prefHeight="70.0" prefWidth="200.0"
-                        text="REGRESAR"
-                        styleClass="popup-btn" />
+        <HBox layoutX="640.0" layoutY="560.0" spacing="25.0" />
+          <Button fx:id="btnCancelar" layoutX="550.0" layoutY="490.0" prefHeight="70.0" prefWidth="200.0" styleClass="popup-btn" text="REGRESAR" />
 
-                <Button fx:id="btnComprar"
-                        prefHeight="70.0" prefWidth="200.0"
-                        text="COMPRAR"
-                        styleClass="popup-btn-primary"
-                        onAction="#onComprar" />
-            </children>
-        </HBox>
+          <Button fx:id="btnComprar" layoutX="787.0" layoutY="490.0" onAction="#onComprar" prefHeight="70.0" prefWidth="200.0" styleClass="popup-btn-primary" text="COMPRAR" />
 
     </children>
 </AnchorPane>

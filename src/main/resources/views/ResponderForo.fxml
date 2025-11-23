@@ -22,12 +22,13 @@
     </ImageView>
 
     <!-- Barra superior -->
-    <StackPane layoutX="-1.0" layoutY="32.0" prefHeight="80" prefWidth="1920.0">
+    <StackPane layoutY="91.0" prefHeight="80" prefWidth="1920.0">
         <children>
             <Rectangle arcHeight="0" arcWidth="0" height="80" style="-fx-fill: rgba(8,7,54,0.55);" width="1923.0" />
             <AnchorPane prefHeight="56.0" prefWidth="1876.0">
                 <children>
-                    <Button fx:id="homeBtn" layoutX="346.0" layoutY="7.0" prefWidth="60.0" styleClass="nav-btn">
+                    <!-- Iconos -->
+                    <Button fx:id="homeBtn2" layoutX="346.0" layoutY="7.0" prefWidth="60.0" styleClass="nav-btn">
                         <graphic>
                             <ImageView fitHeight="36.0" fitWidth="38.0" preserveRatio="true">
                                 <image><Image url="@../Image/General/Trofeo.png" /></image>
@@ -35,15 +36,18 @@
                         </graphic>
                     </Button>
 
-                    <ImageView fitHeight="61.0" fitWidth="65.0" layoutX="633.0" layoutY="11.0" preserveRatio="true">
+                    <!-- FUEGUITO -->
+                    <ImageView fitHeight="61.0" fitWidth="65.0" layoutX="597.0" layoutY="11.0" preserveRatio="true">
                         <image><Image url="@../Image/General/racha.png" /></image>
                     </ImageView>
 
-                    <ImageView fitHeight="237.0" fitWidth="90.0" layoutX="1205.0" layoutY="14.0" preserveRatio="true">
+                    <!-- PESCADITOS -->
+                    <ImageView fitHeight="237.0" fitWidth="90.0" layoutX="1127.0" layoutY="14.0" preserveRatio="true">
                         <image><Image url="@../Image/General/pescaditos.png" /></image>
                     </ImageView>
 
-                    <Button fx:id="chatBtn" layoutX="975.0" layoutY="9.0" styleClass="nav-btn">
+                    <!-- Chatbot -->
+                    <Button fx:id="chatBtn1" layoutX="895.0" layoutY="9.0" styleClass="nav-btn">
                         <graphic>
                             <ImageView fitHeight="35.0" fitWidth="35.0" preserveRatio="true">
                                 <image><Image url="@../Image/General/ChatBot.png" /></image>
@@ -51,54 +55,67 @@
                         </graphic>
                     </Button>
 
-                    <Button fx:id="logoutBtn" layoutX="1630.0" layoutY="15.0" style="-fx-background-color: #4DA3FF; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 6 14;" text="Cerrar sesión">
+                    <!-- Botón cerrar sesión -->
+                    <Button fx:id="logoutBtn" layoutX="1420.0" layoutY="15.0" onAction="#cerrarSesion" style="-fx-background-color: #4DA3FF; -fx-text-fill: white; -fx-font-weight: bold;                                    -fx-background-radius: 10; -fx-padding: 6 14;" text="Cerrar sesión">
                         <font>
                             <Font name="System Bold Italic" size="27.0" />
                         </font>
                     </Button>
-                    <Button layoutX="692.0" layoutY="23.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="123.0" />
-                    <Button layoutX="1304.0" layoutY="22.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="123.0" />
+                    <Button layoutX="644.0" layoutY="23.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="123.0" />
+                    <Button layoutX="1203.0" layoutY="22.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="123.0" />
                 </children>
             </AnchorPane>
         </children>
     </StackPane>
 
     <!-- Barra inferior -->
-    <StackPane layoutX="-1.0" layoutY="867.0" prefHeight="80" prefWidth="1920.0">
+    <StackPane layoutY="781.0" prefHeight="80" prefWidth="1920.0">
         <children>
             <Rectangle arcHeight="0" arcWidth="0" height="80" style="-fx-fill: rgba(8,7,54,0.55);" width="1923.0" />
             <AnchorPane prefHeight="56.0" prefWidth="1876.0">
                 <children>
-                    <Button fx:id="homeBtn" layoutX="346.0" layoutY="12.0" onAction="#goHome" styleClass="nav-btn">
-                        <graphic><ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
-                            <image><Image url="@../Image/General/home.png" /></image>
-                        </ImageView></graphic>
-                    </Button>
-
-                    <Button fx:id="forumBtn" layoutX="687.0" layoutY="10.0" onAction="#goForum" styleClass="nav-btn">
-                        <graphic><ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
-                            <image><Image url="@../Image/General/foro.png" /></image>
-                        </ImageView></graphic>
-                    </Button>
-
-                    <Button fx:id="profileBtn" layoutX="1585.0" layoutY="12.0" onAction="#goProfile" styleClass="nav-btn">
-                        <graphic><ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
-                            <image><Image url="@../Image/General/usuario.png" /></image>
-                        </ImageView></graphic>
-                    </Button>
-
-                    <Button fx:id="iguluBtn" layoutX="1293.0" layoutY="10.0" style="-fx-background-color: transparent;">
+                    <Button fx:id="homeBtn2" layoutX="346.0" layoutY="7.0" onAction="#goHome" prefWidth="60.0" styleClass="nav-btn">
                         <graphic>
-                            <ImageView fitHeight="52.0" fitWidth="66.0" preserveRatio="true">
-                                <image><Image url="@../Image/General/Iglu.png" /></image>
+                            <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Image/General/home.png" />
+                                </image>
                             </ImageView>
                         </graphic>
                     </Button>
-
-                    <Button fx:id="tiendaBtn" layoutX="994.0" layoutY="10.0" onAction="#goTienda" styleClass="nav-btn">
+                    <Button fx:id="forumBtn" layoutX="687.0" layoutY="10.0" styleClass="nav-btn">
+                        <graphic>
+                            <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Image/General/foro.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    <Button fx:id="profileBtn" layoutX="1553.0" layoutY="12.0" styleClass="nav-btn">
+                        <graphic>
+                            <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Image/General/usuario.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    <Button fx:id="iguluBtn" layoutX="1293.0" layoutY="10.0" style="-fx-background-color: transparent;">
+                        <graphic>
+                            <ImageView fitHeight="52.0" fitWidth="66.0" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Image/General/Iglu.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    <Button fx:id="tiendaBtn" layoutX="994.0" layoutY="10.0" styleClass="nav-btn">
                         <graphic>
                             <ImageView fitHeight="35.0" fitWidth="35.0" preserveRatio="true">
-                                <image><Image url="@../Image/General/tienda.png" /></image>
+                                <image>
+                                    <Image url="@../Image/General/tienda.png" />
+                                </image>
                             </ImageView>
                         </graphic>
                     </Button>
@@ -108,7 +125,7 @@
     </StackPane>
 
     <!-- Contenido principal de respuesta -->
-    <VBox layoutX="200.0" layoutY="150.0" prefHeight="568.0" prefWidth="1548.0" spacing="20.0" style="-fx-background-color: transparent;">
+    <VBox layoutX="362.0" layoutY="185.0" prefHeight="540.0" prefWidth="1264.0" spacing="20.0" style="-fx-background-color: transparent;">
 
         <!-- Pregunta original -->
         <VBox spacing="15.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 10; -fx-padding: 20;">
@@ -158,9 +175,9 @@
         </VBox>
 
     </VBox>
-   <Button layoutX="719.0" layoutY="729.0" mnemonicParsing="false" prefHeight="77.0" prefWidth="434.0" text="Volver al Foro" textFill="WHITE">
+   <Button layoutX="849.0" layoutY="754.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="306.0" text="Volver al Foro" textFill="WHITE">
       <font>
-         <Font name="System Bold" size="37.0" />
+         <Font name="System Bold" size="9.0" />
       </font>
    </Button>
 

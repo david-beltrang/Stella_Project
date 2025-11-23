@@ -4,87 +4,143 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="root" maxHeight="1080.0" maxWidth="1920.0" minHeight="1080.0" minWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@/styles/LoginStyle.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Infrastructure.controllers.CursoController">
+<AnchorPane fx:id="root" maxHeight="1080.0" maxWidth="1920.0" minHeight="1080.0" minWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../styles/LoginStyle.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Infrastructure.controllers.CursoController">
 
-    <ImageView fitHeight="177.0" fitWidth="165.0" layoutX="1537.0" layoutY="203.0" pickOnBounds="true" preserveRatio="true">
+    <ImageView fitHeight="229.0" fitWidth="194.0" layoutX="1418.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
         <image>
-            <Image url="@/Image/General/StellaPomodoroSF.png" />
+            <Image url="@../Image/General/StellaPomodoroSF.png" />
         </image>
     </ImageView>
 
     <!-- Título -->
-    <Label fx:id="NombreCurso" layoutX="470.0" layoutY="203.0" opacity="0.8" prefHeight="177.0" prefWidth="1244.0" textFill="white">
-        <font><Font name="System Bold" size="120.0" /></font>
+    <Label fx:id="NombreCurso" layoutX="323.0" layoutY="138.0" opacity="0.8" prefHeight="177.0" prefWidth="1244.0" textFill="white">
+        <font><Font name="System Bold" size="100.0" /></font>
     </Label>
 
     <!-- columnas -->
-    <Label layoutX="261.0" layoutY="410.0" opacity="0.7" prefHeight="408.0" prefWidth="437.0" style="-fx-background-color: #080737;" />
-    <Label layoutX="370.0" layoutY="422.0" prefHeight="58.0" prefWidth="238.0" text="SECCIÓN 1" textAlignment="JUSTIFY" textFill="WHITE">
+    <Label layoutX="284.0" layoutY="345.0" opacity="0.7" prefHeight="408.0" prefWidth="437.0" style="-fx-background-color: #080737; -fx-background-radius: 20;" />
+    <Label layoutX="393.0" layoutY="358.0" prefHeight="58.0" prefWidth="238.0" text="SECCIÓN 1" textAlignment="JUSTIFY" textFill="WHITE">
         <font><Font name="MS Outlook" size="43.0" /></font>
     </Label>
 
-    <Label layoutX="771.0" layoutY="413.0" opacity="0.7" prefHeight="403.0" prefWidth="436.0" style="-fx-background-color: #080737;" />
-    <Label layoutX="878.0" layoutY="425.0" prefHeight="58.0" prefWidth="235.0" text="SECCIÓN 2" textAlignment="JUSTIFY" textFill="WHITE">
+    <Label layoutX="736.0" layoutY="345.0" opacity="0.7" prefHeight="408.0" prefWidth="436.0" style="-fx-background-color: #080737; -fx-background-radius: 20;" />
+    <Label layoutX="843.0" layoutY="365.0" prefHeight="58.0" prefWidth="235.0" text="SECCIÓN 2" textAlignment="JUSTIFY" textFill="WHITE">
         <font><Font name="MS Outlook" size="43.0" /></font>
     </Label>
 
-    <Label layoutX="1285.0" layoutY="412.0" opacity="0.7" prefHeight="405.0" prefWidth="436.0" style="-fx-background-color: #080737;" />
-    <Label layoutX="1392.0" layoutY="427.0" prefHeight="58.0" prefWidth="239.0" text="SECCIÓN 3" textAlignment="JUSTIFY" textFill="WHITE">
+    <Label layoutX="1190.0" layoutY="345.0" opacity="0.7" prefHeight="408.0" prefWidth="436.0" style="-fx-background-color: #080737; -fx-background-radius: 20;" />
+    <Label layoutX="1297.0" layoutY="367.0" prefHeight="58.0" prefWidth="239.0" text="SECCIÓN 3" textAlignment="JUSTIFY" textFill="WHITE">
         <font><Font name="MS Outlook" size="43.0" /></font>
     </Label>
 
     <!-- SECCIÓN 1 -->
-    <Button fx:id="Leccion1_1" layoutX="318.0" layoutY="487.0" prefHeight="51.0" prefWidth="332.0" text="Button">
+    <Button fx:id="Leccion1_1" layoutX="341.0" layoutY="423.0" prefHeight="51.0" prefWidth="332.0" text="Button">
         <font><Font name="System Bold Italic" size="19.0" /></font>
     </Button>
-    <Button fx:id="Leccion1_2" layoutX="318.0" layoutY="551.0" prefHeight="51.0" prefWidth="332.0" text="Button">
+    <Button fx:id="Leccion1_2" layoutX="341.0" layoutY="487.0" prefHeight="51.0" prefWidth="332.0" text="Button">
         <font><Font name="System Bold Italic" size="19.0" /></font>
     </Button>
-    <Button fx:id="Leccion1_3" layoutX="318.0" layoutY="616.0" prefHeight="51.0" prefWidth="332.0" text="Button">
+    <Button fx:id="Leccion1_3" layoutX="341.0" layoutY="552.0" prefHeight="51.0" prefWidth="332.0" text="Button">
         <font><Font name="System Bold Italic" size="19.0" /></font>
     </Button>
-    <Button fx:id="Leccion1_4" layoutX="318.0" layoutY="678.0" prefHeight="51.0" prefWidth="332.0" text="Button">
+    <Button fx:id="Leccion1_4" layoutX="341.0" layoutY="614.0" prefHeight="51.0" prefWidth="332.0" text="Button">
         <font><Font name="System Bold Italic" size="19.0" /></font>
     </Button>
-    <Button fx:id="Leccion1_5" layoutX="318.0" layoutY="739.0" prefHeight="51.0" prefWidth="332.0" text="Button">
+    <Button fx:id="Leccion1_5" layoutX="341.0" layoutY="675.0" prefHeight="51.0" prefWidth="332.0" text="Button">
         <font><Font name="System Bold Italic" size="19.0" /></font>
     </Button>
 
     <!-- SECCIÓN 2 -->
-    <Button fx:id="Leccion2_1" layoutX="823.0" layoutY="489.0" prefHeight="51.0" prefWidth="332.0" text="Button">
+    <Button fx:id="Leccion2_1" layoutX="788.0" layoutY="429.0" prefHeight="51.0" prefWidth="332.0" text="Button">
         <font><Font name="System Bold Italic" size="19.0" /></font>
     </Button>
-    <Button fx:id="Leccion2_2" layoutX="823.0" layoutY="552.0" prefHeight="51.0" prefWidth="332.0" text="Button">
+    <Button fx:id="Leccion2_2" layoutX="788.0" layoutY="492.0" prefHeight="51.0" prefWidth="332.0" text="Button">
         <font><Font name="System Bold Italic" size="19.0" /></font>
     </Button>
-    <Button fx:id="Leccion2_3" layoutX="823.0" layoutY="617.0" prefHeight="51.0" prefWidth="332.0" text="Button">
+    <Button fx:id="Leccion2_3" layoutX="788.0" layoutY="557.0" prefHeight="51.0" prefWidth="332.0" text="Button">
         <font><Font name="System Bold Italic" size="19.0" /></font>
     </Button>
-    <Button fx:id="Leccion2_4" layoutX="823.0" layoutY="678.0" prefHeight="51.0" prefWidth="332.0" text="Button">
+    <Button fx:id="Leccion2_4" layoutX="788.0" layoutY="618.0" prefHeight="51.0" prefWidth="332.0" text="Button">
         <font><Font name="System Bold Italic" size="19.0" /></font>
     </Button>
-    <Button fx:id="Leccion2_5" layoutX="823.0" layoutY="739.0" prefHeight="51.0" prefWidth="332.0" text="Button">
+    <Button fx:id="Leccion2_5" layoutX="788.0" layoutY="679.0" prefHeight="51.0" prefWidth="332.0" text="Button">
         <font><Font name="System Bold Italic" size="19.0" /></font>
     </Button>
 
     <!-- SECCIÓN 3 -->
-    <Button fx:id="Leccion3_1" layoutX="1339.0" layoutY="489.0" prefHeight="51.0" prefWidth="332.0" text="Button">
+    <Button fx:id="Leccion3_1" layoutX="1244.0" layoutY="429.0" prefHeight="51.0" prefWidth="332.0" text="Button">
         <font><Font name="System Bold Italic" size="19.0" /></font>
     </Button>
-    <Button fx:id="Leccion3_2" layoutX="1338.0" layoutY="552.0" prefHeight="51.0" prefWidth="332.0" text="Button">
+    <Button fx:id="Leccion3_2" layoutX="1243.0" layoutY="492.0" prefHeight="51.0" prefWidth="332.0" text="Button">
         <font><Font name="System Bold Italic" size="19.0" /></font>
     </Button>
-    <Button fx:id="Leccion3_3" layoutX="1336.0" layoutY="616.0" prefHeight="51.0" prefWidth="332.0" text="Button">
+    <Button fx:id="Leccion3_3" layoutX="1241.0" layoutY="556.0" prefHeight="51.0" prefWidth="332.0" text="Button">
         <font><Font name="System Bold Italic" size="19.0" /></font>
     </Button>
-    <Button fx:id="Leccion3_4" layoutX="1337.0" layoutY="678.0" prefHeight="51.0" prefWidth="332.0" text="Button">
+    <Button fx:id="Leccion3_4" layoutX="1242.0" layoutY="618.0" prefHeight="51.0" prefWidth="332.0" text="Button">
         <font><Font name="System Bold Italic" size="19.0" /></font>
     </Button>
-    <Button fx:id="Leccion3_5" layoutX="1338.0" layoutY="739.0" prefHeight="51.0" prefWidth="332.0" text="Button">
+    <Button fx:id="Leccion3_5" layoutX="1243.0" layoutY="679.0" prefHeight="51.0" prefWidth="332.0" text="Button">
         <font><Font name="System Bold Italic" size="19.0" /></font>
     </Button>
+   <StackPane layoutY="781.0" prefHeight="80" prefWidth="1920.0">
+      <children>
+         <Rectangle arcHeight="0" arcWidth="0" height="80" style="-fx-fill: rgba(8,7,54,0.55);" width="1923.0" />
+         <AnchorPane prefHeight="56.0" prefWidth="1876.0">
+            <children>
+               <Button fx:id="homeBtn" layoutX="346.0" layoutY="12.0" styleClass="nav-btn">
+                  <graphic>
+                     <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                        <image>
+                           <Image url="@../Image/General/home.png" />
+                        </image>
+                     </ImageView>
+                  </graphic>
+               </Button>
+               <Button fx:id="forumBtn" layoutX="687.0" layoutY="10.0" styleClass="nav-btn">
+                  <graphic>
+                     <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                        <image>
+                           <Image url="@../Image/General/foro.png" />
+                        </image>
+                     </ImageView>
+                  </graphic>
+               </Button>
+               <Button fx:id="profileBtn" layoutX="1553.0" layoutY="12.0" styleClass="nav-btn">
+                  <graphic>
+                     <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                        <image>
+                           <Image url="@../Image/General/usuario.png" />
+                        </image>
+                     </ImageView>
+                  </graphic>
+               </Button>
+               <Button fx:id="iguluBtn" layoutX="1293.0" layoutY="10.0" style="-fx-background-color: transparent;">
+                  <graphic>
+                     <ImageView fitHeight="52.0" fitWidth="66.0" preserveRatio="true">
+                        <image>
+                           <Image url="@../Image/General/Iglu.png" />
+                        </image>
+                     </ImageView>
+                  </graphic>
+               </Button>
+               <Button fx:id="tiendaBtn" layoutX="994.0" layoutY="10.0" styleClass="nav-btn">
+                  <graphic>
+                     <ImageView fitHeight="35.0" fitWidth="35.0" preserveRatio="true">
+                        <image>
+                           <Image url="@../Image/General/tienda.png" />
+                        </image>
+                     </ImageView>
+                  </graphic>
+               </Button>
+            </children>
+         </AnchorPane>
+      </children>
+   </StackPane>
 
-</Pane>
+</AnchorPane>
