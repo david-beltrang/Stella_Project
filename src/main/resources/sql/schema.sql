@@ -18,23 +18,22 @@ DROP TABLE IF EXISTS "comentario";
 DROP TABLE IF EXISTS "post";
 DROP TABLE IF EXISTS "usuario";
 
--- CREACIÓN DE TABLAS (con Claves Foráneas y ON DELETE CASCADE)
--- =========================================================================
-
 -- TABLA: "usuario"
 CREATE TABLE "usuario" (
                            id INT AUTO_INCREMENT PRIMARY KEY,
-                           username VARCHAR(50) UNIQUE NOT NULL,
-                           correo VARCHAR(100) UNIQUE NOT NULL,
-                           nombre VARCHAR(100) NOT NULL,
+                           username VARCHAR(255) NOT NULL UNIQUE,
+                           correo VARCHAR(255) NOT NULL UNIQUE,
+                           nombre VARCHAR(255) NOT NULL,
                            contrasena VARCHAR(255) NOT NULL,
-                           tipo VARCHAR(20) NOT NULL -- ESTUDIANTE, PROFESOR, ADMIN
+                           tipo_usuario VARCHAR(50) NOT NULL,
+                           fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- TABLA: "usuario_stats" (Estadísticas y gamificación)
+-- TABLA: "usuario_stats"
 CREATE TABLE "usuario_stats" (
-                                 usuario_id INT PRIMARY KEY,
+                                 usuario_id INT NOT NULL PRIMARY KEY,
                                  pescaditos INT NOT NULL DEFAULT 0,
+                                 objetivo_sesiones INT NOT NULL DEFAULT 1,
                                  racha_dias INT NOT NULL DEFAULT 0,
                                  tiempo_total_estudio_segundos INT NOT NULL DEFAULT 0,
                                  FOREIGN KEY (usuario_id) REFERENCES "usuario"(id) ON DELETE CASCADE

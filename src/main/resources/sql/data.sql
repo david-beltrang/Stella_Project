@@ -1,5 +1,8 @@
+-- DATOS INICIALES
+-- =========================================================================
+
 -- 1. USUARIO DE PRUEBA
-INSERT INTO "usuario" (username, correo, nombre, contrasena, tipo)
+INSERT INTO "usuario" (username, correo, nombre, contrasena, tipo_usuario)
 VALUES ('testestudio', 'test@estudio.com', 'Usuario Estudio', 'pass123', 'ESTUDIANTE');
 
 -- 2. CURSOS
@@ -215,13 +218,17 @@ INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
 INSERT INTO "stella_item" (item_id, image_path) VALUES
     (15, '/Image/stellas/stellaGorraRosa.png');
 
+-- 6. USUARIO_STATS INICIAL
+INSERT INTO "usuario_stats" (usuario_id, pescaditos, objetivo_sesiones, racha_dias, tiempo_total_estudio_segundos)
+VALUES (1, 5000, 1, 0, 0);
+
 -- 7. COMPRA INICIAL
 INSERT INTO "usuario_item" (usuario_id, item_id) VALUES (1, 4);
 
 --PARA EL FORO
 
 --Insertar usuario de prueba para crear comentario en el post, el usuario tendrá el ID 2
-INSERT INTO "usuario" (username, correo, nombre, contrasena, tipo)
+INSERT INTO "usuario" (username, correo, nombre, contrasena, tipo_usuario)
 VALUES ('testestudio1', 'test@estudio1.com', 'Usuario Estudio1', 'pass123', 'ESTUDIANTE');
 
 -- Insertar un post
@@ -239,6 +246,4 @@ INSERT INTO "post" (usuario_id, contenido_texto, fecha, etiqueta) VALUES
 (2, '¿Alguien sabe cómo utilizar la memoria dinámica en c++?', '2025-11-07 18:20:00', 'C++');
 
 INSERT INTO "comentario" (post_id, usuario_id, contenido_texto, fecha) VALUES
-(2, 1, 'Sí, debes asignar y liberar memoria así: int *arr = new int[10]; y delete[] arr;', '2025-11-07 18:25:00')
-
-
+(2, 1, 'Sí, debes asignar y liberar memoria así: int *arr = new int[10]; y delete[] arr;', '2025-11-07 18:25:00');
