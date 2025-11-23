@@ -11,8 +11,11 @@ import javafx.stage.Window;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class Navigacion {
+public class Navegacion {
+    private static final Logger logger = LoggerFactory.getLogger(Navegacion.class);
 
     /** Navegación simple sin inicialización adicional */
     public void goTo(String fxmlPath, String title, Function<Class<?>, Object> controllerFactory, Node origen) {
@@ -29,7 +32,7 @@ public class Navigacion {
     private <T> void cargarYMostrarVista(String fxmlPath, String title, Function<Class<?>, Object> controllerFactory,
                                          Node origen, Consumer<T> initController) {
         try {
-            System.out.println("[NAV] Intentando cargar vista: " + fxmlPath);
+            logger.debug("Intentando cargar vista: {}", fxmlPath);
             var resource = getClass().getResource(fxmlPath);
             if (resource == null) {
                 throw new IllegalArgumentException("No se encontró el recurso FXML: " + fxmlPath);
@@ -48,30 +51,30 @@ public class Navigacion {
                     @SuppressWarnings("unchecked")
                     T controller = (T) ctrl;
                     initController.accept(controller);
-                } catch (ClassCastException ignored) {
-                    System.err.println("⚠️ Tipo de controlador distinto, se omitió la inicialización específica.");
+                } catch (ClassCastException e) {
+                    logger.warn("Tipo de controlador distinto, se omitió la inicialización específica", e);
                 }
             }
 
             // Resolver stage actual
             Stage stage = resolveStage(origen);
             if (stage == null) {
-                System.err.println("[NAV] ⚠️ No se encontró Stage a partir del nodo. Buscando uno visible...");
+                logger.warn("No se encontró Stage a partir del nodo. Buscando uno visible...");
                 stage = buscarStageVisible();
             }
 
             if (stage == null) {
-                throw new IllegalStateException("❌ No hay Stage activo para mostrar la vista.");
+                throw new IllegalStateException("No hay Stage activo para mostrar la vista.");
             }
 
-            System.out.println("[NAV] Stage detectado: " + stage);
+            logger.debug("Stage detectado: {}", stage);
             stage.setScene(new Scene(next));
 
             if (title != null && !title.isBlank()) stage.setTitle(title);
             stage.centerOnScreen();
             stage.show();
 
-            System.out.println("[NAV] Vista cargada correctamente: " + fxmlPath);
+            logger.info("Vista cargada correctamente: {}", fxmlPath);
 
         } catch (Exception e) {
             mostrarError(fxmlPath, e);
@@ -93,17 +96,17 @@ public class Navigacion {
     private Stage buscarStageVisible() {
         for (Window w : Window.getWindows()) {
             if (w instanceof Stage s && w.isShowing()) {
-                System.out.println("[NAV] ✅ Usando stage visible encontrado: " + s);
+                logger.debug("Usando stage visible encontrado: {}", s);
                 return s;
             }
         }
-        System.err.println("[NAV] ❌ No se encontró ningún stage visible.");
+        logger.warn("No se encontró ningún stage visible");
         return null;
     }
 
     /** Muestra diálogo de error detallado. */
     private void mostrarError(String fxmlPath, Exception e) {
-        e.printStackTrace();
+        logger.error("Error al cargar vista: {}", fxmlPath, e);
         Throwable cause = e;
         while (cause.getCause() != null) cause = cause.getCause();
 
