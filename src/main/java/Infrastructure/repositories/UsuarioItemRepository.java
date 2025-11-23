@@ -6,6 +6,7 @@ import Infrastructure.persistence.IConexionBD;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class UsuarioItemRepository implements InterfazUsuarioItemRepository {
 
@@ -111,6 +112,60 @@ public class UsuarioItemRepository implements InterfazUsuarioItemRepository {
             }
         } catch (Exception e) {
             return 0;
+        }
+    }
+
+    @Override
+    public Optional<UsuarioItem> obtenerItemActivo(int usuarioId) {
+        String sql = "SELECT usuario_id, item_id, fecha_compra, es_activo FROM \"usuario_item\" " +
+                "WHERE usuario_id = ? AND es_activo = TRUE";
+        try (Connection conn = connMgr.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, usuarioId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return Optional.of(UsuarioItem.reconstruir(
+                            rs.getInt("usuario_id"),
+                            rs.getInt("item_id"),
+                            rs.getTimestamp("fecha_compra").toLocalDateTime(),
+                            rs.getBoolean("es_activo")
+                    ));
+                }
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error al obtener item activo del usuario", e);
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public void cambiarItemActivo(int usuarioId, int nuevoItemId) {
+        String desactivarTodos = "UPDATE \"usuario_item\" SET es_activo = FALSE WHERE usuario_id = ?";
+        String activarNuevo = "UPDATE \"usuario_item\" SET es_activo = TRUE WHERE usuario_id = ? AND item_id = ?";
+
+        try (Connection conn = connMgr.getConnection()) {
+            conn.setAutoCommit(false);
+
+            // 1. Desactivar todos los items del usuario
+            try (PreparedStatement psDesactivar = conn.prepareStatement(desactivarTodos)) {
+                psDesactivar.setInt(1, usuarioId);
+                psDesactivar.executeUpdate();
+            }
+
+            // 2. Activar el nuevo item (solo si el usuario lo tiene)
+            try (PreparedStatement psActivar = conn.prepareStatement(activarNuevo)) {
+                psActivar.setInt(1, usuarioId);
+                psActivar.setInt(2, nuevoItemId);
+                int rows = psActivar.executeUpdate();
+                if (rows == 0) {
+                    conn.rollback();
+                    throw new RuntimeException("El usuario no tiene el item con id: " + nuevoItemId);
+                }
+            }
+
+            conn.commit();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al cambiar item activo", e);
         }
     }
 }

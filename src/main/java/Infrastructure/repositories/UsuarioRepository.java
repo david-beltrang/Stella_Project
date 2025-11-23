@@ -27,10 +27,11 @@ public class UsuarioRepository implements InterfazUsuarioRepository {
 
     @Override
     public Usuario guardar(Usuario usuario) {
-        // Usar comillas dobles para asegurar que H2 reconozca el nombre 'usuario' en minúsculas.
-        String sql = "INSERT INTO \"usuario\" (username, nombre, correo, contrasena, tipo) VALUES (?, ?, ?, ?, ?)";
+        // Usar comillas dobles para asegurar que H2 reconozca el nombre 'usuario' en
+        // minúsculas.
+        String sql = "INSERT INTO \"usuario\" (username, nombre, correo, contrasena, tipo_usuario) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = connMgr.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             pstmt.setString(1, usuario.getUsername().valor());
             pstmt.setString(2, usuario.getNombre().valor());
@@ -48,8 +49,8 @@ public class UsuarioRepository implements InterfazUsuarioRepository {
                             usuario.getCorreo(),
                             usuario.getNombre(),
                             usuario.getContrasena(),
-                            usuario.getTipo()
-                    );
+                            usuario.getTipo(),
+                            usuario.getFechaCreacion());
                 }
                 throw new SQLException("No se generó ID para el usuario.");
             }
@@ -67,7 +68,7 @@ public class UsuarioRepository implements InterfazUsuarioRepository {
     public Optional<Usuario> buscarPorId(int id) {
         String sql = "SELECT * FROM \"usuario\" WHERE id = ?"; // <<-- CAMBIO AQUÍ
         try (Connection conn = connMgr.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, id);
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
@@ -85,7 +86,7 @@ public class UsuarioRepository implements InterfazUsuarioRepository {
     public Optional<Usuario> buscarPorCorreo(String correo) {
         String sql = "SELECT * FROM \"usuario\" WHERE correo = ?"; // <<-- CAMBIO AQUÍ
         try (Connection conn = connMgr.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, correo);
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
@@ -104,8 +105,8 @@ public class UsuarioRepository implements InterfazUsuarioRepository {
         List<Usuario> usuarios = new ArrayList<>();
         String sql = "SELECT * FROM \"usuario\""; // <<-- CAMBIO AQUÍ
         try (Connection conn = connMgr.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
                 usuarios.add(obtenerUsuario(rs));
             }
@@ -120,7 +121,7 @@ public class UsuarioRepository implements InterfazUsuarioRepository {
     public void eliminar(int id) {
         String sql = "DELETE FROM \"usuario\" WHERE id = ?"; // <<-- CAMBIO AQUÍ
         try (Connection conn = connMgr.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, id);
             pstmt.executeUpdate();
         } catch (SQLException e) {
@@ -133,7 +134,7 @@ public class UsuarioRepository implements InterfazUsuarioRepository {
     public void actualizarUsername(int id, String nuevoUsername) {
         String sql = "UPDATE \"usuario\" SET username = ? WHERE id = ?"; // <<-- CAMBIO AQUÍ
         try (Connection conn = connMgr.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, nuevoUsername);
             pstmt.setInt(2, id);
             pstmt.executeUpdate();
@@ -150,7 +151,7 @@ public class UsuarioRepository implements InterfazUsuarioRepository {
                 new Correo(rs.getString("correo")),
                 new Nombre(rs.getString("nombre")),
                 rs.getString("contrasena"),
-                new Tipo(rs.getString("tipo"))
-        );
+                new Tipo(rs.getString("tipo_usuario")),
+                rs.getTimestamp("fecha_creacion") != null ? rs.getTimestamp("fecha_creacion").toLocalDateTime() : null);
     }
 }
