@@ -33,7 +33,7 @@ public class Main extends Application {
         InterfazUsuarioStatsRepository usuarioStatsRepository = new UsuarioStatsRepository(connMgr);
         InterfazSesionEstudioRepository sesionEstudioRepository = new SesionEstudioRepository(connMgr);
 
-        // ✅ REPOS para tienda (ajusta nombres si tus clases se llaman distinto)
+        // ✅ REPOS para tienda
         InterfazItemRepository itemRepository = new ItemRepository(connMgr);
         InterfazStellaItemRepository stellaItemRepository = new StellaItemRepository(connMgr);
         InterfazUsuarioItemRepository usuarioItemRepository = new UsuarioItemRepository(connMgr);
@@ -69,7 +69,7 @@ public class Main extends Application {
                 registroService,
                 leccionService,
                 tiendaService,
-                chatbotService // ✅ pásalo aquí
+                chatbotService
         );
 
 

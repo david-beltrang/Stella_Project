@@ -2,12 +2,11 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
@@ -108,77 +107,61 @@
         </children>
     </StackPane>
 
-    <!-- Contenido principal del foro -->
-    <ScrollPane layoutX="200.0" layoutY="150.0" prefHeight="650.0" prefWidth="989.0" style="-fx-background-color: transparent; -fx-border-color: transparent;">
-        <content>
-            <VBox prefHeight="863.0" prefWidth="943.0" spacing="20.0" style="-fx-background-color: transparent;">
-                <!-- Título del foro -->
-                <Label prefHeight="83.0" prefWidth="748.0" style="-fx-text-fill: white; -fx-font-size: 36px; -fx-font-weight: bold; -fx-padding: 0 0 20 0;" text="¡Bienvenido al Foro Stella!" textAlignment="CENTER">
-                    <font>
-                        <Font name="System Bold" size="70.0" />
-                    </font>
-                </Label>
+    <!-- Contenido principal de respuesta -->
+    <VBox layoutX="200.0" layoutY="150.0" prefHeight="568.0" prefWidth="1548.0" spacing="20.0" style="-fx-background-color: transparent;">
 
-                <!-- Sección C++ -->
-                <VBox spacing="10.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 10; -fx-padding: 15;">
-                    <Label prefHeight="35.0" prefWidth="908.0" style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;" text="Titulo Pregunta">
-                        <font>
-                            <Font name="System Bold" size="24.0" />
-                        </font>
-                    </Label>
+        <!-- Pregunta original -->
+        <VBox spacing="15.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 10; -fx-padding: 20;">
+            <Label style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;" text="Pregunta Original">
+                <font>
+                    <Font name="System Bold" size="24.0" />
+                </font>
+            </Label>
 
-                    <!-- Pregunta 1 -->
-                    <VBox spacing="5.0" style="-fx-background-color: rgba(255,255,255,0.05); -fx-background-radius: 8; -fx-padding: 10;">
-                        <Label prefHeight="27.0" prefWidth="906.0" style="-fx-text-fill: white; -fx-font-size: 18px;" text="Pregunta" wrapText="true" />
-                        <HBox spacing="10.0">
-                            <Label style="-fx-text-fill: #4DA3FF; -fx-font-size: 14px;" text="usuario" />
-                            <Label style="-fx-text-fill: #AAAAAA; -fx-font-size: 14px;" text="2h" />
-                        </HBox>
-                        <HBox spacing="10.0">
-                            <Button style="-fx-background-color: #6c757d; -fx-text-fill: white; -fx-background-radius: 5;" text="Cancelar" />
-                            <Button style="-fx-background-color: #4DA3FF; -fx-text-fill: white; -fx-background-radius: 5;" text="Enviar Respuesta" />
-                        </HBox>
-                  <Button style="-fx-background-color: #4DA3FF; -fx-text-fill: white; -fx-background-radius: 5; -fx-pref-width: 100;" text="Responder" />
-                    </VBox>
-                </VBox>
-
-                <!-- Sección Python -->
-                <VBox spacing="10.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 10; -fx-padding: 15;">
-                    <Label prefHeight="35.0" prefWidth="911.0" style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;" text="Titulo Pregunta">
-                        <font>
-                            <Font name="System Bold" size="24.0" />
-                        </font>
-                    </Label>
-
-                    <!-- Pregunta 2 -->
-                    <VBox spacing="5.0" style="-fx-background-color: rgba(255,255,255,0.05); -fx-background-radius: 8; -fx-padding: 10;">
-                        <HBox spacing="10.0">
-                            <CheckBox />
-                            <Label style="-fx-text-fill: #4DA3FF; -fx-font-size: 14px;" text="usuario" />
-                        </HBox>
-                        <Label prefHeight="27.0" prefWidth="945.0" style="-fx-text-fill: white; -fx-font-size: 18px;" text="Pregunta" wrapText="true" />
-                        <Button style="-fx-background-color: #4DA3FF; -fx-text-fill: white; -fx-background-radius: 5; -fx-pref-width: 100;" text="Responder" />
-                    </VBox>
-                </VBox>
-
-                <!-- Espacio para nuevas preguntas -->
-                <VBox spacing="10.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 10; -fx-padding: 15;">
-                    <Label style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;" text="Nueva Pregunta">
-                        <font>
-                            <Font name="System Bold" size="24.0" />
-                        </font>
-                    </Label>
-                    <TextField promptText="Título de la pregunta" style="-fx-background-color: rgba(255,255,255,0.8); -fx-background-radius: 5;" />
-                    <TextArea prefHeight="100.0" prefWidth="100.0" promptText="Escribe tu pregunta aquí..." style="-fx-background-color: rgba(255,255,255,0.8); -fx-background-radius: 5;" />
-                    <Button style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-background-radius: 5; -fx-pref-width: 150;" text="Publicar Pregunta" />
-                </VBox>
+            <!-- Contenido de la pregunta -->
+            <VBox spacing="10.0" style="-fx-background-color: rgba(255,255,255,0.05); -fx-background-radius: 8; -fx-padding: 15;">
+                <Label fx:id="preguntaTitulo" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;" text="Pregunta" />
+                <Label fx:id="preguntaContenido" style="-fx-text-fill: white; -fx-font-size: 16px;" text="Descipcion Pregunta" wrapText="true" />
+                <HBox spacing="20.0" />
             </VBox>
-        </content>
-    </ScrollPane>
-   <ImageView fitHeight="602.0" fitWidth="637.0" layoutX="1220.0" layoutY="188.0" pickOnBounds="true" preserveRatio="true">
-      <image>
-         <Image url="@../Image/General/StellaForo.png" />
-      </image>
-   </ImageView>
+        </VBox>
+
+        <!-- Respuestas existentes -->
+        <VBox spacing="15.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 10; -fx-padding: 20;">
+            <Label style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;" text="Respuestas">
+                <font>
+                    <Font name="System Bold" size="24.0" />
+                </font>
+            </Label>
+
+            <!-- Respuesta 1 -->
+            <VBox spacing="8.0" style="-fx-background-color: rgba(255,255,255,0.05); -fx-background-radius: 8; -fx-padding: 15;">
+                <Label style="-fx-text-fill: white; -fx-font-size: 16px;" wrapText="true" />
+                <HBox spacing="20.0" />
+            </VBox>
+        </VBox>
+
+        <!-- Formulario para nueva respuesta -->
+        <VBox prefHeight="115.0" prefWidth="1452.0" spacing="15.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 10; -fx-padding: 20;">
+            <Label style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;" text="Tu Respuesta">
+                <font>
+                    <Font name="System Bold" size="24.0" />
+                </font>
+            </Label>
+
+            <TextArea fx:id="respuestaTextArea" prefHeight="150.0" promptText="Escribe tu respuesta aquí..." style="-fx-background-color: rgba(255,255,255,0.8); -fx-background-radius: 5;" wrapText="true" />
+
+            <HBox spacing="15.0">
+                <Button style="-fx-background-color: #080737; -fx-text-fill: white; -fx-background-radius: 5; -fx-pref-width: 120;" text="Cancelar" />
+                <Button style="-fx-background-color: #080737; -fx-text-fill: white; -fx-background-radius: 5; -fx-pref-width: 150;" text="Enviar Respuesta" />
+            </HBox>
+        </VBox>
+
+    </VBox>
+   <Button layoutX="719.0" layoutY="729.0" mnemonicParsing="false" prefHeight="77.0" prefWidth="434.0" text="Volver al Foro" textFill="WHITE">
+      <font>
+         <Font name="System Bold" size="37.0" />
+      </font>
+   </Button>
 
 </AnchorPane>
