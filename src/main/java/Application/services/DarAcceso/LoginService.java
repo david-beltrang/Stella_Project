@@ -50,9 +50,9 @@ public class LoginService {
         // en la sesión
         return new UsuarioResponse(
                 usuario.getId(), //Un get normal porque Id no es VO
-                usuario.getUsername().valor(), //get().valor() dado que es value object
-                usuario.getCorreo().valor(),
-                usuario.getNombre().valor(),
+                usuario.getUsername(),
+                usuario.getCorreo(),
+                usuario.getNombre(),
                 usuario.getTipo().valor()
         );
     }

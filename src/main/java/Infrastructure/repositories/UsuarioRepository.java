@@ -2,13 +2,9 @@ package Infrastructure.repositories;
 
 // Imports necesarios
 import Domain.models.Usuario;
-import Domain.models.UsuarioValueObjects.Correo;
-import Domain.models.UsuarioValueObjects.Nombre;
 import Domain.models.UsuarioValueObjects.Tipo;
-import Domain.models.UsuarioValueObjects.Username;
 import Domain.repositoriesInterfaces.InterfazUsuarioRepository;
 import Domain.exceptions.usuario.UsuarioYaExisteException;
-import Infrastructure.persistence.ConexionBD;
 import Infrastructure.persistence.IConexionBD;
 
 import java.sql.*;
@@ -32,9 +28,9 @@ public class UsuarioRepository implements InterfazUsuarioRepository {
         try (Connection conn = connMgr.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-            pstmt.setString(1, usuario.getUsername().valor());
-            pstmt.setString(2, usuario.getNombre().valor());
-            pstmt.setString(3, usuario.getCorreo().valor());
+            pstmt.setString(1, usuario.getUsername());
+            pstmt.setString(2, usuario.getNombre());
+            pstmt.setString(3, usuario.getCorreo());
             pstmt.setString(4, usuario.getContrasena());
             pstmt.setString(5, usuario.getTipo().valor());
             pstmt.executeUpdate();
@@ -56,7 +52,7 @@ public class UsuarioRepository implements InterfazUsuarioRepository {
         } catch (SQLException e) {
             // Código de error para violación de unicidad en H2: 23505.
             if (e.getErrorCode() == 23505) {
-                throw new UsuarioYaExisteException(usuario.getCorreo().valor());
+                throw new UsuarioYaExisteException(usuario.getCorreo());
             }
             throw new RuntimeException("Error guardando usuario: " + e.getMessage(), e);
         }
@@ -146,9 +142,9 @@ public class UsuarioRepository implements InterfazUsuarioRepository {
     private Usuario obtenerUsuario(ResultSet rs) throws SQLException {
         return Usuario.reconstruir(
                 rs.getInt("id"),
-                new Username(rs.getString("username")),
-                new Correo(rs.getString("correo")),
-                new Nombre(rs.getString("nombre")),
+                rs.getString("username"),
+                rs.getString("correo"),
+                rs.getString("nombre"),
                 rs.getString("contrasena"),
                 new Tipo(rs.getString("tipo"))
         );

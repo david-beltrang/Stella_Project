@@ -1,9 +1,6 @@
 package Domain.models;
 
-import Domain.models.UsuarioValueObjects.Correo;
-import Domain.models.UsuarioValueObjects.Nombre;
 import Domain.models.UsuarioValueObjects.Tipo;
-import Domain.models.UsuarioValueObjects.Username;
 
 import java.util.Objects;
 
@@ -17,17 +14,17 @@ import java.util.Objects;
 public class Usuario {
 
     private Integer id;            //null si no se ha guardado el usuario en la BD
-    private Username username;     // Value Object
-    private Correo correo;         // Value Object
-    private Nombre nombre;         // Value Object
+    private String username;     // Value Object
+    private String correo;         // Value Object
+    private String nombre;         // Value Object
     private String contrasena;     // contraseña simple (tu requerimiento)
     private Tipo tipo;      // Value Object
 
     // Constructor garantiza integridad del objeto y que los valores no sean nulos
     private Usuario(Integer id,
-                    Username username,
-                    Correo correo,
-                    Nombre nombre,
+                    String username,
+                    String correo,
+                    String nombre,
                     String contrasena,
                     Tipo tipo) {
 
@@ -51,9 +48,9 @@ public class Usuario {
                                      String contrasena,
                                      String tipoStr) {
 
-        Username usernameVo = new Username(usernameStr); // lanza excepción si inválido
-        Correo correoVo = new Correo(correoStr);        // lanza excepción si inválido
-        Nombre nombreVo = new Nombre(nombreStr);        // lanza excepción si inválido
+        String usernameVo = usernameStr; // lanza excepción si inválido
+        String correoVo = correoStr;        // lanza excepción si inválido
+        String nombreVo = nombreStr;        // lanza excepción si inválido
         Tipo tipoVo = new Tipo(tipoStr);
         return new Usuario(null, usernameVo, correoVo, nombreVo, contrasena, tipoVo);
     }
@@ -64,9 +61,9 @@ public class Usuario {
      */
 
     public static Usuario reconstruir(Integer id,
-                                      Username username,
-                                      Correo correo,
-                                      Nombre nombre,
+                                      String username,
+                                      String correo,
+                                      String nombre,
                                       String contrasena,
                                       Tipo tipo) {
         return new Usuario(id, username, correo, nombre, contrasena, tipo);
@@ -87,7 +84,7 @@ public class Usuario {
      * Esta comparación es parte del dominio.
      */
     public boolean verificarCorreo(String correoIngresado) {
-        return this.correo.equals(new Correo(correoIngresado));
+        return this.correo == correoIngresado;
     }
 
     /*
@@ -95,14 +92,14 @@ public class Usuario {
      * Este metodo cambia el estado del agregado username.
      */
     public void actualizarUsername(String nuevoUsername) {
-        this.username = new Username(nuevoUsername); // si  es inválido, el VO lanzará excepción
+        this.username = nuevoUsername; // si  es inválido, el VO lanzará excepción
     }
 
     // ---------- GETTERS  ---------
     public Integer getId() { return id; }
-    public Username getUsername() { return username; }
-    public Correo getCorreo() { return correo; }
-    public Nombre getNombre() { return nombre; }
+    public String getUsername() { return username; }
+    public String getCorreo() { return correo; }
+    public String getNombre() { return nombre; }
     public String getContrasena() { return contrasena; }
     public Tipo getTipo() { return tipo; }
 

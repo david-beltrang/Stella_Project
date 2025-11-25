@@ -47,9 +47,9 @@ public class RegistroService {
             // Retornar DTO para el frontend, excluyendo la contraseña por seguridad
             return new UsuarioResponse(
                     saved.getId(), //Se hace un get normal porque el Id no es un VO
-                    saved.getUsername().valor(), //Se hace un getUsername().valor() porque el record del VO tiene el método para obtener el valor
-                    saved.getCorreo().valor(), //Se hace un getNombre().valor() porque el record del VO tiene el método para obtener el valor
-                    saved.getNombre().valor(), //Se hace un getNombre().valor() porque el record del VO tiene el método para obtener el valor
+                    saved.getUsername(), //Se hace un getUsername().valor() porque el record del VO tiene el método para obtener el valor
+                    saved.getCorreo(), //Se hace un getNombre().valor() porque el record del VO tiene el método para obtener el valor
+                    saved.getNombre(), //Se hace un getNombre().valor() porque el record del VO tiene el método para obtener el valor
                     saved.getTipo().valor() //Se hace un getTipo().valor() porque el record del VO tiene el método para obtener el valor
             );
         } catch (UsuarioYaExisteException e) {
