@@ -6,10 +6,9 @@ import Application.dtos.Prueba.PruebaResponse;
 import Application.dtos.Prueba.RespuestaRequest;
 import Application.services.PruebaService;
 import Infrastructure.ui.AyudaUI;
-import Infrastructure.ui.Navigacion;
+import Infrastructure.ui.Navegacion;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
 
 import java.util.*;
 import java.util.function.Function;
@@ -23,7 +22,7 @@ public class QuizController {
     // ===== Dependencias =====
     private final PruebaService pruebaService;
     private final AyudaUI uiHelper = new AyudaUI();
-    private final Navigacion navigator = new Navigacion();
+    private final Navegacion navigator = new Navegacion();
     private Function<Class<?>, Object> controllerFactory;
 
     // ===== FXML =====

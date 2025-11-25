@@ -1,7 +1,7 @@
 package Domain.repositoriesInterfaces;
 
-import Application.dtos.Foro.ComentarioResponse;
-import Application.dtos.Foro.PostResponse;
+import Application.dtos.foro.ComentarioResponse;
+import Application.dtos.foro.PostResponse;
 import Domain.models.Comentario;
 import Domain.models.Post;
 

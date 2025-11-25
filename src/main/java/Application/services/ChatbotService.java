@@ -1,7 +1,7 @@
 // Application/services/ChatbotService.java
 package Application.services;
 
-import Application.dtos.Chatbot.*;
+import Application.dtos.chatbot.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -13,8 +13,11 @@ import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ChatbotService {
+    private static final Logger logger = LoggerFactory.getLogger(ChatbotService.class);
 
     private static final String API_KEY = "";
     private static final String API_URL = "https://openrouter.ai/api/v1/chat/completions";
@@ -104,14 +107,14 @@ public class ChatbotService {
                     "assistant"
             );
         } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
+            logger.error("Error de conexión al comunicarse con la API del chatbot", e);
             return new ChatMessageResponse(
                     "Error de conexión: " + e.getMessage(),
                     LocalDateTime.now(),
                     "assistant"
             );
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Error inesperado al procesar la respuesta del chatbot", e);
             return new ChatMessageResponse(
                     "Error al procesar la respuesta: " + e.getMessage(),
                     LocalDateTime.now(),

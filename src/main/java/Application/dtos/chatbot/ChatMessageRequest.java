@@ -1,4 +1,4 @@
-package Application.dtos.Chatbot;
+package Application.dtos.chatbot;
 
 public record ChatMessageRequest(String content) {
 }

@@ -3,6 +3,7 @@ package Application.config;
 import Application.dtos.acceso.UsuarioResponse;
 import Application.services.DarAcceso.LoginService;
 import Application.services.DarAcceso.RegistroService;
+import Application.services.ListarCursosService;
 import Application.services.SeccionesService;
 
 // === Pomodoro ===
@@ -13,6 +14,9 @@ public final class AppServices {
     private static LoginService service;
     private static RegistroService registroService;
     private static UsuarioResponse usuarioActual;
+
+    // ===== Cursos / Secciones =====
+    private static ListarCursosService listarCursosService;
     private static SeccionesService seccionesService;
 
     // ===== Pomodoro global =====
@@ -47,4 +51,13 @@ public final class AppServices {
 
     public static boolean isPomodoroFinishListenerRegistrado() { return pomodoroFinishListenerRegistrado; }
     public static void setPomodoroFinishListenerRegistrado(boolean v) { pomodoroFinishListenerRegistrado = v; }
+
+    // ===== Cursos / Secciones =====
+    public static void initCursos(ListarCursosService listar, SeccionesService secciones) {
+        listarCursosService = listar;
+        seccionesService = secciones;
+    }
+
+    public static ListarCursosService getListarCursosService() { return listarCursosService; }
+    public static SeccionesService getSeccionesService() { return seccionesService; }
 }

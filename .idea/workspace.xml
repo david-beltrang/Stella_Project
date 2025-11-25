@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="3c791a3f-173c-427e-b5d1-4cf3b6fd8098" name="Changes" comment="se agregan configural boton de pomodoro para poder ser usado">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/Foro.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Foro.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/Perfil.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Perfil.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/PlantillaCurso.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/PlantillaCurso.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/Pomodoro.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Pomodoro.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/PomodoroDescanso.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/PomodoroDescanso.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/Principal.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Principal.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/ProductoTienda.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/ProductoTienda.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/ResponderForo.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/ResponderForo.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/Tienda.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Tienda.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stella.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/stella.mv.db" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="FxmlFile" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="34tMU8jO9YcphGFhjh6wnl2bQxw" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Stella [javafx:run].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Stella [org.openjfx:javafx-maven-plugin:0.0.8:run].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/curso-cpp&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/StellaFIS/Stella_Project/src/main/resources/Image/General&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15274803&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.29173693&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.JavaFX&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\StellaFIS\Stella_Project\src\main\resources\Image\General" />
+      <recent name="C:\StellaFIS\Stella_Project\src\main\resources\views" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Maven.Stella [javafx:run]">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <envs>
+        <env name="--module-path &quot;C:\Program Files\Java\javafx-sdk-17\lib&quot; --add-modules javafx.controls,javafx.fxml -Dprism.allowh" value="dpi=false " />
+      </envs>
+      <option name="MAIN_CLASS_NAME" value="Main.Main" />
+      <module name="Stella" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Main.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="Stella_Project" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="Stella_Project" />
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Stella [javafx:run]" type="MavenRunConfiguration" factoryName="Maven" temporary="true">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings">
+          <MavenRunnerSettings>
+            <option name="delegateBuildToMaven" value="false" />
+            <option name="environmentProperties">
+              <map />
+            </option>
+            <option name="jreName" value="#USE_PROJECT_JDK" />
+            <option name="mavenProperties">
+              <map />
+            </option>
+            <option name="passParentEnv" value="true" />
+            <option name="skipTests" value="false" />
+            <option name="vmOptions" value="-Dprism.allowhidpi=false " />
+          </MavenRunnerSettings>
+        </option>
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="cmdOptions" />
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="javafx:run" />
+              </list>
+            </option>
+            <option name="multimoduleDir" />
+            <option name="pomFileName" value="pom.xml" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="projectsCmdOptionValues">
+              <list />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Application.Main" />
+      <item itemvalue="Maven.Stella [javafx:run]" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Maven.Stella [javafx:run]" />
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3c791a3f-173c-427e-b5d1-4cf3b6fd8098" name="Changes" comment="" />
+      <created>1762028429485</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1762028429485</updated>
+    </task>
+    <task id="LOCAL-00001" summary="se agregan configural boton de pomodoro para poder ser usado">
+      <option name="closed" value="true" />
+      <created>1762224496150</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1762224496150</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="merge ramas curso-cpp y prueba" />
+    <MESSAGE value="se agregan configural boton de pomodoro para poder ser usado" />
+    <option name="LAST_COMMIT_MESSAGE" value="se agregan configural boton de pomodoro para poder ser usado" />
+  </component>
+</project>

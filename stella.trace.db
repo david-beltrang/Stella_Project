@@ -542,3 +542,7 @@ INSERT INTO "comentario" (post_id, usuario_id, contenido_texto, fecha) VALUES (?
 2025-11-07 20:52:39.304017-05:00 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: No hay datos disponibles.
 No data is available [2000-232]
+2025-11-09 13:23:25.159843-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "item" no encontrada
+Table "item" not found; SQL statement:
+SELECT id, nombre, descripcion, precio, image_path FROM "item" [42102-232]

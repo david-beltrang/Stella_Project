@@ -7,11 +7,14 @@ import Infrastructure.persistence.IConexionBD;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Implementación JDBC para la persistencia de las estadísticas de usuario (racha, pescaditos).
  */
 public class UsuarioStatsRepository implements InterfazUsuarioStatsRepository {
+    private static final Logger logger = LoggerFactory.getLogger(UsuarioStatsRepository.class);
     private IConexionBD connMgr;
 
     // Usar comillas dobles para forzar el nombre "dias_racha"
@@ -36,11 +39,11 @@ public class UsuarioStatsRepository implements InterfazUsuarioStatsRepository {
             int affectedRows = ps.executeUpdate();
             if (affectedRows == 0) {
                 // Podría indicar que el usuarioId aún no tiene una fila en usuario_stats
-                System.err.println("Advertencia: No se encontró registro de stats para actualizar racha. La fila debe ser creada primero.");
+                logger.warn("No se encontró registro de stats para actualizar racha del usuario {}. La fila debe ser creada primero.", usuarioId);
             }
 
         } catch (SQLException e) {
-            System.err.println("Error al actualizar racha: " + e.getMessage());
+            logger.error("Error al actualizar racha del usuario {}", usuarioId, e);
             throw new RuntimeException("Error de persistencia al actualizar Racha", e);
         }
     }
@@ -56,7 +59,8 @@ public class UsuarioStatsRepository implements InterfazUsuarioStatsRepository {
 
             ps.executeUpdate();
         } catch (SQLException e) {
-            System.err.println("Error al actualizar pescaditos: " + e.getMessage());
+            logger.error("Error al actualizar pescaditos del usuario {}", usuarioId, e);
+            throw new RuntimeException("Error de persistencia al actualizar pescaditos", e);
         }
     }
 }

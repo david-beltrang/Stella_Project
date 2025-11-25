@@ -6,8 +6,11 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.util.concurrent.atomic.AtomicBoolean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class H2DataBaseInitializer {
+    private static final Logger logger = LoggerFactory.getLogger(H2DataBaseInitializer.class);
     private static final AtomicBoolean isInitialized = new AtomicBoolean(false);
     private final IConexionBD connMgr;
 
@@ -17,27 +20,32 @@ public class H2DataBaseInitializer {
 
     public void initialize() {
         if (isInitialized.compareAndSet(false, true)) {
-            System.out.println(">>> [H2 Setup] Inicializando esquema de la base de datos...");
+            logger.info("Inicializando base de datos H2...");
             try (Connection conn = connMgr.getConnection()) {
-                InputStream is = H2DataBaseInitializer.class.getClassLoader()
-                        .getResourceAsStream("database_setup.sql");
 
-                if (is == null) {
-                    throw new RuntimeException("No se encontró el archivo database_setup.sql en el classpath.");
-                }
+                runScript(conn, "sql/schema.sql");
+                runScript(conn, "sql/data.sql");
 
-                try (InputStreamReader reader = new InputStreamReader(is, StandardCharsets.UTF_8)) {
-                    RunScript.execute(conn, reader);
-                }
-
-                System.out.println(">>> [H2 Setup] Esquema y datos iniciales cargados con éxito.");
+                logger.info("Base de datos H2 inicializada correctamente");
             } catch (Exception e) {
                 isInitialized.set(false);
-                System.err.println("!!! [H2 Setup] FALLO FATAL al ejecutar el script de inicialización.");
-                e.printStackTrace();
-                throw new RuntimeException("Fallo al inicializar H2: " + e.getMessage(), e);
+                logger.error("Error cargando scripts H2", e);
+                throw new RuntimeException("Error al inicializar la base de datos", e);
             }
         }
     }
-}
 
+    private void runScript(Connection conn, String scriptPath) throws Exception {
+        InputStream is = getClass().getClassLoader().getResourceAsStream(scriptPath);
+
+        if (is == null) {
+            throw new RuntimeException("Archivo no encontrado: " + scriptPath);
+        }
+
+        logger.debug("Ejecutando script: {}", scriptPath);
+
+        try (InputStreamReader reader = new InputStreamReader(is, StandardCharsets.UTF_8)) {
+            RunScript.execute(conn, reader);
+        }
+    }
+}

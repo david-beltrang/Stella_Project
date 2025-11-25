@@ -1,4 +1,4 @@
-package Application.dtos.Foro;
+package Application.dtos.foro;
 
 import java.time.LocalDateTime;
 

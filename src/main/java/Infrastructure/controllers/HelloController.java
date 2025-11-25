@@ -1,6 +1,6 @@
 package Infrastructure.controllers;
 
-import Infrastructure.ui.Navigacion;
+import Infrastructure.ui.Navegacion;
 import Infrastructure.ui.AyudaUI;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -13,7 +13,7 @@ public class HelloController {
     @FXML private Button registroButton;
 
     // Dependencias de UI
-    private final Navigacion navigator = new Navigacion();
+    private final Navegacion navigator = new Navegacion();
     private final AyudaUI uiHelper = new AyudaUI();
 
     // Factory global para la inyección de controladores

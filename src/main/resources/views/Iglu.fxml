@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="root" maxHeight="1080.0" maxWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../styles/LoginStyle.css" xmlns="http://javafx.com/javafx/18.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Infrastructure.controllers.TiendaController">
+
+    <!-- Fondo -->
+    <ImageView fx:id="background" fitHeight="1080" fitWidth="1920" layoutX="1.0" preserveRatio="false">
+        <image>
+            <Image url="@../Image/General/FondoStella.jpg" />
+        </image>
+    </ImageView>
+
+    <!-- Barra inferior -->
+    <StackPane layoutX="-1.0" layoutY="867.0" prefHeight="80" prefWidth="1920.0">
+        <children>
+            <Rectangle arcHeight="0" arcWidth="0" height="80" style="-fx-fill: rgba(8,7,54,0.55);" width="1923.0" />
+            <AnchorPane prefHeight="56.0" prefWidth="1876.0">
+                <children>
+                    <Button fx:id="homeBtn" layoutX="346.0" layoutY="12.0" onAction="#goHome" styleClass="nav-btn">
+                        <graphic><ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                            <image><Image url="@../Image/General/home.png" /></image>
+                        </ImageView></graphic>
+                    </Button>
+
+                    <Button fx:id="forumBtn" layoutX="687.0" layoutY="10.0" onAction="#goForum" styleClass="nav-btn">
+                        <graphic><ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                            <image><Image url="@../Image/General/foro.png" /></image>
+                        </ImageView></graphic>
+                    </Button>
+
+                    <Button fx:id="profileBtn" layoutX="1585.0" layoutY="12.0" onAction="#goProfile" styleClass="nav-btn">
+                        <graphic><ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                            <image><Image url="@../Image/General/usuario.png" /></image>
+                        </ImageView></graphic>
+                    </Button>
+
+                    <!-- 2) NUEVO: botón Pomodoro en la barra inferior (entre fueguito y pescado) -->
+                    <Button fx:id="pomodoroBtn" layoutX="1293.0" layoutY="10.0" onAction="#goPomodoro" style="-fx-background-color: transparent;">
+                        <graphic>
+                            <ImageView fitHeight="52.0" fitWidth="66.0" preserveRatio="true">
+                                <image><Image url="@../Image/General/pomodoro.png" /></image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    <Button fx:id="Tienda" layoutX="991.0" layoutY="12.0" onAction="#goForum" styleClass="nav-btn">
+                        <graphic>
+                            <ImageView fitHeight="32.0" fitWidth="48.0" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Image/General/tienda.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+
+                    <!-- 1) ELIMINADO: botón pomodoro de la barra inferior -->
+                    <!-- (se movió a la barra superior) -->
+                </children>
+            </AnchorPane>
+        </children>
+    </StackPane>
+
+    <!-- Barra superior con el botón "Cerrar sesión" -->
+    <StackPane layoutX="-1.0" layoutY="32.0" prefHeight="80" prefWidth="1920.0">
+        <children>
+            <Rectangle arcHeight="0" arcWidth="0" height="80" style="-fx-fill: rgba(8,7,54,0.55);" width="1923.0" />
+            <AnchorPane prefHeight="56.0" prefWidth="1876.0">
+                <children>
+                    <!-- Iconos -->
+                    <Button fx:id="homeBtn2" layoutX="346.0" layoutY="7.0" onAction="#goHome" prefWidth="60.0" styleClass="nav-btn">
+                        <graphic>
+                            <ImageView fitHeight="36.0" fitWidth="38.0" preserveRatio="true">
+                                <image><Image url="@../Image/General/Trofeo.png" /></image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+
+                    <!-- FUEGUITO -->
+                    <ImageView fitHeight="61.0" fitWidth="65.0" layoutX="633.0" layoutY="11.0" preserveRatio="true">
+                        <image><Image url="@../Image/General/racha.png" /></image>
+                    </ImageView>
+
+                    <!-- PESCADITOS -->
+                    <ImageView fitHeight="237.0" fitWidth="90.0" layoutX="1205.0" layoutY="14.0" preserveRatio="true">
+                        <image><Image url="@../Image/General/pescaditos.png" /></image>
+                    </ImageView>
+
+                    <!-- Chatbot -->
+                    <Button fx:id="chatBtn1" layoutX="975.0" layoutY="9.0" onAction="#goChatbot" styleClass="nav-btn">
+                        <graphic>
+                            <ImageView fitHeight="35.0" fitWidth="35.0" preserveRatio="true">
+                                <image><Image url="@../Image/General/ChatBot.png" /></image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+
+                    <!-- Botón cerrar sesión -->
+                    <Button fx:id="logoutBtn" layoutX="1630.0" layoutY="15.0" onAction="#cerrarSesion" style="-fx-background-color: #4DA3FF; -fx-text-fill: white; -fx-font-weight: bold;                                    -fx-background-radius: 10; -fx-padding: 6 14;" text="Cerrar sesión">
+                        <font>
+                            <Font name="System Bold Italic" size="27.0" />
+                        </font>
+                    </Button>
+                    <Button layoutX="692.0" layoutY="23.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="123.0" />
+                    <Button layoutX="1304.0" layoutY="22.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="123.0" />
+                </children>
+            </AnchorPane>
+        </children>
+    </StackPane>
+</AnchorPane>

@@ -10,29 +10,34 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1080.0" maxWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@/styles/LoginStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Infrastructure.controllers.PrincipalController">
+<AnchorPane fx:id="root" maxHeight="1080.0" maxWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../styles/LoginStyle.css" xmlns="http://javafx.com/javafx/18.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Infrastructure.controllers.PrincipalController">
 
     <!-- Fondo -->
-    <ImageView fx:id="background" fitHeight="1080" fitWidth="1920" preserveRatio="false">
-        <image><Image url="@/Image/General/FondoStella.jpg" /></image>
+    <ImageView fx:id="background" fitHeight="1080" fitWidth="2004.0" preserveRatio="false">
+        <image><Image url="@../Image/General/FondoStella.jpg" /></image>
     </ImageView>
 
     <!-- Barra superior (buscador) -->
-    <HBox layoutX="283.0" layoutY="158.0" spacing="20">
+    <HBox layoutX="283.0" layoutY="182.0" spacing="20">
         <children>
-            <TextField fx:id="searchField" prefWidth="600" promptText="Buscar curso..." style="-fx-background-radius: 20; -fx-padding: 8 20 8 20;" />
+            <TextField fx:id="searchField" prefWidth="600" promptText="Buscar curso..." style="-fx-background-radius: 20; -fx-padding: 8 20 8 20;">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </TextField>
             <Button onAction="#buscarCurso" style="-fx-background-color: transparent; -fx-font-size: 20; -fx-text-fill: #00BFFF;" text="🔍" />
         </children>
     </HBox>
 
     <!-- MIS CURSOS -->
-    <Label layoutX="283.0" layoutY="201.0" style="-fx-text-fill: white; -fx-font-size: 36; -fx-font-weight: bold;" text="Mis Cursos" />
+    <Label layoutX="298.0" layoutY="218.0" style="-fx-text-fill: white; -fx-font-size: 36; -fx-font-weight: bold;" text="Mis Cursos" />
 
     <AnchorPane layoutX="283.0" layoutY="262.0" prefHeight="200" prefWidth="1720">
         <children>
             <Label fx:id="noCoursesLabel" layoutX="760" layoutY="80" style="-fx-text-fill: white; -fx-font-size: 20; -fx-font-weight: bold;" text="Aún no tienes cursos." visible="false" />
-            <ScrollPane fx:id="misCursosScroll" hbarPolicy="NEVER" prefHeight="200" prefWidth="1720" style="-fx-background-color: transparent;" vbarPolicy="NEVER">
+            <ScrollPane fx:id="misCursosScroll" hbarPolicy="NEVER" layoutX="96.0" layoutY="18.0" prefHeight="200" prefWidth="1624.0" style="-fx-background-color: transparent;" vbarPolicy="NEVER">
                 <content>
                     <HBox fx:id="misCursosContainer" alignment="CENTER_LEFT" spacing="30" />
                 </content>
@@ -41,13 +46,16 @@
     </AnchorPane>
 
     <!-- CURSOS DISPONIBLES -->
-    <Label layoutX="283.0" layoutY="479.0" style="-fx-text-fill: white; -fx-font-size: 36; -fx-font-weight: bold;" text="Cursos Disponibles" />
+    <Label layoutX="283.0" layoutY="481.0" style="-fx-text-fill: white; -fx-font-size: 36; -fx-font-weight: bold;" text="Cursos Disponibles">
+        <font>
+            <Font size="10.0" />
+        </font></Label>
 
     <AnchorPane layoutX="272.0" layoutY="540.0" prefHeight="240.0" prefWidth="1222.0">
         <children>
             <Button fx:id="leftArrow" layoutX="0" layoutY="100" onAction="#scrollLeft" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 40;" text="◀" />
 
-            <ScrollPane fx:id="cursosDisponiblesScroll" hbarPolicy="NEVER" layoutX="60" layoutY="0" prefHeight="240" prefWidth="1100" style="-fx-background-color: transparent;" vbarPolicy="NEVER">
+            <ScrollPane fx:id="cursosDisponiblesScroll" hbarPolicy="NEVER" layoutX="110.0" layoutY="0" prefHeight="240" prefWidth="988.0" style="-fx-background-color: transparent;" vbarPolicy="NEVER">
                 <content>
                     <HBox fx:id="cursosDisponiblesContainer" alignment="CENTER_LEFT" spacing="30" />
                 </content>
@@ -58,78 +66,124 @@
     </AnchorPane>
 
     <!-- Barra inferior -->
-    <StackPane layoutX="-1.0" layoutY="867.0" prefHeight="80" prefWidth="1920.0">
+    <StackPane layoutY="780.0" prefHeight="80" prefWidth="1920.0">
         <children>
             <Rectangle arcHeight="0" arcWidth="0" height="80" style="-fx-fill: rgba(8,7,54,0.55);" width="1923.0" />
             <AnchorPane prefHeight="56.0" prefWidth="1876.0">
                 <children>
                     <Button fx:id="homeBtn" layoutX="346.0" layoutY="12.0" onAction="#goHome" styleClass="nav-btn">
-                        <graphic><ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
-                            <image><Image url="@/Image/General/home.png" /></image>
-                        </ImageView></graphic>
+                        <graphic>
+                            <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Image/General/home.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
                     </Button>
 
-                    <Button fx:id="forumBtn" layoutX="688.0" layoutY="12.0" onAction="#goForum" styleClass="nav-btn">
-                        <graphic><ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
-                            <image><Image url="@/Image/General/foro.png" /></image>
-                        </ImageView></graphic>
+                    <Button fx:id="forumBtn" layoutX="687.0" layoutY="10.0" onAction="#goForum" styleClass="nav-btn">
+                        <graphic>
+                            <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Image/General/foro.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
                     </Button>
 
-                    <Button fx:id="achievementsBtn" layoutX="1181.0" layoutY="-6.0" onAction="#goAchievements" prefHeight="85.0" prefWidth="112.0" styleClass="nav-btn" />
-
-                    <Button fx:id="profileBtn" layoutX="1585.0" layoutY="12.0" onAction="#goProfile" styleClass="nav-btn">
-                        <graphic><ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
-                            <image><Image url="@/Image/General/usuario.png" /></image>
-                        </ImageView></graphic>
+                    <Button fx:id="profileBtn" layoutX="1553.0" layoutY="12.0" onAction="#goProfile" styleClass="nav-btn">
+                        <graphic>
+                            <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Image/General/usuario.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
                     </Button>
 
-                    <!-- 1) ELIMINADO: botón pomodoro de la barra inferior -->
-                    <!-- (se movió a la barra superior) -->
+                    <Button fx:id="iguluBtn" layoutX="1293.0" layoutY="10.0" style="-fx-background-color: transparent;">
+                        <graphic>
+                            <ImageView fitHeight="52.0" fitWidth="66.0" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Image/General/Iglu.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+
+                    <Button fx:id="tiendaBtn" layoutX="994.0" layoutY="10.0" onAction="#goTienda" styleClass="nav-btn">
+                        <graphic>
+                            <ImageView fitHeight="35.0" fitWidth="35.0" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Image/General/tienda.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
                 </children>
             </AnchorPane>
         </children>
     </StackPane>
 
-    <!-- Barra superior con el botón "Cerrar sesión" -->
-    <StackPane layoutX="-1.0" layoutY="32.0" prefHeight="80" prefWidth="1920.0">
+    <!-- Barra superior con buscador y logout -->
+    <StackPane layoutY="91.0" prefHeight="80" prefWidth="1920.0">
         <children>
             <Rectangle arcHeight="0" arcWidth="0" height="80" style="-fx-fill: rgba(8,7,54,0.55);" width="1923.0" />
             <AnchorPane prefHeight="56.0" prefWidth="1876.0">
                 <children>
-                    <Button fx:id="homeBtn2" layoutX="346.0" layoutY="12.0" onAction="#goHome" styleClass="nav-btn">
+                    <!-- Iconos -->
+                    <Button fx:id="homeBtn2" layoutX="346.0" layoutY="7.0" onAction="#goHome" prefWidth="60.0" styleClass="nav-btn">
                         <graphic>
-                            <ImageView fitHeight="53.0" fitWidth="57.0" preserveRatio="true">
-                                <image><Image url="@/Image/General/trofeo.png" /></image>
+                            <ImageView fitHeight="36.0" fitWidth="38.0" preserveRatio="true">
+                                <image><Image url="@../Image/General/Trofeo.png" /></image>
                             </ImageView>
                         </graphic>
                     </Button>
 
-                    <Button fx:id="forumBtn2" layoutX="679.0" layoutY="30.0" onAction="#goForum" styleClass="nav-btn" />
-                    <Button fx:id="achievementsBtn2" layoutX="1082.0" layoutY="30.0" onAction="#goAchievements" styleClass="nav-btn" />
-
-                    <!-- Fueguito (racha) -->
-                    <ImageView fitHeight="61.0" fitWidth="65.0" layoutX="707.0" layoutY="20.0" preserveRatio="true">
-                        <image><Image url="@/Image/General/racha.png" /></image>
+                    <!-- FUEGUITO -->
+                    <ImageView fitHeight="61.0" fitWidth="65.0" layoutX="597.0" layoutY="11.0" preserveRatio="true">
+                        <image><Image url="@../Image/General/racha.png" /></image>
                     </ImageView>
 
-                    <!-- 2) NUEVO: botón Pomodoro en la barra superior (entre fueguito y pescado) -->
-                    <Button fx:id="pomodoroBtn" layoutX="988.0" layoutY="13.0" onAction="#goPomodoro" style="-fx-background-color: transparent;">
+                    <!-- PESCADITOS -->
+                    <ImageView fitHeight="237.0" fitWidth="90.0" layoutX="1127.0" layoutY="14.0" preserveRatio="true">
+                        <image><Image url="@../Image/General/pescaditos.png" /></image>
+                    </ImageView>
+
+                    <!-- Chatbot -->
+                    <Button fx:id="chatBtn1" layoutX="895.0" layoutY="9.0" onAction="#goChatbot" styleClass="nav-btn">
                         <graphic>
-                            <ImageView fitHeight="52.0" fitWidth="66.0" preserveRatio="true">
-                                <image><Image url="@/Image/General/pomodoro.png" /></image>
+                            <ImageView fitHeight="35.0" fitWidth="35.0" preserveRatio="true">
+                                <image><Image url="@../Image/General/ChatBot.png" /></image>
                             </ImageView>
                         </graphic>
                     </Button>
 
-                    <!-- Pescaditos -->
-                    <ImageView fitHeight="237.0" fitWidth="90.0" layoutX="1226.0" layoutY="6.0" preserveRatio="true">
-                        <image><Image url="@/Image/General/pescaditos.png" /></image>
-                    </ImageView>
-
-                    <!-- Cerrar sesión (sin cambios) -->
-                    <Button fx:id="logoutBtn" layoutX="1366.0" layoutY="28.0" style="-fx-background-color: #4DA3FF; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 6 14;" text="Cerrar sesión" />
+                    <!-- Botón cerrar sesión -->
+                    <Button fx:id="logoutBtn" layoutX="1420.0" layoutY="15.0" onAction="#cerrarSesion" style="-fx-background-color: #4DA3FF; -fx-text-fill: white; -fx-font-weight: bold;                                    -fx-background-radius: 10; -fx-padding: 6 14;" text="Cerrar sesión">
+                        <font>
+                            <Font name="System Bold Italic" size="27.0" />
+                        </font>
+                    </Button>
+                    <Button layoutX="644.0" layoutY="23.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="123.0" />
+                    <Button layoutX="1203.0" layoutY="22.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="123.0" />
                 </children>
             </AnchorPane>
         </children>
     </StackPane>
+
+    <!-- BOTÓN POMODORO -->
+    <Button fx:id="pomodoroBtn1" layoutX="1424.0" layoutY="230.0" onAction="#goPomodoro" prefHeight="115.0" prefWidth="130.0" style="-fx-background-color: transparent;">
+        <graphic>
+            <ImageView fitHeight="134.0" fitWidth="133.0" preserveRatio="true">
+                <image>
+                    <Image url="@../Image/General/pomodoro.png" />
+                </image>
+            </ImageView>
+        </graphic>
+    </Button>
+
+    <!-- 🔧 Temporizador Pomodoro dinámico -->
+    <Label fx:id="timerLabel" layoutX="1468.0" layoutY="187.0" prefHeight="39.0" prefWidth="64.0" style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;" text="00:00" />
+
 </AnchorPane>
