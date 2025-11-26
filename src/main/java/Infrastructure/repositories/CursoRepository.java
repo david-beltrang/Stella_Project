@@ -7,7 +7,7 @@ import Domain.models.CursoValueObjects.NivelCurso;
 import Domain.models.CursoValueObjects.Titulo;
 import Domain.repositoriesInterfaces.InterfazCursoRepository;
 import Infrastructure.persistence.IConexionBD;
-import Application.dtos.Listado_Cursos.DetallesResponse;
+
 
 import java.sql.*;
 import java.util.ArrayList;

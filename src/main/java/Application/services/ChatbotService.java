@@ -67,9 +67,9 @@ public class ChatbotService {
 
             // Construir la solicitud HTTP
             HttpRequest requestHttp = HttpRequest.newBuilder()
-                    .uri(URI.create(API_URL))
+                    .uri(URI.create(getApiUrl()))
                     .header("Content-Type", "application/json")
-                    .header("Authorization", "Bearer " + API_KEY)
+                    .header("Authorization", "Bearer " + getApiKey())
                     .header("HTTP-Referer", "http://localhost")
                     .header("X-Title", "Chatbot Stella")
                     .POST(HttpRequest.BodyPublishers.ofString(body.toString()))
@@ -143,5 +143,13 @@ public class ChatbotService {
                 "system"
         );
         conversationHistory.add(systemMsg);
+    }
+
+    protected String getApiKey() {
+        return API_KEY;
+    }
+
+    protected String getApiUrl() {
+        return API_URL;
     }
 }

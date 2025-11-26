@@ -8,6 +8,7 @@ public interface InterfazUsuarioCursoRepository {
     public void inscribir(UsuarioCurso usuarioCurso);
     public boolean existeInscripcion(Integer usuarioId, Integer cursoId);
     public List<UsuarioCurso> encontrarPorUsuarioId(Integer usuario_id);
+    public void inicializarProgresoTodasLecciones(int usuarioId, int cursoId);
 
 }
 

@@ -87,20 +87,14 @@ public class LoginController {
         String pass = viewModel.getPassword();
 
         try {
-            // 1️⃣ Validación (Strategy Pattern)
+
             emailValidator.validate(correo);
             passwordValidator.validate(pass);
 
-            // 2️⃣ Autenticación (delegado al servicio - Controller Pattern)
             UsuarioResponse usuario = service.login(new LoginRequest(correo, pass));
-
-            // 3️⃣ Guardar el usuario globalmente (delegado al servicio de sesión)
             AppServices.setUsuarioActual(usuario);
-
-            // 4️⃣ Navegación delegada a Navigacion (Separation of Concerns)
             navigator.goTo("/views/Principal.fxml", "STELLA - Principal", controllerFactory, correoField);
 
-            // 5️⃣ Mensaje personalizado
             uiHelper.showInfo(
                     "Bienvenido " + usuario.nombre(),
                     "Has iniciado sesión correctamente. Tu ID es: " + usuario.id());

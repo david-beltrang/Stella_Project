@@ -1,10 +1,7 @@
 package Domain.models;
 
-import Domain.models.UsuarioValueObjects.Correo;
-import Domain.models.UsuarioValueObjects.Nombre;
-import Domain.models.UsuarioValueObjects.Tipo;
-import Domain.models.UsuarioValueObjects.Username;
 
+import Domain.models.UsuarioValueObjects.Tipo;
 import java.util.Objects;
 
 /**
@@ -29,9 +26,9 @@ import java.util.Objects;
 public class Usuario {
 
     private final Integer id; // null si no se ha guardado el usuario en la BD
-    private Username username; // Value Object (Mutable para permitir actualización)
-    private final Correo correo; // Value Object
-    private final Nombre nombre; // Value Object
+    private String username; // Value Object (Mutable para permitir actualización)
+    private final String correo; // Value Object
+    private final String nombre; // Value Object
     private final String contrasena; // contraseña simple (tu requerimiento)
     private final Tipo tipo; // Value Object
     private final java.time.LocalDateTime fechaCreacion; // Nuevo campo
@@ -51,9 +48,9 @@ public class Usuario {
 
     public static class Builder {
         private Integer id;
-        private Username username;
-        private Correo correo;
-        private Nombre nombre;
+        private String username;
+        private String correo;
+        private String nombre;
         private String contrasena;
         private Tipo tipo;
         private java.time.LocalDateTime fechaCreacion;
@@ -67,32 +64,18 @@ public class Usuario {
         }
 
         public Builder username(String usernameStr) {
-            this.username = new Username(usernameStr);
+            this.username = usernameStr;
             return this;
         }
 
-        public Builder username(Username username) {
-            this.username = username;
-            return this;
-        }
 
         public Builder correo(String correoStr) {
-            this.correo = new Correo(correoStr);
-            return this;
-        }
-
-        public Builder correo(Correo correo) {
-            this.correo = correo;
+            this.correo = correoStr;
             return this;
         }
 
         public Builder nombre(String nombreStr) {
-            this.nombre = new Nombre(nombreStr);
-            return this;
-        }
-
-        public Builder nombre(Nombre nombre) {
-            this.nombre = nombre;
+            this.nombre = nombreStr;
             return this;
         }
 
@@ -125,7 +108,7 @@ public class Usuario {
         return new Builder();
     }
 
-    // ------------------ FACTORY METHODS (ADAPTED TO USE BUILDER)
+    // ------------------ FACTORY METHODS ADAPTADOS PARA BUILDER
     // ----------------------------------------
 
     /*
@@ -151,9 +134,9 @@ public class Usuario {
      * Reconstruir un Usuario instanciandoolo desde datos que vienen de la BD.
      */
     public static Usuario reconstruir(Integer id,
-            Username username,
-            Correo correo,
-            Nombre nombre,
+            String username,
+            String correo,
+            String nombre,
             String contrasena,
             Tipo tipo,
             java.time.LocalDateTime fechaCreacion) {
@@ -181,14 +164,14 @@ public class Usuario {
      * Verifica si el correo ingresado coincide con el del usuario en memoria.
      */
     public boolean verificarCorreo(String correoIngresado) {
-        return this.correo.equals(new Correo(correoIngresado));
+        return this.correo == correoIngresado;
     }
 
     /*
      * Actualiza el username del usuario.
      */
     public void actualizarUsername(String nuevoUsername) {
-        this.username = new Username(nuevoUsername);
+        this.username = nuevoUsername;
     }
 
     // ---------- GETTERS ---------
@@ -196,15 +179,15 @@ public class Usuario {
         return id;
     }
 
-    public Username getUsername() {
+    public String getUsername() {
         return username;
     }
 
-    public Correo getCorreo() {
+    public String getCorreo() {
         return correo;
     }
 
-    public Nombre getNombre() {
+    public String getNombre() {
         return nombre;
     }
 

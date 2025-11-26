@@ -25,7 +25,7 @@ public class ControllerControladores {
     private final RegistroService registroService;
     private final LeccionService leccionService;
     private final TiendaService tiendaService;
-    private final PerfilService perfilService; // ✅ NUEVO
+    private final PerfilService perfilService; //
     private final ChatbotService chatbotService;
 
     // ======== Controladores ========
@@ -38,8 +38,8 @@ public class ControllerControladores {
     private LeccionController leccionController;
     private QuizController quizController;
     private TiendaController tiendaController;
-    private PerfilController perfilController; // ✅
-    private ForoController foroController; // ✅ NUEVO NUEVO
+    private PerfilController perfilController; //
+    private ForoController foroController; //
 
     // ======== Factory global ========
     private Function<Class<?>, Object> factory;
@@ -54,7 +54,7 @@ public class ControllerControladores {
             LeccionService leccionService,
             TiendaService tiendaService,
             ChatbotService chatbotService,
-            PerfilService perfilService // ✅ NUEVO parámetro
+            PerfilService perfilService //
     ) {
         this.seccionesService = Objects.requireNonNull(seccionesService);
         this.listarCursosService = Objects.requireNonNull(listarCursosService);
@@ -81,7 +81,7 @@ public class ControllerControladores {
         this.quizController = new QuizController();
         this.tiendaController = new TiendaController(tiendaService);
         this.perfilController = new PerfilController(perfilService);
-        this.foroController = new ForoController(); // ✅ NUEVO
+        this.foroController = new ForoController();
 
         // === Factory global ===
         this.factory = (Class<?> clazz) -> {
@@ -106,9 +106,9 @@ public class ControllerControladores {
             if (clazz == TiendaController.class)
                 return tiendaController;
             if (clazz == PerfilController.class)
-                return perfilController; // ✅
+                return perfilController; //
             if (clazz == ForoController.class)
-                return foroController; // ✅ NUEVO
+                return foroController; //
             if (clazz == ProductoTiendaController.class)
                 return new ProductoTiendaController(tiendaService);
             try {
@@ -129,7 +129,7 @@ public class ControllerControladores {
         quizController.setControllerFactory(factory);
         tiendaController.setControllerFactory(factory);
         perfilController.setControllerFactory(factory);
-        foroController.setControllerFactory(factory); // ✅ NUEVO
+        foroController.setControllerFactory(factory); //
     }
 
     // Helper for navigation if needed

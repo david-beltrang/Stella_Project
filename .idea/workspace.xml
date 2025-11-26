@@ -6,16 +6,20 @@
   <component name="ChangeListManager">
     <list default="true" id="3c791a3f-173c-427e-b5d1-4cf3b6fd8098" name="Changes" comment="se agregan configural boton de pomodoro para poder ser usado">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/views/Foro.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Foro.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/views/Perfil.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Perfil.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/views/PlantillaCurso.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/PlantillaCurso.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/views/Pomodoro.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Pomodoro.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/views/PomodoroDescanso.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/PomodoroDescanso.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/views/Principal.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Principal.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/views/ProductoTienda.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/ProductoTienda.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/views/ResponderForo.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/ResponderForo.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/views/Tienda.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/Tienda.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stella.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/stella.mv.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Application/services/ChatbotService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/services/ChatbotService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Application/services/ListarCursosService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/services/ListarCursosService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Application/services/PerfilService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/services/PerfilService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/models/LeccionValueObjects/Estado.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/models/LeccionValueObjects/Estado.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/models/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/models/Usuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/repositoriesInterfaces/InterfazUsuarioCursoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/repositoriesInterfaces/InterfazUsuarioCursoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/ControllerControladores.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/ControllerControladores.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/CursoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/CursoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/ProgresoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/ProgresoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/SesionEstudioRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/SesionEstudioRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/UsuarioCursoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/UsuarioCursoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/test_temporal/TestUsuarioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/test_temporal/TestUsuarioService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/sql/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/sql/data.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,8 +29,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="FxmlFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -38,6 +42,18 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;LOUWPII&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/david-beltrang/Stella_Project.git&quot;,
+    &quot;accountId&quot;: &quot;8777b691-8a52-4ca1-a4e7-1ad65489ecfb&quot;
+  }
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -49,18 +65,19 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoginServiceIntegrationTest.executor&quot;: &quot;Run&quot;,
     &quot;Maven.Stella [javafx:run].executor&quot;: &quot;Run&quot;,
     &quot;Maven.Stella [org.openjfx:javafx-maven-plugin:0.0.8:run].executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature/curso-cpp&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;fix/database&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/StellaFIS/Stella_Project/src/main/resources/Image/General&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15274803&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.29173693&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.JavaFX&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -69,7 +86,7 @@
       <recent name="C:\StellaFIS\Stella_Project\src\main\resources\views" />
     </key>
   </component>
-  <component name="RunManager" selected="Maven.Stella [javafx:run]">
+  <component name="RunManager" selected="JUnit.LoginServiceIntegrationTest">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <envs>
         <env name="--module-path &quot;C:\Program Files\Java\javafx-sdk-17\lib&quot; --add-modules javafx.controls,javafx.fxml -Dprism.allowh" value="dpi=false " />
@@ -82,6 +99,37 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LoginServiceIntegrationTest" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+      <module name="Stella" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Infrastructure.controllers.*" />
+          <option name="ENABLED" value="true" />
+          <option name="INCLUDE" value="false" />
+        </pattern>
+        <pattern>
+          <option name="PATTERN" value="Infrastructure.ui.*" />
+          <option name="ENABLED" value="true" />
+          <option name="INCLUDE" value="false" />
+        </pattern>
+        <pattern>
+          <option name="PATTERN" value="Main.*" />
+          <option name="ENABLED" value="true" />
+          <option name="INCLUDE" value="false" />
+        </pattern>
+        <pattern>
+          <option name="PATTERN" value="Application.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Application.services" />
+      <option name="MAIN_CLASS_NAME" value="Application.services.LoginServiceIntegrationTest" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -143,6 +191,7 @@
     </configuration>
     <list>
       <item itemvalue="Application.Main" />
+      <item itemvalue="JUnit.LoginServiceIntegrationTest" />
       <item itemvalue="Maven.Stella [javafx:run]" />
     </list>
     <recent_temporary>

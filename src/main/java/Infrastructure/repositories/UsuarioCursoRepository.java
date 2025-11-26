@@ -2,7 +2,6 @@ package Infrastructure.repositories;
 
 import Domain.models.UsuarioCurso;
 import Domain.repositoriesInterfaces.InterfazUsuarioCursoRepository;
-import Infrastructure.persistence.ConexionBD;
 import Infrastructure.persistence.IConexionBD;
 
 import java.sql.*;
@@ -75,6 +74,32 @@ public class UsuarioCursoRepository implements InterfazUsuarioCursoRepository {
                 rs.getInt("curso_id"),
                 rs.getTimestamp("fecha").toLocalDateTime()
         );
+    }
+
+    public void inicializarProgresoTodasLecciones(int usuarioId, int cursoId) {
+        String sql = """
+        INSERT IGNORE INTO "progreso_leccion" (usuario_id, leccion_id, estado)
+            SELECT ?, l.id, 'EN_PROGRESO'
+            FROM "leccion" l
+            JOIN "seccion" s ON l.seccion_id = s.id
+            WHERE s.curso_id = ?
+        """;
+
+        try (Connection conn = connMgr.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            // 1. Enlazar el primer marcador '?' (usuario_id)
+            pstmt.setInt(1, usuarioId);
+
+            // 2. Enlazar el segundo marcador '?' (curso_id para la cláusula WHERE)
+            pstmt.setInt(2, cursoId);
+
+            // Ejecutar la actualización (es un INSERT, por lo que usamos executeUpdate)
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al inicializar el progreso de las lecciones para el usuario: " + usuarioId + " en curso: " + cursoId, e);
+        }
     }
 
 

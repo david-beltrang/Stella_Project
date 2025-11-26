@@ -81,7 +81,11 @@ public class ProgresoRepository implements InterfazProgresoRepository {
                     int completadas = rs.getInt("completadas");
                     // Conteo real de lecciones por curso
                     int totalLecciones = contarLeccionesPorCurso(cursoId, conn);
-                    return totalLecciones > 0 ? (completadas / (double) totalLecciones) * 100 : 0.0;
+                    if (totalLecciones == 0) return 0.0;
+
+                    // REDONDEO A 2 DECIMALES - PROFESIONAL
+                    double porcentaje = (completadas / (double) totalLecciones) * 100;
+                    return Math.round(porcentaje * 100.0) / 100.0;
                 }
             }
         } catch (Exception e) {

@@ -75,10 +75,10 @@ public class PerfilService {
         }
 
         return new PerfilDTO(
-                usuario.getNombre().valor(),
-                usuario.getUsername().valor(),
-                usuario.getCorreo().valor(),
-                usuario.getContrasena(), // Requirement says "Contraseña"
+                usuario.getNombre(),
+                usuario.getUsername(),
+                usuario.getCorreo(),
+                usuario.getContrasena(),
                 nombresCursos,
                 cursosCompletados,
                 usuario.getFechaCreacion(),

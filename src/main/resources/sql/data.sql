@@ -247,3 +247,40 @@ INSERT INTO "post" (usuario_id, contenido_texto, fecha, etiqueta) VALUES
 
 INSERT INTO "comentario" (post_id, usuario_id, contenido_texto, fecha) VALUES
 (2, 1, 'Sí, debes asignar y liberar memoria así: int *arr = new int[10]; y delete[] arr;', '2025-11-07 18:25:00');
+
+--Prueba o quiz
+INSERT INTO "prueba" (curso_id, seccion_id, titulo, tipo)
+VALUES (1, 1, 'Quiz: Tipos de datos en C++', 'SECCIONAL');
+
+INSERT INTO "pregunta" (enunciado, prueba_id)
+VALUES ('¿Cómo se declara una variable int en C++?', 1);
+
+INSERT INTO "pregunta" (enunciado, prueba_id)
+VALUES ('¿Qué tipo de dato se usa para texto?', 1);
+
+-- Opciones para cada pregunta
+INSERT INTO "opcion" (pregunta_id, texto, es_correcta) VALUES (1, 'int x;', true);
+INSERT INTO "opcion" (pregunta_id, texto, es_correcta) VALUES (1, 'variable x;', false);
+INSERT INTO "opcion" (pregunta_id, texto, es_correcta) VALUES (1, 'x = int;', false);
+
+INSERT INTO "opcion" (pregunta_id, texto, es_correcta) VALUES (2, 'string', true);
+INSERT INTO "opcion" (pregunta_id, texto, es_correcta) VALUES (2, 'int', false);
+INSERT INTO "opcion" (pregunta_id, texto, es_correcta) VALUES (2, 'char', false);
+
+
+-- DATOS DE PRUEBA PARA PROGRESO (solo para tests - escenario realista)
+
+-- Usuario id=1 (test@estudio.com) ya está inscrito en curso 1 (C++)
+-- Nota: cuando un usuario se inscribe  en un curso se insertan un numero de registros
+-- igual al numero de lecciones en el curso en el que se iscribió y ademas el campo "estado"
+-- se marca como EN_PROGRESO
+
+-- Simulamos que el usuario ya avanzó un poco:
+-- Marcamos las primeras 7 lecciones como COMPLETADA
+UPDATE "progreso_leccion"
+SET estado = 'COMPLETADA'
+WHERE usuario_id = 1
+  AND leccion_id IN (1, 2, 3, 4, 5, 6, 7);
+
+-- Lección 8 la dejamos EN_PROGRESO (para probar actualización)
+-- Lecciones 9 a 15 quedan EN_PROGRESO (progreso actual = 7/15 ≈ 46.67%)

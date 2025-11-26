@@ -5,7 +5,7 @@ import Domain.repositoriesInterfaces.InterfazCursoRepository;
 import Domain.repositoriesInterfaces.InterfazUsuarioCursoRepository;
 import Domain.models.Curso;
 import Domain.models.UsuarioCurso;
-import Infrastructure.repositories.CursoRepository;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,6 +70,7 @@ public class ListarCursosService {
 
         UsuarioCurso usuarioCurso = UsuarioCurso.crearInscripcion(usuario_id, curso_id, null);
         usuarioCursoRepository.inscribir(usuarioCurso);
+        usuarioCursoRepository.inicializarProgresoTodasLecciones(usuario_id, curso_id);
         return obtenerCursosCompletos(usuario_id);
     }
 

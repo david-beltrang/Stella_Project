@@ -19,8 +19,8 @@ import Infrastructure.repositories.UsuarioRepository;
 public class TestUsuarioService {
 
     public static void main(String[] args) {
-        IConexionBD connMgr = new ConexionBD();
-        H2DataBaseInitializer initializer = new H2DataBaseInitializer(connMgr);
+        var connMgr = ConexionBD.getInstance();
+        var initializer = new H2DataBaseInitializer(connMgr);
         initializer.initialize();
         // Instanciar la interfaz con la implementación concreta
         InterfazUsuarioRepository usuarioRepository = new UsuarioRepository(connMgr);

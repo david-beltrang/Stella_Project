@@ -4,7 +4,6 @@ import Domain.models.SesionEstudio;
 import Domain.models.PomodoroValueObjects.TiempoDescanso;
 import Domain.models.PomodoroValueObjects.TiempoEstudio;
 import Domain.repositoriesInterfaces.InterfazSesionEstudioRepository;
-import Infrastructure.persistence.ConexionBD;
 import Infrastructure.persistence.IConexionBD;
 
 import java.sql.*;
