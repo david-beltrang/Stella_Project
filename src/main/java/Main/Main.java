@@ -44,6 +44,7 @@ public class Main extends Application {
         LeccionService leccionService = new LeccionService(leccionRepository);
         UsuarioStellaService usuarioStellaService = new UsuarioStellaService(usuarioItemRepository,
                 stellaItemRepository);
+        UsuarioStatsService usuarioStatsService = new UsuarioStatsService(usuarioItemRepository, usuarioStellaService);
         TiendaService tiendaService = new TiendaService(itemRepository, stellaItemRepository, usuarioItemRepository,
                 usuarioStellaService);
         ChatbotService chatbotService = new ChatbotService();
@@ -61,7 +62,8 @@ public class Main extends Application {
                 leccionService,
                 tiendaService,
                 chatbotService,
-                perfilService);
+                perfilService,
+                usuarioStatsService);
 
         // ======== Configurar Stage ========
         stage.setResizable(false);
