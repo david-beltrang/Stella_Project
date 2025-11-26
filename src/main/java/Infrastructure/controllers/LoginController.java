@@ -6,7 +6,6 @@ import Application.dtos.acceso.UsuarioResponse;
 import Application.services.DarAcceso.LoginService;
 import Infrastructure.ui.Navegacion;
 import Infrastructure.ui.AyudaUI;
-import Infrastructure.ui.viewmodels.LoginViewModel;
 import Domain.strategies.ValidationStrategy;
 import Domain.strategies.EmailValidationStrategy;
 import Domain.strategies.PasswordValidationStrategy;
@@ -30,9 +29,6 @@ public class LoginController {
 
     // ===== Dependencias de negocio =====
     private final LoginService service;
-
-    // ===== ViewModel (Observer Pattern) =====
-    private final LoginViewModel viewModel = new LoginViewModel();
 
     // ===== Strategies (Strategy Pattern) =====
     private final ValidationStrategy emailValidator = new EmailValidationStrategy();
@@ -70,21 +66,16 @@ public class LoginController {
 
     @FXML
     public void initialize() {
-        // Clear previous login credentials
-        viewModel.emailProperty().set("");
-        viewModel.passwordProperty().set("");
-
-        // Bindings (Observer Pattern)
-        // Bind ViewModel properties to FXML controls
-        correoField.textProperty().bindBidirectional(viewModel.emailProperty());
-        passwordField.textProperty().bindBidirectional(viewModel.passwordProperty());
+        // Clear previous login credentials (no hay ViewModel, solo limpia los campos)
+        correoField.clear();
+        passwordField.clear();
     }
 
     // ===== Evento principal =====
     @FXML
     private void onLoginClicked() {
-        String correo = viewModel.getEmail();
-        String pass = viewModel.getPassword();
+        String correo = correoField.getText();
+        String pass = passwordField.getText();
 
         try {
             // 1️⃣ Validación (Strategy Pattern)

@@ -24,7 +24,6 @@ public class ChatbotController {
 
     // ========= Dependencias =========
     private final ChatbotService chatbotService;
-    private final Navegacion navigator = new Navegacion();
     private final AyudaUI uiHelper = new AyudaUI();
     private Function<Class<?>, Object> controllerFactory;
 
