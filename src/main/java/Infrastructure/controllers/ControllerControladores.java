@@ -25,7 +25,7 @@ public class ControllerControladores {
     private final RegistroService registroService;
     private final LeccionService leccionService;
     private final TiendaService tiendaService;
-    private final PerfilService perfilService; //
+    private final PerfilService perfilService; // ✅ NUEVO
     private final ChatbotService chatbotService;
 
     // ======== Controladores ========
@@ -54,7 +54,8 @@ public class ControllerControladores {
             LeccionService leccionService,
             TiendaService tiendaService,
             ChatbotService chatbotService,
-            PerfilService perfilService //
+            PerfilService perfilService,
+            UsuarioStatsService usuarioStatsService
     ) {
         this.seccionesService = Objects.requireNonNull(seccionesService);
         this.listarCursosService = Objects.requireNonNull(listarCursosService);
@@ -129,24 +130,7 @@ public class ControllerControladores {
         quizController.setControllerFactory(factory);
         tiendaController.setControllerFactory(factory);
         perfilController.setControllerFactory(factory);
-        foroController.setControllerFactory(factory); //
-    }
-
-    // Helper for navigation if needed
-    private void navegar(String fxml) {
-        // This logic usually resides in the controller that has the Stage or Scene.
-        // But `ControllerControladores` has `mostrarVistaInicial`.
-        // I might need to implement `Navigacion` here or pass a method that does
-        // `FXMLLoader` loading using `this.factory`.
-        // Let's assume for now I can pass a lambda that does nothing or logs, until I
-        // see how other controllers do it.
-        // `LoginController` receives `Navigacion`. Who implements it?
-        // `Main` passes `loginService` to `LoginController`.
-        // `LoginController` has `setNavigacion`? Or constructor?
-        // In `inicializar`: `this.loginController = new LoginController(loginService);`
-        // It doesn't take navigation in constructor.
-        // So it must be set later or it implements it?
-        // Let's check `LoginController` source again.
+        foroController.setControllerFactory(factory);
     }
 
     // ======== Getters ========

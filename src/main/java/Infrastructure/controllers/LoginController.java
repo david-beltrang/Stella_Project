@@ -1,4 +1,3 @@
-/*
 package Infrastructure.controllers;
 
 import Application.config.AppServices;
@@ -7,7 +6,6 @@ import Application.dtos.acceso.UsuarioResponse;
 import Application.services.DarAcceso.LoginService;
 import Infrastructure.ui.Navegacion;
 import Infrastructure.ui.AyudaUI;
-import Infrastructure.ui.viewmodels.LoginViewModel;
 import Domain.strategies.ValidationStrategy;
 import Domain.strategies.EmailValidationStrategy;
 import Domain.strategies.PasswordValidationStrategy;
@@ -20,21 +18,17 @@ import javafx.scene.control.Label;
 import java.util.function.Function;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-*/
+
 /**
  * Controlador de la vista Login.fxml
  * Maneja los eventos de inicio de sesión, recuperación de contraseña y
  * navegación hacia otras pantallas.
  */
-/*
 public class LoginController {
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     // ===== Dependencias de negocio =====
     private final LoginService service;
-
-    // ===== ViewModel (Observer Pattern) =====
-    private final LoginViewModel viewModel = new LoginViewModel();
 
     // ===== Strategies (Strategy Pattern) =====
     private final ValidationStrategy emailValidator = new EmailValidationStrategy();
@@ -72,31 +66,32 @@ public class LoginController {
 
     @FXML
     public void initialize() {
-        // Clear previous login credentials
-        //viewModel.emailProperty().set("");
-        //viewModel.passwordProperty().set("");
-
-        // Bindings (Observer Pattern)
-        // Bind ViewModel properties to FXML controls
-        //correoField.textProperty().bindBidirectional(viewModel.emailProperty());
-        //passwordField.textProperty().bindBidirectional(viewModel.passwordProperty());
+        // Clear previous login credentials (no hay ViewModel, solo limpia los campos)
+        correoField.clear();
+        passwordField.clear();
     }
 
     // ===== Evento principal =====
     @FXML
     private void onLoginClicked() {
-        String correo = viewModel.getEmail();
-        String pass = viewModel.getPassword();
+        String correo = correoField.getText();
+        String pass = passwordField.getText();
 
         try {
-
+            // 1️⃣ Validación (Strategy Pattern)
             emailValidator.validate(correo);
             passwordValidator.validate(pass);
 
+            // 2️⃣ Autenticación (delegado al servicio - Controller Pattern)
             UsuarioResponse usuario = service.login(new LoginRequest(correo, pass));
+
+            // 3️⃣ Guardar el usuario globalmente (delegado al servicio de sesión)
             AppServices.setUsuarioActual(usuario);
+
+            // 4️⃣ Navegación delegada a Navigacion (Separation of Concerns)
             navigator.goTo("/views/Principal.fxml", "STELLA - Principal", controllerFactory, correoField);
 
+            // 5️⃣ Mensaje personalizado
             uiHelper.showInfo(
                     "Bienvenido " + usuario.nombre(),
                     "Has iniciado sesión correctamente. Tu ID es: " + usuario.id());
@@ -150,4 +145,3 @@ public class LoginController {
         navigator.goTo("/views/Login.fxml", "STELLA - Login", controllerFactory, recoverEmailField);
     }
 }
-*/
