@@ -8,7 +8,6 @@ import Domain.models.UsuarioValueObjects.Tipo;
 import Domain.models.UsuarioValueObjects.Username;
 import Domain.repositoriesInterfaces.InterfazUsuarioRepository;
 import Domain.exceptions.usuario.UsuarioYaExisteException;
-import Infrastructure.persistence.ConexionBD;
 import Infrastructure.persistence.IConexionBD;
 
 import java.sql.*;
