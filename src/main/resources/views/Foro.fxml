@@ -24,13 +24,13 @@
         </image>
     </ImageView>
 
-    <!-- Barra inferior de navegación -->
-    <StackPane layoutY="781.0" prefHeight="80" prefWidth="1920.0">
+    <!-- Barra inferior -->
+    <StackPane layoutY="780.0" prefHeight="80" prefWidth="1920.0">
         <children>
             <Rectangle arcHeight="0" arcWidth="0" height="80" style="-fx-fill: rgba(8,7,54,0.55);" width="1923.0" />
             <AnchorPane prefHeight="56.0" prefWidth="1876.0">
                 <children>
-                    <Button fx:id="homeBtn2" layoutX="346.0" layoutY="7.0" onAction="#goHome" prefWidth="60.0" styleClass="nav-btn">
+                    <Button fx:id="homeBtn" layoutX="346.0" layoutY="12.0" onAction="#goHome" styleClass="nav-btn">
                         <graphic>
                             <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
                                 <image>
@@ -39,6 +39,7 @@
                             </ImageView>
                         </graphic>
                     </Button>
+
                     <Button fx:id="forumBtn" layoutX="687.0" layoutY="10.0" onAction="#goForum" styleClass="nav-btn">
                         <graphic>
                             <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
@@ -48,15 +49,27 @@
                             </ImageView>
                         </graphic>
                     </Button>
-                    <Button fx:id="iguluBtn" layoutX="1293.0" layoutY="10.0" style="-fx-background-color: transparent;">
+
+                    <Button fx:id="profileBtn" layoutX="1553.0" layoutY="12.0" onAction="#goProfile" styleClass="nav-btn">
                         <graphic>
-                            <ImageView fitHeight="52.0" fitWidth="66.0" preserveRatio="true">
+                            <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
                                 <image>
-                                    <Image url="@../Image/General/Iglu.png" />
+                                    <Image url="@../Image/General/usuario.png" />
                                 </image>
                             </ImageView>
                         </graphic>
                     </Button>
+
+                    <Button fx:id="igluBtn" layoutX="1293.0" layoutY="10.0" onAction="#goPomodoro" styleClass="nav-btn">
+                        <graphic>
+                            <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Image/General/iglu.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+
                     <Button fx:id="tiendaBtn" layoutX="994.0" layoutY="10.0" onAction="#goTienda" styleClass="nav-btn">
                         <graphic>
                             <ImageView fitHeight="35.0" fitWidth="35.0" preserveRatio="true">
@@ -129,62 +142,24 @@
                     </font>
                 </Label>
 
-                <!-- Sección C++ -->
-                <VBox prefHeight="94.0" prefWidth="943.0" spacing="10.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 10; -fx-padding: 15;">
-                    <Label prefHeight="35.0" prefWidth="908.0" style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;" text="Titulo Pregunta">
-                        <font>
-                            <Font name="System Bold" size="24.0" />
-                        </font>
-                    </Label>
-
-                    <!-- Pregunta 1 -->
-                    <VBox spacing="5.0" style="-fx-background-color: rgba(255,255,255,0.05); -fx-background-radius: 8; -fx-padding: 10;">
-                        <Label prefHeight="27.0" prefWidth="906.0" style="-fx-text-fill: white; -fx-font-size: 18px;" text="Pregunta" wrapText="true" />
-                        <HBox spacing="10.0">
-                            <Label style="-fx-text-fill: #4DA3FF; -fx-font-size: 14px;" text="usuario" />
-                            <Label style="-fx-text-fill: #AAAAAA; -fx-font-size: 14px;" text="2h" />
-                        </HBox>
-                        <HBox spacing="10.0">
-                            <Button style="-fx-background-color: #6c757d; -fx-text-fill: white; -fx-background-radius: 5;" text="Cancelar" />
-                            <Button style="-fx-background-color: #4DA3FF; -fx-text-fill: white; -fx-background-radius: 5;" text="Enviar Respuesta" />
-                        </HBox>
-                        <Button style="-fx-background-color: #4DA3FF; -fx-text-fill: white; -fx-background-radius: 5; -fx-pref-width: 100;" text="Responder" />
-                    </VBox>
-                </VBox>
-
-                <!-- Sección Python -->
-                <VBox spacing="10.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 10; -fx-padding: 15;">
-                    <Label prefHeight="0.0" prefWidth="911.0" style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;" text="Titulo Pregunta">
-                        <font>
-                            <Font name="System Bold" size="24.0" />
-                        </font>
-                    </Label>
-
-                    <!-- Pregunta 2 -->
-                    <VBox spacing="5.0" style="-fx-background-color: rgba(255,255,255,0.05); -fx-background-radius: 8; -fx-padding: 10;">
-                        <HBox spacing="10.0">
-                            <CheckBox />
-                            <Label style="-fx-text-fill: #4DA3FF; -fx-font-size: 14px;" text="usuario" />
-                        </HBox>
-                        <Label prefHeight="27.0" prefWidth="945.0" style="-fx-text-fill: white; -fx-font-size: 18px;" text="Pregunta" wrapText="true" />
-                        <Button style="-fx-background-color: #4DA3FF; -fx-text-fill: white; -fx-background-radius: 5; -fx-pref-width: 100;" text="Responder" />
-                    </VBox>
-                </VBox>
-
-                <!-- Espacio para nuevas preguntas -->
+                <!-- Formulario para nuevas preguntas -->
                 <VBox spacing="10.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 10; -fx-padding: 15;">
                     <Label style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;" text="Nueva Pregunta">
                         <font>
                             <Font name="System Bold" size="24.0" />
                         </font>
                     </Label>
-                    <TextField promptText="Título de la pregunta" style="-fx-background-color: rgba(255,255,255,0.8); -fx-background-radius: 5;" />
-                    <TextArea prefHeight="100.0" prefWidth="100.0" promptText="Escribe tu pregunta aquí..." style="-fx-background-color: rgba(255,255,255,0.8); -fx-background-radius: 5;" />
-                    <Button style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-background-radius: 5; -fx-pref-width: 150;" text="Publicar Pregunta" />
+                        <TextField fx:id="tituloField" promptText="Título de la pregunta" styleClass="custom-text-field" />
+                        <TextArea fx:id="contenidoArea" prefHeight="100.0" prefWidth="100.0" promptText="Escribe tu pregunta aquí..." styleClass="custom-text-field" />
+                    <Button fx:id="publicarBtn" style="-fx-background-color: #34bb53ff; -fx-text-fill: white; -fx-background-radius: 5; -fx-pref-width: 150;" text="Publicar Pregunta" />
                 </VBox>
+
+                <!-- Contenedor de preguntas dinámicas -->
+                <VBox fx:id="preguntasContainer" spacing="20.0" style="-fx-background-color: transparent;" />
             </VBox>
         </content>
     </ScrollPane>
+
     <ImageView fitHeight="440.0" fitWidth="345.0" layoutX="1302.0" layoutY="261.0" pickOnBounds="true" preserveRatio="true">
         <image>
             <Image url="@../Image/General/StellaForo.png" />
