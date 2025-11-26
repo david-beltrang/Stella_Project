@@ -144,11 +144,13 @@
                     <ImageView fitHeight="61.0" fitWidth="65.0" layoutX="597.0" layoutY="11.0" preserveRatio="true">
                         <image><Image url="@../Image/General/racha.png" /></image>
                     </ImageView>
+                    <Label fx:id="rachaLabel" layoutX="670.0" layoutY="20.0" text="0" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold; -fx-border-color: #4DA3FF; -fx-border-width: 2; -fx-border-radius: 5; -fx-padding: 4;" />
 
                     <!-- PESCADITOS -->
                     <ImageView fitHeight="237.0" fitWidth="90.0" layoutX="1127.0" layoutY="14.0" preserveRatio="true">
                         <image><Image url="@../Image/General/pescaditos.png" /></image>
                     </ImageView>
+                    <Label fx:id="pescaditosLabel" layoutX="1230.0" layoutY="20.0" text="0" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold; -fx-border-color: #4DA3FF; -fx-border-width: 2; -fx-border-radius: 5; -fx-padding: 4;" />
 
                     <!-- Chatbot -->
                     <Button fx:id="chatBtn1" layoutX="895.0" layoutY="9.0" onAction="#goChatbot" styleClass="nav-btn">
@@ -165,8 +167,7 @@
                             <Font name="System Bold Italic" size="27.0" />
                         </font>
                     </Button>
-                    <Button layoutX="644.0" layoutY="23.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="123.0" />
-                    <Button layoutX="1203.0" layoutY="22.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="123.0" />
+
                 </children>
             </AnchorPane>
         </children>
