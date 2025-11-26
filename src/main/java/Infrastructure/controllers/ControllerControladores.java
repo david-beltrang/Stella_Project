@@ -3,6 +3,7 @@ package Infrastructure.controllers;
 import Application.services.*;
 import Application.services.DarAcceso.LoginService;
 import Application.services.DarAcceso.RegistroService;
+import Application.config.AppServices;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -25,8 +26,10 @@ public class ControllerControladores {
     private final RegistroService registroService;
     private final LeccionService leccionService;
     private final TiendaService tiendaService;
-    private final PerfilService perfilService; // ✅ NUEVO
+    private final PerfilService perfilService;
     private final ChatbotService chatbotService;
+    private final UsuarioStatsService usuarioStatsService;
+    private final EjercicioService ejercicioService;
 
     // ======== Controladores ========
     private HelloController helloController;
@@ -38,8 +41,10 @@ public class ControllerControladores {
     private LeccionController leccionController;
     private QuizController quizController;
     private TiendaController tiendaController;
-    private PerfilController perfilController; //
-    private ForoController foroController; //
+    private PerfilController perfilController;
+    private ForoController foroController;
+    private InventarioAvatarController inventarioAvatarController;
+    private PomodoroDescansoController pomodoroDescansoController;
 
     // ======== Factory global ========
     private Function<Class<?>, Object> factory;
@@ -55,8 +60,8 @@ public class ControllerControladores {
             TiendaService tiendaService,
             ChatbotService chatbotService,
             PerfilService perfilService,
-            UsuarioStatsService usuarioStatsService
-    ) {
+            UsuarioStatsService usuarioStatsService,
+            EjercicioService ejercicioService) {
         this.seccionesService = Objects.requireNonNull(seccionesService);
         this.listarCursosService = Objects.requireNonNull(listarCursosService);
         this.pomodoroTimer = Objects.requireNonNull(pomodoroTimer);
@@ -67,22 +72,26 @@ public class ControllerControladores {
         this.tiendaService = Objects.requireNonNull(tiendaService);
         this.chatbotService = Objects.requireNonNull(chatbotService);
         this.perfilService = Objects.requireNonNull(perfilService);
+        this.usuarioStatsService = Objects.requireNonNull(usuarioStatsService);
+        this.ejercicioService = Objects.requireNonNull(ejercicioService);
         inicializar();
     }
 
     private void inicializar() {
         // === Instanciación con dependencias ===
         this.helloController = new HelloController();
-        this.principalController = new PrincipalController(listarCursosService, seccionesService);
+        this.principalController = new PrincipalController(listarCursosService, seccionesService, usuarioStatsService);
         this.pomodoroController = new PomodoroController(sesionPomodoroService, pomodoroTimer);
         this.loginController = new LoginController(loginService);
         this.registroController = new RegistroController(registroService);
         this.cursoController = new CursoController(seccionesService, leccionService);
-        this.leccionController = new LeccionController(leccionService);
+        this.leccionController = new LeccionController(leccionService, ejercicioService);
         this.quizController = new QuizController();
-        this.tiendaController = new TiendaController(tiendaService);
-        this.perfilController = new PerfilController(perfilService);
-        this.foroController = new ForoController();
+        this.tiendaController = new TiendaController(tiendaService, usuarioStatsService);
+        this.perfilController = new PerfilController(perfilService, usuarioStatsService);
+        this.foroController = new ForoController(usuarioStatsService, AppServices.foroService());
+        this.inventarioAvatarController = new InventarioAvatarController(tiendaService, usuarioStatsService);
+        this.pomodoroDescansoController = new PomodoroDescansoController(pomodoroTimer);
 
         // === Factory global ===
         this.factory = (Class<?> clazz) -> {
@@ -107,9 +116,15 @@ public class ControllerControladores {
             if (clazz == TiendaController.class)
                 return tiendaController;
             if (clazz == PerfilController.class)
-                return perfilController; //
+                return perfilController;
             if (clazz == ForoController.class)
-                return foroController; //
+                return foroController;
+            if (clazz == InventarioAvatarController.class)
+                return inventarioAvatarController;
+            if (clazz == PomodoroDescansoController.class)
+                return pomodoroDescansoController;
+            if (clazz == ResponderForoController.class)
+                return new ResponderForoController(AppServices.foroService());
             if (clazz == ProductoTiendaController.class)
                 return new ProductoTiendaController(tiendaService);
             try {
@@ -131,6 +146,8 @@ public class ControllerControladores {
         tiendaController.setControllerFactory(factory);
         perfilController.setControllerFactory(factory);
         foroController.setControllerFactory(factory);
+        inventarioAvatarController.setControllerFactory(factory);
+        pomodoroDescansoController.setControllerFactory(factory);
     }
 
     // ======== Getters ========
