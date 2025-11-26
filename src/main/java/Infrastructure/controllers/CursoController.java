@@ -28,8 +28,10 @@ public class CursoController {
     private Function<Class<?>, Object> controllerFactory;
 
     // ===== FXML =====
-    @FXML private Pane root;
-    @FXML private Label NombreCurso;
+    @FXML
+    private Pane root;
+    @FXML
+    private Label NombreCurso;
 
     // ===== DATOS =====
     private int cursoActualId = -1;
@@ -73,9 +75,18 @@ public class CursoController {
     // ===== CARGAR SECCIONES Y LECCIONES =====
     private void cargarSeccionesYLecciones() {
         try {
-            if (root == null) { logger.warn("root es null"); return; }
-            if (seccionesService == null) { logger.warn("seccionesService es null"); return; }
-            if (cursoActualId <= 0) { logger.warn("cursoActualId no seteado"); return; }
+            if (root == null) {
+                logger.warn("root es null");
+                return;
+            }
+            if (seccionesService == null) {
+                logger.warn("seccionesService es null");
+                return;
+            }
+            if (cursoActualId <= 0) {
+                logger.warn("cursoActualId no seteado");
+                return;
+            }
 
             List<SeccionResponse> secciones = seccionesService.ListarSeccionesConLecciones(cursoActualId);
             logger.debug("Secciones encontradas: {}", secciones.size());
@@ -88,7 +99,8 @@ public class CursoController {
                     String idGuion = "Leccion" + seccion.numeroOrden() + "_" + leccion.numeroOrden();
 
                     Button btn = (Button) root.lookup("#" + idPunto);
-                    if (btn == null) btn = (Button) root.lookup("#" + idGuion);
+                    if (btn == null)
+                        btn = (Button) root.lookup("#" + idGuion);
 
                     if (btn == null) {
                         logger.debug("No se encontró el botón #{} ni #{}", idPunto, idGuion);
@@ -121,14 +133,14 @@ public class CursoController {
     private void abrirLeccion(LeccionResponse leccion, int seccionOrden, Node source) {
         try {
             int numero = (leccion != null) ? leccion.numeroOrden() : 1;
-            String ruta = "/views/Leccion" + numero + ".fxml";
+            // 🔹 CORREGIDO: Usar plantilla genérica en lugar de archivos específicos
+            String ruta = "/views/LeccionPlantilla.fxml";
 
             // Obtener contenido real desde BD
             LeccionResponse dto = leccionService.obtenerLeccionPorCursoYOrden(
                     cursoActualId,
                     seccionOrden,
-                    numero
-            );
+                    numero);
 
             navigator.goToWithInit(
                     ruta,
@@ -138,10 +150,9 @@ public class CursoController {
                     (LeccionController c) -> {
                         c.setControllerFactory(controllerFactory);
                         c.setNumeroActual(numero);
-                        c.setCursoYSeccion(cursoActualId, seccionOrden);  // 🔹 esta línea hace toda la diferencia
+                        c.setCursoYSeccion(cursoActualId, seccionOrden);
                         c.setLeccionActual(dto);
-                    }
-            );
+                    });
 
         } catch (Exception e) {
             logger.error("Error al abrir lección", e);
