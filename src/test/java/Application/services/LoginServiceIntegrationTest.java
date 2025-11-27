@@ -21,7 +21,7 @@ class LoginServiceIntegrationTest {
 
     @BeforeEach
     void setUp() {
-        //limpia todo y carga data.sql
+        // limpia todo y carga data.sql
         var initializer = new H2DataBaseInitializer(ConexionBD.getInstance());
         initializer.initialize(); // DROP TABLE + CREATE + INSERT datos de prueba (incluido test@estudio.com)
 
@@ -38,8 +38,7 @@ class LoginServiceIntegrationTest {
     void login_CorreoInexistente_LanzaExcepcion() {
         var request = new LoginRequest("noexiste@dominio.com", "cualquier");
 
-        var exception = assertThrows(IllegalArgumentException.class, () ->
-                loginService.login(request));
+        var exception = assertThrows(IllegalArgumentException.class, () -> loginService.login(request));
 
         assertEquals("Correo no encontrado", exception.getMessage());
     }
@@ -49,8 +48,7 @@ class LoginServiceIntegrationTest {
     void login_ContrasenaIncorrecta_LanzaExcepcion() {
         var request = new LoginRequest("test@estudio.com", "contraseñaMala123");
 
-        var exception = assertThrows(IllegalArgumentException.class, () ->
-                loginService.login(request));
+        var exception = assertThrows(IllegalArgumentException.class, () -> loginService.login(request));
 
         assertEquals("Contraseña incorrecta", exception.getMessage());
     }
@@ -63,10 +61,10 @@ class LoginServiceIntegrationTest {
         UsuarioResponse response = loginService.login(request);
 
         assertNotNull(response);
-        assertEquals(1, response.id());                    // el usuario de data.sql tiene id = 1
-        assertEquals("testestudio", response.username());
+        assertEquals(1, response.id()); // el usuario de data.sql tiene id = 1
+        assertEquals("JuanPa", response.username());
         assertEquals("test@estudio.com", response.correo());
-        assertEquals("Usuario Estudio", response.nombre());
+        assertEquals("Juan Pérez", response.nombre());
         assertEquals("ESTUDIANTE", response.tipo());
     }
 }

@@ -22,7 +22,7 @@ class TiendaService_IntegrationTest {
 
     @BeforeEach
     void setUp() {
-        // BD limpia + todos los datos reales (15 ítems, usuario 1 con 5000 pescaditos
+        // BD limpia + todos los datos reales (15 ítems, usuario 1 con 1000 pescaditos
         new H2DataBaseInitializer(ConexionBD.getInstance()).initialize();
 
         itemRepo = new ItemRepository(ConexionBD.getInstance());
@@ -48,7 +48,8 @@ class TiendaService_IntegrationTest {
     }
 
     // ========================================================================
-    // 2. obtenerDetalleItem(ItemDetalleRequest request) → Complejidad ciclomática = 1
+    // 2. obtenerDetalleItem(ItemDetalleRequest request) → Complejidad ciclomática =
+    // 1
     // ========================================================================
     @Test
     @DisplayName("obtenerDetalleItem - Devuelve detalle completo con imagen de Stella")
@@ -67,7 +68,7 @@ class TiendaService_IntegrationTest {
     @Test
     @DisplayName("obtenerSaldoUsuario - Usuario con pescaditos → devuelve saldo correcto")
     void obtenerSaldoUsuario_ConSaldo_RetornaValorCorrecto() {
-        assertEquals(5000, service.obtenerSaldoUsuario(1), "Usuario 1 debe tener 5000 pescaditos iniciales");
+        assertEquals(1000, service.obtenerSaldoUsuario(1), "Usuario 1 debe tener 1000 pescaditos iniciales");
     }
 
     @Test
@@ -77,7 +78,8 @@ class TiendaService_IntegrationTest {
     }
 
     // ========================================================================
-    // 4. comprarItem(int usuarioId, ItemCompraRequest request) → Complejidad ciclomática = 6
+    // 4. comprarItem(int usuarioId, ItemCompraRequest request) → Complejidad
+    // ciclomática = 6
     // ========================================================================
     @Test
     @DisplayName("comprarItem - Compra exitosa: resta pescaditos y guarda la compra")

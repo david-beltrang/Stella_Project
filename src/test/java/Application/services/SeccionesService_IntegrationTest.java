@@ -27,14 +27,15 @@ class SeccionesService_IntegrationTest {
         seccionRepo = new SeccionRepository(ConexionBD.getInstance());
         service = new SeccionesService(seccionRepo);
     }
-    //==========================================================================================
-    // 2. ListarSeccionesConLecciones(cursoId) → complejidad ciclomática = 1 pero verificación adicional
-    //por business rules
-    //=========================================================================================
+    // ==========================================================================================
+    // 2. ListarSeccionesConLecciones(cursoId) → complejidad ciclomática = 1 pero
+    // verificación adicional
+    // por business rules
+    // =========================================================================================
 
     @Test
-    @DisplayName("Camino único: cursoId=1 (C++) → devuelve 3 secciones con 15 lecciones completas")
-    void listarSeccionesConLecciones_CursoCPlusPlus_RetornaEstructuraCorrecta() {
+    @DisplayName("Camino único: cursoId=1 (Java) → devuelve 3 secciones con 4 lecciones cada una")
+    void listarSeccionesConLecciones_CursoJava_RetornaEstructuraCorrecta() {
         List<SeccionResponse> secciones = service.ListarSeccionesConLecciones(1);
 
         // Debe haber exactamente 3 secciones
@@ -42,24 +43,24 @@ class SeccionesService_IntegrationTest {
 
         // Verificar sección 1
         SeccionResponse sec1 = secciones.get(0);
-        assertEquals("Introducción al lenguaje y entorno", sec1.titulo());
+        assertEquals("Fundamentos de Java", sec1.titulo());
         assertEquals(1, sec1.numeroOrden());
-        assertEquals(5, sec1.lecciones().size());
-        assertEquals("Historia y características de C++", sec1.lecciones().get(0).titulo());
+        assertEquals(4, sec1.lecciones().size());
+        assertEquals("¿Qué es Java?", sec1.lecciones().get(0).titulo());
 
         // Verificar sección 2
         SeccionResponse sec2 = secciones.get(1);
-        assertEquals("Variables, tipos de datos y operadores", sec2.titulo());
+        assertEquals("Variables y Tipos de Datos", sec2.titulo());
         assertEquals(2, sec2.numeroOrden());
-        assertEquals(5, sec2.lecciones().size());
-        assertEquals("Tipos de datos primitivos", sec2.lecciones().get(0).titulo());
+        assertEquals(4, sec2.lecciones().size());
+        assertEquals("Variables en Java", sec2.lecciones().get(0).titulo());
 
         // Verificar sección 3
         SeccionResponse sec3 = secciones.get(2);
-        assertEquals("Estructuras de control", sec3.titulo());
+        assertEquals("Control de Flujo", sec3.titulo());
         assertEquals(3, sec3.numeroOrden());
-        assertEquals(5, sec3.lecciones().size());
-        assertEquals("Condicionales if, else if, else", sec3.lecciones().get(0).titulo());
+        assertEquals(4, sec3.lecciones().size());
+        assertEquals("Condicionales if-else", sec3.lecciones().get(0).titulo());
 
     }
 
