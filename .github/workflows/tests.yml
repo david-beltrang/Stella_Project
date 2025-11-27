@@ -2,10 +2,19 @@ name: Compilación y ejecución de pruebas
 
 # Eventos que gatillan la ejecución del pipeline
 on:
-  # Ejecución manual
+  # 1. Ejecución manual
   workflow_dispatch:
-  # Cada vez que se haga un push al repositorio
+  
+  # 2. Push directo a la rama main (para cuando no hay PR)
   push:
+    branches:
+      - main
+      
+  # 3. Pull Request cerrada, pero solo si fue fusionada
+  pull_request:
+    types: [closed]
+    branches:
+      - main
 
 jobs:
   build:
