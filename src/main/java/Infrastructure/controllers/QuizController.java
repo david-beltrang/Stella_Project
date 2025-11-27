@@ -172,8 +172,8 @@ public class QuizController {
                             "Pescaditos ganados: +" + pescaditosGanados + " 🐟\n" +
                             resultado.mensaje());
 
-            // Regresar a la pantalla del curso
-            navigator.goTo("/views/PlantillaCurso.fxml", "Volver al curso", controllerFactory, finalizarQuiz);
+            // Regresar a la pantalla principal
+            navigator.goTo("/views/Principal.fxml", "STELLA - Principal", controllerFactory, finalizarQuiz);
 
         } catch (Exception e) {
             uiHelper.showError("Error al finalizar quiz", e.getMessage());
