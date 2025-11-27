@@ -21,16 +21,16 @@ public class LeccionRepository implements InterfazLeccionRepository {
     @Override
     public Optional<Leccion> findByCursoIdAndOrdenes(int cursoId, int numeroOrdenSeccion, int numeroOrdenLeccion) {
         String sql = """
-            SELECT l.id, l.seccion_id, l.titulo, l.numero_orden, l.tipo_contenido, l.url_video, l.contenido
-            FROM "leccion" l
-            INNER JOIN "seccion" s ON l.seccion_id = s.id
-            WHERE s.curso_id = ?
-              AND s.numero_orden = ?
-              AND l.numero_orden = ?
-            """;
+                SELECT l.id, l.seccion_id, l.titulo, l.numero_orden, l.tipo_contenido, l.url_video, l.contenido, l.contenido_html, l.pdf_url
+                FROM "leccion" l
+                INNER JOIN "seccion" s ON l.seccion_id = s.id
+                WHERE s.curso_id = ?
+                  AND s.numero_orden = ?
+                  AND l.numero_orden = ?
+                """;
 
         try (Connection conn = connMgr.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, cursoId);
             pstmt.setInt(2, numeroOrdenSeccion);
@@ -45,8 +45,9 @@ public class LeccionRepository implements InterfazLeccionRepository {
                             rs.getInt("numero_orden"),
                             TipoContenido.valueOf(rs.getString("tipo_contenido")),
                             rs.getString("url_video"),
-                            rs.getString("contenido")
-                    );
+                            rs.getString("contenido"),
+                            rs.getString("contenido_html"),
+                            rs.getString("pdf_url"));
                     return Optional.of(leccion);
                 }
             }
@@ -54,7 +55,8 @@ public class LeccionRepository implements InterfazLeccionRepository {
             throw new RuntimeException(
                     "Error al buscar lección por cursoId=" + cursoId +
                             ", ordenSeccion=" + numeroOrdenSeccion +
-                            ", ordenLeccion=" + numeroOrdenLeccion, e);
+                            ", ordenLeccion=" + numeroOrdenLeccion,
+                    e);
         }
         return Optional.empty();
     }

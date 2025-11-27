@@ -5,8 +5,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- * Implementación Singleton thread-safe del patrón DAO para gestión de conexiones a base de datos.
- * Aplica el principio de Indirection y Low Coupling al abstraer la creación de conexiones.
+ * Implementación Singleton thread-safe del patrón DAO para gestión de
+ * conexiones a base de datos.
+ * Aplica el principio de Indirection y Low Coupling al abstraer la creación de
+ * conexiones.
  */
 public class ConexionBD implements IConexionBD {
 
