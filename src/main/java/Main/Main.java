@@ -49,7 +49,7 @@ public class Main extends Application {
         PomodoroTimer pomodoroTimer = PomodoroTimer.getInstance();
         SesionPomodoroService sesionPomodoroService = new SesionPomodoroService(sesionEstudioRepository);
         LoginService loginService = new LoginService(usuarioRepository);
-        RegistroService registroService = new RegistroService(usuarioRepository);
+        RegistroService registroService = new RegistroService(usuarioRepository, usuarioItemRepository);
         LeccionService leccionService = new LeccionService(leccionRepository);
         UsuarioStellaService usuarioStellaService = new UsuarioStellaService(usuarioItemRepository,
                 stellaItemRepository);
@@ -104,18 +104,19 @@ public class Main extends Application {
         stage.centerOnScreen();
         stage.show();
 
-        // ======== Shutd
-        
-                        
-                                
-                                
-                                
-                        
-                                
-                        
-                
-        
+        // ======== Shutdown Hook: Eliminar BD al cerrar ========
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            try {
+                java.nio.file.Files.deleteIfExists(java.nio.file.Paths.get("stella.mv.db"));
+                java.nio.file.Files.deleteIfExists(java.nio.file.Paths.get("stella.trace.db"));
+                System.out.println("Base de datos eliminada correctamente");
+            } catch (Exception e) {
+                System.err.println("Error eliminando base de datos: " + e.getMessage());
+            }
+        }));
+    }
 
-        
-                
-        
+    public static void main(String[] args) {
+        launch();
+    }
+}
