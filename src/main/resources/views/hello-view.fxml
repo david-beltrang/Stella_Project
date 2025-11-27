@@ -16,20 +16,20 @@
       fx:controller="Infrastructure.controllers.HelloController">
 
    <children>
-      <Label layoutX="656.0" layoutY="200.0" prefHeight="388.0" prefWidth="873.0"
+      <Label layoutX="456.0" layoutY="100.0" prefHeight="388.0" prefWidth="873.0"
              text="STELLA" textFill="WHITE">
          <font>
             <Font name="Franklin Gothic Demi" size="180.0" />
          </font>
       </Label>
 
-      <Label layoutX="822.0" layoutY="471.0" text="¡Bienvenidos!" textFill="WHITE">
+      <Label layoutX="622.0" layoutY="371.0" text="¡Bienvenidos!" textFill="WHITE">
          <font>
             <Font size="47.0" />
          </font>
       </Label>
 
-      <Button fx:id="registroButton" layoutX="456.0" layoutY="572.0"
+      <Button fx:id="registroButton" layoutX="256.0" layoutY="472.0"
               mnemonicParsing="false" onAction="#goToRegistro" opacity="0.7"
               prefHeight="107.0" prefWidth="424.0" style="-fx-background-color: #080736;"
               text="SOY NUEVO" textFill="WHITE">
@@ -38,7 +38,7 @@
          </font>
       </Button>
 
-      <Button fx:id="loginButton" layoutX="1057.0" layoutY="572.0"
+      <Button fx:id="loginButton" layoutX="857.0" layoutY="472.0"
               mnemonicParsing="false" onAction="#goToLogin" opacity="0.7"
               prefHeight="107.0" prefWidth="424.0" style="-fx-background-color: #080736;"
               text="LOGIN" textFill="WHITE">
@@ -50,14 +50,14 @@
          </effect>
       </Button>
 
-      <ImageView fitHeight="122.0" fitWidth="148.0" layoutX="1271.0" layoutY="332.0"
+      <ImageView fitHeight="122.0" fitWidth="148.0" layoutX="1071.0" layoutY="232.0"
                  pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@/Image/General/StellaSF.png" />
          </image>
       </ImageView>
 
-      <ImageView fitHeight="61.0" fitWidth="70.0" layoutX="1559.0" layoutY="763.0"
+      <ImageView fitHeight="61.0" fitWidth="70.0" layoutX="1359.0" layoutY="663.0"
                  pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@/Image/General/StellaEsquinaSF.png" />

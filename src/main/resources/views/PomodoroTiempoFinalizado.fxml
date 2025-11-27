@@ -13,27 +13,27 @@
 
     <children>
 
-        <ImageView fitHeight="61.0" fitWidth="70.0" layoutX="1569.0" layoutY="773.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="61.0" fitWidth="70.0" layoutX="1469.0" layoutY="773.0" pickOnBounds="true" preserveRatio="true">
             <image><Image url="@/Image/General/StellaEsquinaSF.png" /></image>
         </ImageView>
 
-        <Text fill="WHITE" layoutX="529.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tu tiempo esta FINALIZADO" wrappingWidth="602.685546875">
+        <Text fill="WHITE" layoutX="429.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tu tiempo esta FINALIZADO" wrappingWidth="602.685546875">
             <font><Font name="Wingdings 2" size="50.0" /></font>
         </Text>
 
-        <Text fill="WHITE" layoutX="670.0" layoutY="393.0" strokeType="OUTSIDE" strokeWidth="0.0" text="!Un gusto estudiar juntos!" wrappingWidth="289.685546875">
+        <Text fill="WHITE" layoutX="570.0" layoutY="393.0" strokeType="OUTSIDE" strokeWidth="0.0" text="!Un gusto estudiar juntos!" wrappingWidth="289.685546875">
             <font><Font name="Segoe UI" size="25.0" /></font>
         </Text>
 
-        <Button layoutX="557.0" layoutY="431.0" onAction="#newStudySession" opacity="0.86" prefHeight="65.0" prefWidth="452.0" style="-fx-background-color: #080736; -fx-text-fill: white;" text="NUEVA SESION DE ESTUDIO">
+        <Button layoutX="457.0" layoutY="431.0" onAction="#newStudySession" opacity="0.86" prefHeight="65.0" prefWidth="452.0" style="-fx-background-color: #080736; -fx-text-fill: white;" text="NUEVA SESION DE ESTUDIO">
             <font><Font name="System Bold" size="30.0" /></font>
         </Button>
 
-        <Button layoutX="557.0" layoutY="540.0" onAction="#exitToHome" opacity="0.86" prefHeight="65.0" prefWidth="452.0" style="-fx-background-color: #080736; -fx-text-fill: white;" text="SALIR">
+        <Button layoutX="457.0" layoutY="540.0" onAction="#exitToHome" opacity="0.86" prefHeight="65.0" prefWidth="452.0" style="-fx-background-color: #080736; -fx-text-fill: white;" text="SALIR">
             <font><Font name="System Bold" size="30.0" /></font>
         </Button>
 
-        <ImageView fitHeight="326.0" fitWidth="420.0" layoutX="1021.0" layoutY="366.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="326.0" fitWidth="420.0" layoutX="921.0" layoutY="366.0" pickOnBounds="true" preserveRatio="true">
             <image><Image url="@/Image/General/PomodoroFinalizado.png" /></image>
         </ImageView>
 
@@ -43,26 +43,26 @@
                 <Rectangle arcHeight="0" arcWidth="0" height="80" style="-fx-fill: rgba(8,7,54,0.55);" width="1923.0" />
                 <AnchorPane prefHeight="56.0" prefWidth="1876.0">
                     <children>
-                        <Button fx:id="homeBtn" layoutX="346.0" layoutY="12.0" onAction="#goHome" styleClass="nav-btn">
+                        <Button fx:id="homeBtn" layoutX="246.0" layoutY="12.0" onAction="#goHome" styleClass="nav-btn">
                             <graphic><ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
                                 <image><Image url="@../Image/General/home.png" /></image>
                             </ImageView></graphic>
                         </Button>
 
-                        <Button fx:id="forumBtn" layoutX="687.0" layoutY="10.0" onAction="#goForum" styleClass="nav-btn">
+                        <Button fx:id="forumBtn" layoutX="587.0" layoutY="10.0" onAction="#goForum" styleClass="nav-btn">
                             <graphic><ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
                                 <image><Image url="@../Image/General/foro.png" /></image>
                             </ImageView></graphic>
                         </Button>
 
-                        <Button fx:id="profileBtn" layoutX="1585.0" layoutY="12.0" onAction="#goProfile" styleClass="nav-btn">
+                        <Button fx:id="profileBtn" layoutX="1485.0" layoutY="12.0" onAction="#goProfile" styleClass="nav-btn">
                             <graphic><ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
                                 <image><Image url="@../Image/General/usuario.png" /></image>
                             </ImageView></graphic>
                         </Button>
 
 
-                        <Button fx:id="iguluBtn" layoutX="1293.0" layoutY="10.0"  style="-fx-background-color: transparent;">
+                        <Button fx:id="iguluBtn" layoutX="1193.0" layoutY="10.0"  style="-fx-background-color: transparent;">
                             <graphic>
                                 <ImageView fitHeight="52.0" fitWidth="66.0" preserveRatio="true">
                                     <image>
@@ -71,7 +71,7 @@
                                 </ImageView>
                             </graphic>
                         </Button>
-                        <Button fx:id="tiendaBtn" layoutX="994.0" layoutY="10.0"  styleClass="nav-btn">
+                        <Button fx:id="tiendaBtn" layoutX="894.0" layoutY="10.0"  styleClass="nav-btn">
                             <graphic>
                                 <ImageView fitHeight="35.0" fitWidth="35.0" preserveRatio="true">
                                     <image>

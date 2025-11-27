@@ -6,13 +6,12 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" maxHeight="1080.0" maxWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../styles/LoginStyle.css, @../styles/TiendaStyle.css" xmlns="http://javafx.com/javafx/18.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Infrastructure.controllers.TiendaController">
+<AnchorPane fx:id="root" maxHeight="1080.0" maxWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../styles/LoginStyle.css, @../styles/TiendaStyle.css" xmlns="http://javafx.com/javafx/18.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Infrastructure.controllers.InventarioAvatarController">
 
     <!-- Fondo -->
     <ImageView fx:id="background" fitHeight="1080" fitWidth="1920" layoutX="2.0" preserveRatio="false">
@@ -67,7 +66,7 @@
                         </graphic>
                     </Button>
 
-                    <Button fx:id="tiendaBtn" layoutX="784.0" layoutY="10.0" styleClass="nav-btn">
+                    <Button fx:id="tiendaBtn" layoutX="784.0" layoutY="10.0" onAction="#goTienda" styleClass="nav-btn">
                         <graphic>
                             <ImageView fitHeight="35.0" fitWidth="35.0" preserveRatio="true">
                                 <image>
@@ -128,20 +127,16 @@
         </children>
     </StackPane>
 
-    <!-- Items tienda -->
-    <ScrollPane fx:id="itemsScrollPane" hbarPolicy="NEVER" layoutX="605.0" layoutY="125.0" prefHeight="600.0" prefWidth="800.0" vbarPolicy="ALWAYS" style="-fx-background-color: transparent; -fx-background: transparent;">
+    <!-- TUS ITEMS COMPRADOS -->
+    <Label layoutX="98.0" layoutY="90.0" style="-fx-text-fill: white; -fx-font-size: 46; -fx-font-weight: bold;" text="Este es tu Armario" />
+
+    <!-- Grid de Items -->
+    <ScrollPane fx:id="itemsScrollPane" hbarPolicy="NEVER" layoutX="150.0" layoutY="150.0" prefHeight="500.0" prefWidth="1100.0" vbarPolicy="ALWAYS" style="-fx-background-color: transparent; -fx-background: transparent;">
         <content>
-            <VBox fx:id="itemsContainer" spacing="15.0" style="-fx-background-color: transparent; -fx-padding: 10;">
+            <GridPane fx:id="itemsGrid" hgap="20" vgap="20" style="-fx-padding: 20;">
                 <!-- Items will be dynamically added here -->
-            </VBox>
+            </GridPane>
         </content>
     </ScrollPane>
 
-    <!-- Base tienda -->
-    <ImageView fitHeight="626.0" fitWidth="629.0" layoutX="40.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
-        <image>
-            <Image url="@../Image/General/BaseTienda.png" />
-        </image>
-    </ImageView>
-    <ImageView fx:id="imgItem" fitHeight="382.0" fitWidth="304.0" layoutX="310.0" layoutY="268.0" pickOnBounds="true" preserveRatio="true" />
 </AnchorPane>
