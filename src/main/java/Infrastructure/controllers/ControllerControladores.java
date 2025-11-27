@@ -108,8 +108,12 @@ public class ControllerControladores {
                 return tiendaController;
             if (clazz == PerfilController.class)
                 return perfilController;
-            if (clazz == IgluController.class)
-                return new IgluController(sesionPomodoroService);
+            if (clazz == IgluController.class) {
+                IgluController c = new IgluController();
+                c.setControllerFactory(factory);
+                return c;
+            }
+
 
             if (clazz == ForoController.class)
                 return foroController;

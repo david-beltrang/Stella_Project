@@ -21,38 +21,31 @@ import java.util.function.Function;
 
 public class IgluController {
 
-
+    // =========================
+    // SERVICIOS Y NAVEGACIÓN
+    // =========================
     private SesionPomodoroService sesionService;
-
-    private final Navegacion navigator = new Navegacion();
     private Function<Class<?>, Object> controllerFactory;
+    private final Navegacion navigator = new Navegacion();
 
-
+    // ✅ Necesario para que no se rompan los servicios al navegar
     public void setControllerFactory(Function<Class<?>, Object> factory) {
         this.controllerFactory = factory;
     }
-
-    public IgluController(SesionPomodoroService sesionService) {
-        this.sesionService = sesionService;
-    }
-    public IgluController() {}
-
 
     public void setSesionService(SesionPomodoroService sesionService) {
         this.sesionService = sesionService;
     }
 
+    // ✅ Constructor vacío obligatorio para JavaFX
+    public IgluController() {}
+
     // =========================
     // FXML
     // =========================
-    @FXML
-    private AnchorPane root;
-
-    @FXML
-    private GridPane monthGrid;
-
-    @FXML
-    private Button yearLabelBtn;
+    @FXML private AnchorPane root;
+    @FXML private GridPane monthGrid;
+    @FXML private Button yearLabelBtn;
 
     // =========================
     // ESTADO
@@ -85,7 +78,6 @@ public class IgluController {
         int col = 0;
 
         for (int i = 0; i < 12; i++) {
-
             Button monthBtn = new Button(months[i]);
             monthBtn.setPrefSize(240, 100);
             monthBtn.getStyleClass().add("course-card");
@@ -118,14 +110,20 @@ public class IgluController {
         drawMonths();
     }
 
-
+    // =========================
+    // POPUP DE SEMANAS
+    // =========================
     private void openWeeksPopup(int month) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/SemanasPopup.fxml"));
+
+            // ✅ MUY IMPORTANTE: conservar la inyección de controladores
+            if (controllerFactory != null) {
+                loader.setControllerFactory(controllerFactory::apply);
+            }
+
             Parent rootPopup = loader.load();
-
             SemanasPopupController controller = loader.getController();
-
 
             if (this.sesionService == null) {
                 System.out.println("❌ ERROR: sesionService es NULL en IgluController");
@@ -153,7 +151,6 @@ public class IgluController {
         }
     }
 
-
     // =========================
     // CHATBOT
     // =========================
@@ -161,8 +158,12 @@ public class IgluController {
     private void goChatbot() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Chatbot.fxml"));
-            Parent popupRoot = loader.load();
 
+            if (controllerFactory != null) {
+                loader.setControllerFactory(controllerFactory::apply);
+            }
+
+            Parent popupRoot = loader.load();
             Scene popupScene = new Scene(popupRoot, 1100, 750);
             popupScene.setFill(Color.TRANSPARENT);
 
@@ -183,7 +184,7 @@ public class IgluController {
     }
 
     // =========================
-    // BOTONES DE NAVEGACIÓN
+    // NAVEGACIÓN INFERIOR
     // =========================
     @FXML
     private void goHome() {
@@ -230,5 +231,4 @@ public class IgluController {
             e.printStackTrace();
         }
     }
-
 }
