@@ -15,9 +15,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ControllerControladores {
-    private static final Logger logger = LoggerFactory.getLogger(ControllerControladores.class);
 
-    // ======== Servicios =======
+    private static final Logger logger =
+            LoggerFactory.getLogger(ControllerControladores.class);
+
+    // ======== Servicios ========
     private final SeccionesService seccionesService;
     private final ListarCursosService listarCursosService;
     private final PomodoroTimer pomodoroTimer;
@@ -32,7 +34,7 @@ public class ControllerControladores {
     private final EjercicioService ejercicioService;
     private final PruebaService pruebaService;
 
-    // ======== Controladores ========
+    // ======== Controladores principales ========
     private HelloController helloController;
     private PrincipalController principalController;
     private PomodoroController pomodoroController;
@@ -46,9 +48,11 @@ public class ControllerControladores {
     private ForoController foroController;
     private InventarioAvatarController inventarioAvatarController;
     private PomodoroDescansoController pomodoroDescansoController;
+    private IgluController igluController;
 
     // ======== Factory global ========
     private Function<Class<?>, Object> factory;
+
 
     public ControllerControladores(
             SeccionesService seccionesService,
@@ -63,87 +67,105 @@ public class ControllerControladores {
             PerfilService perfilService,
             UsuarioStatsService usuarioStatsService,
             EjercicioService ejercicioService,
-            PruebaService pruebaService) {
-        this.seccionesService = Objects.requireNonNull(seccionesService);
-        this.listarCursosService = Objects.requireNonNull(listarCursosService);
-        this.pomodoroTimer = Objects.requireNonNull(pomodoroTimer);
-        this.sesionPomodoroService = Objects.requireNonNull(sesionPomodoroService);
-        this.loginService = Objects.requireNonNull(loginService);
-        this.registroService = Objects.requireNonNull(registroService);
-        this.leccionService = Objects.requireNonNull(leccionService);
-        this.tiendaService = Objects.requireNonNull(tiendaService);
-        this.chatbotService = Objects.requireNonNull(chatbotService);
-        this.perfilService = Objects.requireNonNull(perfilService);
-        this.usuarioStatsService = Objects.requireNonNull(usuarioStatsService);
-        this.ejercicioService = Objects.requireNonNull(ejercicioService);
-        this.pruebaService = Objects.requireNonNull(pruebaService);
+            PruebaService pruebaService
+    ) {
+        this.seccionesService = seccionesService;
+        this.listarCursosService = listarCursosService;
+        this.pomodoroTimer = pomodoroTimer;
+        this.sesionPomodoroService = sesionPomodoroService;
+        this.loginService = loginService;
+        this.registroService = registroService;
+        this.leccionService = leccionService;
+        this.tiendaService = tiendaService;
+        this.chatbotService = chatbotService;
+        this.perfilService = perfilService;
+        this.usuarioStatsService = usuarioStatsService;
+        this.ejercicioService = ejercicioService;
+        this.pruebaService = pruebaService;
+
         inicializar();
     }
 
-    private void inicializar() {
-        // === Instanciación con dependencias ===
-        this.helloController = new HelloController();
-        this.principalController = new PrincipalController(listarCursosService, seccionesService, usuarioStatsService);
-        this.pomodoroController = new PomodoroController(sesionPomodoroService, pomodoroTimer);
-        this.loginController = new LoginController(loginService);
-        this.registroController = new RegistroController(registroService);
-        this.cursoController = new CursoController(seccionesService, leccionService, pruebaService);
-        this.leccionController = new LeccionController(leccionService, ejercicioService, usuarioStatsService);
-        this.quizController = new QuizController(pruebaService, usuarioStatsService);
-        this.tiendaController = new TiendaController(tiendaService, usuarioStatsService);
-        this.perfilController = new PerfilController(perfilService, usuarioStatsService);
-        this.foroController = new ForoController(usuarioStatsService, AppServices.foroService());
-        this.inventarioAvatarController = new InventarioAvatarController(tiendaService, usuarioStatsService);
-        this.pomodoroDescansoController = new PomodoroDescansoController(pomodoroTimer);
 
-        // === Factory global ===
-        this.factory = (Class<?> clazz) -> {
+
+    private void inicializar() {
+
+        // ======== Crear instancias únicas ========
+        helloController = new HelloController();
+        principalController = new PrincipalController(listarCursosService, seccionesService, usuarioStatsService);
+        pomodoroController = new PomodoroController(sesionPomodoroService, pomodoroTimer);
+        loginController = new LoginController(loginService);
+        registroController = new RegistroController(registroService);
+        cursoController = new CursoController(seccionesService, leccionService, pruebaService);
+        leccionController = new LeccionController(leccionService, ejercicioService, usuarioStatsService);
+        quizController = new QuizController(pruebaService, usuarioStatsService);
+        tiendaController = new TiendaController(tiendaService, usuarioStatsService);
+        perfilController = new PerfilController(perfilService, usuarioStatsService);
+        foroController = new ForoController(usuarioStatsService, AppServices.foroService());
+        inventarioAvatarController = new InventarioAvatarController(tiendaService, usuarioStatsService);
+        pomodoroDescansoController = new PomodoroDescansoController(pomodoroTimer);
+        igluController = new IgluController(sesionPomodoroService);
+
+
+        // ======== Factory ========
+        factory = clazz -> {
+
+            // ----------- Controladores principales (singletons) -----------
+            if (clazz == HelloController.class) return helloController;
+            if (clazz == PrincipalController.class) return principalController;
+            if (clazz == PomodoroController.class) return pomodoroController;
+            if (clazz == RegistroController.class) return registroController;
+            if (clazz == LoginController.class) return loginController;
+            if (clazz == CursoController.class) return cursoController;
+            if (clazz == LeccionController.class) return leccionController;
+            if (clazz == QuizController.class) return quizController;
+            if (clazz == TiendaController.class) return tiendaController;
+            if (clazz == PerfilController.class) return perfilController;
+            if (clazz == ForoController.class) return foroController;
+            if (clazz == InventarioAvatarController.class) return inventarioAvatarController;
+            if (clazz == PomodoroDescansoController.class) return pomodoroDescansoController;
+            if (clazz == IgluController.class) return igluController;
+
+            // ----------- Controladores con dependencias dinámicas -----------
             if (clazz == ChatbotController.class)
                 return new ChatbotController(chatbotService);
-            if (clazz == HelloController.class)
-                return helloController;
-            if (clazz == PrincipalController.class)
-                return principalController;
-            if (clazz == PomodoroController.class)
-                return pomodoroController;
-            if (clazz == RegistroController.class)
-                return registroController;
-            if (clazz == LoginController.class)
-                return loginController;
-            if (clazz == CursoController.class)
-                return cursoController;
-            if (clazz == LeccionController.class)
-                return leccionController;
-            if (clazz == QuizController.class)
-                return quizController;
-            if (clazz == TiendaController.class)
-                return tiendaController;
-            if (clazz == PerfilController.class)
-                return perfilController;
-            if (clazz == ForoController.class)
-                return foroController;
-            if (clazz == InventarioAvatarController.class)
-                return inventarioAvatarController;
-            if (clazz == PomodoroDescansoController.class)
-                return pomodoroDescansoController;
+
+            // ----------- Popups (se crean cada vez) -----------
+            if (clazz == SemanaPopupController.class) {
+                SemanaPopupController c = new SemanaPopupController();
+                c.setSesionService(sesionPomodoroService);
+                return c;
+            }
+
+            if (clazz == DiasSemanaPopupController.class) {
+                DiasSemanaPopupController c = new DiasSemanaPopupController();
+                c.setSesionService(sesionPomodoroService);
+                return c;
+            }
+
             if (clazz == ResponderForoController.class) {
-                ResponderForoController controller = new ResponderForoController(AppServices.foroService());
-                controller.setControllerFactory(this.factory);
-                return controller;
+                ResponderForoController c = new ResponderForoController(AppServices.foroService());
+                c.setControllerFactory(factory);
+                return c;
             }
+
             if (clazz == ProductoTiendaController.class) {
-                ProductoTiendaController controller = new ProductoTiendaController(tiendaService);
-                controller.setControllerFactory(this.factory);
-                return controller;
+                ProductoTiendaController c = new ProductoTiendaController(tiendaService);
+                c.setControllerFactory(factory);
+                return c;
             }
+
+            // ----------- Fallback -----------
             try {
                 return clazz.getDeclaredConstructor().newInstance();
             } catch (Exception e) {
-                throw new RuntimeException("No se pudo crear el controlador: " + clazz.getName(), e);
+                throw new RuntimeException(
+                        "No se pudo crear el controlador: " + clazz.getName(), e);
             }
         };
 
-        // === Asignar factory a todos los controladores ===
+
+        // ======== Asignar factory ========
         helloController.setControllerFactory(factory);
         principalController.setControllerFactory(factory);
         pomodoroController.setControllerFactory(factory);
@@ -157,7 +179,10 @@ public class ControllerControladores {
         foroController.setControllerFactory(factory);
         inventarioAvatarController.setControllerFactory(factory);
         pomodoroDescansoController.setControllerFactory(factory);
+        igluController.setControllerFactory(factory);
     }
+
+
 
     // ======== Getters ========
     public PrincipalController getPrincipalController() {

@@ -248,12 +248,12 @@ public class ForoController {
     }
 
     @FXML
-    private void goGamificacion() {
+    private void goIglu() {
         try {
-            navigator.goTo("/views/Gamificacion.fxml", "STELLA - Gamificación", controllerFactory, null);
+            navigator.goTo("/views/Iglu.fxml", "STELLA - Iglu", controllerFactory, null);
         } catch (Exception e) {
-            logger.error("Error al navegar a gamificación desde foro", e);
-            uiHelper.showError("Error al navegar a gamificación", e.getMessage());
+            logger.error("Error al navegar a iglu desde foro", e);
+            uiHelper.showError("Error al navegar a iglu", e.getMessage());
         }
     }
 

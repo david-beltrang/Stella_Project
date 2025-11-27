@@ -267,8 +267,8 @@ public class CursoController {
     }
 
     @FXML
-    private void goGamificacion() {
-        navigator.goTo("/views/Gamificacion.fxml", "STELLA - Gamificación", controllerFactory, null);
+    private void goIglu() {
+        navigator.goTo("/views/Iglu.fxml", "STELLA - Iglu", controllerFactory, null);
     }
 
     @FXML

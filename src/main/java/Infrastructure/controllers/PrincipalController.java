@@ -402,11 +402,11 @@ public class PrincipalController implements Initializable {
     }
 
     @FXML
-    private void goGamificacion() {
+    private void goIglu() {
         try {
-            navigator.goTo("/views/Gamificacion.fxml", "STELLA - Gamificación", controllerFactory, root);
+            navigator.goTo("/views/Iglu.fxml", "STELLA - Iglu", controllerFactory, root);
         } catch (Exception e) {
-            uiHelper.showError("Error al abrir Gamificación", e.getMessage());
+            uiHelper.showError("Error al abrir Iglu", e.getMessage());
         }
     }
 

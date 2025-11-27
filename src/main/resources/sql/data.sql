@@ -1755,6 +1755,37 @@ INSERT INTO "progreso_leccion" (usuario_id, leccion_id, estado) VALUES
 (1, 11, 'EN_PROGRESO'),
 (1, 12, 'EN_PROGRESO');
 
+-- Lunes (3 sesiones)
+INSERT INTO "sesion_estudio" (usuario_id, tiempo_estudio, tiempo_descanso, fecha_inicio, fecha_final)
+VALUES (1, 25, 5, '2025-01-06 08:00:00', '2025-01-06 08:25:00');
+
+INSERT INTO "sesion_estudio" (usuario_id, tiempo_estudio, tiempo_descanso, fecha_inicio, fecha_final)
+VALUES (1, 25, 5, '2025-01-06 10:00:00', '2025-01-06 10:25:00');
+
+INSERT INTO "sesion_estudio" (usuario_id, tiempo_estudio, tiempo_descanso, fecha_inicio, fecha_final)
+VALUES (1, 25, 5, '2025-01-06 15:00:00', '2025-01-06 15:25:00');
+
+-- Martes (1 sesión)
+INSERT INTO "sesion_estudio" (usuario_id, tiempo_estudio, tiempo_descanso, fecha_inicio, fecha_final)
+VALUES (1, 25, 5, '2025-01-07 09:00:00', '2025-01-07 09:25:00');
+
+-- Jueves (5 sesiones)
+INSERT INTO "sesion_estudio" (usuario_id, tiempo_estudio, tiempo_descanso, fecha_inicio, fecha_final)
+VALUES (1, 25, 5, '2025-01-09 08:00:00', '2025-01-09 08:25:00');
+
+INSERT INTO "sesion_estudio" (usuario_id, tiempo_estudio, tiempo_descanso, fecha_inicio, fecha_final)
+VALUES (1, 25, 5, '2025-01-09 09:00:00', '2025-01-09 09:25:00');
+
+INSERT INTO "sesion_estudio" (usuario_id, tiempo_estudio, tiempo_descanso, fecha_inicio, fecha_final)
+VALUES (1, 25, 5, '2025-01-09 10:00:00', '2025-01-09 10:25:00');
+
+INSERT INTO "sesion_estudio" (usuario_id, tiempo_estudio, tiempo_descanso, fecha_inicio, fecha_final)
+VALUES (1, 25, 5, '2025-01-09 14:00:00', '2025-01-09 14:25:00');
+
+INSERT INTO "sesion_estudio" (usuario_id, tiempo_estudio, tiempo_descanso, fecha_inicio, fecha_final)
+VALUES (1, 25, 5, '2025-01-09 19:00:00', '2025-01-09 19:25:00');
+
+
 -- Marcar las primeras 7 lecciones como COMPLETADAS (7/12 = 58.33%)
 UPDATE "progreso_leccion"
 SET estado = 'COMPLETADA'

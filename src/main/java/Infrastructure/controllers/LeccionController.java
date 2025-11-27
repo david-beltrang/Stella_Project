@@ -27,7 +27,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import Infrastructure.controllers.QuizController;
 
 public class LeccionController {
     private static final Logger logger = LoggerFactory.getLogger(LeccionController.class);
@@ -454,8 +453,8 @@ public class LeccionController {
     }
 
     @FXML
-    private void goGamificacion() {
-        navigator.goTo("/views/Gamificacion.fxml", "STELLA - Gamificación", controllerFactory, null);
+    private void goIglu() {
+        navigator.goTo("/views/Iglu.fxml", "STELLA - Iglu", controllerFactory, null);
     }
 
     @FXML

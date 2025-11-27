@@ -111,8 +111,8 @@ public class QuizController {
     }
 
     private void configurarPregunta(PruebaResponse quiz, int index, Label labelPregunta, RadioButton a, RadioButton b,
-            RadioButton c,
-            RadioButton d) {
+                                    RadioButton c,
+                                    RadioButton d) {
         if (index >= quiz.preguntas().size()) {
             logger.debug("Índice {} fuera de rango para preguntas (size: {})", index, quiz.preguntas().size());
             return;
@@ -194,7 +194,7 @@ public class QuizController {
     }
 
     private void agregarRespuesta(int index, ToggleGroup grupo,
-            RadioButton a, RadioButton b, RadioButton c, RadioButton d) {
+                                  RadioButton a, RadioButton b, RadioButton c, RadioButton d) {
         if (index >= quizActual.preguntas().size())
             return;
 
@@ -252,7 +252,7 @@ public class QuizController {
     }
 
     @FXML
-    private void goGamificacion() {
-        uiHelper.showInfo("Pomodoro", "Desde tienda aún no se ha conectado.");
+    private void goIglu() {
+        navigator.goTo("/views/Iglu.fxml", "STELLA - Iglú", controllerFactory, null);
     }
 }

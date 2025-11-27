@@ -125,7 +125,7 @@
                         </graphic>
                     </Button>
 
-                    <Button fx:id="igluBtn" layoutX="1083.0" layoutY="10.0" onAction="#goGamificacion" styleClass="nav-btn">
+                    <Button fx:id="igluBtn" layoutX="1083.0" layoutY="10.0" onAction="#goIglu" styleClass="nav-btn">
                         <graphic>
                             <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
                                 <image>

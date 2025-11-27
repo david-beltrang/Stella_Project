@@ -165,8 +165,8 @@ public class PerfilController {
     }
 
     @FXML
-    private void goGamificacion() {
-        navegacion.goTo("/views/Gamificacion.fxml", "STELLA - Gamificación", controllerFactory, null);
+    private void goIglu() {
+        navegacion.goTo("/views/Iglu.fxml", "STELLA - Iglu", controllerFactory, null);
     }
 
     @FXML
