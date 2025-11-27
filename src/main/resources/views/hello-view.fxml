@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.GaussianBlur?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="1080.0" maxWidth="1920.0"
+      minHeight="1080.0" minWidth="1920.0"
+      prefHeight="1080.0" prefWidth="1920.0"
+      stylesheets="@/styles/LoginStyle.css"
+      xmlns="http://javafx.com/javafx/18.0.2" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="Infrastructure.controllers.HelloController">
+
+   <children>
+      <Label layoutX="456.0" layoutY="100.0" prefHeight="388.0" prefWidth="873.0"
+             text="STELLA" textFill="WHITE">
+         <font>
+            <Font name="Franklin Gothic Demi" size="180.0" />
+         </font>
+      </Label>
+
+      <Label layoutX="622.0" layoutY="371.0" text="¡Bienvenidos!" textFill="WHITE">
+         <font>
+            <Font size="47.0" />
+         </font>
+      </Label>
+
+      <Button fx:id="registroButton" layoutX="256.0" layoutY="472.0"
+              mnemonicParsing="false" onAction="#goToRegistro" opacity="0.7"
+              prefHeight="107.0" prefWidth="424.0" style="-fx-background-color: #080736;"
+              text="SOY NUEVO" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="57.0" />
+         </font>
+      </Button>
+
+      <Button fx:id="loginButton" layoutX="857.0" layoutY="472.0"
+              mnemonicParsing="false" onAction="#goToLogin" opacity="0.7"
+              prefHeight="107.0" prefWidth="424.0" style="-fx-background-color: #080736;"
+              text="LOGIN" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="57.0" />
+         </font>
+         <effect>
+            <GaussianBlur radius="0.0" />
+         </effect>
+      </Button>
+
+      <ImageView fitHeight="122.0" fitWidth="148.0" layoutX="1071.0" layoutY="232.0"
+                 pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/Image/General/StellaSF.png" />
+         </image>
+      </ImageView>
+
+      <ImageView fitHeight="61.0" fitWidth="70.0" layoutX="1359.0" layoutY="663.0"
+                 pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/Image/General/StellaEsquinaSF.png" />
+         </image>
+      </ImageView>
+   </children>
+</Pane>

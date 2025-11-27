@@ -1,0 +1,35 @@
+# Build output
+target/
+*/target/
+**/target/
+
+# IDE
+.idea/
+*.iws
+*.iml
+*.ipr
+.settings/
+bin/
+*.class
+
+# Maven
+.mvn/
+maven-home-manager.xml
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Archivos temporales
+*.tmp
+*.temp
+/target/
+target/**/*
+
+#Archivos de la base de datos
+stella.trace.db
+stella.mv.db

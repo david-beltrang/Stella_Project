@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.shape.Rectangle?>
+
+<AnchorPane prefWidth="700.0" prefHeight="500.0"
+            style="-fx-background-color: rgba(8,7,54,0.93);
+                   -fx-background-radius: 25;
+                   -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.45), 45, 0.3, 0, 6);"
+            stylesheets="@../styles/LoginStyle.css"
+            xmlns="http://javafx.com/javafx/25"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Infrastructure.controllers.SemanaPopupController">
+
+    <children>
+
+        <!-- Fondo translúcido -->
+        <Rectangle arcHeight="25.0" arcWidth="25.0"
+                   height="500.0" width="700.0"
+                   style="-fx-fill: rgba(8,7,54,0.93);" />
+
+        <!-- Título -->
+        <Label fx:id="titleLabel"
+               layoutX="30" layoutY="20"
+               text="Semanas del mes"
+               textFill="WHITE"
+               style="-fx-font-size: 26; -fx-font-weight: bold;" />
+
+        <!-- GRID DE SEMANAS -->
+        <GridPane fx:id="weeksGrid"
+                  layoutX="60"
+                  layoutY="90"
+                  prefWidth="580"
+                  prefHeight="330"
+                  hgap="25"
+                  vgap="25" />
+
+        <!-- Botón cerrar -->
+        <Button text="X"
+                layoutX="650"
+                layoutY="20"
+                onAction="#cerrar"
+                style="-fx-background-color: crimson;
+                       -fx-text-fill: white;
+                       -fx-font-size: 16;
+                       -fx-background-radius: 999;" />
+
+    </children>
+</AnchorPane>
