@@ -6,17 +6,66 @@
 -- 1. USUARIOS Y ESTADÍSTICAS
 -- Nota: La columna ID se omite en todos los INSERTs con AUTO_INCREMENT.
 
+
 -- Usuario de prueba principal (ID será 1)
 INSERT INTO "usuario" (username, correo, nombre, contrasena, tipo_usuario) VALUES
 ('JuanPa', 'test@estudio.com', 'Juan Pérez', 'pass123', 'ESTUDIANTE');
 
--- Stats del usuario (usa usuario_id = 1)
-INSERT INTO "usuario_stats" (usuario_id, pescaditos, objetivo_sesiones, racha_dias, tiempo_total_estudio_segundos) VALUES
-(1, 1000, 3, 5, 3600);
-
 -- Usuario de prueba para el foro (ID será 2)
 INSERT INTO "usuario" (username, correo, nombre, contrasena, tipo_usuario)
 VALUES ('testestudio1', 'test@estudio1.com', 'Usuario Estudio1', 'pass123', 'ESTUDIANTE');
+
+-- Usuario de prueba para el foro (ID será 2)
+INSERT INTO "usuario" (username, correo, nombre, contrasena, tipo_usuario)
+VALUES ('dav', 'david@gmail.com', 'David B', '123', 'ESTUDIANTE');
+
+-- Usuario de prueba para el foro (ID será 2)
+INSERT INTO "usuario" (username, correo, nombre, contrasena, tipo_usuario)
+VALUES ('pipe', 'pipe@gmail.com', 'Pipe G', '123', 'ESTUDIANTE');
+
+-- Usuario de prueba para el foro (ID será 2)
+INSERT INTO "usuario" (username, correo, nombre, contrasena, tipo_usuario)
+VALUES ('gio', 'gio@gmail.com', 'Gio', '123', 'ESTUDIANTE');
+
+-- Usuario de prueba para el foro (ID será 2)
+INSERT INTO "usuario" (username, correo, nombre, contrasena, tipo_usuario)
+VALUES ('sebas', 'sebas@gmail.com', 'Sebas', '123', 'ESTUDIANTE');
+
+-- Usuario de prueba para el foro (ID será 2)
+INSERT INTO "usuario" (username, correo, nombre, contrasena, tipo_usuario)
+VALUES ('gabo', 'gabo@gmail.com', 'Gabo', '123', 'ESTUDIANTE');
+
+-- Usuario de prueba para el foro (ID será 2)
+INSERT INTO "usuario" (username, correo, nombre, contrasena, tipo_usuario)
+VALUES ('jose', 'jose@gmail.com', 'Jose', '123', 'ESTUDIANTE');
+
+-- Stats del usuario (usa usuario_id = 3)
+INSERT INTO "usuario_stats" (usuario_id, pescaditos, objetivo_sesiones, racha_dias, tiempo_total_estudio_segundos) VALUES
+(1, 1000, 10, 5, 3600);
+
+-- Stats del usuario (usa usuario_id = 3)
+INSERT INTO "usuario_stats" (usuario_id, pescaditos, objetivo_sesiones, racha_dias, tiempo_total_estudio_segundos) VALUES
+(3, 10000, 3, 10, 3600);
+
+-- Stats del usuario (usa usuario_id = 4)
+INSERT INTO "usuario_stats" (usuario_id, pescaditos, objetivo_sesiones, racha_dias, tiempo_total_estudio_segundos) VALUES
+(4, 10000, 3, 15, 3600);
+
+-- Stats del usuario (usa usuario_id = 5)
+INSERT INTO "usuario_stats" (usuario_id, pescaditos, objetivo_sesiones, racha_dias, tiempo_total_estudio_segundos) VALUES
+(5, 10000, 3, 8, 3600);
+
+-- Stats del usuario (usa usuario_id = 6)
+INSERT INTO "usuario_stats" (usuario_id, pescaditos, objetivo_sesiones, racha_dias, tiempo_total_estudio_segundos) VALUES
+(6, 10000, 3, 2, 3600);
+
+-- Stats del usuario (usa usuario_id = 7)
+INSERT INTO "usuario_stats" (usuario_id, pescaditos, objetivo_sesiones, racha_dias, tiempo_total_estudio_segundos) VALUES
+(7, 10000, 3, 3, 3600);
+
+-- Stats del usuario (usa usuario_id = 8)
+INSERT INTO "usuario_stats" (usuario_id, pescaditos, objetivo_sesiones, racha_dias, tiempo_total_estudio_segundos) VALUES
+(8, 10000, 3, 9, 3600);
 
 -- ============================================
 -- 2. CURSO 1
