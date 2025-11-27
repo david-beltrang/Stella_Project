@@ -22,48 +22,61 @@
             <Rectangle arcHeight="0" arcWidth="0" height="80" style="-fx-fill: rgba(8,7,54,0.55);" width="1923.0" />
             <AnchorPane prefHeight="56.0" prefWidth="1876.0">
                 <children>
-                    <Button fx:id="homeBtn" layoutX="346.0" layoutY="12.0" onAction="#goHome" styleClass="nav-btn">
-                        <graphic><ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
-                            <image><Image url="@../Image/General/home.png" /></image>
-                        </ImageView></graphic>
+
+                    <!-- Home -->
+                    <Button fx:id="homeBtn" layoutX="346.0" layoutY="12.0"
+                            onAction="#goHome" styleClass="nav-btn">
+                        <graphic>
+                            <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                                <image><Image url="@../Image/General/home.png" /></image>
+                            </ImageView>
+                        </graphic>
                     </Button>
 
-                    <Button fx:id="forumBtn" layoutX="687.0" layoutY="10.0" onAction="#goForum" styleClass="nav-btn">
-                        <graphic><ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
-                            <image><Image url="@../Image/General/foro.png" /></image>
-                        </ImageView></graphic>
+                    <!-- Foro -->
+                    <Button fx:id="forumBtn" layoutX="687.0" layoutY="10.0"
+                            onAction="#goForum" styleClass="nav-btn">
+                        <graphic>
+                            <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                                <image><Image url="@../Image/General/foro.png" /></image>
+                            </ImageView>
+                        </graphic>
                     </Button>
 
-                    <Button fx:id="profileBtn" layoutX="1585.0" layoutY="12.0" onAction="#goProfile" styleClass="nav-btn">
-                        <graphic><ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
-                            <image><Image url="@../Image/General/usuario.png" /></image>
-                        </ImageView></graphic>
+                    <!-- Tienda -->
+                    <Button fx:id="tiendaBtn" layoutX="991.0" layoutY="12.0"
+                            onAction="#goTienda" styleClass="nav-btn">
+                        <graphic>
+                            <ImageView fitHeight="32" fitWidth="48" preserveRatio="true">
+                                <image><Image url="@../Image/General/tienda.png" /></image>
+                            </ImageView>
+                        </graphic>
                     </Button>
 
-                    <!-- 2) NUEVO: botón Pomodoro en la barra inferior (entre fueguito y pescado) -->
-                    <Button fx:id="pomodoroBtn" layoutX="1293.0" layoutY="10.0" onAction="#goPomodoro" style="-fx-background-color: transparent;">
+                    <Button fx:id="igluBtn" layoutX="1293.0" layoutY="10.0"
+                            onAction="#goIglu" style="-fx-background-color: transparent;">
                         <graphic>
                             <ImageView fitHeight="52.0" fitWidth="66.0" preserveRatio="true">
-                                <image><Image url="@../Image/General/pomodoro.png" /></image>
-                            </ImageView>
-                        </graphic>
-                    </Button>
-                    <Button fx:id="Tienda" layoutX="991.0" layoutY="12.0" onAction="#goForum" styleClass="nav-btn">
-                        <graphic>
-                            <ImageView fitHeight="32.0" fitWidth="48.0" preserveRatio="true">
-                                <image>
-                                    <Image url="@../Image/General/tienda.png" />
-                                </image>
+                                <image><Image url="@../Image/General/iglu.png" /></image>
                             </ImageView>
                         </graphic>
                     </Button>
 
-                    <!-- 1) ELIMINADO: botón pomodoro de la barra inferior -->
-                    <!-- (se movió a la barra superior) -->
+                    <!-- Perfil -->
+                    <Button fx:id="profileBtn" layoutX="1585.0" layoutY="12.0"
+                            onAction="#goProfile" styleClass="nav-btn">
+                        <graphic>
+                            <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                                <image><Image url="@../Image/General/usuario.png" /></image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+
                 </children>
             </AnchorPane>
         </children>
     </StackPane>
+
 
     <!-- Barra superior con el botón "Cerrar sesión" -->
     <StackPane layoutX="-1.0" layoutY="32.0" prefHeight="80" prefWidth="1920.0">

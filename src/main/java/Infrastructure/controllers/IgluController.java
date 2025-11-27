@@ -196,13 +196,23 @@ public class IgluController {
     }
 
     @FXML
-    private void goPomodoro() {
-        navigator.goTo("/views/Pomodoro.fxml", "STELLA - Pomodoro", controllerFactory, root);
+    private void goTienda() {
+        navigator.goTo("/views/Tienda.fxml", "STELLA - Tienda", controllerFactory, root);
     }
+    @FXML private void goIglu() {
+        navigator.goTo("/views/Iglu.fxml", "STELLA - Iglú", controllerFactory, null);
+    }
+
 
     @FXML
     private void cerrarSesion() {
+
         AppServices.cerrarSesion();
+        AppServices.init(new Application.services.DarAcceso.LoginService(
+                new Infrastructure.repositories.UsuarioRepository(
+                        Infrastructure.persistence.ConexionBD.getInstance()
+                )
+        ));
         navigator.goTo("/views/Login.fxml", "STELLA - Login", controllerFactory, root);
     }
 }

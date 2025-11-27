@@ -39,7 +39,7 @@
                             </ImageView>
                         </graphic>
                     </Button>
-                    <Button fx:id="forumBtn" layoutX="687.0" layoutY="10.0" onAction="#goForum" styleClass="nav-btn">
+                    <Button fx:id="forumBtn" layoutX="687.0" layoutY="10.0" onAction="#goHome" styleClass="nav-btn">
                         <graphic>
                             <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
                                 <image>
@@ -63,6 +63,13 @@
                                 <image>
                                     <Image url="@../Image/General/tienda.png" />
                                 </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    <Button fx:id="profileBtn" layoutX="1585.0" layoutY="12.0" onAction="#goProfile" styleClass="nav-btn">
+                        <graphic>
+                            <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                                <image><Image url="@../Image/General/usuario.png" /></image>
                             </ImageView>
                         </graphic>
                     </Button>

@@ -5,10 +5,11 @@ import Application.services.DarAcceso.LoginService;
 import Application.services.DarAcceso.RegistroService;
 import Application.services.ListarCursosService;
 import Application.services.SeccionesService;
-
 // === Pomodoro ===
 import Application.services.PomodoroTimer;
 import Application.services.SesionPomodoroService;
+// === Perfil ===
+import Application.services.PerfilService;
 
 public final class AppServices {
     private static LoginService service;
@@ -25,6 +26,9 @@ public final class AppServices {
     private static Integer pomodoroSesionId; // id de la sesión activa o null
     private static boolean pomodoroFinishListenerRegistrado = false;
 
+    // ===== Perfil =====
+    private static PerfilService perfilService;
+
     private AppServices() {}
 
     // ===== Acceso / Registro =====
@@ -36,6 +40,10 @@ public final class AppServices {
     public static UsuarioResponse getUsuarioActual() { return usuarioActual; }
     public static void setUsuarioActual(UsuarioResponse usuario) { AppServices.usuarioActual = usuario; }
     public static void cerrarSesion() { usuarioActual = null; }
+
+    // ===== Perfil =====
+    public static void initPerfil(PerfilService s) { perfilService = s; }
+    public static PerfilService getPerfilService() { return perfilService; }
 
     // ===== Pomodoro: init y getters =====
     public static void initPomodoro(SesionPomodoroService sesionService, PomodoroTimer timer) {
