@@ -1,39 +1,20 @@
 package Domain.models;
 
-
 import Domain.models.UsuarioValueObjects.Tipo;
 import java.util.Objects;
 
-/**
- * Entidad Usuario (Aggregate Root).
- * - Contiene Value Objects (Username, Correo, Nombre).
- * package Domain.models;
- * 
- * import Domain.models.UsuarioValueObjects.Correo;
- * import Domain.models.UsuarioValueObjects.Nombre;
- * import Domain.models.UsuarioValueObjects.Tipo;
- * import Domain.models.UsuarioValueObjects.Username;
- * 
- * import java.util.Objects;
- * 
- * /**
- * Entidad Usuario (Aggregate Root).
- * - Contiene Value Objects (Username, Correo, Nombre).
- * - Métodos de comportamiento: verificarContrasena, verificarCorreo
- * actualizarUsername.
- * - Implementa Builder Pattern para su creación.
- */
+// Clase principal del usuario
 public class Usuario {
 
-    private final Integer id; // null si no se ha guardado el usuario en la BD
-    private String username; // Value Object (Mutable para permitir actualización)
-    private final String correo; // Value Object
-    private final String nombre; // Value Object
-    private final String contrasena; // contraseña simple (tu requerimiento)
-    private final Tipo tipo; // Value Object
-    private final java.time.LocalDateTime fechaCreacion; // Nuevo campo
+    private final Integer id; // El ID es null si no está en base de datos
+    private String username; // El username se puede cambiar
+    private final String correo;
+    private final String nombre;
+    private final String contrasena;
+    private final Tipo tipo;
+    private final java.time.LocalDateTime fechaCreacion;
 
-    // Constructor privado para el Builder
+    // Constructor privado, solo el builder lo usa
     private Usuario(Builder builder) {
         this.id = builder.id;
         this.username = Objects.requireNonNull(builder.username, "username no puede ser nulo");
@@ -44,8 +25,7 @@ public class Usuario {
         this.fechaCreacion = builder.fechaCreacion != null ? builder.fechaCreacion : java.time.LocalDateTime.now();
     }
 
-    // ------------------ BUILDER PATTERN ----------------------------------------
-
+    // Usamos un builder para crear el objeto más fácil
     public static class Builder {
         private Integer id;
         private String username;
@@ -67,7 +47,6 @@ public class Usuario {
             this.username = usernameStr;
             return this;
         }
-
 
         public Builder correo(String correoStr) {
             this.correo = correoStr;
@@ -108,13 +87,8 @@ public class Usuario {
         return new Builder();
     }
 
-    // ------------------ FACTORY METHODS ADAPTADOS PARA BUILDER
-    // ----------------------------------------
-
-    /*
-     * Crear un nuevo Usuario desde datos que vienen desde el formulario de
-     * resgistro.
-     */
+    // Métodos estáticos para crear usuarios
+    // Crear un nuevo Usuario desde datos que vienen desde el formulario de registro
     public static Usuario crearNuevo(String usernameStr,
             String correoStr,
             String nombreStr,
@@ -130,9 +104,7 @@ public class Usuario {
                 .build();
     }
 
-    /*
-     * Reconstruir un Usuario instanciandoolo desde datos que vienen de la BD.
-     */
+    // Reconstruir un Usuario instanciandolo desde datos que vienen de la BD
     public static Usuario reconstruir(Integer id,
             String username,
             String correo,
@@ -151,30 +123,23 @@ public class Usuario {
                 .build();
     }
 
-    // ---------- COMPORTAMIENTOS y LÓGICA DEL DOMINIO ----------
-
-    /*
-     * Verifica si la contraseña ingresada coincide con la del usuario en memoria.
-     */
+    // Métodos de lógica
+    // Verifica si la contraseña ingresada coincide con la del usuario en memoria
     public boolean verificarContrasena(String contrasenaIngresada) {
         return this.contrasena.equals(contrasenaIngresada);
     }
 
-    /*
-     * Verifica si el correo ingresado coincide con el del usuario en memoria.
-     */
+    // Verifica si el correo ingresado coincide con el del usuario en memoria
     public boolean verificarCorreo(String correoIngresado) {
         return this.correo == correoIngresado;
     }
 
-    /*
-     * Actualiza el username del usuario.
-     */
+    // Actualiza el username del usuario
     public void actualizarUsername(String nuevoUsername) {
         this.username = nuevoUsername;
     }
 
-    // ---------- GETTERS ---------
+    // Getters normales
     public Integer getId() {
         return id;
     }
