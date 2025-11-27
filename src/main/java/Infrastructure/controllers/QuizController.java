@@ -89,11 +89,15 @@ public class QuizController {
     // ===== Carga del quiz =====
     public void cargarQuiz(int seccionId) {
         try {
+            logger.info("Cargando quiz para sección: {}", seccionId);
             quizActual = pruebaService.obtenerQuizPorSeccion(seccionId);
             if (quizActual == null || quizActual.preguntas().isEmpty()) {
+                logger.warn("Quiz no encontrado o sin preguntas para sección {}", seccionId);
                 uiHelper.showError("Error", "No hay preguntas registradas para esta sección.");
                 return;
             }
+
+            logger.info("Quiz cargado: {} con {} preguntas", quizActual.titulo(), quizActual.preguntas().size());
 
             // Asignar los textos de las preguntas y opciones
             configurarPregunta(quizActual, 0, pregunta1Label, Opcion1_1, Opcion1_2, Opcion1_3, Opcion1_4);
@@ -101,6 +105,7 @@ public class QuizController {
             configurarPregunta(quizActual, 2, pregunta3Label, Opcion3_1, Opcion3_2, Opcion3_3, Opcion3_4);
 
         } catch (Exception e) {
+            logger.error("Error cargando quiz", e);
             uiHelper.showError("Error cargando quiz", e.getMessage());
         }
     }
@@ -108,13 +113,19 @@ public class QuizController {
     private void configurarPregunta(PruebaResponse quiz, int index, Label labelPregunta, RadioButton a, RadioButton b,
             RadioButton c,
             RadioButton d) {
-        if (index >= quiz.preguntas().size())
+        if (index >= quiz.preguntas().size()) {
+            logger.debug("Índice {} fuera de rango para preguntas (size: {})", index, quiz.preguntas().size());
             return;
+        }
         var pregunta = quiz.preguntas().get(index);
 
         // Set question text
         if (labelPregunta != null) {
-            labelPregunta.setText((index + 1) + ". " + pregunta.enunciado());
+            String texto = (index + 1) + ". " + pregunta.enunciado();
+            logger.info("Configurando pregunta {}: {}", index + 1, texto);
+            labelPregunta.setText(texto);
+        } else {
+            logger.error("labelPregunta es NULL para índice {}", index);
         }
 
         var opciones = pregunta.opciones();
@@ -124,6 +135,8 @@ public class QuizController {
             b.setText(opciones.get(1).texto());
             c.setText(opciones.get(2).texto());
             d.setText(opciones.get(3).texto());
+        } else {
+            logger.warn("Pregunta {} tiene menos de 4 opciones ({})", index, opciones.size());
         }
     }
 
@@ -172,8 +185,8 @@ public class QuizController {
                             "Pescaditos ganados: +" + pescaditosGanados + " 🐟\n" +
                             resultado.mensaje());
 
-            // Regresar a la pantalla principal
-            navigator.goTo("/views/Principal.fxml", "STELLA - Principal", controllerFactory, finalizarQuiz);
+            // Regresar a la pantalla del curso
+            navigator.goTo("/views/PlantillaCurso.fxml", "Volver al curso", controllerFactory, finalizarQuiz);
 
         } catch (Exception e) {
             uiHelper.showError("Error al finalizar quiz", e.getMessage());

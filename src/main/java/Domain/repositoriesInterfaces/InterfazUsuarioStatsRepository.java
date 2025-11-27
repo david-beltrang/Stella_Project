@@ -8,4 +8,7 @@ public interface InterfazUsuarioStatsRepository {
 
     // Actualiza la racha de días de estudio del usuario.
     void actualizarRacha(int usuarioId, int diasRacha);
+
+    // Crea el registro inicial de estadísticas para un nuevo usuario
+    void crearStatsIniciales(int usuarioId);
 }

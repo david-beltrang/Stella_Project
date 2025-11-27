@@ -34,14 +34,19 @@
     <!-- MIS CURSOS -->
     <Label layoutX="98.0" layoutY="88.0" style="-fx-text-fill: white; -fx-font-size: 46; -fx-font-weight: bold;" text="Mis Cursos" />
 
-    <AnchorPane layoutX="133.0" layoutY="192.0" prefHeight="200" prefWidth="1720">
+    <AnchorPane layoutX="72.0" layoutY="200.0" prefHeight="200.0" prefWidth="750.0">
         <children>
             <Label fx:id="noCoursesLabel" layoutX="560" layoutY="70" style="-fx-text-fill: white; -fx-font-size: 20; -fx-font-weight: bold;" text="Aún no tienes cursos." visible="false" />
-            <ScrollPane fx:id="misCursosScroll" hbarPolicy="NEVER" layoutX="96.0" layoutY="18.0" prefHeight="200" prefWidth="1624.0" style="-fx-background-color: transparent;" vbarPolicy="NEVER">
+            
+            <Button fx:id="leftArrowMisCursos" layoutX="0" layoutY="70" onAction="#scrollLeftMisCursos" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 40;" text="◀" />
+
+            <ScrollPane fx:id="misCursosScroll" hbarPolicy="NEVER" layoutX="110.0" layoutY="0" prefHeight="200" prefWidth="988.0" style="-fx-background-color: transparent;" vbarPolicy="NEVER">
                 <content>
                     <HBox fx:id="misCursosContainer" alignment="CENTER_LEFT" spacing="30" />
                 </content>
             </ScrollPane>
+
+            <Button fx:id="rightArrowMisCursos" layoutX="1000" layoutY="70" onAction="#scrollRightMisCursos" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 40;" text="▶" />
         </children>
     </AnchorPane>
 
@@ -128,29 +133,21 @@
             <Rectangle arcHeight="0" arcWidth="0" height="80" style="-fx-fill: rgba(8,7,54,0.55);" width="1923.0" />
             <AnchorPane prefHeight="56.0" prefWidth="1876.0">
                 <children>
-                    <!-- Iconos -->
-                    <Button fx:id="homeBtn2" layoutX="156.0" layoutY="7.0" onAction="#goHome" prefWidth="60.0" styleClass="nav-btn">
-                        <graphic>
-                            <ImageView fitHeight="36.0" fitWidth="38.0" preserveRatio="true">
-                                <image><Image url="@../Image/General/Trofeo.png" /></image>
-                            </ImageView>
-                        </graphic>
-                    </Button>
 
                     <!-- FUEGUITO -->
-                    <ImageView fitHeight="61.0" fitWidth="65.0" layoutX="407.0" layoutY="11.0" preserveRatio="true">
+                    <ImageView fitHeight="61.0" fitWidth="65.0" layoutX="250.0" layoutY="11.0" preserveRatio="true">
                         <image><Image url="@../Image/General/racha.png" /></image>
                     </ImageView>
-                    <Label fx:id="rachaLabel" layoutX="480.0" layoutY="20.0" text="0" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold; -fx-border-color: #4DA3FF; -fx-border-width: 2; -fx-border-radius: 5; -fx-padding: 4;" />
+                    <Label fx:id="rachaLabel" layoutX="310.0" layoutY="20.0" text="0" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold; -fx-border-color: #4DA3FF; -fx-border-width: 2; -fx-border-radius: 5; -fx-padding: 4;" />
 
                     <!-- PESCADITOS -->
-                    <ImageView fitHeight="237.0" fitWidth="90.0" layoutX="947.0" layoutY="14.0" preserveRatio="true">
+                    <ImageView fitHeight="237.0" fitWidth="90.0" layoutX="850.0" layoutY="14.0" preserveRatio="true">
                         <image><Image url="@../Image/General/pescaditos.png" /></image>
                     </ImageView>
-                    <Label fx:id="pescaditosLabel" layoutX="1040.0" layoutY="20.0" text="0" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold; -fx-border-color: #4DA3FF; -fx-border-width: 2; -fx-border-radius: 5; -fx-padding: 4;" />
+                    <Label fx:id="pescaditosLabel" layoutX="950.0" layoutY="20.0" text="0" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold; -fx-border-color: #4DA3FF; -fx-border-width: 2; -fx-border-radius: 5; -fx-padding: 4;" />
 
                     <!-- Chatbot -->
-                    <Button fx:id="chatBtn1" layoutX="715.0" layoutY="9.0" onAction="#goChatbot" styleClass="nav-btn">
+                    <Button fx:id="chatBtn1" layoutX="600.0" layoutY="9.0" onAction="#goChatbot" styleClass="nav-btn">
                         <graphic>
                             <ImageView fitHeight="35.0" fitWidth="35.0" preserveRatio="true">
                                 <image><Image url="@../Image/General/ChatBot.png" /></image>
@@ -170,7 +167,7 @@
     </StackPane>
 
     <!-- BOTÓN POMODORO -->
-    <Button fx:id="pomodoroBtn1" layoutX="1224.0" layoutY="180.0" onAction="#goPomodoro" prefHeight="115.0" prefWidth="130.0" style="-fx-background-color: transparent;">
+    <Button fx:id="pomodoroBtn1" layoutX="1240.0" layoutY="180.0" onAction="#goPomodoro" prefHeight="115.0" prefWidth="130.0" style="-fx-background-color: transparent;">
         <graphic>
             <ImageView fitHeight="134.0" fitWidth="133.0" preserveRatio="true">
                 <image>
@@ -181,6 +178,6 @@
     </Button>
 
     <!-- 🔧 Temporizador Pomodoro dinámico -->
-    <Label fx:id="timerLabel" layoutX="1268.0" layoutY="137.0" prefHeight="39.0" prefWidth="64.0" style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;" text="00:00" />
+    <Label fx:id="timerLabel" layoutX="1288.0" layoutY="137.0" prefHeight="39.0" prefWidth="64.0" style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;" text="00:00" />
 
 </AnchorPane>

@@ -11,7 +11,7 @@ import java.util.List;
 public record NivelCurso(String valor) {
 
     private static final List<String> NIVELES_VALIDOS = Arrays.asList(
-            "BÁSICO",
+            "BASICO",
             "INTERMEDIO",
             "AVANZADO"
     );

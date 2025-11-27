@@ -5,9 +5,11 @@ import Application.dtos.acceso.RegistrarUsuarioRequest;
 import Application.dtos.acceso.UsuarioResponse;
 import Application.services.DarAcceso.RegistroService;
 import Domain.repositoriesInterfaces.InterfazUsuarioRepository;
+import Domain.repositoriesInterfaces.InterfazUsuarioStatsRepository;
 import Infrastructure.persistence.ConexionBD;
 import Infrastructure.persistence.H2DataBaseInitializer;
 import Infrastructure.repositories.UsuarioRepository;
+import Infrastructure.repositories.UsuarioStatsRepository;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,16 +20,20 @@ class RegistroServiceIntegrationTest {
 
     private RegistroService registroService;
     private InterfazUsuarioRepository usuarioRepository;
+    private InterfazUsuarioStatsRepository usuarioStatsRepository;
 
     @BeforeEach
     void setUp() {
-        //limpia todo y carga data.sql
+        // limpia todo y carga data.sql
         var initializer = new H2DataBaseInitializer(ConexionBD.getInstance());
         initializer.initialize(); // ← DROP + CREATE + INSERT data.sql (incluye test@estudio.com)
 
-        usuarioRepository = new UsuarioRepository(ConexionBD.getInstance());
-        registroService = new RegistroService(usuarioRepository);
+        usuarioRepository = new Infrastructure.repositories.UsuarioRepository(ConexionBD.getInstance());
+        var usuarioItemRepository = new Infrastructure.repositories.UsuarioItemRepository(ConexionBD.getInstance());
+        usuarioStatsRepository = new UsuarioStatsRepository(ConexionBD.getInstance());
+        registroService = new RegistroService(usuarioRepository, usuarioItemRepository, usuarioStatsRepository);
     }
+
     // ========================================================================
     // 1. registrar(RegistrarUsuarioRequest request) → Complejidad ciclomática = 3
     // ========================================================================
@@ -35,17 +41,16 @@ class RegistroServiceIntegrationTest {
     @DisplayName("Camino 1: Registro exitoso de usuario nuevo → devuelve UsuarioResponse con ID")
     void registrar_NuevoUsuario_Exito() {
         var request = new RegistrarUsuarioRequest(
-                "nuevouser2025",           // username nuevo
-                "nuevo2025@test.com",      // correo nuevo
+                "nuevouser2025", // username nuevo
+                "nuevo2025@test.com", // correo nuevo
                 "Nuevo Usuario",
                 "passwordSegura123",
-                "ESTUDIANTE"
-        );
+                "ESTUDIANTE");
 
         UsuarioResponse response = registroService.registrar(request);
 
         assertNotNull(response);
-        assertTrue(response.id() > 0);                    // ID generado por H2
+        assertTrue(response.id() > 0); // ID generado por H2
         assertEquals("nuevouser2025", response.username());
         assertEquals("nuevo2025@test.com", response.correo());
         assertEquals("Nuevo Usuario", response.nombre());
@@ -58,15 +63,12 @@ class RegistroServiceIntegrationTest {
         // Intentamos registrar con el correo que YA existe en data.sql
         var request = new RegistrarUsuarioRequest(
                 "otrousuario",
-                "test@estudio.com",        // ← este correo ya está en data.sql
+                "test@estudio.com", // ← este correo ya está en data.sql
                 "Otro Nombre",
                 "pass123",
-                "PROFESOR"
-        );
+                "PROFESOR");
 
-        var exception = assertThrows(IllegalArgumentException.class, () ->
-                registroService.registrar(request)
-        );
+        var exception = assertThrows(IllegalArgumentException.class, () -> registroService.registrar(request));
 
         assertTrue(exception.getMessage().contains("ya está registrado")
                 || exception.getMessage().contains("El correo ya está registrado"));

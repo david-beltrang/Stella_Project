@@ -49,7 +49,7 @@ public class Main extends Application {
         PomodoroTimer pomodoroTimer = PomodoroTimer.getInstance();
         SesionPomodoroService sesionPomodoroService = new SesionPomodoroService(sesionEstudioRepository);
         LoginService loginService = new LoginService(usuarioRepository);
-        RegistroService registroService = new RegistroService(usuarioRepository, usuarioItemRepository);
+        RegistroService registroService = new RegistroService(usuarioRepository, usuarioItemRepository, usuarioStatsRepository);
         LeccionService leccionService = new LeccionService(leccionRepository);
         UsuarioStellaService usuarioStellaService = new UsuarioStellaService(usuarioItemRepository,
                 stellaItemRepository);

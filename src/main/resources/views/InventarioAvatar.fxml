@@ -86,29 +86,21 @@
             <Rectangle arcHeight="0" arcWidth="0" height="80" style="-fx-fill: rgba(8,7,54,0.55);" width="1923.0" />
             <AnchorPane prefHeight="56.0" prefWidth="1876.0">
                 <children>
-                    <!-- Iconos -->
-                    <Button fx:id="homeBtn2" layoutX="156.0" layoutY="7.0" onAction="#goHome" prefWidth="60.0" styleClass="nav-btn">
-                        <graphic>
-                            <ImageView fitHeight="36.0" fitWidth="38.0" preserveRatio="true">
-                                <image><Image url="@../Image/General/Trofeo.png" /></image>
-                            </ImageView>
-                        </graphic>
-                    </Button>
 
                     <!-- FUEGUITO -->
-                    <ImageView fitHeight="61.0" fitWidth="65.0" layoutX="407.0" layoutY="11.0" preserveRatio="true">
+                    <ImageView fitHeight="61.0" fitWidth="65.0" layoutX="250.0" layoutY="11.0" preserveRatio="true">
                         <image><Image url="@../Image/General/racha.png" /></image>
                     </ImageView>
-                    <Label fx:id="rachaLabel" layoutX="480.0" layoutY="20.0" text="0" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold; -fx-border-color: #4DA3FF; -fx-border-width: 2; -fx-border-radius: 5; -fx-padding: 4;" />
+                    <Label fx:id="rachaLabel" layoutX="310.0" layoutY="20.0" text="0" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold; -fx-border-color: #4DA3FF; -fx-border-width: 2; -fx-border-radius: 5; -fx-padding: 4;" />
 
                     <!-- PESCADITOS -->
-                    <ImageView fitHeight="237.0" fitWidth="90.0" layoutX="947.0" layoutY="14.0" preserveRatio="true">
+                    <ImageView fitHeight="237.0" fitWidth="90.0" layoutX="850.0" layoutY="14.0" preserveRatio="true">
                         <image><Image url="@../Image/General/pescaditos.png" /></image>
                     </ImageView>
-                    <Label fx:id="pescaditosLabel" layoutX="1040.0" layoutY="20.0" text="0" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold; -fx-border-color: #4DA3FF; -fx-border-width: 2; -fx-border-radius: 5; -fx-padding: 4;" />
+                    <Label fx:id="pescaditosLabel" layoutX="950.0" layoutY="20.0" text="0" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold; -fx-border-color: #4DA3FF; -fx-border-width: 2; -fx-border-radius: 5; -fx-padding: 4;" />
 
                     <!-- Chatbot -->
-                    <Button fx:id="chatBtn1" layoutX="715.0" layoutY="9.0" onAction="#goChatbot" styleClass="nav-btn">
+                    <Button fx:id="chatBtn1" layoutX="600.0" layoutY="9.0" onAction="#goChatbot" styleClass="nav-btn">
                         <graphic>
                             <ImageView fitHeight="35.0" fitWidth="35.0" preserveRatio="true">
                                 <image><Image url="@../Image/General/ChatBot.png" /></image>

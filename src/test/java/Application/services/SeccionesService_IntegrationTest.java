@@ -67,7 +67,7 @@ class SeccionesService_IntegrationTest {
     @Test
     @DisplayName("Curso sin secciones (id=3 Python) → devuelve lista vacía")
     void listarSeccionesConLecciones_CursoSinSecciones_RetornaListaVacia() {
-        List<SeccionResponse> secciones = service.ListarSeccionesConLecciones(3); // Python no tiene secciones
+        List<SeccionResponse> secciones = service.ListarSeccionesConLecciones(5); // Python no tiene secciones
         assertTrue(secciones.isEmpty());
     }
 

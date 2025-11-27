@@ -58,6 +58,8 @@ public class PrincipalController implements Initializable {
     @FXML
     private Button leftArrow, rightArrow;
     @FXML
+    private Button leftArrowMisCursos, rightArrowMisCursos;
+    @FXML
     private Button homeBtn, forumBtn, achievementsBtn, profileBtn;
     @FXML
     private Button homeBtn2, forumBtn2, achievementsBtn2;
@@ -353,6 +355,10 @@ public class PrincipalController implements Initializable {
             leftArrow.setOnAction(e -> scrollLeft());
             rightArrow.setOnAction(e -> scrollRight());
         }
+        if (leftArrowMisCursos != null && rightArrowMisCursos != null) {
+            leftArrowMisCursos.setOnAction(e -> scrollLeftMisCursos());
+            rightArrowMisCursos.setOnAction(e -> scrollRightMisCursos());
+        }
     }
 
     @FXML
@@ -363,6 +369,16 @@ public class PrincipalController implements Initializable {
     @FXML
     private void scrollRight() {
         scrollHorizontally(cursosDisponiblesScroll, 0.3);
+    }
+
+    @FXML
+    private void scrollLeftMisCursos() {
+        scrollHorizontally(misCursosScroll, -0.3);
+    }
+
+    @FXML
+    private void scrollRightMisCursos() {
+        scrollHorizontally(misCursosScroll, 0.3);
     }
 
     private void scrollHorizontally(ScrollPane scrollPane, double delta) {

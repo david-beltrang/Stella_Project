@@ -24,7 +24,7 @@
     </ImageView>
 
     <!-- Contenido principal del quiz -->
-    <ScrollPane hbarPolicy="NEVER" layoutX="100.0" layoutY="120.0" prefHeight="600.0" prefWidth="1080.0" style="-fx-background-color: transparent; -fx-border-color: transparent;">
+    <ScrollPane hbarPolicy="NEVER" layoutX="90.0" layoutY="70.0" prefHeight="600.0" prefWidth="1080.0" style="-fx-background-color: transparent; -fx-border-color: transparent;">
         <content>
             <VBox prefHeight="654.0" prefWidth="1116.0" spacing="30.0" style="-fx-background-color: transparent;">
 
@@ -37,11 +37,7 @@
 
                 <!-- Pregunta 1 -->
                 <VBox spacing="15.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 15; -fx-padding: 20;">
-                    <Label style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;" text="1. ">
-                        <font>
-                            <Font name="System Bold" size="20.0" />
-                        </font>
-                    </Label>
+                    <Label fx:id="pregunta1Label" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;" text="1. " />
 
                     <VBox spacing="10.0">
                         <RadioButton fx:id="Opcion1_1" style="-fx-text-fill: white; -fx-font-size: 16px;" text="a)">
@@ -57,11 +53,7 @@
 
                 <!-- Pregunta 2 -->
                 <VBox prefWidth="1046.0" spacing="15.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 15; -fx-padding: 20;">
-                    <Label style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;" text="2.">
-                        <font>
-                            <Font name="System Bold" size="20.0" />
-                        </font>
-                    </Label>
+                    <Label fx:id="pregunta2Label" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;" text="2. " />
 
                     <VBox spacing="10.0">
                         <RadioButton fx:id="Opcion2_1" style="-fx-text-fill: white; -fx-font-size: 16px;" text="a)">
@@ -77,11 +69,7 @@
 
                 <!-- Pregunta 3 -->
                 <VBox prefWidth="1046.0" spacing="15.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 15; -fx-padding: 20;">
-                    <Label style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;" text="3.">
-                        <font>
-                            <Font name="System Bold" size="20.0" />
-                        </font>
-                    </Label>
+                    <Label fx:id="pregunta3Label" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;" text="3. " />
 
                     <VBox spacing="10.0">
                         <RadioButton fx:id="Opcion3_1" style="-fx-text-fill: white; -fx-font-size: 16px;" text="a)">
@@ -100,9 +88,9 @@
     </ScrollPane>
 
     <!-- Botón Enviar Quiz -->
-    <Button layoutX="700.0" layoutY="700.0" onAction="#finalizarQuiz" style="-fx-background-color: #4DA3FF; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 10 20;" text="Enviar Quiz">
+    <Button layoutX="750.0" layoutY="700.0" onAction="#finalizarQuiz" style="-fx-background-color: #4DA3FF; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 10 20;" text="Enviar Quiz">
         <font>
-            <Font name="System Bold" size="20.0" />
+            <Font name="System Bold" size="25.0" />
         </font>
     </Button>
 
@@ -166,7 +154,7 @@
         </children>
     </StackPane>
 
-   <ImageView fitHeight="456.0" fitWidth="412.0" layoutX="1192.0" layoutY="229.0" pickOnBounds="true" preserveRatio="true">
+   <ImageView fitHeight="430.0" fitWidth="400.0" layoutX="1142.0" layoutY="229.0" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@../Image/General/StellaQuiz.png" />
       </image>

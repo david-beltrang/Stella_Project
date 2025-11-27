@@ -5,6 +5,7 @@ import Application.dtos.acceso.UsuarioResponse;
 import Domain.models.Usuario;
 import Domain.repositoriesInterfaces.InterfazUsuarioRepository;
 import Domain.repositoriesInterfaces.InterfazUsuarioItemRepository;
+import Domain.repositoriesInterfaces.InterfazUsuarioStatsRepository;
 import Domain.exceptions.usuario.UsuarioYaExisteException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,12 +13,19 @@ import org.slf4j.LoggerFactory;
 /**
  * Servicio de aplicación para el caso de uso "dar acceso al usuario", que
  * incluye registro, login y actualización de username.
+ * Este servicio orquesta la lógica de negocio, interactúa con el repositorio de
+ * usuarios y usa DTOs para comunicarse con el frontend (JavaFX).
+ * Proporciona el ID del usuario en las respuestas para asociar con sesiones de
+ * estudio u otras operaciones.
  */
 public class RegistroService {
     private static final Logger logger = LoggerFactory.getLogger(RegistroService.class);
 
+    // Aquí se declara un atributo de tipo InterfazUsuarioRepository para poder
+    // utilizar los métodos presentes en la interfaz
     private final InterfazUsuarioRepository usuarioRepository;
     private final InterfazUsuarioItemRepository usuarioItemRepository;
+    private final InterfazUsuarioStatsRepository usuarioStatsRepository;
 
     /**
      * Constructor que inyecta el repositorio de usuarios.
@@ -25,14 +33,24 @@ public class RegistroService {
      * usuarios.
      */
     public RegistroService(InterfazUsuarioRepository usuarioRepository,
-            InterfazUsuarioItemRepository usuarioItemRepository) {
+            InterfazUsuarioItemRepository usuarioItemRepository,
+            InterfazUsuarioStatsRepository usuarioStatsRepository) {
         this.usuarioRepository = usuarioRepository;
         this.usuarioItemRepository = usuarioItemRepository;
+        this.usuarioStatsRepository = usuarioStatsRepository;
     }
 
     /**
      * Registra un nuevo usuario en el sistema, creando una entidad Usuario y
      * persistiendo en la base de datos.
+     * parametro request DTO con los datos del formulario de registro (username,
+     * correo, nombre, contraseña, tipo).
+     * retorna UsuarioResponse DTO con los datos del usuario registrado, incluyendo
+     * el ID generado para uso en sesiones de estudio.
+     * throws IllegalArgumentException si el correo ya está registrado o los datos
+     * son inválidos.
+     * throws RuntimeException para errores inesperados (e.g., problemas de base de
+     * datos).
      */
     public UsuarioResponse registrar(RegistrarUsuarioRequest request) {
         try {
@@ -46,44 +64,25 @@ public class RegistroService {
                 throw new IllegalArgumentException("El correo ya está registrado");
             }
 
-            // 3. Crear usuario
+            // 3. Crear usuario → aquí el factory valida:
+            // - tipo de usuario válido
+            // - contraseña fuerte
+            // - correo formato válido
+            // → si falla, lanza IllegalArgumentException directamente
             Usuario usuario = Usuario.crearNuevo(
                     request.username(),
                     request.correo(),
                     request.nombre(),
                     request.contrasena(),
-                    request.tipo());
+                    request.tipo() //
+            );
 
             Usuario saved = usuarioRepository.guardar(usuario);
 
             // 4. Crear las estadísticas iniciales del usuario en usuario_stats
-            try {
-                // Utilizar JDBC para insertar directamente en la tabla usuario_stats
-                var connection = usuarioItemRepository.getClass()
-                        .getDeclaredMethod("getConnection")
-                        .invoke(usuarioItemRepository);
+            usuarioStatsRepository.crearStatsIniciales(saved.getId());
 
-                var stmt = connection.getClass()
-                        .getDeclaredMethod("prepareStatement", String.class)
-                        .invoke(connection,
-                                "INSERT INTO \"usuario_stats\" (usuario_id, pescaditos, objetivo_sesiones, racha_dias, tiempo_total_estudio_segundos) VALUES (?, 0, 1, 0, 0)");
-
-                stmt.getClass().getDeclaredMethod("setInt", int.class, int.class)
-                        .invoke(stmt, 1, saved.getId());
-
-                stmt.getClass().getDeclaredMethod("executeUpdate").invoke(stmt);
-
-                logger.info("Estadísticas iniciales creadas para usuario {}", saved.getId());
-            } catch (Exception ex) {
-                logger.error("Error al crear estadísticas iniciales", ex);
-            }
-
-            // 5. Asignar Stella por defecto (ID 0 = Stella sin ropa)
-            try {
-                logger.info("Usuario {} registrado con Stella por defecto", saved.getId());
-            } catch (Exception ex) {
-                logger.warn("No se pudo configurar Stella por defecto para usuario {}", saved.getId(), ex);
-            }
+            logger.info("Usuario {} registrado exitosamente", saved.getId());
 
             return new UsuarioResponse(
                     saved.getId(),

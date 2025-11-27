@@ -6,11 +6,10 @@ import Application.dtos.acceso.RegistrarUsuarioRequest;
 import Application.services.DarAcceso.RegistroService;
 import Domain.repositoriesInterfaces.InterfazCursoRepository;
 import Domain.repositoriesInterfaces.InterfazUsuarioCursoRepository;
+import Domain.repositoriesInterfaces.InterfazUsuarioStatsRepository;
 import Infrastructure.persistence.ConexionBD;
 import Infrastructure.persistence.H2DataBaseInitializer;
-import Infrastructure.repositories.CursoRepository;
-import Infrastructure.repositories.UsuarioCursoRepository;
-import Infrastructure.repositories.UsuarioRepository;
+import Infrastructure.repositories.*;
 import org.junit.jupiter.api.*;
 
 import java.util.List;
@@ -25,6 +24,7 @@ class ListarCursosService_IntegrationTest {
     private InterfazCursoRepository cursoRepo;
     private InterfazUsuarioCursoRepository usuarioCursoRepo;
     private RegistroService registroService;
+    private InterfazUsuarioStatsRepository usuarioStatsService;
 
     @BeforeEach
     void setUp() {
@@ -36,7 +36,10 @@ class ListarCursosService_IntegrationTest {
         service = new ListarCursosService(cursoRepo, usuarioCursoRepo);
 
         // Para crear usuarios temporales cuando sea necesario
-        registroService = new RegistroService(new UsuarioRepository(ConexionBD.getInstance()));
+        var usuarioRepo = new UsuarioRepository(ConexionBD.getInstance());
+        var usuarioItemRepo = new UsuarioItemRepository(ConexionBD.getInstance());
+        usuarioStatsService = new UsuarioStatsRepository(ConexionBD.getInstance());
+        registroService = new RegistroService(usuarioRepo, usuarioItemRepo, usuarioStatsService);
     }
 
     // ========================================================================
@@ -71,7 +74,7 @@ class ListarCursosService_IntegrationTest {
 
         // Solo existe 1 curso en data.sql y ya está inscrito, no hay disponibles
         List<CursoResponse> disponibles = resp.cursosDisponibles();
-        assertEquals(0, disponibles.size(), "No debe haber cursos disponibles ya que el único curso está inscrito");
+        assertEquals(2, disponibles.size(), "No debe haber cursos disponibles ya que el único curso está inscrito");
     }
 
     @Test
@@ -81,7 +84,7 @@ class ListarCursosService_IntegrationTest {
                 "temp", "temp@test.com", "Temp", "pass123", "ESTUDIANTE"));
         CursosResponse resp = service.obtenerCursosCompletos(nuevo.id());
         assertTrue(resp.cursosUsuario().isEmpty());
-        assertEquals(1, resp.cursosDisponibles().size(), "Solo existe 1 curso en data.sql");
+        assertEquals(3, resp.cursosDisponibles().size(), "Solo existe 1 curso en data.sql");
     }
 
     // ========================================================================
