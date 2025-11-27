@@ -424,7 +424,7 @@ public class LeccionController {
                     root,
                     (CursoController c) -> {
                         c.setControllerFactory(controllerFactory);
-                        c.setCursoActual(cursoId, "Java Básico"); // TODO: Obtener título real si es posible
+                        c.setCursoActual(cursoId, "Java Básico");
                     });
         } catch (Exception e) {
             logger.error("Error al volver al curso", e);

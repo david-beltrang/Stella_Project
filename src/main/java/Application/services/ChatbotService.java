@@ -72,8 +72,7 @@ public class ChatbotService {
                     .header("X-Title", "Chatbot Stella")
                     .POST(HttpRequest.BodyPublishers.ofString(body.toString()))
                     .build();
-
-            // Enviar la solicitud usando el método factoría para permitir mocking
+            
             HttpClient client = createHttpClient();
             HttpResponse<String> response = client.send(requestHttp, HttpResponse.BodyHandlers.ofString());
 

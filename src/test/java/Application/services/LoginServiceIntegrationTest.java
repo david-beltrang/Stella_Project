@@ -21,7 +21,6 @@ class LoginServiceIntegrationTest {
 
     @BeforeEach
     void setUp() {
-        // limpia todo y carga data.sql
         var initializer = new H2DataBaseInitializer(ConexionBD.getInstance());
         initializer.initialize(); // DROP TABLE + CREATE + INSERT datos de prueba (incluido test@estudio.com)
 
