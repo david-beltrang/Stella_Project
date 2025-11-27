@@ -37,52 +37,45 @@ public class ForoRepository implements InterfazForoRepository {
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
 
-            if (!rs.next()) {
-                return posts; // Retornar lista vacía si no hay datos
-            }
-
-            int postId = rs.getInt("id");
-            int usuarioId = rs.getInt("usuario_id");
-            String contenidoTexto = rs.getString("contenido_texto");
-            int likes = rs.getInt("likes");
-            LocalDateTime fecha = rs.getTimestamp("fecha").toLocalDateTime();
-            String etiqueta = rs.getString("etiqueta");
-
+            PostResponse currentPost = null;
             List<ComentarioResponse> comentarios = new ArrayList<>();
 
-            // Procesar la primera fila válida
-            int currentPostId = postId;
-            int currentComentarioId = rs.getInt("comentario_id");
-            if (!rs.wasNull()) {
-                comentarios.add(new ComentarioResponse(
-                        currentComentarioId,
-                        rs.getInt("c_usuario_id"),
-                        rs.getString("c_contenido"),
-                        rs.getTimestamp("c_fecha").toLocalDateTime(),
-                        rs.getInt("c_likes")
-                ));
-            }
-
-            // Iterar sobre el resto de las filas
             while (rs.next()) {
-                postId = rs.getInt("id");
-                if (postId != currentPostId) {
-                    // Agregar el post anterior con sus comentarios
-                    posts.add(new PostResponse(currentPostId, usuarioId, contenidoTexto, likes, fecha, etiqueta, new ArrayList<>(comentarios)));
-                    comentarios.clear();
+                int postId = rs.getInt("id");
 
-                    // Inicializar el nuevo post
-                    usuarioId = rs.getInt("usuario_id");
-                    contenidoTexto = rs.getString("contenido_texto");
-                    likes = rs.getInt("likes");
-                    fecha = rs.getTimestamp("fecha").toLocalDateTime();
-                    etiqueta = rs.getString("etiqueta");
-                    currentPostId = postId;
+                // Si cambió el post, guardamos el anterior
+                if (currentPost == null || currentPost.id() != postId) {
+                    // Guardar el post anterior (si existe)
+                    if (currentPost != null) {
+                        posts.add(new PostResponse(
+                                currentPost.id(),
+                                currentPost.usuarioId(),
+                                currentPost.contenido(),
+                                currentPost.likes(),
+                                currentPost.fechaCreacion(),
+                                currentPost.etiqueta(),
+                                new ArrayList<>(comentarios)
+                        ));
+                        comentarios.clear();
+                    }
+
+                    // Crear nuevo post
+                    currentPost = new PostResponse(
+                            postId,
+                            rs.getInt("usuario_id"),
+                            rs.getString("contenido_texto"),
+                            rs.getInt("likes"),
+                            rs.getTimestamp("fecha").toLocalDateTime(),
+                            rs.getString("etiqueta"),
+                            new ArrayList<>() // comentarios vacíos por ahora
+                    );
                 }
-                currentComentarioId = rs.getInt("comentario_id");
+
+                // Agregar comentario si existe
+                int comentarioId = rs.getInt("comentario_id");
                 if (!rs.wasNull()) {
                     comentarios.add(new ComentarioResponse(
-                            currentComentarioId,
+                            comentarioId,
                             rs.getInt("c_usuario_id"),
                             rs.getString("c_contenido"),
                             rs.getTimestamp("c_fecha").toLocalDateTime(),
@@ -91,9 +84,17 @@ public class ForoRepository implements InterfazForoRepository {
                 }
             }
 
-            // Agregar el último post con sus comentarios
-            if (!comentarios.isEmpty() || currentPostId != -1) {
-                posts.add(new PostResponse(currentPostId, usuarioId, contenidoTexto, likes, fecha, etiqueta, new ArrayList<>(comentarios)));
+            // No olvidar agregar el último post
+            if (currentPost != null) {
+                posts.add(new PostResponse(
+                        currentPost.id(),
+                        currentPost.usuarioId(),
+                        currentPost.contenido(),
+                        currentPost.likes(),
+                        currentPost.fechaCreacion(),
+                        currentPost.etiqueta(),
+                        new ArrayList<>(comentarios)
+                ));
             }
 
         } catch (SQLException e) {

@@ -52,7 +52,7 @@ public class PruebaService {
             respuestas.add(Respuesta.crear(null, preguntaId, opcionElegida));
         }
 
-        double puntaje = (double) aciertos / request.respuestas().size() * 100;
+        double puntaje = request.respuestas().isEmpty() ? 0.0 : (double) aciertos / request.respuestas().size() * 100;
         Intento intento = Intento.crear(request.usuarioId(), request.pruebaId(), new Puntaje(puntaje));
         //Se guarda el intento en la BD
         Intento guardado = intentoRepository.guardar(intento);

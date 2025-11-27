@@ -85,7 +85,7 @@ CREATE TABLE "leccion" (
 
 -- TABLA: "prueba" (Quizzes seccionales o examen final)
 CREATE TABLE "prueba" (
-                          id INT PRIMARY KEY,
+                          id INT AUTO_INCREMENT PRIMARY KEY,
                           curso_id INT NOT NULL,
                           seccion_id INT NOT NULL,
                           titulo VARCHAR(255) NOT NULL,
@@ -96,7 +96,7 @@ CREATE TABLE "prueba" (
 
 -- TABLA: "pregunta"
 CREATE TABLE "pregunta" (
-                            id INT PRIMARY KEY,
+                            id INT AUTO_INCREMENT PRIMARY KEY,
                             enunciado VARCHAR(500) NOT NULL,
                             leccion_id INT,
                             prueba_id INT,
@@ -107,7 +107,7 @@ CREATE TABLE "pregunta" (
 
 -- TABLA: "opcion"
 CREATE TABLE "opcion" (
-                          id INT PRIMARY KEY,
+                          id INT AUTO_INCREMENT PRIMARY KEY,
                           pregunta_id INT NOT NULL,
                           texto VARCHAR(500) NOT NULL,
                           es_correcta BOOLEAN NOT NULL,
@@ -116,7 +116,7 @@ CREATE TABLE "opcion" (
 
 -- TABLA: "progreso_leccion"
 CREATE TABLE "progreso_leccion" (
-                                    id INT PRIMARY KEY AUTO_INCREMENT,
+                                    id INT AUTO_INCREMENT PRIMARY KEY,
                                     usuario_id INT NOT NULL,
                                     leccion_id INT NOT NULL,
                                     estado VARCHAR(20) NOT NULL,
@@ -127,7 +127,7 @@ CREATE TABLE "progreso_leccion" (
 
 -- TABLA: "intento" (Registro de una prueba realizada)
 CREATE TABLE "intento" (
-                           id INT PRIMARY KEY AUTO_INCREMENT,
+                           id INT AUTO_INCREMENT PRIMARY KEY,
                            usuario_id INT NOT NULL,
                            prueba_id INT NOT NULL,
                            puntaje DOUBLE NOT NULL,
@@ -138,7 +138,7 @@ CREATE TABLE "intento" (
 
 -- TABLA: "respuesta" (Respuestas específicas dentro de un Intento)
 CREATE TABLE "respuesta" (
-                             id INT PRIMARY KEY AUTO_INCREMENT,
+                             id INT AUTO_INCREMENT PRIMARY KEY,
                              intento_id INT NOT NULL,
                              pregunta_id INT NOT NULL,
                              opcion_seleccionada_id INT NOT NULL,
@@ -149,7 +149,7 @@ CREATE TABLE "respuesta" (
 
 -- TABLA: "sesion_estudio" (Guardar todas las sesiones de estudio)
 CREATE TABLE "sesion_estudio" (
-                                  id INT PRIMARY KEY AUTO_INCREMENT,
+                                  id INT AUTO_INCREMENT PRIMARY KEY,
                                   usuario_id INT NOT NULL,
                                   tiempo_estudio INT NOT NULL,
                                   tiempo_descanso INT NOT NULL,

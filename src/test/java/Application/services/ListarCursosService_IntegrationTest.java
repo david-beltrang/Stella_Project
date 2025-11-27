@@ -4,7 +4,6 @@ package Application.services;
 import Application.dtos.Listado_Cursos.*;
 import Application.dtos.acceso.RegistrarUsuarioRequest;
 import Application.services.DarAcceso.RegistroService;
-import Domain.models.UsuarioCurso;
 import Domain.repositoriesInterfaces.InterfazCursoRepository;
 import Domain.repositoriesInterfaces.InterfazUsuarioCursoRepository;
 import Infrastructure.persistence.ConexionBD;
@@ -50,11 +49,14 @@ class ListarCursosService_IntegrationTest {
     }
 
     @Test
-    @DisplayName("obtenerCursosCompletos - Camino 2: Curso inscrito inexistente → IllegalArgumentException")
-    void obtenerCursosCompletos_CursoInexistente() {
-        usuarioCursoRepo.inscribir(UsuarioCurso.crearInscripcion(1, 999, null));
-        var ex = assertThrows(IllegalArgumentException.class, () -> service.obtenerCursosCompletos(1));
-        assertEquals("Curso no encontrado", ex.getMessage());
+    @DisplayName("inscribirCurso - Camino 2: Curso inexistente → IllegalArgumentException")
+    void inscribirCurso_CursoInexistente_LanzaExcepcion() {
+        var request = new InscripcionRequest(1, 999); // usuario 1 intenta inscribirse en curso que no existe
+        var ex = assertThrows(IllegalArgumentException.class, () ->
+                service.inscribirCurso(request)
+        );
+        assertTrue(ex.getMessage().toLowerCase().contains("no existe") ||
+                ex.getMessage().contains("curso"));
     }
 
     @Test

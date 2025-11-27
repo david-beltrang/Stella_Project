@@ -105,7 +105,7 @@ class SesionPomodoroService_IntegrationTest {
     @DisplayName("Flujo completo Pomodoro - Todo funciona en cadena")
     void flujoCompleto_PomodoroFunciona() {
         // 1. Iniciar
-        var inicio = new IniciarSesionEstudioRequest(1, 50, 10);
+        var inicio = new IniciarSesionEstudioRequest(1, 25, 10);
         SesionEstudioResponse sesion = service.iniciarSesion(inicio);
 
         int id = sesion.id();

@@ -95,6 +95,24 @@ public class UsuarioRepository implements InterfazUsuarioRepository {
         return Optional.empty();
     }
 
+    @Override
+    public Optional<Usuario> buscarPorUsername(String username) {
+        String sql = "SELECT * FROM \"usuario\" WHERE username = ?";
+        try (Connection conn = connMgr.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, username);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return Optional.of(obtenerUsuario(rs));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al buscar usuario por username: " + username, e);
+        }
+        return Optional.empty();
+    }
+
     // Método para obtener todos los usuarios.
     @Override
     public List<Usuario> listarTodos() {

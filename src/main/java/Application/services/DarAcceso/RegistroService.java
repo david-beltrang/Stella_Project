@@ -33,32 +33,47 @@ public class RegistroService {
      */
     public UsuarioResponse registrar(RegistrarUsuarioRequest request) {
         try {
-            // Crear usuario usando el factory method del dominio, que valida los value objects
+            // 1. Validar username duplicado
+            if (usuarioRepository.buscarPorUsername(request.username()).isPresent()) {
+                throw new RuntimeException("El nombre de usuario ya está en uso");
+            }
+
+            // 2. Validar correo duplicado (tu forma, perfecta)
+            if (usuarioRepository.buscarPorCorreo(request.correo()).isPresent()) {
+                throw new IllegalArgumentException("El correo ya está registrado");
+            }
+
+            // 3. Crear usuario → aquí el factory valida:
+            //    - tipo de usuario válido
+            //    - contraseña fuerte
+            //    - correo formato válido
+            //    → si falla, lanza IllegalArgumentException directamente
             Usuario usuario = Usuario.crearNuevo(
                     request.username(),
                     request.correo(),
                     request.nombre(),
                     request.contrasena(),
-                    request.tipo()
+                    request.tipo()  //
             );
-            // Guardar en el repositorio, que retorna el Usuario con el ID generado
-            //saved queda con el objeto del usuario obtenido de la BD
+
             Usuario saved = usuarioRepository.guardar(usuario);
-            // Retornar DTO para el frontend, excluyendo la contraseña por seguridad
+
             return new UsuarioResponse(
-                    saved.getId(), //Se hace un get normal porque el Id no es un VO
-                    saved.getUsername(), //Se hace un getUsername().valor() porque el record del VO tiene el método para obtener el valor
-                    saved.getCorreo(), //Se hace un getNombre().valor() porque el record del VO tiene el método para obtener el valor
-                    saved.getNombre(), //Se hace un getNombre().valor() porque el record del VO tiene el método para obtener el valor
-                    saved.getTipo().valor() //Se hace un getTipo().valor() porque el record del VO tiene el método para obtener el valor
+                    saved.getId(),
+                    saved.getUsername(),
+                    saved.getCorreo(),
+                    saved.getNombre(),
+                    saved.getTipo().valor()
             );
+
         } catch (UsuarioYaExisteException e) {
-            // Manejar caso de correo duplicado
-            // Convierte la excepcion de dominio
-            throw new IllegalArgumentException("El correo ya está registrado: " + e.getMessage());
+            // Por si el repo lanza (doble seguridad)
+            throw new IllegalArgumentException("El correo ya está registrado");
+        } catch (IllegalArgumentException e) {
+            // Captura: tipo inválido, contraseña débil, formato correo, etc.
+            throw e; // Re-lanzar tal cual
         } catch (Exception e) {
-            // Capturar errores de validación
-            throw new RuntimeException("Error al registrar usuario: " + e.getMessage());
+            throw new RuntimeException("Error inesperado al registrar usuario", e);
         }
     }
 

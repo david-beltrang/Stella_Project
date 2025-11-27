@@ -11,4 +11,5 @@ public interface InterfazUsuarioRepository {
     List<Usuario> listarTodos();
     void eliminar(int id);
     void actualizarUsername(int id, String nuevoUsername);
+    Optional<Usuario> buscarPorUsername(String username);
 }

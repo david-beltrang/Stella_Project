@@ -29,7 +29,11 @@ public class ForoService {
      * @return PostResponse con los detalles del post y sus comentarios, o null si no existe.
      */
     public PostResponse obtenerPostPorId(int id) {
-        return foroRepository.obtenerPostResponsePorId(id);
+        PostResponse post = foroRepository.obtenerPostResponsePorId(id);
+        if (post == null) {
+            throw new RuntimeException("Post no encontrado con id: " + id);
+        }
+        return post;
     }
 
     /**

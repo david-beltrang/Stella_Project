@@ -62,50 +62,51 @@ public class ProgresoRepository implements InterfazProgresoRepository {
 
     @Override
     public double obtenerProgresoPorCurso(int usuarioId, int cursoId) {
-        String sql = """
+        String sqlCompletadas = """
         SELECT COUNT(*) AS completadas
         FROM "progreso_leccion" pl
         JOIN "leccion" l ON pl.leccion_id = l.id
         JOIN "seccion" s ON l.seccion_id = s.id
         WHERE pl.usuario_id = ?
           AND s.curso_id = ?
-          AND pl.estado = 'COMPLETADA';
+          AND pl.estado = 'COMPLETADA'
         """;
 
         try (Connection conn = connMgr.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+             PreparedStatement pstmt = conn.prepareStatement(sqlCompletadas)) {
+
             pstmt.setInt(1, usuarioId);
             pstmt.setInt(2, cursoId);
-            try (ResultSet rs = pstmt.executeQuery()) {
-                if (rs.next()) {
-                    int completadas = rs.getInt("completadas");
-                    // Conteo real de lecciones por curso
-                    int totalLecciones = contarLeccionesPorCurso(cursoId, conn);
-                    if (totalLecciones == 0) return 0.0;
 
-                    // REDONDEO A 2 DECIMALES - PROFESIONAL
-                    double porcentaje = (completadas / (double) totalLecciones) * 100;
-                    return Math.round(porcentaje * 100.0) / 100.0;
-                }
+            try (ResultSet rs = pstmt.executeQuery()) {
+                int completadas = rs.next() ? rs.getInt("completadas") : 0;
+                int totalLecciones = contarLeccionesPorCurso(cursoId);
+                if (totalLecciones == 0) return 0.0;
+                double porcentaje = (double) completadas / totalLecciones * 100;
+                return Math.round(porcentaje * 100.0) / 100.0;
             }
         } catch (Exception e) {
             throw new RuntimeException("Error al obtener progreso por curso", e);
         }
-        return 0.0;
     }
 
-    private int contarLeccionesPorCurso(int cursoId, Connection conn) throws Exception {
+    private int contarLeccionesPorCurso(int cursoId) {
         String sql = """
         SELECT COUNT(*) 
         FROM "leccion" l 
         JOIN "seccion" s ON l.seccion_id = s.id 
         WHERE s.curso_id = ?
         """;
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+
+        try (Connection conn = connMgr.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
             ps.setInt(1, cursoId);
             try (ResultSet rs = ps.executeQuery()) {
                 return rs.next() ? rs.getInt(1) : 0;
             }
+        } catch (Exception e) {
+            throw new RuntimeException("Error contando lecciones del curso", e);
         }
     }
 

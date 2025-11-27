@@ -7,8 +7,6 @@ import Infrastructure.persistence.ConexionBD;
 import Infrastructure.persistence.H2DataBaseInitializer;
 import Infrastructure.repositories.ForoRepository;
 import org.junit.jupiter.api.*;
-
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;

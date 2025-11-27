@@ -1,3 +1,4 @@
+/*
 package Infrastructure.controllers;
 
 import Application.config.AppServices;
@@ -19,12 +20,13 @@ import javafx.scene.control.Label;
 import java.util.function.Function;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+*/
 /**
  * Controlador de la vista Login.fxml
  * Maneja los eventos de inicio de sesión, recuperación de contraseña y
  * navegación hacia otras pantallas.
  */
+/*
 public class LoginController {
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
@@ -71,13 +73,13 @@ public class LoginController {
     @FXML
     public void initialize() {
         // Clear previous login credentials
-        viewModel.emailProperty().set("");
-        viewModel.passwordProperty().set("");
+        //viewModel.emailProperty().set("");
+        //viewModel.passwordProperty().set("");
 
         // Bindings (Observer Pattern)
         // Bind ViewModel properties to FXML controls
-        correoField.textProperty().bindBidirectional(viewModel.emailProperty());
-        passwordField.textProperty().bindBidirectional(viewModel.passwordProperty());
+        //correoField.textProperty().bindBidirectional(viewModel.emailProperty());
+        //passwordField.textProperty().bindBidirectional(viewModel.passwordProperty());
     }
 
     // ===== Evento principal =====
@@ -148,3 +150,4 @@ public class LoginController {
         navigator.goTo("/views/Login.fxml", "STELLA - Login", controllerFactory, recoverEmailField);
     }
 }
+*/

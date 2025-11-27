@@ -19,13 +19,27 @@ public class UsuarioCursoRepository implements InterfazUsuarioCursoRepository {
 
     @Override
     public void inscribir(UsuarioCurso usuarioCurso) {
-        String sql = "INSERT INTO \"usuario_curso\" (usuario_id, curso_id, fecha) VALUES (?, ?, ?)";
+        // Validar que el curso exista ANTES de intentar insertar
+        String checkSql = "SELECT 1 FROM \"curso\" WHERE id = ?";
         try (Connection conn = connMgr.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, usuarioCurso.getUsuarioId());
-            stmt.setInt(2, usuarioCurso.getCursoId());
-            stmt.setTimestamp(3, java.sql.Timestamp.valueOf(usuarioCurso.getFecha()));
-            stmt.executeUpdate();
+             PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
+
+            checkStmt.setInt(1, usuarioCurso.getCursoId());
+            try (ResultSet rs = checkStmt.executeQuery()) {
+                if (!rs.next()) {
+                    throw new IllegalArgumentException("El curso con id " + usuarioCurso.getCursoId() + " no existe");
+                }
+            }
+
+            // Si existe, ahora sí insertamos
+            String insertSql = "INSERT INTO \"usuario_curso\" (usuario_id, curso_id, fecha) VALUES (?, ?, ?)";
+            try (PreparedStatement insertStmt = conn.prepareStatement(insertSql)) {
+                insertStmt.setInt(1, usuarioCurso.getUsuarioId());
+                insertStmt.setInt(2, usuarioCurso.getCursoId());
+                insertStmt.setTimestamp(3, java.sql.Timestamp.valueOf(usuarioCurso.getFecha()));
+                insertStmt.executeUpdate();
+            }
+
         } catch (SQLException e) {
             throw new RuntimeException("Error al guardar inscripción", e);
         }
@@ -78,11 +92,15 @@ public class UsuarioCursoRepository implements InterfazUsuarioCursoRepository {
 
     public void inicializarProgresoTodasLecciones(int usuarioId, int cursoId) {
         String sql = """
-        INSERT IGNORE INTO "progreso_leccion" (usuario_id, leccion_id, estado)
-            SELECT ?, l.id, 'EN_PROGRESO'
-            FROM "leccion" l
-            JOIN "seccion" s ON l.seccion_id = s.id
-            WHERE s.curso_id = ?
+        INSERT INTO "progreso_leccion" (usuario_id, leccion_id, estado)
+        SELECT ?, l.id, 'EN_PROGRESO'
+        FROM "leccion" l
+        JOIN "seccion" s ON l.seccion_id = s.id
+        WHERE s.curso_id = ?
+          AND NOT EXISTS (
+              SELECT 1 FROM "progreso_leccion" pl 
+              WHERE pl.usuario_id = ? AND pl.leccion_id = l.id
+          )
         """;
 
         try (Connection conn = connMgr.getConnection();
@@ -93,6 +111,8 @@ public class UsuarioCursoRepository implements InterfazUsuarioCursoRepository {
 
             // 2. Enlazar el segundo marcador '?' (curso_id para la cláusula WHERE)
             pstmt.setInt(2, cursoId);
+
+            pstmt.setInt(3, usuarioId);
 
             // Ejecutar la actualización (es un INSERT, por lo que usamos executeUpdate)
             pstmt.executeUpdate();

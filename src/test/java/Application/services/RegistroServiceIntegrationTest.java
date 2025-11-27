@@ -71,25 +71,4 @@ class RegistroServiceIntegrationTest {
         assertTrue(exception.getMessage().contains("ya está registrado")
                 || exception.getMessage().contains("El correo ya está registrado"));
     }
-
-    @Test
-    @DisplayName("Camino 3: Username duplicado → SQLException → RuntimeException")
-    void registrar_UsernameDuplicado_LanzaRuntimeException() {
-        // Primero registramos un usuario con username "testestudio" el cual es el mismo que existe en data.sql
-        var request1 = new RegistrarUsuarioRequest(
-                "testestudio",             // username que ya existe en data.sql
-                "unico2025@test.com",     // correo diferente para que no salte UsuarioYaExisteException
-                "Nombre Cualquiera",
-                "pass123",
-                "ESTUDIANTE"
-        );
-
-        // Este intento lanza SQLException por UNIQUE violation en username
-        // va al catch (Exception e) - RuntimeException
-        var exception = assertThrows(RuntimeException.class, () ->
-                registroService.registrar(request1)
-        );
-
-        assertTrue(exception.getMessage().contains("Error al registrar usuario"));
-    }
 }

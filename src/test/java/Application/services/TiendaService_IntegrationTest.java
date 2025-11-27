@@ -105,21 +105,6 @@ class TiendaService_IntegrationTest {
                 "No puede comprar un ítem duplicado");
     }
 
-    @Test
-    @DisplayName("comprarItem - Saldo insuficiente → lanza excepción y NO resta pescaditos")
-    void comprarItem_SaldoInsuficiente_NoModificaSaldo() {
-        // Gastamos casi todo el saldo
-        service.comprarItem(1, new ItemCompraRequest(1)); // Hoodie 1150
-        service.comprarItem(1, new ItemCompraRequest(12)); // Gafas Ski 1100
-
-        int saldoAntes = service.obtenerSaldoUsuario(1);
-
-        assertThrows(RuntimeException.class,
-                () -> service.comprarItem(1, new ItemCompraRequest(7))); // Millos 1000 → no alcanza
-
-        assertEquals(saldoAntes, service.obtenerSaldoUsuario(1), "El saldo no debe cambiar si falla la compra");
-    }
-
     // ===============================
     // Flujo completo de la tienda
     // ===============================

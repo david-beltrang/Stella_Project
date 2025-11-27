@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 public class ChatbotService {
     private static final Logger logger = LoggerFactory.getLogger(ChatbotService.class);
 
-    private static final String API_KEY = "";
+    private static final String API_KEY = "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";
     private static final String API_URL = "https://openrouter.ai/api/v1/chat/completions";
 
     // Historial de mensajes como lista de ChatMessageResponse para DTOs
