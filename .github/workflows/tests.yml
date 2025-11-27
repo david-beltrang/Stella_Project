@@ -29,8 +29,8 @@ jobs:
         run: mvn --batch-mode -DskipTests package
 
       # Ejecutar pruebas automatizadas (JUnit)
-      - name: Ejecutar pruebas
-        run: mvn --batch-mode test
+      - name: Ejecutar pruebas con cobertura
+        run: mvn --batch-mode test jacoco:report
 
       # Generar un reporte de pruebas
       - name: Reporte de pruebas
