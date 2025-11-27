@@ -4,10 +4,10 @@ package Application.services;
 import Application.dtos.tienda.*;
 import Domain.models.Item;
 import Domain.models.StellaItem;
+import Domain.models.UsuarioItem;
 import Domain.repositoriesInterfaces.*;
 
 import java.util.List;
-
 
 public class TiendaService {
 
@@ -20,8 +20,7 @@ public class TiendaService {
             InterfazItemRepository itemRepo,
             InterfazStellaItemRepository stellaRepo,
             InterfazUsuarioItemRepository usuarioItemRepo,
-            UsuarioStellaService usuarioStellaService
-    ) {
+            UsuarioStellaService usuarioStellaService) {
         this.itemRepo = itemRepo;
         this.stellaRepo = stellaRepo;
         this.usuarioItemRepo = usuarioItemRepo;
@@ -35,8 +34,7 @@ public class TiendaService {
                         item.getId(),
                         item.getNombre(),
                         item.getPrecio().valor(),
-                        item.getImagePath()
-                ))
+                        item.getImagePath()))
                 .toList();
     }
 
@@ -53,8 +51,7 @@ public class TiendaService {
                 item.getNombre(),
                 item.getDescripcion(),
                 item.getPrecio().valor(),
-                stellaPath
-        );
+                stellaPath);
     }
 
     // === 3. Comprar un item de la tienda ===
@@ -79,7 +76,8 @@ public class TiendaService {
         // Comprar el item
         usuarioItemRepo.comprarItem(usuarioId, request.itemId(), costo);
 
-        // Si el item tiene un StellaItem asociado, cambiar automáticamente la Stella actual
+        // Si el item tiene un StellaItem asociado, cambiar automáticamente la Stella
+        // actual
         if (stellaRepo.findByItemId(request.itemId()).isPresent() && usuarioStellaService != null) {
             try {
                 usuarioStellaService.cambiarStellaActual(request.itemId());
@@ -90,6 +88,7 @@ public class TiendaService {
             }
         }
     }
+
     // === 4. Obtener saldo actual del usuario ===
     public int obtenerSaldoUsuario(int usuarioId) {
         try {
@@ -99,4 +98,19 @@ public class TiendaService {
         }
     }
 
+    // === 5. Obtener inventario del usuario ===
+    public List<ItemTiendaResponse> obtenerInventario(int usuarioId) {
+        List<UsuarioItem> itemsUsuario = usuarioItemRepo.findByUsuarioId(usuarioId);
+
+        return itemsUsuario.stream()
+                .map(ui -> itemRepo.findById(ui.getItemId()))
+                .filter(java.util.Optional::isPresent)
+                .map(java.util.Optional::get)
+                .map(item -> new ItemTiendaResponse(
+                        item.getId(),
+                        item.getNombre(),
+                        item.getPrecio().valor(),
+                        item.getImagePath()))
+                .toList();
+    }
 }

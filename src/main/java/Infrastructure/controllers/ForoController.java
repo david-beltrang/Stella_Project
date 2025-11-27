@@ -6,11 +6,19 @@ import Application.services.PreguntasRespuestasForoService;
 import Infrastructure.ui.AyudaUI;
 import Infrastructure.ui.Navegacion;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextArea;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import Application.services.UsuarioStatsService;
@@ -39,6 +47,8 @@ public class ForoController {
     private Button chatBtn1;
     @FXML
     private Label pescaditosLabel;
+    @FXML
+    private Label rachaLabel;
 
     // Campos del formulario
     @FXML
@@ -71,9 +81,28 @@ public class ForoController {
     private void initialize() {
         logger.debug("Iniciando ForoController...");
         cargarPescaditos();
+        cargarRacha();
         cargarPreguntas();
         configurarFormulario();
         logger.debug("Foro inicializado correctamente");
+    }
+
+    private void cargarRacha() {
+        if (rachaLabel == null) {
+            return;
+        }
+        try {
+            if (usuarioStatsService == null) {
+                rachaLabel.setText("0");
+                return;
+            }
+            int racha = usuarioStatsService.obtenerRachaDias();
+            rachaLabel.setText(String.valueOf(racha));
+            logger.debug("Racha cargada en Foro: {}", racha);
+        } catch (Exception e) {
+            logger.error("Error cargando racha", e);
+            rachaLabel.setText("0");
+        }
     }
 
     private void configurarFormulario() {
@@ -219,12 +248,40 @@ public class ForoController {
     }
 
     @FXML
-    private void goPomodoro() {
+    private void goGamificacion() {
         try {
             navigator.goTo("/views/Gamificacion.fxml", "STELLA - Gamificación", controllerFactory, null);
         } catch (Exception e) {
             logger.error("Error al navegar a gamificación desde foro", e);
             uiHelper.showError("Error al navegar a gamificación", e.getMessage());
+        }
+    }
+
+    @FXML
+    private void goChatbot() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Chatbot.fxml"));
+            if (controllerFactory != null)
+                loader.setControllerFactory(controllerFactory::apply);
+
+            Parent popupRoot = loader.load();
+            Scene popupScene = new Scene(popupRoot, 1100, 750);
+            popupScene.setFill(Color.TRANSPARENT);
+
+            Stage popupStage = new Stage(StageStyle.TRANSPARENT);
+            popupStage.initModality(Modality.APPLICATION_MODAL);
+            popupStage.initOwner(contenidoArea.getScene().getWindow());
+            popupStage.setScene(popupScene);
+            popupStage.centerOnScreen();
+
+            // Efecto blur en el fondo
+            contenidoArea.setEffect(new GaussianBlur(10));
+            popupStage.setOnHidden(e -> contenidoArea.setEffect(null));
+
+            popupStage.showAndWait();
+
+        } catch (Exception e) {
+            logger.error("Error abriendo chatbot", e);
         }
     }
 

@@ -30,7 +30,7 @@ public class LoginController {
     // ===== Dependencias de negocio =====
     private final LoginService service;
 
-    // ===== Strategies (Strategy Pattern) =====
+    // ===== Strategies =====
     private final ValidationStrategy emailValidator = new EmailValidationStrategy();
     private final ValidationStrategy passwordValidator = new PasswordValidationStrategy();
 
@@ -66,7 +66,7 @@ public class LoginController {
 
     @FXML
     public void initialize() {
-        // Clear previous login credentials (no hay ViewModel, solo limpia los campos)
+        // Clear previous login credentials
         correoField.clear();
         passwordField.clear();
     }
@@ -78,20 +78,20 @@ public class LoginController {
         String pass = passwordField.getText();
 
         try {
-            // 1️⃣ Validación (Strategy Pattern)
+            // 1. Validación
             emailValidator.validate(correo);
             passwordValidator.validate(pass);
 
-            // 2️⃣ Autenticación (delegado al servicio - Controller Pattern)
+            // 2. Autenticación
             UsuarioResponse usuario = service.login(new LoginRequest(correo, pass));
 
-            // 3️⃣ Guardar el usuario globalmente (delegado al servicio de sesión)
+            // 3. Guardar el usuario globalmente
             AppServices.setUsuarioActual(usuario);
 
-            // 4️⃣ Navegación delegada a Navigacion (Separation of Concerns)
+            // 4. Navegación
             navigator.goTo("/views/Principal.fxml", "STELLA - Principal", controllerFactory, correoField);
 
-            // 5️⃣ Mensaje personalizado
+            // 5. Mensaje personalizado
             uiHelper.showInfo(
                     "Bienvenido " + usuario.nombre(),
                     "Has iniciado sesión correctamente. Tu ID es: " + usuario.id());
@@ -105,7 +105,6 @@ public class LoginController {
         }
     }
 
-    // ===== Otros eventos =====
     @FXML
     private void onBackClicked() {
         navigator.goTo("/views/hello-view.fxml", "STELLA", controllerFactory, backButton);

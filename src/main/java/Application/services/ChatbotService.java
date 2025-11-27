@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 public class ChatbotService {
     private static final Logger logger = LoggerFactory.getLogger(ChatbotService.class);
 
-    private static final String API_KEY = "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";
+    private static final String API_KEY = "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";
     private static final String API_URL = "https://openrouter.ai/api/v1/chat/completions";
 
     // Historial de mensajes como lista de ChatMessageResponse para DTOs
@@ -30,8 +30,7 @@ public class ChatbotService {
         ChatMessageResponse systemMsg = new ChatMessageResponse(
                 "Eres Stella, una asistente útil y amable. Habla en español.",
                 LocalDateTime.now(),
-                "system"
-        );
+                "system");
         conversationHistory.add(systemMsg);
     }
 
@@ -47,8 +46,7 @@ public class ChatbotService {
             ChatMessageResponse userMsg = new ChatMessageResponse(
                     request.content(),
                     LocalDateTime.now(),
-                    "user"
-            );
+                    "user");
             conversationHistory.add(userMsg);
 
             // Convertir el historial a formato JSON para la API
@@ -75,9 +73,18 @@ public class ChatbotService {
                     .POST(HttpRequest.BodyPublishers.ofString(body.toString()))
                     .build();
 
-            // Enviar la solicitud
-            HttpClient client = HttpClient.newHttpClient();
+            // Enviar la solicitud usando el método factoría para permitir mocking
+            HttpClient client = createHttpClient();
             HttpResponse<String> response = client.send(requestHttp, HttpResponse.BodyHandlers.ofString());
+
+            // Check for non-200 status codes
+            if (response.statusCode() != 200) {
+                logger.warn("Chatbot API returned non-200 status: {}", response.statusCode());
+                return new ChatMessageResponse(
+                        "Error de conexión: Recibido código " + response.statusCode(),
+                        LocalDateTime.now(),
+                        "assistant");
+            }
 
             // Parsear respuesta JSON
             JSONObject json = new JSONObject(response.body());
@@ -94,8 +101,7 @@ public class ChatbotService {
                 ChatMessageResponse assistantMsg = new ChatMessageResponse(
                         respuesta,
                         LocalDateTime.now(),
-                        "assistant"
-                );
+                        "assistant");
                 conversationHistory.add(assistantMsg);
 
                 return assistantMsg;
@@ -104,22 +110,19 @@ public class ChatbotService {
             return new ChatMessageResponse(
                     "No se obtuvo respuesta del modelo.",
                     LocalDateTime.now(),
-                    "assistant"
-            );
+                    "assistant");
         } catch (IOException | InterruptedException e) {
             logger.error("Error de conexión al comunicarse con la API del chatbot", e);
             return new ChatMessageResponse(
                     "Error de conexión: " + e.getMessage(),
                     LocalDateTime.now(),
-                    "assistant"
-            );
+                    "assistant");
         } catch (Exception e) {
             logger.error("Error inesperado al procesar la respuesta del chatbot", e);
             return new ChatMessageResponse(
                     "Error al procesar la respuesta: " + e.getMessage(),
                     LocalDateTime.now(),
-                    "assistant"
-            );
+                    "assistant");
         }
     }
 
@@ -133,16 +136,20 @@ public class ChatbotService {
     }
 
     /**
-     * Limpia el historial de la conversación, reiniciando con el mensaje del sistema.
+     * Limpia el historial de la conversación, reiniciando con el mensaje del
+     * sistema.
      */
     public void limpiarHistorial() {
         conversationHistory = new ArrayList<>();
         ChatMessageResponse systemMsg = new ChatMessageResponse(
                 "Eres Stella, una asistente útil y amable. Habla en español.",
                 LocalDateTime.now(),
-                "system"
-        );
+                "system");
         conversationHistory.add(systemMsg);
+    }
+
+    protected HttpClient createHttpClient() {
+        return HttpClient.newHttpClient();
     }
 
     protected String getApiKey() {

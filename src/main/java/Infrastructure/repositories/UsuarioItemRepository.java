@@ -67,7 +67,7 @@ public class UsuarioItemRepository implements InterfazUsuarioItemRepository {
     public boolean tieneItem(int usuarioId, int itemId) {
         String sql = "SELECT 1 FROM \"usuario_item\" WHERE usuario_id = ? AND item_id = ?";
         try (Connection conn = connMgr.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+                PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, usuarioId);
             ps.setInt(2, itemId);
             try (ResultSet rs = ps.executeQuery()) {
@@ -83,7 +83,7 @@ public class UsuarioItemRepository implements InterfazUsuarioItemRepository {
         List<UsuarioItem> items = new ArrayList<>();
         String sql = "SELECT usuario_id, item_id, fecha_compra, es_activo FROM \"usuario_item\" WHERE usuario_id = ?";
         try (Connection conn = connMgr.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+                PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, usuarioId);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
@@ -91,8 +91,7 @@ public class UsuarioItemRepository implements InterfazUsuarioItemRepository {
                             rs.getInt("usuario_id"),
                             rs.getInt("item_id"),
                             rs.getTimestamp("fecha_compra").toLocalDateTime(),
-                            rs.getBoolean("es_activo")
-                    ));
+                            rs.getBoolean("es_activo")));
                 }
             }
         } catch (Exception e) {
@@ -105,7 +104,7 @@ public class UsuarioItemRepository implements InterfazUsuarioItemRepository {
     public int obtenerPescaditos(int usuarioId) {
         String sql = "SELECT pescaditos FROM \"usuario_stats\" WHERE usuario_id = ?";
         try (Connection conn = connMgr.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+                PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, usuarioId);
             try (ResultSet rs = ps.executeQuery()) {
                 return rs.next() ? rs.getInt("pescaditos") : 0;
@@ -120,7 +119,7 @@ public class UsuarioItemRepository implements InterfazUsuarioItemRepository {
         String sql = "SELECT usuario_id, item_id, fecha_compra, es_activo FROM \"usuario_item\" " +
                 "WHERE usuario_id = ? AND es_activo = TRUE";
         try (Connection conn = connMgr.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+                PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, usuarioId);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
@@ -128,8 +127,7 @@ public class UsuarioItemRepository implements InterfazUsuarioItemRepository {
                             rs.getInt("usuario_id"),
                             rs.getInt("item_id"),
                             rs.getTimestamp("fecha_compra").toLocalDateTime(),
-                            rs.getBoolean("es_activo")
-                    ));
+                            rs.getBoolean("es_activo")));
                 }
             }
         } catch (Exception e) {
@@ -166,6 +164,65 @@ public class UsuarioItemRepository implements InterfazUsuarioItemRepository {
             conn.commit();
         } catch (SQLException e) {
             throw new RuntimeException("Error al cambiar item activo", e);
+        }
+    }
+
+    @Override
+    public void actualizarRacha(int usuarioId, int nuevaRacha, java.time.LocalDateTime fechaUltimaLeccion) {
+        String sql = "UPDATE \"usuario_stats\" SET racha_dias = ?, fecha_ultima_leccion = ? WHERE usuario_id = ?";
+        try (Connection conn = connMgr.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, nuevaRacha);
+            ps.setTimestamp(2, java.sql.Timestamp.valueOf(fechaUltimaLeccion));
+            ps.setInt(3, usuarioId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al actualizar racha", e);
+        }
+    }
+
+    @Override
+    public int obtenerRacha(int usuarioId) {
+        String sql = "SELECT racha_dias FROM \"usuario_stats\" WHERE usuario_id = ?";
+        try (Connection conn = connMgr.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, usuarioId);
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next() ? rs.getInt("racha_dias") : 0;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al obtener racha", e);
+        }
+    }
+
+    @Override
+    public java.time.LocalDateTime obtenerFechaUltimaLeccion(int usuarioId) {
+        String sql = "SELECT fecha_ultima_leccion FROM \"usuario_stats\" WHERE usuario_id = ?";
+        try (Connection conn = connMgr.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, usuarioId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    Timestamp ts = rs.getTimestamp("fecha_ultima_leccion");
+                    return ts != null ? ts.toLocalDateTime() : null;
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al obtener fecha ultima leccion", e);
+        }
+        return null;
+    }
+
+    @Override
+    public void agregarPescaditos(int usuarioId, int cantidad) {
+        String sql = "UPDATE \"usuario_stats\" SET pescaditos = pescaditos + ? WHERE usuario_id = ?";
+        try (Connection conn = connMgr.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, cantidad);
+            ps.setInt(2, usuarioId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al agregar pescaditos", e);
         }
     }
 }

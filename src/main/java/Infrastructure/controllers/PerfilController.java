@@ -3,18 +3,28 @@ package Infrastructure.controllers;
 import Application.dtos.PerfilDTO;
 import Application.services.PerfilService;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import Infrastructure.ui.Navegacion;
 import javafx.scene.control.Button;
 import java.util.function.Function;
+import Application.services.UsuarioStatsService;
+import javafx.scene.paint.Color;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 public class PerfilController {
 
@@ -29,22 +39,30 @@ public class PerfilController {
     @FXML
     private ImageView avatarImage;
     @FXML
-    private VBox cursosContainer; // Container for dynamic course list
+    private VBox cursosContainer;
     @FXML
-    private Label cursosCompletadosLabel; // Assuming there's a label for this, or we add one dynamically
+    private Label cursosCompletadosLabel;
     @FXML
-    private Label fechaCreacionLabel; // Assuming there's a label for this
+    private Label fechaCreacionLabel;
     @FXML
-    private Button homeBtn2; // For navegation context
+    private Button homeBtn2;
     @FXML
-    private Button logoutBtn; // For navegation context
+    private Button logoutBtn;
 
     private final PerfilService perfilService;
+    private final UsuarioStatsService usuarioStatsService;
     private final Navegacion navegacion = new Navegacion();
     private Function<Class<?>, Object> controllerFactory;
+    private static final Logger logger = LoggerFactory.getLogger(PerfilController.class);
 
-    public PerfilController(PerfilService perfilService) {
+    @FXML
+    private Label pescaditosLabel;
+    @FXML
+    private Label rachaLabel;
+
+    public PerfilController(PerfilService perfilService, UsuarioStatsService usuarioStatsService) {
         this.perfilService = perfilService;
+        this.usuarioStatsService = usuarioStatsService;
     }
 
     public void setControllerFactory(Function<Class<?>, Object> controllerFactory) {
@@ -54,6 +72,36 @@ public class PerfilController {
     @FXML
     public void initialize() {
         cargarDatosPerfil();
+        cargarPescaditos();
+        cargarRacha();
+    }
+
+    private void cargarPescaditos() {
+        if (pescaditosLabel == null) {
+            return;
+        }
+        try {
+            int pescaditos = usuarioStatsService.obtenerPescaditos();
+            pescaditosLabel.setText(String.valueOf(pescaditos));
+            logger.debug("Pescaditos cargados en Perfil: {}", pescaditos);
+        } catch (Exception e) {
+            logger.error("Error cargando pescaditos", e);
+            pescaditosLabel.setText("0");
+        }
+    }
+
+    private void cargarRacha() {
+        if (rachaLabel == null) {
+            return;
+        }
+        try {
+            int racha = usuarioStatsService.obtenerRachaDias();
+            rachaLabel.setText(String.valueOf(racha));
+            logger.debug("Racha cargada en Perfil: {}", racha);
+        } catch (Exception e) {
+            logger.error("Error cargando racha", e);
+            rachaLabel.setText("0");
+        }
     }
 
     private void cargarDatosPerfil() {
@@ -70,35 +118,6 @@ public class PerfilController {
                     avatarImage.setImage(new Image(getClass().getResourceAsStream(perfil.rutaImagenStella())));
                 } catch (Exception e) {
                     System.err.println("Error loading avatar image: " + e.getMessage());
-                }
-            }
-
-            // Populate courses
-            if (cursosContainer != null) {
-                cursosContainer.getChildren().clear();
-                List<String> cursos = perfil.cursosInscritos();
-                if (cursos != null && !cursos.isEmpty()) {
-                    for (String cursoNombre : cursos) {
-                        // Create a simple row for the course
-                        javafx.scene.layout.HBox row = new javafx.scene.layout.HBox();
-                        row.setSpacing(10);
-                        row.setStyle(
-                                "-fx-background-color: rgba(255,255,255,0.05); -fx-background-radius: 5; -fx-padding: 10;");
-
-                        Label nameLabel = new Label(cursoNombre);
-                        nameLabel.setStyle("-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold;");
-                        nameLabel.setPrefWidth(378);
-
-                        Label progressLabel = new Label("En progreso"); // Placeholder
-                        progressLabel.setStyle("-fx-text-fill: #4DA3FF; -fx-font-size: 14px;");
-
-                        row.getChildren().addAll(nameLabel, progressLabel);
-                        cursosContainer.getChildren().add(row);
-                    }
-                } else {
-                    Label emptyLabel = new Label("No estás inscrito en ningún curso.");
-                    emptyLabel.setStyle("-fx-text-fill: white; -fx-font-size: 14px;");
-                    cursosContainer.getChildren().add(emptyLabel);
                 }
             }
 
@@ -132,6 +151,50 @@ public class PerfilController {
     @FXML
     private void goTienda() {
         navegacion.goTo("/views/Tienda.fxml", "STELLA - Tienda", controllerFactory, null);
+    }
+
+    @FXML
+    private void goInventario() {
+        navegacion.goTo("/views/InventarioAvatar.fxml", "STELLA - Mi Inventario", controllerFactory, null);
+    }
+
+    @FXML
+    private void goProfile() {
+        // Ya estamos en perfil, no hacer nada o mostrar mensaje
+        logger.debug("Ya estás en la vista de Perfil");
+    }
+
+    @FXML
+    private void goGamificacion() {
+        navegacion.goTo("/views/Gamificacion.fxml", "STELLA - Gamificación", controllerFactory, null);
+    }
+
+    @FXML
+    private void goChatbot() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Chatbot.fxml"));
+            if (controllerFactory != null)
+                loader.setControllerFactory(controllerFactory::apply);
+
+            Parent popupRoot = loader.load();
+            Scene popupScene = new Scene(popupRoot, 1100, 750);
+            popupScene.setFill(Color.TRANSPARENT);
+
+            Stage popupStage = new Stage(StageStyle.TRANSPARENT);
+            popupStage.initModality(Modality.APPLICATION_MODAL);
+            popupStage.initOwner(avatarImage.getScene().getWindow());
+            popupStage.setScene(popupScene);
+            popupStage.centerOnScreen();
+
+            // Efecto blur en el fondo
+            avatarImage.setEffect(new GaussianBlur(10));
+            popupStage.setOnHidden(e -> avatarImage.setEffect(null));
+
+            popupStage.showAndWait();
+
+        } catch (Exception e) {
+            logger.error("Error abriendo chatbot", e);
+        }
     }
 
     @FXML

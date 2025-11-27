@@ -8,12 +8,13 @@ import Application.services.ListarCursosService;
 import Application.services.SeccionesService;
 import Application.services.PomodoroTimer;
 import Application.services.CursoUIService;
+import Application.services.UsuarioStatsService;
 import Infrastructure.ui.AyudaUI;
 import Infrastructure.ui.Navegacion;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.beans.binding.Bindings; // ⏱
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -40,10 +41,8 @@ import org.slf4j.LoggerFactory;
 public class PrincipalController implements Initializable {
     private static final Logger logger = LoggerFactory.getLogger(PrincipalController.class);
 
-    // ===== Factory global =====
     private Function<Class<?>, Object> controllerFactory;
 
-    // ====== ELEMENTOS FXML ======
     @FXML
     private TextField searchField;
     @FXML
@@ -67,9 +66,13 @@ public class PrincipalController implements Initializable {
     @FXML
     private AnchorPane root;
 
-    // 🔧 CORREGIDO: el label ahora se llama igual que en FXML (timerLabel)
     @FXML
     private Label timerLabel;
+
+    @FXML
+    private Label pescaditosLabel;
+    @FXML
+    private Label rachaLabel;
 
     // ====== DEPENDENCIAS ======
     private final ListarCursosService listarCursosService;
@@ -77,24 +80,31 @@ public class PrincipalController implements Initializable {
     private final CursoUIService cursoUIService;
     private final AyudaUI uiHelper = new AyudaUI();
     private final Navegacion navigator = new Navegacion();
+    private final UsuarioStatsService usuarioStatsService;
 
     // ====== VARIABLES DE ESTADO ======
     private Integer usuarioActualId;
     private CursosResponse cursosActuales;
+    private final PomodoroTimer pomodoroTimer;
 
     // ====== CONSTRUCTOR ======
 
-    public PrincipalController(ListarCursosService listarCursosService, SeccionesService seccionesService) {
+    public PrincipalController(ListarCursosService listarCursosService, SeccionesService seccionesService,
+            UsuarioStatsService usuarioStatsService) {
         this.listarCursosService = listarCursosService;
         this.seccionesService = seccionesService;
+        this.usuarioStatsService = usuarioStatsService;
         this.cursoUIService = new CursoUIService();
+        this.pomodoroTimer = AppServices.getPomodoroTimer();
     }
 
     public PrincipalController() {
         // Requerido por FXMLLoader
         this.listarCursosService = AppServices.getListarCursosService();
         this.seccionesService = AppServices.getSeccionesService();
+        this.usuarioStatsService = null;
         this.cursoUIService = new CursoUIService();
+        this.pomodoroTimer = AppServices.getPomodoroTimer();
     }
 
     // ==============================
@@ -115,8 +125,9 @@ public class PrincipalController implements Initializable {
             logoutBtn.setOnAction(e -> cerrarSesion());
         }
 
-        // ⏱ Inicializa el HUD Pomodoro dinámico
+        // Inicializa el HUD Pomodoro dinámico
         setupPomodoroHud();
+        configurarAtajoF12(); // Atajo F12 para saltar al descanso
 
         if (usuarioActualId != null) {
             cargarCursosDesdeBD();
@@ -124,8 +135,9 @@ public class PrincipalController implements Initializable {
     }
 
     // ==============================
-    // ⏱ HUD POMODORO DINÁMICO
+    // MÉTODOS AUXILIARES
     // ==============================
+
     private void setupPomodoroHud() {
         if (timerLabel == null)
             return;
@@ -140,13 +152,6 @@ public class PrincipalController implements Initializable {
                 Bindings.createStringBinding(
                         () -> formatMMSS(t.secondsLeftProperty().get()),
                         t.secondsLeftProperty()));
-
-        // En principal el timer solo se muestra (pausado)
-        try {
-            t.pause();
-        } catch (Exception e) {
-            logger.warn("No se pudo pausar el temporizador Pomodoro", e);
-        }
     }
 
     private String formatMMSS(int total) {
@@ -154,6 +159,30 @@ public class PrincipalController implements Initializable {
             total = 0;
         int mm = total / 60, ss = total % 60;
         return String.format("%02d:%02d", mm, ss);
+    }
+
+    // Configurar atajo F12 para saltar al descanso
+    private void configurarAtajoF12() {
+        if (root == null)
+            return;
+
+        root.sceneProperty().addListener((obs, oldScene, newScene) -> {
+            if (newScene != null) {
+                newScene.setOnKeyPressed(event -> {
+                    if (event.getCode().toString().equals("F12")) {
+                        if (pomodoroTimer != null) {
+                            // Cambiar al tiempo de descanso
+                            int breakTime = pomodoroTimer.getBreakTimeSeconds();
+                            pomodoroTimer.setSecondsLeft(breakTime);
+                            pomodoroTimer.start();
+                            uiHelper.showInfo("Pomodoro Finalizado",
+                                    "Iniciando tiempo de descanso (" + (breakTime / 60) + " min)...");
+                        }
+                        event.consume();
+                    }
+                });
+            }
+        });
     }
 
     // ==============================
@@ -165,9 +194,40 @@ public class PrincipalController implements Initializable {
             usuarioActualId = usuario.id();
             logger.info("Usuario activo: {}", usuario.nombre());
             cargarCursosDesdeBD();
+            try {
+                if (usuarioStatsService != null) {
+                    int pescaditos = usuarioStatsService.obtenerPescaditos();
+                    if (pescaditosLabel != null) {
+                        pescaditosLabel.setText(String.valueOf(pescaditos));
+                        logger.debug("Pescaditos cargados en Principal: {}", pescaditos);
+                    }
+                }
+            } catch (Exception e) {
+                logger.error("Error cargando pescaditos", e);
+                if (pescaditosLabel != null) {
+                    pescaditosLabel.setText("0");
+                }
+            }
+            cargarRacha();
         } else {
             usuarioActualId = null;
             logger.warn("No hay usuario activo. Saltando carga de cursos.");
+        }
+    }
+
+    private void cargarRacha() {
+        if (rachaLabel == null) {
+            return;
+        }
+        try {
+            if (usuarioStatsService != null) {
+                int racha = usuarioStatsService.obtenerRachaDias();
+                rachaLabel.setText(String.valueOf(racha));
+                logger.debug("Racha cargada en Principal: {}", racha);
+            }
+        } catch (Exception e) {
+            logger.error("Error cargando racha", e);
+            rachaLabel.setText("0");
         }
     }
 
@@ -189,30 +249,26 @@ public class PrincipalController implements Initializable {
         }
         noCoursesLabel.setVisible(false);
         for (CursoResponse curso : cursosActuales.cursosUsuario()) {
-            // Delegar creación de UI al servicio (Separation of Concerns)
+            // Delegar creación de UI al servicio
             VBox card = cursoUIService.crearTarjetaCursoUsuario(curso, this::abrirCurso);
             misCursosContainer.getChildren().add(card);
         }
     }
 
-    /**
-     * Maneja la acción de abrir un curso (Controller Pattern).
-     * Delega la lógica de negocio al servicio.
-     */
     private void abrirCurso(CursoResponse curso) {
         if (controllerFactory == null) {
             uiHelper.showError("Error", "No hay factory de controladores configurada.");
             return;
         }
         try {
-            // Delegar validación al servicio (Information Expert)
+            // Delegar validación al servicio
             var secciones = seccionesService.ListarSeccionesConLecciones(curso.id());
             if (secciones == null || secciones.isEmpty()) {
                 uiHelper.showInfo("Curso: " + curso.titulo(),
                         "El contenido de este curso estará disponible próximamente.");
                 return;
             }
-            // Navegación delegada (Controller Pattern)
+            // Navegación delegada
             CursoController cursoCtrl = (CursoController) controllerFactory.apply(CursoController.class);
             cursoCtrl.setCursoActual(curso.id(), curso.titulo());
             navigator.goTo("/views/PlantillaCurso.fxml", "STELLA - " + curso.titulo(), controllerFactory, root);
@@ -227,7 +283,7 @@ public class PrincipalController implements Initializable {
         if (cursosActuales == null)
             return;
         for (CursoResponse curso : cursosActuales.cursosDisponibles()) {
-            // Delegar creación de UI al servicio (Separation of Concerns)
+            // Delegar creación de UI al servicio
             VBox card = cursoUIService.crearTarjetaCursoDisponible(curso, c -> {
                 if (usuarioActualId == null) {
                     uiHelper.showError("Error", "No hay un usuario activo para inscribir cursos.");
@@ -276,7 +332,7 @@ public class PrincipalController implements Initializable {
             uiHelper.showInfo("Sin resultados", "No se encontraron cursos con ese nombre.");
         } else {
             for (CursoResponse curso : filtrados) {
-                // Delegar creación de UI al servicio (Separation of Concerns)
+                // Delegar creación de UI al servicio
                 VBox card = cursoUIService.crearTarjetaCursoDisponible(curso, c -> {
                     if (usuarioActualId == null) {
                         uiHelper.showError("Error", "No hay un usuario activo para inscribir cursos.");
@@ -326,6 +382,15 @@ public class PrincipalController implements Initializable {
             navigator.goTo("/views/Pomodoro.fxml", "STELLA - Pomodoro", controllerFactory, root);
         } catch (Exception e) {
             uiHelper.showError("Error al abrir Pomodoro", e.getMessage());
+        }
+    }
+
+    @FXML
+    private void goGamificacion() {
+        try {
+            navigator.goTo("/views/Gamificacion.fxml", "STELLA - Gamificación", controllerFactory, root);
+        } catch (Exception e) {
+            uiHelper.showError("Error al abrir Gamificación", e.getMessage());
         }
     }
 

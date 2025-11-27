@@ -33,8 +33,8 @@ public class PomodoroTimer {
 
     /** Inicia o reanuda el temporizador */
     public void start() {
+        isPaused = false;
         if (timeline.getStatus() != Timeline.Status.RUNNING) {
-            isPaused = false;
             timeline.play();
         }
     }
@@ -42,6 +42,7 @@ public class PomodoroTimer {
     /** Pausa el temporizador */
     public void pause() {
         isPaused = true;
+        timeline.pause();
     }
 
     /** Reinicia el temporizador a 25:00 */
@@ -71,5 +72,16 @@ public class PomodoroTimer {
 
     public void setSecondsLeft(int seconds) {
         secondsLeft.set(seconds);
+    }
+
+    // Nuevo campo para el tiempo de descanso
+    private int breakTimeSeconds = 300; // Default 5 min
+
+    public int getBreakTimeSeconds() {
+        return breakTimeSeconds;
+    }
+
+    public void setBreakTimeSeconds(int breakTimeSeconds) {
+        this.breakTimeSeconds = breakTimeSeconds;
     }
 }

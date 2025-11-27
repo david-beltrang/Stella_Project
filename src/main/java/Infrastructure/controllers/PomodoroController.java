@@ -114,7 +114,7 @@ public class PomodoroController {
         PomodoroTimer pomodoroTimer = AppServices.getPomodoroTimer();
         if (pomodoroTimer != null) {
             pomodoroTimer.setSecondsLeft(minutosSeleccionados * 60);
-            pomodoroTimer.start(); // ✅ Iniciar el conteo real
+            pomodoroTimer.pause(); // No iniciar hasta terminar la configuración
         }
 
         navigator.goTo("/views/PomodoroDescanso.fxml", "Descanso", controllerFactory, confirmarButton);

@@ -13,7 +13,6 @@ public class LeccionService {
         this.leccionRepository = leccionRepository;
     }
 
-
     public LeccionResponse obtenerLeccionPorCursoYOrden(
             int cursoId, int numeroOrdenSeccion, int numeroOrdenLeccion) {
 
@@ -35,7 +34,8 @@ public class LeccionService {
                 leccion.getNumeroOrden(),
                 leccion.getTipoContenido().name(),
                 leccion.getUrl_video(),
-                leccion.getContenido()
-        );
+                leccion.getContenido(),
+                leccion.getContenidoHtml(),
+                leccion.getPdfUrl());
     }
 }

@@ -107,17 +107,26 @@ public class PomodoroDescansoController {
 
         PomodoroTimer pomodoroTimer = AppServices.getPomodoroTimer();
         if (pomodoroTimer != null) {
-            pomodoroTimer.setSecondsLeft(minutosSeleccionados * 60);
-            pomodoroTimer.start(); // ✅ Asegura inicio real
+            pomodoroTimer.setBreakTimeSeconds(minutosSeleccionados * 60);
+            pomodoroTimer.start(); // Inicia el conteo del tiempo de estudio
         }
 
-        navigator.goTo("/views/Principal.fxml", "STELLA - Principal", controllerFactory, confirmarButton);
+        try {
+            navigator.goTo("/views/Principal.fxml", "STELLA - Principal", controllerFactory, confirmarButton);
+        } catch (Exception e) {
+            logger.error("Error al navegar a Principal desde Pomodoro", e);
+            uiHelper.showError("Error de navegación", "No se pudo volver a la pantalla principal.");
+        }
     }
 
     // ===== Navegación inferior =====
     @FXML
     private void goHome() {
-        navigator.goTo("/views/Principal.fxml", "Principal", controllerFactory, homeBtn);
+        try {
+            navigator.goTo("/views/Principal.fxml", "Principal", controllerFactory, homeBtn);
+        } catch (Exception e) {
+            logger.error("Error al navegar a Home desde Pomodoro", e);
+        }
     }
 
     @FXML
@@ -147,6 +156,10 @@ public class PomodoroDescansoController {
 
     @FXML
     private void goTienda() {
-        navigator.goTo("/views/Tienda.fxml", "STELLA - Tienda", controllerFactory, tiendaBtn);
+        try {
+            navigator.goTo("/views/Tienda.fxml", "STELLA - Tienda", controllerFactory, tiendaBtn);
+        } catch (Exception e) {
+            logger.error("Error al navegar a Tienda desde Pomodoro", e);
+        }
     }
 }

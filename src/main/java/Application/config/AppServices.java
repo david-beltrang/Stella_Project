@@ -9,7 +9,6 @@ import Application.services.SeccionesService;
 // === Pomodoro ===
 import Application.services.PomodoroTimer;
 import Application.services.SesionPomodoroService;
-import Application.services.ProgresoGamificacionService;
 import Application.services.PreguntasRespuestasForoService;
 import Application.services.TiendaService;
 import Application.services.UsuarioStatsService;
@@ -29,9 +28,6 @@ public final class AppServices {
     private static PomodoroTimer pomodoroTimer;
     private static Integer pomodoroSesionId; // id de la sesión activa o null
     private static boolean pomodoroFinishListenerRegistrado = false;
-
-    // ===== Gamificación =====
-    private static ProgresoGamificacionService progresoGamificacionService;
 
     // ===== Foro =====
     private static int preguntaIdActual = 0;
@@ -107,15 +103,6 @@ public final class AppServices {
     public static void initCursos(ListarCursosService listar, SeccionesService secciones) {
         listarCursosService = listar;
         seccionesService = secciones;
-    }
-
-    // ===== Gamificación =====
-    public static void initGamificacion(ProgresoGamificacionService service) {
-        progresoGamificacionService = service;
-    }
-
-    public static ProgresoGamificacionService getProgresoGamificacionService() {
-        return progresoGamificacionService;
     }
 
     // Métodos para pregunta ID actual

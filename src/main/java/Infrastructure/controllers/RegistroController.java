@@ -1,5 +1,6 @@
 package Infrastructure.controllers;
 
+import Application.config.AppServices;
 import Application.dtos.acceso.RegistrarUsuarioRequest;
 import Application.dtos.acceso.UsuarioResponse;
 import Application.services.DarAcceso.RegistroService;
@@ -33,26 +34,33 @@ public class RegistroController {
     }
 
     public RegistroController() {
-        this.service = null;
+        this.service = AppServices.registroService();
     }
 
     // ===== Nodos FXML =====
-    @FXML private TextField nombreField;
-    @FXML private TextField usernameField;
-    @FXML private TextField correoField;
-    @FXML private PasswordField passwordField;
-    @FXML private PasswordField confirmPasswordField;
-    @FXML private Button backButton;
-    @FXML private Button registerButton;
+    @FXML
+    private TextField nombreField;
+    @FXML
+    private TextField usernameField;
+    @FXML
+    private TextField correoField;
+    @FXML
+    private PasswordField passwordField;
+    @FXML
+    private PasswordField confirmPasswordField;
+    @FXML
+    private Button backButton;
+    @FXML
+    private Button registerButton;
 
     // ===== Acciones de UI =====
     @FXML
     private void onRegistrarClicked(ActionEvent e) {
-        String nombre   = text(nombreField);
+        String nombre = text(nombreField);
         String username = text(usernameField);
-        String correo   = text(correoField);
-        String pass1    = text(passwordField);
-        String pass2    = text(confirmPasswordField);
+        String correo = text(correoField);
+        String pass1 = text(passwordField);
+        String pass2 = text(confirmPasswordField);
 
         if (!correo.contains("@")) {
             uiHelper.showError("Correo inválido", "El correo debe tener formato usuario@dominio.com");
@@ -70,12 +78,12 @@ public class RegistroController {
 
         try {
             if (service == null) {
-                throw new IllegalStateException("RegistroService no inicializado. Revisa la inyección de dependencias.");
+                throw new IllegalStateException(
+                        "RegistroService no inicializado. Revisa la inyección de dependencias.");
             }
 
             RegistrarUsuarioRequest req = new RegistrarUsuarioRequest(
-                    username, correo, nombre, pass1, "ESTUDIANTE"
-            );
+                    username, correo, nombre, pass1, "ESTUDIANTE");
 
             UsuarioResponse u = service.registrar(req);
 
@@ -87,8 +95,7 @@ public class RegistroController {
                     "/views/Login.fxml",
                     "STELLA - Login",
                     controllerFactory,
-                    (javafx.scene.Node) e.getSource()
-            );
+                    (javafx.scene.Node) e.getSource());
 
         } catch (IllegalArgumentException ex) {
             uiHelper.showError("Error en el registro", ex.getMessage());
@@ -103,8 +110,7 @@ public class RegistroController {
                 "/views/hello-view.fxml",
                 "STELLA",
                 controllerFactory,
-                (javafx.scene.Node) e.getSource()
-        );
+                (javafx.scene.Node) e.getSource());
     }
 
     // ===== Helpers internos =====

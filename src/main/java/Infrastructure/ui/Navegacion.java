@@ -24,13 +24,13 @@ public class Navegacion {
 
     /** Navegación con inicialización previa del controlador */
     public <T> void goToWithInit(String fxmlPath, String title, Function<Class<?>, Object> controllerFactory,
-                                 Node origen, Consumer<T> initController) {
+            Node origen, Consumer<T> initController) {
         cargarYMostrarVista(fxmlPath, title, controllerFactory, origen, initController);
     }
 
     /** Método centralizado para cargar y mostrar vistas. */
     private <T> void cargarYMostrarVista(String fxmlPath, String title, Function<Class<?>, Object> controllerFactory,
-                                         Node origen, Consumer<T> initController) {
+            Node origen, Consumer<T> initController) {
         try {
             logger.debug("Intentando cargar vista: {}", fxmlPath);
             var resource = getClass().getResource(fxmlPath);
@@ -70,8 +70,11 @@ public class Navegacion {
             logger.debug("Stage detectado: {}", stage);
             stage.setScene(new Scene(next));
 
-            if (title != null && !title.isBlank()) stage.setTitle(title);
-            stage.centerOnScreen();
+            if (title != null && !title.isBlank())
+                stage.setTitle(title);
+
+            // Maximizar para adaptar al tamaño de pantalla
+            stage.setMaximized(true);
             stage.show();
 
             logger.info("Vista cargada correctamente: {}", fxmlPath);
@@ -86,9 +89,11 @@ public class Navegacion {
         try {
             if (origen != null && origen.getScene() != null) {
                 var stage = (Stage) origen.getScene().getWindow();
-                if (stage != null) return stage;
+                if (stage != null)
+                    return stage;
             }
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
         return null;
     }
 
@@ -108,7 +113,8 @@ public class Navegacion {
     private void mostrarError(String fxmlPath, Exception e) {
         logger.error("Error al cargar vista: {}", fxmlPath, e);
         Throwable cause = e;
-        while (cause.getCause() != null) cause = cause.getCause();
+        while (cause.getCause() != null)
+            cause = cause.getCause();
 
         new Alert(Alert.AlertType.ERROR,
                 "Error al abrir vista:\n" + fxmlPath +

@@ -25,15 +25,17 @@ public class SeccionRepository implements InterfazSeccionRepository {
     @Override
     public List<SeccionResponse> encontrarSeccionesConLecciones(int cursoId) {
         List<SeccionResponse> secciones = new ArrayList<>();
-        String sql = "SELECT s.id, s.titulo, s.numero_orden, l.id AS leccion_id, l.seccion_id, l.titulo AS leccion_titulo, " +
-                "l.numero_orden AS leccion_numero_orden, l.tipo_contenido, l.url_video, l.contenido " +
+        String sql = "SELECT s.id, s.titulo, s.numero_orden, l.id AS leccion_id, l.seccion_id, l.titulo AS leccion_titulo, "
+                +
+                "l.numero_orden AS leccion_numero_orden, l.tipo_contenido, l.url_video, l.contenido, l.contenido_html, l.pdf_url "
+                +
                 "FROM \"seccion\" s " +
                 "LEFT JOIN \"leccion\" l ON s.id = l.seccion_id " +
                 "WHERE s.curso_id = ? " +
                 "ORDER BY s.numero_orden, l.numero_orden";
 
         try (Connection conn = connMgr.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, cursoId);
 
@@ -54,8 +56,7 @@ public class SeccionRepository implements InterfazSeccionRepository {
                                     currentSeccionId,
                                     currentSeccionTitulo,
                                     currentNumeroOrden,
-                                    new ArrayList<>(lecciones)
-                            ));
+                                    new ArrayList<>(lecciones)));
                             lecciones.clear();
                         }
 
@@ -75,8 +76,9 @@ public class SeccionRepository implements InterfazSeccionRepository {
                                 rs.getInt("leccion_numero_orden"),
                                 TipoContenido.valueOf(rs.getString("tipo_contenido").toUpperCase()),
                                 rs.getString("url_video"),
-                                rs.getString("contenido")
-                        );
+                                rs.getString("contenido"),
+                                rs.getString("contenido_html"),
+                                rs.getString("pdf_url"));
 
                         lecciones.add(new LeccionResponse(
                                 leccion.getId(),
@@ -85,8 +87,9 @@ public class SeccionRepository implements InterfazSeccionRepository {
                                 leccion.getNumeroOrden(),
                                 leccion.getTipoContenido().name(),
                                 leccion.getUrl_video(),
-                                leccion.getContenido()
-                        ));
+                                leccion.getContenido(),
+                                leccion.getContenidoHtml(),
+                                leccion.getPdfUrl()));
                     }
                 }
 
@@ -96,8 +99,7 @@ public class SeccionRepository implements InterfazSeccionRepository {
                             currentSeccionId,
                             currentSeccionTitulo,
                             currentNumeroOrden,
-                            new ArrayList<>(lecciones)
-                    ));
+                            new ArrayList<>(lecciones)));
                 }
             }
         } catch (SQLException e) {

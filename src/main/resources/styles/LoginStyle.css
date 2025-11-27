@@ -172,3 +172,16 @@
     -fx-scale-x: 1.05;
     -fx-scale-y: 1.05;
 }
+
+/* ======== Estilo personalizado para TituloField y ContenidoArea ======== */
+.custom-text-field {
+    -fx-background-color: rgba(255,255,255,0.2);
+    -fx-text-fill: #003366; /* Azul oscuro para el texto */
+    -fx-background-radius: 25;
+    -fx-prompt-text-fill: #003366; /* Azul oscuro para el texto del prompt */
+    -fx-border-color: transparent;
+}
+
+.custom-text-field:focused {
+    -fx-background-color: rgba(255,255,255,0.3);
+}

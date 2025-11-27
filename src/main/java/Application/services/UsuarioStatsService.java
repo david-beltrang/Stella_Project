@@ -33,7 +33,7 @@ public class UsuarioStatsService {
      * 
      * @return ID del usuario actual o null si no hay usuario logueado
      */
-    private Integer obtenerUsuarioIdActual() {
+    public Integer obtenerUsuarioIdActual() {
         var usuario = AppServices.getUsuarioActual();
         if (usuario == null) {
             logger.warn("No hay usuario actual logueado");
@@ -92,9 +92,14 @@ public class UsuarioStatsService {
             return 0;
         }
 
-        // TODO: Implementar cuando exista usuarioStatsRepo.obtenerRachaDias(usuarioId)
-        logger.debug("Racha de días del usuario {}: {}", usuarioId, 0);
-        return 0;
+        try {
+            int racha = usuarioItemRepo.obtenerRacha(usuarioId);
+            logger.debug("Racha de días del usuario {}: {}", usuarioId, racha);
+            return racha;
+        } catch (Exception e) {
+            logger.error("Error al obtener racha del usuario {}", usuarioId, e);
+            return 0;
+        }
     }
 
     /**
@@ -125,7 +130,27 @@ public class UsuarioStatsService {
      * 
      * @return true si el usuario tiene una Stella activa, false en caso contrario
      */
+
+    /**
+     * Verifica si el usuario tiene una Stella activa.
+     */
     public boolean tieneStellaActiva() {
         return stellaService.tieneStellaActiva();
+    }
+
+    /**
+     * Agrega pescaditos al usuario.
+     * 
+     * @param usuarioId ID del usuario
+     * @param cantidad  Cantidad de pescaditos a agregar
+     */
+    public void agregarPescaditos(int usuarioId, int cantidad) {
+        try {
+            usuarioItemRepo.agregarPescaditos(usuarioId, cantidad);
+            logger.info("Se agregaron {} pescaditos al usuario {}", cantidad, usuarioId);
+        } catch (Exception e) {
+            logger.error("Error al agregar pescaditos al usuario {}", usuarioId, e);
+            throw e;
+        }
     }
 }

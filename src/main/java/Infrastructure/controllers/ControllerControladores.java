@@ -30,6 +30,7 @@ public class ControllerControladores {
     private final ChatbotService chatbotService;
     private final UsuarioStatsService usuarioStatsService;
     private final EjercicioService ejercicioService;
+    private final PruebaService pruebaService;
 
     // ======== Controladores ========
     private HelloController helloController;
@@ -61,7 +62,8 @@ public class ControllerControladores {
             ChatbotService chatbotService,
             PerfilService perfilService,
             UsuarioStatsService usuarioStatsService,
-            EjercicioService ejercicioService) {
+            EjercicioService ejercicioService,
+            PruebaService pruebaService) {
         this.seccionesService = Objects.requireNonNull(seccionesService);
         this.listarCursosService = Objects.requireNonNull(listarCursosService);
         this.pomodoroTimer = Objects.requireNonNull(pomodoroTimer);
@@ -74,6 +76,7 @@ public class ControllerControladores {
         this.perfilService = Objects.requireNonNull(perfilService);
         this.usuarioStatsService = Objects.requireNonNull(usuarioStatsService);
         this.ejercicioService = Objects.requireNonNull(ejercicioService);
+        this.pruebaService = Objects.requireNonNull(pruebaService);
         inicializar();
     }
 
@@ -84,9 +87,9 @@ public class ControllerControladores {
         this.pomodoroController = new PomodoroController(sesionPomodoroService, pomodoroTimer);
         this.loginController = new LoginController(loginService);
         this.registroController = new RegistroController(registroService);
-        this.cursoController = new CursoController(seccionesService, leccionService);
-        this.leccionController = new LeccionController(leccionService, ejercicioService);
-        this.quizController = new QuizController();
+        this.cursoController = new CursoController(seccionesService, leccionService, pruebaService);
+        this.leccionController = new LeccionController(leccionService, ejercicioService, usuarioStatsService);
+        this.quizController = new QuizController(pruebaService, usuarioStatsService);
         this.tiendaController = new TiendaController(tiendaService, usuarioStatsService);
         this.perfilController = new PerfilController(perfilService, usuarioStatsService);
         this.foroController = new ForoController(usuarioStatsService, AppServices.foroService());
@@ -123,10 +126,16 @@ public class ControllerControladores {
                 return inventarioAvatarController;
             if (clazz == PomodoroDescansoController.class)
                 return pomodoroDescansoController;
-            if (clazz == ResponderForoController.class)
-                return new ResponderForoController(AppServices.foroService());
-            if (clazz == ProductoTiendaController.class)
-                return new ProductoTiendaController(tiendaService);
+            if (clazz == ResponderForoController.class) {
+                ResponderForoController controller = new ResponderForoController(AppServices.foroService());
+                controller.setControllerFactory(this.factory);
+                return controller;
+            }
+            if (clazz == ProductoTiendaController.class) {
+                ProductoTiendaController controller = new ProductoTiendaController(tiendaService);
+                controller.setControllerFactory(this.factory);
+                return controller;
+            }
             try {
                 return clazz.getDeclaredConstructor().newInstance();
             } catch (Exception e) {
@@ -170,6 +179,8 @@ public class ControllerControladores {
             loader.setControllerFactory(clazz -> this.controllerFactory().apply(clazz));
             Scene scene = new Scene(loader.load());
             stage.setScene(scene);
+            stage.setMaximized(true);
+            stage.show();
         } catch (Exception e) {
             logger.error("Error al cargar la vista inicial", e);
             throw new RuntimeException("No se pudo cargar la vista inicial", e);

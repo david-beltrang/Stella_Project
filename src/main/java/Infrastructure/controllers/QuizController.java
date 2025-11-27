@@ -13,6 +13,9 @@ import javafx.scene.control.*;
 import java.util.*;
 import java.util.function.Function;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Controlador de la pantalla QuizLeccion.fxml.
  * Evalúa todas las preguntas visibles del quiz de una sección.
@@ -21,37 +24,55 @@ public class QuizController {
 
     // ===== Dependencias =====
     private final PruebaService pruebaService;
+    private final Application.services.UsuarioStatsService usuarioStatsService;
     private final AyudaUI uiHelper = new AyudaUI();
     private final Navegacion navigator = new Navegacion();
     private Function<Class<?>, Object> controllerFactory;
+    private static final Logger logger = LoggerFactory.getLogger(QuizController.class);
 
     // ===== FXML =====
-    @FXML private Accordion quizAccordion;
-    @FXML private Button finalizarQuiz;
+    @FXML
+    private Accordion quizAccordion;
+    @FXML
+    private Button finalizarQuiz;
 
     // Pregunta 1
-    @FXML private RadioButton Opcion1_1, Opcion1_2, Opcion1_3, Opcion1_4;
-    @FXML private ToggleGroup pregunta1Group;
+    @FXML
+    private Label pregunta1Label;
+    @FXML
+    private RadioButton Opcion1_1, Opcion1_2, Opcion1_3, Opcion1_4;
+    @FXML
+    private ToggleGroup pregunta1Group;
 
     // Pregunta 2
-    @FXML private RadioButton Opcion2_1, Opcion2_2, Opcion2_3, Opcion2_4;
-    @FXML private ToggleGroup pregunta2Group;
+    @FXML
+    private Label pregunta2Label;
+    @FXML
+    private RadioButton Opcion2_1, Opcion2_2, Opcion2_3, Opcion2_4;
+    @FXML
+    private ToggleGroup pregunta2Group;
 
     // Pregunta 3
-    @FXML private RadioButton Opcion3_1, Opcion3_2, Opcion3_3, Opcion3_4;
-    @FXML private ToggleGroup pregunta3Group;
+    @FXML
+    private Label pregunta3Label;
+    @FXML
+    private RadioButton Opcion3_1, Opcion3_2, Opcion3_3, Opcion3_4;
+    @FXML
+    private ToggleGroup pregunta3Group;
 
     // ===== Estado =====
     private PruebaResponse quizActual;
     private final List<RespuestaRequest> respuestasUsuario = new ArrayList<>();
 
     // ===== Constructores =====
-    public QuizController(PruebaService pruebaService) {
+    public QuizController(PruebaService pruebaService, Application.services.UsuarioStatsService usuarioStatsService) {
         this.pruebaService = pruebaService;
+        this.usuarioStatsService = usuarioStatsService;
     }
 
     public QuizController() {
-        this.pruebaService = null; // inyectado desde ControllerControladores
+        this.pruebaService = null;
+        this.usuarioStatsService = null;
     }
 
     public void setControllerFactory(Function<Class<?>, Object> factory) {
@@ -75,18 +96,27 @@ public class QuizController {
             }
 
             // Asignar los textos de las preguntas y opciones
-            configurarPregunta(quizActual, 0, Opcion1_1, Opcion1_2, Opcion1_3, Opcion1_4);
-            configurarPregunta(quizActual, 1, Opcion2_1, Opcion2_2, Opcion2_3, Opcion2_4);
-            configurarPregunta(quizActual, 2, Opcion3_1, Opcion3_2, Opcion3_3, Opcion3_4);
+            configurarPregunta(quizActual, 0, pregunta1Label, Opcion1_1, Opcion1_2, Opcion1_3, Opcion1_4);
+            configurarPregunta(quizActual, 1, pregunta2Label, Opcion2_1, Opcion2_2, Opcion2_3, Opcion2_4);
+            configurarPregunta(quizActual, 2, pregunta3Label, Opcion3_1, Opcion3_2, Opcion3_3, Opcion3_4);
 
         } catch (Exception e) {
             uiHelper.showError("Error cargando quiz", e.getMessage());
         }
     }
 
-    private void configurarPregunta(PruebaResponse quiz, int index, RadioButton a, RadioButton b, RadioButton c, RadioButton d) {
-        if (index >= quiz.preguntas().size()) return;
+    private void configurarPregunta(PruebaResponse quiz, int index, Label labelPregunta, RadioButton a, RadioButton b,
+            RadioButton c,
+            RadioButton d) {
+        if (index >= quiz.preguntas().size())
+            return;
         var pregunta = quiz.preguntas().get(index);
+
+        // Set question text
+        if (labelPregunta != null) {
+            labelPregunta.setText((index + 1) + ". " + pregunta.enunciado());
+        }
+
         var opciones = pregunta.opciones();
 
         if (opciones.size() >= 4) {
@@ -122,14 +152,24 @@ public class QuizController {
             var intento = new IntentoRequest(
                     AppServices.getUsuarioActual().id(),
                     quizActual.id(),
-                    respuestasUsuario
-            );
+                    respuestasUsuario);
 
             var resultado = pruebaService.crearIntento(intento);
+
+            // Otorgar 100 pescaditos por cada respuesta correcta
+            int pescaditosGanados = resultado.aciertos() * 100;
+            if (pescaditosGanados > 0 && usuarioStatsService != null) {
+                try {
+                    usuarioStatsService.agregarPescaditos(AppServices.getUsuarioActual().id(), pescaditosGanados);
+                } catch (Exception ex) {
+                    System.err.println("Error al agregar pescaditos: " + ex.getMessage());
+                }
+            }
 
             uiHelper.showInfo("Resultado del Quiz",
                     "Puntaje: " + String.format("%.1f", resultado.puntaje()) + " / 100\n" +
                             "Aciertos: " + resultado.aciertos() + " de " + resultado.totalPreguntas() + "\n" +
+                            "Pescaditos ganados: +" + pescaditosGanados + " 🐟\n" +
                             resultado.mensaje());
 
             // Regresar a la pantalla del curso
@@ -141,13 +181,15 @@ public class QuizController {
     }
 
     private void agregarRespuesta(int index, ToggleGroup grupo,
-                                  RadioButton a, RadioButton b, RadioButton c, RadioButton d) {
-        if (index >= quizActual.preguntas().size()) return;
+            RadioButton a, RadioButton b, RadioButton c, RadioButton d) {
+        if (index >= quizActual.preguntas().size())
+            return;
 
         var pregunta = quizActual.preguntas().get(index);
         var seleccion = (RadioButton) grupo.getSelectedToggle();
 
-        if (seleccion == null) return;
+        if (seleccion == null)
+            return;
 
         var texto = seleccion.getText();
         int opcionId = pregunta.opciones().stream()
@@ -157,5 +199,47 @@ public class QuizController {
                 .orElse(0);
 
         respuestasUsuario.add(new RespuestaRequest(pregunta.id(), opcionId));
+    }
+
+    // ========= Navegación =========
+    @FXML
+    private void goHome() {
+        try {
+            Navegacion nav = new Navegacion();
+            nav.goTo("/views/Principal.fxml", "STELLA - Principal", controllerFactory, null);
+        } catch (Exception e) {
+            logger.error("Error al volver al inicio desde tienda", e);
+            uiHelper.showError("Error al volver al inicio", e.getMessage());
+        }
+    }
+
+    @FXML
+    private void goForum() {
+        try {
+            navigator.goTo("/views/Foro.fxml", "STELLA - Foro", controllerFactory, null);
+        } catch (Exception e) {
+            logger.error("Error al navegar al foro desde tienda", e);
+            uiHelper.showError("Error al navegar al foro", e.getMessage());
+        }
+    }
+
+    @FXML
+    private void goTienda() {
+        navigator.goTo("/views/Tienda.fxml", "STELLA - Tienda", controllerFactory, null);
+    }
+
+    @FXML
+    private void goProfile() {
+        try {
+            navigator.goTo("/views/Perfil.fxml", "STELLA - Perfil", controllerFactory, null);
+        } catch (Exception e) {
+            logger.error("Error al navegar al perfil desde tienda", e);
+            uiHelper.showError("Error al navegar al perfil", e.getMessage());
+        }
+    }
+
+    @FXML
+    private void goGamificacion() {
+        uiHelper.showInfo("Pomodoro", "Desde tienda aún no se ha conectado.");
     }
 }

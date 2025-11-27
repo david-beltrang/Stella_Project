@@ -19,6 +19,9 @@ public class H2DataBaseInitializer {
     }
 
     public void initialize() {
+        // Resetear el flag para permitir reinicialización en tests
+        isInitialized.set(false);
+
         if (isInitialized.compareAndSet(false, true)) {
             logger.info("Inicializando base de datos H2...");
             try (Connection conn = connMgr.getConnection()) {
