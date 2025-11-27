@@ -74,7 +74,7 @@ class ListarCursosService_IntegrationTest {
 
         // Solo existe 1 curso en data.sql y ya está inscrito, no hay disponibles
         List<CursoResponse> disponibles = resp.cursosDisponibles();
-        assertEquals(2, disponibles.size(), "No debe haber cursos disponibles ya que el único curso está inscrito");
+        assertEquals(3, disponibles.size(), "Solo esta inscrito en uno");
     }
 
     @Test
@@ -84,7 +84,7 @@ class ListarCursosService_IntegrationTest {
                 "temp", "temp@test.com", "Temp", "pass123", "ESTUDIANTE"));
         CursosResponse resp = service.obtenerCursosCompletos(nuevo.id());
         assertTrue(resp.cursosUsuario().isEmpty());
-        assertEquals(3, resp.cursosDisponibles().size(), "Solo existe 1 curso en data.sql");
+        assertEquals(4, resp.cursosDisponibles().size(), "Hay 4 cursos en data.sql");
     }
 
     // ========================================================================
