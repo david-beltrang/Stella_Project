@@ -483,99 +483,106 @@ INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
 INSERT INTO "stella_item" (item_id, image_path) VALUES
     (2, '/Image/stellas/stellaCamisetaApple.png');
 
--- 🏫 CAMISETA FIS (ITEM ID será 3)
+-- TRAJE KERBAL (ITEM ID será 3)
+INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
+    ('Mistery','Traje espacial inspirado en Kerbal Space Program, diseñado para exploradores temerarios que sueñan con llegar más allá de la órbita.',
+     5000, '/Image/TiendaStella/misteryBox.png');
+INSERT INTO "stella_item" (item_id, image_path) VALUES
+    (3, '/Image/stellas/stellaMistery.png');
+
+-- 🏫 CAMISETA FIS (ITEM ID será 4)
 INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
     ('Camiseta FIS','Camiseta deportiva con diseño institucional FIS, ideal para eventos y actividades académicas.',
      800, '/Image/TiendaStella/camisetaFIS.png');
 INSERT INTO "stella_item" (item_id, image_path) VALUES
-    (3, '/Image/stellas/stellaFIS.png');
+    (4, '/Image/stellas/stellaFIS.png');
 
--- 🇨🇴 CAMISETA COLOMBIA (ITEM ID será 4)
+-- 🇨🇴 CAMISETA COLOMBIA (ITEM ID será 5)
 INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
     ('Camiseta Colombia','Camiseta de la selección Colombia, fabricada con tela transpirable y cómoda para mostrar el orgullo nacional.',
      1050, '/Image/TiendaStella/camisetaColombia.png');
 INSERT INTO "stella_item" (item_id, image_path) VALUES
-    (4, '/Image/stellas/stellaCamisetaColombia.png');
+    (5, '/Image/stellas/stellaCamisetaColombia.png');
 
--- 🧢 BALACA DISNEY (ITEM ID será 5)
+-- 🧢 BALACA DISNEY (ITEM ID será 6)
 INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
     ('Balaca Disney','Balaca con diseño inspirado en personajes clásicos de Disney, cómoda y divertida para toda ocasión.',
      450, '/Image/TiendaStella/balacaDisney.png');
 INSERT INTO "stella_item" (item_id, image_path) VALUES
-    (5, '/Image/stellas/stellaDisney.png');
+    (6, '/Image/stellas/stellaDisney.png');
 
--- 🍹 JUGO HIT (ITEM ID será 6)
+-- 🍹 JUGO HIT (ITEM ID será 7)
 INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
     ('Jugo Hit','Bebida refrescante de frutas naturales, ideal para acompañar tus comidas o hidratarte en cualquier momento.',
      350, '/Image/TiendaStella/jugoHit.png');
 INSERT INTO "stella_item" (item_id, image_path) VALUES
-    (6, '/Image/stellas/stellaJugoHit.png');
+    (7, '/Image/stellas/stellaJugoHit.png');
 
--- ⚽ CAMISETA MILLOS (ITEM ID será 7)
+-- ⚽ CAMISETA MILLOS (ITEM ID será 8)
 INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
     ('Camiseta Millos','Camiseta oficial del equipo Millonarios, perfecta para hinchas que quieren lucir sus colores con pasión.',
      1000, '/Image/TiendaStella/camisetaMillos.png');
 INSERT INTO "stella_item" (item_id, image_path) VALUES
-    (7, '/Image/stellas/stellaCamisetaMillos.png');
+    (8, '/Image/stellas/stellaCamisetaMillos.png');
 
--- 👒 SOMBRERO VUELTEAO (ITEM ID será 8)
+-- 👒 SOMBRERO VUELTEAO (ITEM ID será 9)
 INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
     ('Sombrero Vuelteao','Sombrero típico colombiano elaborado con caña flecha, símbolo de tradición y estilo.',
      900, '/Image/TiendaStella/sombreroVuelteao.png');
 INSERT INTO "stella_item" (item_id, image_path) VALUES
-    (8, '/Image/stellas/stellaSombreroVuelteao.png');
+    (9, '/Image/stellas/stellaSombreroVuelteao.png');
 
--- 👚 CROPTOP (ITEM ID será 9)
+-- 👚 CROPTOP (ITEM ID será 10)
 INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
     ('Croptop','Croptop moderno y cómodo, ideal para climas cálidos y estilos urbanos.',
      700, '/Image/TiendaStella/croptop.png');
 INSERT INTO "stella_item" (item_id, image_path) VALUES
-    (9, '/Image/stellas/stellaCroptop.png');
+    (10, '/Image/stellas/stellaCroptop.png');
 
--- 🧣 BUFANDA (ITEM ID será 10)
+-- 🧣 BUFANDA (ITEM ID será 11)
 INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
     ('Bufanda','Bufanda tejida con materiales suaves y cálidos, perfecta para protegerte del frío con estilo.',
      850, '/Image/TiendaStella/bufanda.png');
 INSERT INTO "stella_item" (item_id, image_path) VALUES
-    (10, '/Image/stellas/stellaBufanda.png');
+    (11, '/Image/stellas/stellaBufanda.png');
 
--- 🕶️ GAFAS DE SOL (ITEM ID será 11)
+-- 🕶️ GAFAS DE SOL (ITEM ID será 12)
 INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
     ('Gafas de Sol','Gafas elegantes con protección UV400, perfectas para un look moderno y proteger tus ojos del sol.',
      600, '/Image/TiendaStella/gafasDeSol.png');
 INSERT INTO "stella_item" (item_id, image_path) VALUES
-    (11, '/Image/stellas/stellaGafas.png');
+    (12, '/Image/stellas/stellaGafas.png');
 
--- 🕶️ GAFAS DE SKI (ITEM ID será 12)
+-- 🕶️ GAFAS DE SKI (ITEM ID será 13)
 INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
     ('Gafas de Ski','Gafas diseñadas para nieve y deporte extremo, resistentes al viento y la neblina.',
      1100, '/Image/TiendaStella/gafasSki.png');
 INSERT INTO "stella_item" (item_id, image_path) VALUES
-    (12, '/Image/stellas/stellaSki.png');
+    (13, '/Image/stellas/stellaSki.png');
 
--- 🧢 GORRA (ITEM ID será 13)
+-- 🧢 GORRA (ITEM ID será 14)
 INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
     ('Gorra','Gorra clásica ajustable, con visera curva y diseño casual ideal para cualquier día.',
      500, '/Image/TiendaStella/gorra.png');
 INSERT INTO "stella_item" (item_id, image_path) VALUES
-    (13, '/Image/stellas/stellaGorra.png');
+    (14, '/Image/stellas/stellaGorra.png');
 
--- 🧢 GORRA ROJA (ITEM ID será 14)
+-- 🧢 GORRA ROJA (ITEM ID será 15)
 INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
     ('Gorra Roja','Gorra de color rojo intenso, ajustable y cómoda, perfecta para destacar en cualquier ocasión.',
      520, '/Image/TiendaStella/gorraRoja.png');
 INSERT INTO "stella_item" (item_id, image_path) VALUES
-    (14, '/Image/stellas/stellaGorraRoja.png');
+    (15, '/Image/stellas/stellaGorraRoja.png');
 
--- 🧢 GORRA ROSA (ITEM ID será 15)
+-- 🧢 GORRA ROSA (ITEM ID será 16)
 INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
     ('Gorra Rosa','Gorra color rosa con diseño moderno, perfecta para un look casual y alegre.',
      520, '/Image/TiendaStella/gorraRosa.png');
 INSERT INTO "stella_item" (item_id, image_path) VALUES
-    (15, '/Image/stellas/stellaGorraRosa.png');
+    (16, '/Image/stellas/stellaGorraRosa.png');
 
 -- 7. COMPRA INICIAL del Usuario 1
-INSERT INTO "usuario_item" (usuario_id, item_id) VALUES (1, 4);
+INSERT INTO "usuario_item" (usuario_id, item_id) VALUES (1, 5);
 
 -- ============================================
 -- 6. DATOS DEL FORO (Los IDs ya estaban correctos)
