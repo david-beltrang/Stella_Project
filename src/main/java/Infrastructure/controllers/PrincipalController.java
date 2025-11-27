@@ -345,6 +345,16 @@ public class PrincipalController implements Initializable {
     }
 
     @FXML
+    private void goIglu() {
+        try {
+            navigator.goTo("/views/Iglu.fxml", "STELLA - Iglú", controllerFactory, root);
+        } catch (Exception e) {
+            logger.error("Error al navegar al iglú", e);
+            uiHelper.showError("Error al navegar al iglú", e.getMessage());
+        }
+    }
+
+    @FXML
     private void goAchievements() {
         uiHelper.showInfo("Logros", "Pantalla de logros aún no implementada.");
     }

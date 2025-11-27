@@ -20,7 +20,7 @@ public class ConexionBD implements IConexionBD {
     private static final Object lock = new Object();
 
     // Constructor privado para Singleton
-    private ConexionBD() {
+    public ConexionBD() {
         // Prevenir instanciación directa
     }
 

@@ -25,7 +25,7 @@ public class ControllerControladores {
     private final RegistroService registroService;
     private final LeccionService leccionService;
     private final TiendaService tiendaService;
-    private final PerfilService perfilService; // ✅ NUEVO
+    private final PerfilService perfilService;
     private final ChatbotService chatbotService;
 
     // ======== Controladores ========
@@ -38,8 +38,8 @@ public class ControllerControladores {
     private LeccionController leccionController;
     private QuizController quizController;
     private TiendaController tiendaController;
-    private PerfilController perfilController; // ✅
-    private ForoController foroController; // ✅ NUEVO NUEVO
+    private PerfilController perfilController;
+    private ForoController foroController;
 
     // ======== Factory global ========
     private Function<Class<?>, Object> factory;
@@ -107,9 +107,12 @@ public class ControllerControladores {
             if (clazz == TiendaController.class)
                 return tiendaController;
             if (clazz == PerfilController.class)
-                return perfilController; // ✅
+                return perfilController;
+            if (clazz == IgluController.class)
+                return new IgluController(sesionPomodoroService);
+
             if (clazz == ForoController.class)
-                return foroController; // ✅ NUEVO
+                return foroController;
             if (clazz == ProductoTiendaController.class)
                 return new ProductoTiendaController(tiendaService);
             try {

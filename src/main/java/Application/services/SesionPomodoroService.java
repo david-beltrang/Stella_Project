@@ -5,6 +5,11 @@ import Application.dtos.sesionEstudio.Pomodoro.SesionEstudioResponse;
 import Domain.models.SesionEstudio;
 import Domain.repositoriesInterfaces.InterfazSesionEstudioRepository;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.temporal.WeekFields;
+import java.util.List;
+
 public class SesionPomodoroService {
     private final InterfazSesionEstudioRepository repository;
 
@@ -55,5 +60,28 @@ public class SesionPomodoroService {
                 sesion.getFechaInicio(),
                 sesion.getFechaFinal()
         );
+    }
+    public List<SesionEstudioResponse> obtenerSesionesPorSemana(
+            int usuarioId,
+            int year,
+            int week
+    ) {
+
+        LocalDate startOfWeek = LocalDate
+                .ofYearDay(year, 1)
+                .with(WeekFields.ISO.weekOfYear(), week)
+                .with(WeekFields.ISO.dayOfWeek(), 1); // Lunes
+
+        LocalDate endOfWeek = startOfWeek.plusDays(6); // Domingo
+
+        Timestamp startTs = Timestamp.valueOf(startOfWeek.atStartOfDay());
+        Timestamp endTs = Timestamp.valueOf(endOfWeek.atTime(23, 59, 59));
+
+        List<SesionEstudio> sesiones =
+                repository.buscarPorUsuarioYRangoFecha(usuarioId, startTs, endTs);
+
+        return sesiones.stream()
+                .map(this::mapToResponse)
+                .toList();
     }
 }

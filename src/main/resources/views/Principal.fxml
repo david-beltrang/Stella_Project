@@ -66,7 +66,7 @@
     </AnchorPane>
 
     <!-- Barra inferior -->
-    <StackPane layoutY="780.0" prefHeight="80" prefWidth="1920.0">
+    <StackPane layoutX="-1.0" layoutY="867.0" prefHeight="80" prefWidth="1920.0">
         <children>
             <Rectangle arcHeight="0" arcWidth="0" height="80" style="-fx-fill: rgba(8,7,54,0.55);" width="1923.0" />
             <AnchorPane prefHeight="56.0" prefWidth="1876.0">
@@ -101,7 +101,11 @@
                         </graphic>
                     </Button>
 
-                    <Button fx:id="iguluBtn" layoutX="1293.0" layoutY="10.0" style="-fx-background-color: transparent;">
+                    <Button fx:id="iguluBtn"
+                            layoutX="1293.0"
+                            layoutY="10.0"
+                            onAction="#goIglu"
+                            style="-fx-background-color: transparent;">
                         <graphic>
                             <ImageView fitHeight="52.0" fitWidth="66.0" preserveRatio="true">
                                 <image>
@@ -110,6 +114,7 @@
                             </ImageView>
                         </graphic>
                     </Button>
+
 
                     <Button fx:id="tiendaBtn" layoutX="994.0" layoutY="10.0" onAction="#goTienda" styleClass="nav-btn">
                         <graphic>
@@ -126,7 +131,7 @@
     </StackPane>
 
     <!-- Barra superior con buscador y logout -->
-    <StackPane layoutY="91.0" prefHeight="80" prefWidth="1920.0">
+    <StackPane layoutX="-1.0" layoutY="32.0" prefHeight="80" prefWidth="1920.0">
         <children>
             <Rectangle arcHeight="0" arcWidth="0" height="80" style="-fx-fill: rgba(8,7,54,0.55);" width="1923.0" />
             <AnchorPane prefHeight="56.0" prefWidth="1876.0">

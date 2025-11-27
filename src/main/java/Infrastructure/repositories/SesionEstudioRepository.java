@@ -4,10 +4,11 @@ import Domain.models.SesionEstudio;
 import Domain.models.PomodoroValueObjects.TiempoDescanso;
 import Domain.models.PomodoroValueObjects.TiempoEstudio;
 import Domain.repositoriesInterfaces.InterfazSesionEstudioRepository;
-import Infrastructure.persistence.ConexionBD;
 import Infrastructure.persistence.IConexionBD;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SesionEstudioRepository implements InterfazSesionEstudioRepository {
     private IConexionBD connMgr;
@@ -15,6 +16,43 @@ public class SesionEstudioRepository implements InterfazSesionEstudioRepository 
     public SesionEstudioRepository(IConexionBD connMgr) {
         this.connMgr = connMgr;
     }
+
+    @Override
+    public List<SesionEstudio> buscarPorUsuarioYRangoFecha(
+            int usuarioId,
+            Timestamp inicio,
+            Timestamp fin
+    ) {
+
+        String sql = """
+        SELECT * FROM "sesion_estudio"
+        WHERE usuario_id = ?
+        AND fecha_inicio BETWEEN ? AND ?
+        ORDER BY fecha_inicio ASC
+    """;
+
+        List<SesionEstudio> resultados = new ArrayList<>();
+
+        try (Connection conn = connMgr.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, usuarioId);
+            pstmt.setTimestamp(2, inicio);
+            pstmt.setTimestamp(3, fin);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    resultados.add(mapRowToSesionEstudio(rs));
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error buscando sesiones por rango de fechas", e);
+        }
+
+        return resultados;
+    }
+
 
     @Override
     public SesionEstudio guardar(SesionEstudio sesion) {
