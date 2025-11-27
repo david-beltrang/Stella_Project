@@ -3,13 +3,11 @@ package Application.services;
 
 import Application.dtos.chatbot.*;
 import org.junit.jupiter.api.*;
-import org.mockito.Mockito;
 
 import java.io.IOException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -130,6 +128,28 @@ class ChatbotService_IntegrationTest {
         ChatMessageResponse respuesta = serviceMock.obtenerRespuesta(new ChatMessageRequest("Hola"));
 
         assertTrue(respuesta.content().contains("Error de conexión"));
+    }
+
+    @Test
+    @DisplayName("obtenerRespuesta - Error inesperado (RuntimeException) → Error al procesar")
+    void obtenerRespuesta_ErrorInesperado_ExcepcionGenerica() throws IOException, InterruptedException {
+        // Mock del HttpClient para lanzar RuntimeException
+        HttpClient mockClient = mock(HttpClient.class);
+
+        when(mockClient.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class)))
+                .thenThrow(new RuntimeException("Error simulado inesperado"));
+
+        ChatbotService serviceMock = new ChatbotService() {
+            @Override
+            protected HttpClient createHttpClient() {
+                return mockClient;
+            }
+        };
+
+        ChatMessageResponse respuesta = serviceMock.obtenerRespuesta(new ChatMessageRequest("Hola"));
+
+        assertTrue(respuesta.content().contains("Error al procesar"));
+        assertTrue(respuesta.content().contains("Error simulado inesperado"));
     }
 
     // ========================================================================
