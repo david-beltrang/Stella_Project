@@ -4,18 +4,17 @@
 -- ============================================
 
 -- 1. USUARIOS Y ESTADÍSTICAS
--- ============================================
+-- Nota: La columna ID se omite en todos los INSERTs con AUTO_INCREMENT.
 
--- Usuario de prueba principal (ID 1)
--- CORRECCIÓN: Se ajusta el formato para que el ID sea numérico (1) y coincida con las 6 columnas.
+-- Usuario de prueba principal (ID será 1)
 INSERT INTO "usuario" (username, correo, nombre, contrasena, tipo_usuario) VALUES
 ('JuanPa', 'test@estudio.com', 'Juan Pérez', 'pass123', 'ESTUDIANTE');
 
 -- Stats del usuario (usa usuario_id = 1)
 INSERT INTO "usuario_stats" (usuario_id, pescaditos, objetivo_sesiones, racha_dias, tiempo_total_estudio_segundos) VALUES
-(1, 100, 3, 5, 3600);
+(1, 1000, 3, 5, 3600);
 
--- Usuario de prueba para el foro (Obtendrá ID 2 si la tabla usa AUTO_INCREMENT, o se le asigna 2 si se controla externamente)
+-- Usuario de prueba para el foro (ID será 2)
 INSERT INTO "usuario" (username, correo, nombre, contrasena, tipo_usuario)
 VALUES ('testestudio1', 'test@estudio1.com', 'Usuario Estudio1', 'pass123', 'ESTUDIANTE');
 
@@ -23,21 +22,21 @@ VALUES ('testestudio1', 'test@estudio1.com', 'Usuario Estudio1', 'pass123', 'EST
 -- 2. CURSO
 -- ============================================
 
--- CURSO: Introducción a Java (ID 1)
-INSERT INTO "curso" (id, titulo, descripcion, nivel, categoria, duracion_minutos, numero_secciones) VALUES
-(1, 'Introducción a Java', 'Aprende los fundamentos de programación en Java desde cero', 'INTERMEDIO', 'Programación', 240, 3);
+-- CURSO: Introducción a Java (ID será 1)
+INSERT INTO "curso" (titulo, descripcion, nivel, categoria, duracion_minutos, numero_secciones) VALUES
+('Introducción a Java', 'Aprende los fundamentos de programación en Java desde cero', 'INTERMEDIO', 'Programación', 240, 3);
 
 -- ============================================
 -- 3. SECCIONES, LECCIONES Y EJERCICIOS
 -- ============================================
 
--- SECCIÓN 1: Fundamentos de Java (ID 1)
-INSERT INTO "seccion" (id, curso_id, titulo, numero_orden) VALUES
-(1, 1, 'Fundamentos de Java', 1);
+-- SECCIÓN 1: Fundamentos de Java (ID será 1)
+INSERT INTO "seccion" (curso_id, titulo, numero_orden) VALUES
+(1, 'Fundamentos de Java', 1);
 
--- Lección 1.1: Introducción a Java (Teoría con HTML) (ID 1)
-INSERT INTO "leccion" (id, seccion_id, titulo, numero_orden, tipo_contenido, contenido, contenido_html) VALUES
-(1, 1, '¿Qué es Java?', 1, 'TEORIA',
+-- Lección 1.1: Introducción a Java (ID será 1)
+INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, contenido, contenido_html) VALUES
+(1, '¿Qué es Java?', 1, 'TEORIA',
 'Java es un lenguaje de programación orientado a objetos, robusto y multiplataforma.',
 '<html>
 <head>
@@ -68,15 +67,15 @@ INSERT INTO "leccion" (id, seccion_id, titulo, numero_orden, tipo_contenido, con
 </body>
 </html>');
 
--- Lección 1.2: Instalación de Java (Video) (ID 2)
-INSERT INTO "leccion" (id, seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido) VALUES
-(2, 1, 'Instalando Java JDK', 2, 'VIDEO',
+-- Lección 1.2: Instalación de Java (ID será 2)
+INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, url_video, contenido) VALUES
+(1, 'Instalando Java JDK', 2, 'VIDEO',
 'https://www.youtube.com/watch?v=QekeJBShCy4',
 'En este video aprenderás a instalar Java JDK en tu sistema operativo.');
 
--- Lección 1.3: Primer programa (Ejercicio) (ID 3)
-INSERT INTO "leccion" (id, seccion_id, titulo, numero_orden, tipo_contenido, contenido, contenido_html) VALUES
-(3, 1, 'Tu primer programa en Java', 3, 'PRACTICA',
+-- Lección 1.3: Primer programa (ID será 3)
+INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, contenido, contenido_html) VALUES
+(1, 'Tu primer programa en Java', 3, 'PRACTICA',
 'Escribe un programa que imprima tu nombre en la consola.',
 '<html>
 <head>
@@ -97,9 +96,9 @@ INSERT INTO "leccion" (id, seccion_id, titulo, numero_orden, tipo_contenido, con
 </body>
 </html>');
 
--- Ejercicio 1 para la lección 3
-INSERT INTO "ejercicio" (id, leccion_id, titulo, instrucciones, codigo_plantilla, solucion_esperada, puntos, numero_orden) VALUES
-(1, 3, 'Programa Hola Mundo',
+-- Ejercicio 1 para la lección 3 (ID será 1)
+INSERT INTO "ejercicio" (leccion_id, titulo, instrucciones, codigo_plantilla, solucion_esperada, puntos, numero_orden) VALUES
+(3, 'Programa Hola Mundo',
 'Completa el código para que imprima "Hola, Mundo" en la consola.',
 'public class HolaMundo {
     public static void main(String[] args) {
@@ -109,13 +108,49 @@ INSERT INTO "ejercicio" (id, leccion_id, titulo, instrucciones, codigo_plantilla
 'Hola, Mundo',
 10, 1);
 
--- SECCIÓN 2: Variables y Tipos de Datos (ID 2)
-INSERT INTO "seccion" (id, curso_id, titulo, numero_orden) VALUES
-(2, 1, 'Variables y Tipos de Datos', 2);
+-- Lección 1.4: Estructura de un programa Java (ID será 4)
+INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, contenido_html) VALUES
+(1, 'Estructura de un programa Java', 4, 'TEORIA',
+'<html>
+<head>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
+        h1 { color: #0066cc; }
+        .code { background: #263238; color: #aed581; padding: 15px; border-radius: 5px; margin: 15px 0; font-family: monospace; }
+        .section { background: #e3f2fd; padding: 15px; margin: 15px 0; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Estructura de un programa Java</h1>
+    <p>Todo programa Java sigue una estructura básica que debes conocer.</p>
 
--- Lección 2.1: Variables en Java (Teoría con HTML) (ID 4)
-INSERT INTO "leccion" (id, seccion_id, titulo, numero_orden, tipo_contenido, contenido_html) VALUES
-(4, 2, 'Variables en Java', 1, 'TEORIA',
+    <div class="section">
+        <h3>Componentes principales:</h3>
+        <ul>
+            <li><strong>Clase:</strong> Todo código está dentro de una clase</li>
+            <li><strong>Método main:</strong> Punto de entrada del programa</li>
+            <li><strong>Instrucciones:</strong> El código que se ejecuta</li>
+        </ul>
+    </div>
+
+    <h2>Ejemplo básico:</h2>
+    <div class="code">
+        public class MiPrograma {<br>
+        &nbsp;&nbsp;public static void main(String[] args) {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;System.out.println("¡Hola!");<br>
+        &nbsp;&nbsp;}<br>
+        }
+    </div>
+</body>
+</html>');
+
+-- SECCIÓN 2: Variables y Tipos de Datos (ID será 2)
+INSERT INTO "seccion" (curso_id, titulo, numero_orden) VALUES
+(1, 'Variables y Tipos de Datos', 2);
+
+-- Lección 2.1: Variables en Java (ID será 5)
+INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, contenido_html) VALUES
+(2, 'Variables en Java', 1, 'TEORIA',
 '<html>
 <head>
     <style>
@@ -151,9 +186,9 @@ INSERT INTO "leccion" (id, seccion_id, titulo, numero_orden, tipo_contenido, con
 </body>
 </html>');
 
--- Lección 2.2: Operaciones con variables (Ejercicio) (ID 5)
-INSERT INTO "leccion" (id, seccion_id, titulo, numero_orden, tipo_contenido, contenido_html) VALUES
-(5, 2, 'Operaciones con variables', 2, 'PRACTICA',
+-- Lección 2.2: Operaciones con variables (ID será 6)
+INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, contenido_html) VALUES
+(2, 'Operaciones con variables', 2, 'PRACTICA',
 '<html>
 <head>
     <style>
@@ -172,9 +207,9 @@ INSERT INTO "leccion" (id, seccion_id, titulo, numero_orden, tipo_contenido, con
 </body>
 </html>');
 
--- Ejercicio 2 para la lección 5
-INSERT INTO "ejercicio" (id, leccion_id, titulo, instrucciones, codigo_plantilla, solucion_esperada, puntos, numero_orden) VALUES
-(2, 5, 'Calcular área de rectángulo',
+-- Ejercicio 2 para la lección 6 (ID será 2)
+INSERT INTO "ejercicio" (leccion_id, titulo, instrucciones, codigo_plantilla, solucion_esperada, puntos, numero_orden) VALUES
+(6, 'Calcular área de rectángulo',
 'Calcula el área de un rectángulo con base 5 y altura 10. Imprime solo el número.',
 'public class AreaRectangulo {
     public static void main(String[] args) {
@@ -186,13 +221,67 @@ INSERT INTO "ejercicio" (id, leccion_id, titulo, instrucciones, codigo_plantilla
 '50',
 15, 1);
 
--- SECCIÓN 3: Control de Flujo (ID 3)
-INSERT INTO "seccion" (id, curso_id, titulo, numero_orden) VALUES
-(3, 1, 'Control de Flujo', 3);
+-- Lección 2.3: Operadores (ID será 7)
+INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, contenido_html) VALUES
+(2, 'Operadores en Java', 3, 'TEORIA',
+'<html>
+<head>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
+        h1 { color: #0066cc; }
+        .code { background: #263238; color: #aed581; padding: 15px; border-radius: 5px; margin: 15px 0; font-family: monospace; }
+    </style>
+</head>
+<body>
+    <h1>Operadores en Java</h1>
+    <p>Los operadores permiten realizar operaciones con variables y valores.</p>
 
--- Lección 3.1: Condicionales if-else (ID 6)
-INSERT INTO "leccion" (id, seccion_id, titulo, numero_orden, tipo_contenido, contenido_html) VALUES
-(6, 3, 'Condicionales if-else', 1, 'TEORIA',
+    <h2>Tipos de operadores:</h2>
+    <ul>
+        <li>Aritméticos: +, -, *, /, %</li>
+        <li>Comparación: ==, !=, <, >, <=, >=</li>
+        <li>Lógicos: &&, ||, !</li>
+    </ul>
+
+    <div class="code">
+        int a = 10, b = 5;<br>
+        int sum = a + b;  // 15<br>
+        boolean mayor = a > b;  // true
+    </div>
+</body>
+</html>');
+
+-- Lección 2.4: Conversión de tipos (ID será 8)
+INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, contenido_html) VALUES
+(2, 'Conversión de tipos', 4, 'TEORIA',
+'<html>
+<head>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
+        h1 { color: #0066cc; }
+        .code { background: #263238; color: #aed581; padding: 15px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Conversión de Tipos (Casting)</h1>
+    <p>Puedes convertir un tipo de dato a otro.</p>
+
+    <h2>Ejemplos:</h2>
+    <div class="code">
+        int num = 10;<br>
+        double decimal = num;  // Automático<br>
+        int truncado = (int) 3.14;  // Explícito
+    </div>
+</body>
+</html>');
+
+-- SECCIÓN 3: Control de Flujo (ID será 3)
+INSERT INTO "seccion" (curso_id, titulo, numero_orden) VALUES
+(1, 'Control de Flujo', 3);
+
+-- Lección 3.1: Condicionales if-else (ID será 9)
+INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, contenido_html) VALUES
+(3, 'Condicionales if-else', 1, 'TEORIA',
 '<html>
 <head>
     <style>
@@ -231,9 +320,9 @@ INSERT INTO "leccion" (id, seccion_id, titulo, numero_orden, tipo_contenido, con
 </body>
 </html>');
 
--- Lección 3.2: Ejercicio de condicionales (ID 7)
-INSERT INTO "leccion" (id, seccion_id, titulo, numero_orden, tipo_contenido, contenido_html) VALUES
-(7, 3, 'Practica con condicionales', 2, 'PRACTICA',
+-- Lección 3.2: Ejercicio de condicionales (ID será 10)
+INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, contenido_html) VALUES
+(3, 'Practica con condicionales', 2, 'PRACTICA',
 '<html>
 <head>
     <style>
@@ -251,9 +340,9 @@ INSERT INTO "leccion" (id, seccion_id, titulo, numero_orden, tipo_contenido, con
 </body>
 </html>');
 
--- Ejercicio 3 para la lección 7
-INSERT INTO "ejercicio" (id, leccion_id, titulo, instrucciones, codigo_plantilla, solucion_esperada, puntos, numero_orden) VALUES
-(3, 7, 'Verificar mayoría de edad',
+-- Ejercicio 3 para la lección 10 (ID será 3)
+INSERT INTO "ejercicio" (leccion_id, titulo, instrucciones, codigo_plantilla, solucion_esperada, puntos, numero_orden) VALUES
+(10, 'Verificar mayoría de edad',
 'Escribe un programa que determine si edad = 20 es mayor de edad. Imprime el resultado.',
 'public class VerificarEdad {
     public static void main(String[] args) {
@@ -264,142 +353,221 @@ INSERT INTO "ejercicio" (id, leccion_id, titulo, instrucciones, codigo_plantilla
 'Mayor de edad',
 20, 1);
 
+-- Lección 3.3: Bucles (ID será 11)
+INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, contenido_html) VALUES
+(3, 'Bucles while y for', 3, 'TEORIA',
+'<html>
+<head>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
+        h1 { color: #0066cc; }
+        .code { background: #263238; color: #aed581; padding: 15px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Bucles en Java</h1>
+    <p>Los bucles permiten repetir código múltiples veces.</p>
+
+    <h2>Bucle for:</h2>
+    <div class="code">
+        for (int i = 0; i < 5; i++) {<br>
+        &nbsp;&nbsp;System.out.println(i);<br>
+        }
+    </div>
+
+    <h2>Bucle while:</h2>
+    <div class="code">
+        int i = 0;<br>
+        while (i < 5) {<br>
+        &nbsp;&nbsp;System.out.println(i);<br>
+        &nbsp;&nbsp;i++;<br>
+        }
+    </div>
+</body>
+</html>');
+
+-- Lección 3.4: Ejercicio bucles (ID será 12)
+INSERT INTO "leccion" (seccion_id, titulo, numero_orden, tipo_contenido, contenido_html) VALUES
+(3, 'Ejercicio: Tabla de multiplicar', 4, 'PRACTICA',
+'<html>
+<head>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
+        .task { background: #ffebee; padding: 15px; border-left: 4px solid #f44336; }
+    </style>
+</head>
+<body>
+    <h2>Ejercicio: Tabla de Multiplicar</h2>
+    <div class="task">
+        Crea un programa que imprima la tabla de multiplicar del 5.
+    </div>
+</body>
+</html>');
+
 -- ============================================
--- 4. QUIZ FINAL (PRUEBA ID 1)
--- ============================================
-INSERT INTO "prueba" (id, curso_id, seccion_id, titulo, tipo) VALUES
-(1, 1, 3, 'Quiz Final - Fundamentos de Java', 'FINAL');
-
--- Pregunta 1
-INSERT INTO "pregunta" (id, enunciado, prueba_id) VALUES (1, '¿Cuál es la palabra clave para declarar una variable entera en Java?', 1);
-INSERT INTO "opcion" (id, pregunta_id, texto, es_correcta) VALUES
-(1, 1, 'integer', false), (2, 1, 'int', true), (3, 1, 'Integer', false), (4, 1, 'num', false);
-
--- Pregunta 2
-INSERT INTO "pregunta" (id, enunciado, prueba_id) VALUES (2, '¿Qué imprime System.out.println("Hola" + " " + "Mundo");?', 1);
-INSERT INTO "opcion" (id, pregunta_id, texto, es_correcta) VALUES
-(5, 2, 'Hola Mundo', true), (6, 2, 'Hola+Mundo', false), (7, 2, 'HolaMundo', false), (8, 2, 'Error de compilación', false);
-
--- Pregunta 3
-INSERT INTO "pregunta" (id, enunciado, prueba_id) VALUES (3, '¿Cuál es el resultado de 10 % 3 en Java?', 1);
-INSERT INTO "opcion" (id, pregunta_id, texto, es_correcta) VALUES
-(9, 3, '3', false), (10, 3, '1', true), (11, 3, '0', false), (12, 3, '10', false);
-
--- Pregunta 4
-INSERT INTO "pregunta" (id, enunciado, prueba_id) VALUES (4, '¿Qué estructura se usa para tomar decisiones en Java?', 1);
-INSERT INTO "opcion" (id, pregunta_id, texto, es_correcta) VALUES
-(13, 4, 'loop', false), (14, 4, 'if-else', true), (15, 4, 'switch', false), (16, 4, 'while', false);
-
--- Pregunta 5
-INSERT INTO "pregunta" (id, enunciado, prueba_id) VALUES (5, '¿Cuál es el método principal en una aplicación Java?', 1);
-INSERT INTO "opcion" (id, pregunta_id, texto, es_correcta) VALUES
-(17, 5, 'start()', false), (18, 5, 'main()', true), (19, 5, 'run()', false), (20, 5, 'init()', false);
-
--- ============================================
--- 5. ITEMS DE LA TIENDA Y STELLA
+-- 4. QUIZZES Y PREGUNTAS (Sin IDs manuales)
 -- ============================================
 
--- ITEMS DE LA TIENDA Y STELLA CON EL OBJETO
+-- QUIZ SECCIÓN 1: Fundamentos de Java (PRUEBA ID será 1)
+INSERT INTO "prueba" (curso_id, seccion_id, titulo, tipo) VALUES
+(1, 1, 'Quiz - Fundamentos de Java', 'FINAL');
 
--- 👕 HOODIE GITHUB (ID 1)
+-- Pregunta 1.1 (ID será 1)
+INSERT INTO "pregunta" (enunciado, prueba_id) VALUES ('¿Qué significa JDK?', 1);
+INSERT INTO "opcion" (pregunta_id, texto, es_correcta) VALUES
+(1, 'Java Development Kit', true), (1, 'Java Design Kit', false), (1, 'Java Data Kit', false), (1, 'Java Download Kit', false);
+
+-- Pregunta 1.2 (ID será 2)
+INSERT INTO "pregunta" (enunciado, prueba_id) VALUES ('¿Cuál es la extensión de un archivo de código fuente Java?', 1);
+INSERT INTO "opcion" (pregunta_id, texto, es_correcta) VALUES
+(2, '.java', true), (2, '.class', false), (2, '.jar', false), (2, '.jav', false);
+
+-- Pregunta 1.3 (ID será 3)
+INSERT INTO "pregunta" (enunciado, prueba_id) VALUES ('¿Qué método es el punto de entrada de una aplicación Java?', 1);
+INSERT INTO "opcion" (pregunta_id, texto, es_correcta) VALUES
+(3, 'main()', true), (3, 'start()', false), (3, 'run()', false), (3, 'init()', false);
+
+-- QUIZ SECCIÓN 2: Variables y Tipos de Datos (PRUEBA ID será 2)
+INSERT INTO "prueba" (curso_id, seccion_id, titulo, tipo) VALUES
+(1, 2, 'Quiz - Variables y Tipos de Datos', 'FINAL');
+
+-- Pregunta 2.1 (ID será 4)
+INSERT INTO "pregunta" (enunciado, prueba_id) VALUES ('¿Cuál es la palabra clave para declarar una variable entera en Java?', 2);
+INSERT INTO "opcion" (pregunta_id, texto, es_correcta) VALUES
+(4, 'integer', false), (4, 'int', true), (4, 'Integer', false), (4, 'num', false);
+
+-- Pregunta 2.2 (ID será 5)
+INSERT INTO "pregunta" (enunciado, prueba_id) VALUES ('¿Qué tipo de dato se usa para almacenar números decimales?', 2);
+INSERT INTO "opcion" (pregunta_id, texto, es_correcta) VALUES
+(5, 'int', false), (5, 'double', true), (5, 'boolean', false), (5, 'char', false);
+
+-- Pregunta 2.3 (ID será 6)
+INSERT INTO "pregunta" (enunciado, prueba_id) VALUES ('¿Cuál es el resultado de 10 % 3 en Java?', 2);
+INSERT INTO "opcion" (pregunta_id, texto, es_correcta) VALUES
+(6, '3', false), (6, '1', true), (6, '0', false), (6, '10', false);
+
+-- QUIZ SECCIÓN 3: Control de Flujo (PRUEBA ID será 3)
+INSERT INTO "prueba" (curso_id, seccion_id, titulo, tipo) VALUES
+(1, 3, 'Quiz - Control de Flujo', 'FINAL');
+
+-- Pregunta 3.1 (ID será 7)
+INSERT INTO "pregunta" (enunciado, prueba_id) VALUES ('¿Qué estructura se usa para tomar decisiones en Java?', 3);
+INSERT INTO "opcion" (pregunta_id, texto, es_correcta) VALUES
+(7, 'loop', false), (7, 'if-else', true), (7, 'switch', false), (7, 'while', false);
+
+-- Pregunta 3.2 (ID será 8)
+INSERT INTO "pregunta" (enunciado, prueba_id) VALUES ('¿Cuál bucle se ejecuta al menos una vez?', 3);
+INSERT INTO "opcion" (pregunta_id, texto, es_correcta) VALUES
+(8, 'for', false), (8, 'while', false), (8, 'do-while', true), (8, 'foreach', false);
+
+-- Pregunta 3.3 (ID será 9)
+INSERT INTO "pregunta" (enunciado, prueba_id) VALUES ('¿Qué imprime System.out.println("Hola" + " " + "Mundo");?', 3);
+INSERT INTO "opcion" (pregunta_id, texto, es_correcta) VALUES
+(9, 'Hola Mundo', true), (9, 'Hola+Mundo', false), (9, 'HolaMundo', false), (9, 'Error de compilación', false);
+
+-- ============================================
+-- 5. ITEMS DE LA TIENDA Y STELLA (Sin IDs manuales)
+-- ============================================
+
+-- 👕 HOODIE GITHUB (ITEM ID será 1)
 INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
     ('Hoodie GitHub','Sudadera con capucha inspirada en GitHub, ideal para desarrolladores que quieren vestir con estilo tech.',
      1150, '/Image/TiendaStella/hoodieGithub.png');
 INSERT INTO "stella_item" (item_id, image_path) VALUES
     (1, '/Image/stellas/stellaHoodieGithub.png');
 
--- 👕 CAMISETA APPLE (ID 2)
+-- 👕 CAMISETA APPLE (ITEM ID será 2)
 INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
     ('Camiseta Apple','Camiseta minimalista con logo de Apple, ideal para los amantes de la tecnología y el diseño limpio.',
      950, '/Image/TiendaStella/camisetaApple.png');
 INSERT INTO "stella_item" (item_id, image_path) VALUES
     (2, '/Image/stellas/stellaCamisetaApple.png');
 
--- 🏫 CAMISETA FIS (ID 3)
+-- 🏫 CAMISETA FIS (ITEM ID será 3)
 INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
     ('Camiseta FIS','Camiseta deportiva con diseño institucional FIS, ideal para eventos y actividades académicas.',
      800, '/Image/TiendaStella/camisetaFIS.png');
 INSERT INTO "stella_item" (item_id, image_path) VALUES
     (3, '/Image/stellas/stellaFIS.png');
 
--- 🇨🇴 CAMISETA COLOMBIA (ID 4)
+-- 🇨🇴 CAMISETA COLOMBIA (ITEM ID será 4)
 INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
     ('Camiseta Colombia','Camiseta de la selección Colombia, fabricada con tela transpirable y cómoda para mostrar el orgullo nacional.',
      1050, '/Image/TiendaStella/camisetaColombia.png');
 INSERT INTO "stella_item" (item_id, image_path) VALUES
     (4, '/Image/stellas/stellaCamisetaColombia.png');
 
--- 🧢 BALACA DISNEY (ID 5)
+-- 🧢 BALACA DISNEY (ITEM ID será 5)
 INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
     ('Balaca Disney','Balaca con diseño inspirado en personajes clásicos de Disney, cómoda y divertida para toda ocasión.',
      450, '/Image/TiendaStella/balacaDisney.png');
 INSERT INTO "stella_item" (item_id, image_path) VALUES
     (5, '/Image/stellas/stellaDisney.png');
 
--- 🍹 JUGO HIT (ID 6)
+-- 🍹 JUGO HIT (ITEM ID será 6)
 INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
     ('Jugo Hit','Bebida refrescante de frutas naturales, ideal para acompañar tus comidas o hidratarte en cualquier momento.',
      350, '/Image/TiendaStella/jugoHit.png');
 INSERT INTO "stella_item" (item_id, image_path) VALUES
     (6, '/Image/stellas/stellaJugoHit.png');
 
--- ⚽ CAMISETA MILLOS (ID 7)
+-- ⚽ CAMISETA MILLOS (ITEM ID será 7)
 INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
     ('Camiseta Millos','Camiseta oficial del equipo Millonarios, perfecta para hinchas que quieren lucir sus colores con pasión.',
      1000, '/Image/TiendaStella/camisetaMillos.png');
 INSERT INTO "stella_item" (item_id, image_path) VALUES
     (7, '/Image/stellas/stellaCamisetaMillos.png');
 
--- 👒 SOMBRERO VUELTEAO (ID 8)
+-- 👒 SOMBRERO VUELTEAO (ITEM ID será 8)
 INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
     ('Sombrero Vuelteao','Sombrero típico colombiano elaborado con caña flecha, símbolo de tradición y estilo.',
      900, '/Image/TiendaStella/sombreroVuelteao.png');
 INSERT INTO "stella_item" (item_id, image_path) VALUES
     (8, '/Image/stellas/stellaSombreroVuelteao.png');
 
--- 👚 CROPTOP (ID 9)
+-- 👚 CROPTOP (ITEM ID será 9)
 INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
     ('Croptop','Croptop moderno y cómodo, ideal para climas cálidos y estilos urbanos.',
      700, '/Image/TiendaStella/croptop.png');
 INSERT INTO "stella_item" (item_id, image_path) VALUES
     (9, '/Image/stellas/stellaCroptop.png');
 
--- 🧣 BUFANDA (ID 10)
+-- 🧣 BUFANDA (ITEM ID será 10)
 INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
     ('Bufanda','Bufanda tejida con materiales suaves y cálidos, perfecta para protegerte del frío con estilo.',
      850, '/Image/TiendaStella/bufanda.png');
 INSERT INTO "stella_item" (item_id, image_path) VALUES
     (10, '/Image/stellas/stellaBufanda.png');
 
--- 🕶️ GAFAS DE SOL (ID 11)
+-- 🕶️ GAFAS DE SOL (ITEM ID será 11)
 INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
     ('Gafas de Sol','Gafas elegantes con protección UV400, perfectas para un look moderno y proteger tus ojos del sol.',
      600, '/Image/TiendaStella/gafasDeSol.png');
 INSERT INTO "stella_item" (item_id, image_path) VALUES
     (11, '/Image/stellas/stellaGafas.png');
 
--- 🕶️ GAFAS DE SKI (ID 12)
+-- 🕶️ GAFAS DE SKI (ITEM ID será 12)
 INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
     ('Gafas de Ski','Gafas diseñadas para nieve y deporte extremo, resistentes al viento y la neblina.',
      1100, '/Image/TiendaStella/gafasSki.png');
 INSERT INTO "stella_item" (item_id, image_path) VALUES
     (12, '/Image/stellas/stellaSki.png');
 
--- 🧢 GORRA (ID 13)
+-- 🧢 GORRA (ITEM ID será 13)
 INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
     ('Gorra','Gorra clásica ajustable, con visera curva y diseño casual ideal para cualquier día.',
      500, '/Image/TiendaStella/gorra.png');
 INSERT INTO "stella_item" (item_id, image_path) VALUES
     (13, '/Image/stellas/stellaGorra.png');
 
--- 🧢 GORRA ROJA (ID 14)
+-- 🧢 GORRA ROJA (ITEM ID será 14)
 INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
     ('Gorra Roja','Gorra de color rojo intenso, ajustable y cómoda, perfecta para destacar en cualquier ocasión.',
      520, '/Image/TiendaStella/gorraRoja.png');
 INSERT INTO "stella_item" (item_id, image_path) VALUES
     (14, '/Image/stellas/stellaGorraRoja.png');
 
--- 🧢 GORRA ROSA (ID 15)
+-- 🧢 GORRA ROSA (ITEM ID será 15)
 INSERT INTO "item" (nombre, descripcion, precio, image_path) VALUES
     ('Gorra Rosa','Gorra color rosa con diseño moderno, perfecta para un look casual y alegre.',
      520, '/Image/TiendaStella/gorraRosa.png');
@@ -410,61 +578,49 @@ INSERT INTO "stella_item" (item_id, image_path) VALUES
 INSERT INTO "usuario_item" (usuario_id, item_id) VALUES (1, 4);
 
 -- ============================================
--- 6. DATOS DEL FORO
+-- 6. DATOS DEL FORO (Los IDs ya estaban correctos)
 -- ============================================
 
--- Post 1 (Creado por Usuario 1)
+-- Post 1 (Creado por Usuario 1. ID será 1)
 INSERT INTO "post" (usuario_id, contenido_texto, fecha, etiqueta) VALUES
 (1, '¿Alguien sabe cómo usar JavaFX para un foro?', '2025-11-07 18:00:00', 'JavaFX');
 
--- Comentario 1 y 2 (Creados por Usuario 2, que es el que se insertó sin ID al final de la sección 1 y tendrá ID 2)
+-- Comentario 1 y 2 (Creados por Usuario 2. post_id = 1)
 INSERT INTO "comentario" (post_id, usuario_id, contenido_texto, fecha) VALUES
 (1, 2, 'Sí, usa FXML para la interfaz.', '2025-11-07 18:05:00');
 
 INSERT INTO "comentario" (post_id, usuario_id, contenido_texto, fecha) VALUES
 (1, 2, 'También puedes agregar un ListView para los posts.', '2025-11-07 18:10:00');
 
--- Post 2 (Creado por Usuario 2)
+-- Post 2 (Creado por Usuario 2. ID será 2)
 INSERT INTO "post" (usuario_id, contenido_texto, fecha, etiqueta) VALUES
 (2, '¿Alguien sabe cómo utilizar la memoria dinámica en c++?', '2025-11-07 18:20:00', 'C++');
 
--- Comentario 3 (Creado por Usuario 1)
+-- Comentario 3 (Creado por Usuario 1. post_id = 2)
 INSERT INTO "comentario" (post_id, usuario_id, contenido_texto, fecha) VALUES
 (2, 1, 'Sí, debes asignar y liberar memoria así: int *arr = new int[10]; y delete[] arr;', '2025-11-07 18:25:00');
 
---Prueba o quiz
-INSERT INTO "prueba" (curso_id, seccion_id, titulo, tipo)
-VALUES (1, 1, 'Quiz: Tipos de datos en C++', 'SECCIONAL');
+-- DATOS DE PRUEBA PARA PROGRESO
+-- Inscribir usuario 1 en curso 1
+INSERT INTO "usuario_curso" (usuario_id, curso_id) VALUES (1, 1);
 
-INSERT INTO "pregunta" (enunciado, prueba_id)
-VALUES ('¿Cómo se declara una variable int en C++?', 1);
+-- Crear registros de progreso para las 12 lecciones (IDs: 1 a 12)
+INSERT INTO "progreso_leccion" (usuario_id, leccion_id, estado) VALUES
+(1, 1, 'EN_PROGRESO'),
+(1, 2, 'EN_PROGRESO'),
+(1, 3, 'EN_PROGRESO'),
+(1, 4, 'EN_PROGRESO'),
+(1, 5, 'EN_PROGRESO'),
+(1, 6, 'EN_PROGRESO'),
+(1, 7, 'EN_PROGRESO'),
+(1, 8, 'EN_PROGRESO'),
+(1, 9, 'EN_PROGRESO'),
+(1, 10, 'EN_PROGRESO'),
+(1, 11, 'EN_PROGRESO'),
+(1, 12, 'EN_PROGRESO');
 
-INSERT INTO "pregunta" (enunciado, prueba_id)
-VALUES ('¿Qué tipo de dato se usa para texto?', 1);
-
--- Opciones para cada pregunta
-INSERT INTO "opcion" (pregunta_id, texto, es_correcta) VALUES (1, 'int x;', true);
-INSERT INTO "opcion" (pregunta_id, texto, es_correcta) VALUES (1, 'variable x;', false);
-INSERT INTO "opcion" (pregunta_id, texto, es_correcta) VALUES (1, 'x = int;', false);
-
-INSERT INTO "opcion" (pregunta_id, texto, es_correcta) VALUES (2, 'string', true);
-INSERT INTO "opcion" (pregunta_id, texto, es_correcta) VALUES (2, 'int', false);
-INSERT INTO "opcion" (pregunta_id, texto, es_correcta) VALUES (2, 'char', false);
-
-
--- DATOS DE PRUEBA PARA PROGRESO (solo para tests - escenario realista)
-
--- Usuario id=1 (test@estudio.com) ya está inscrito en curso 1 (C++)
--- Nota: cuando un usuario se inscribe  en un curso se insertan un numero de registros
--- igual al numero de lecciones en el curso en el que se iscribió y ademas el campo "estado"
--- se marca como EN_PROGRESO
-
--- Simulamos que el usuario ya avanzó un poco:
--- Marcamos las primeras 7 lecciones como COMPLETADA
+-- Marcar las primeras 7 lecciones como COMPLETADAS (7/12 = 58.33%)
 UPDATE "progreso_leccion"
 SET estado = 'COMPLETADA'
 WHERE usuario_id = 1
   AND leccion_id IN (1, 2, 3, 4, 5, 6, 7);
-
--- Lección 8 la dejamos EN_PROGRESO (para probar actualización)
--- Lecciones 9 a 15 quedan EN_PROGRESO (progreso actual = 7/15 ≈ 46.67%)
