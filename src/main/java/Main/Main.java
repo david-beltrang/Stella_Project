@@ -1,5 +1,6 @@
 package Main;
 
+import Application.config.AppServices;
 import Application.services.*;
 import Application.services.DarAcceso.LoginService;
 import Application.services.DarAcceso.RegistroService;
@@ -12,6 +13,7 @@ import Infrastructure.repositories.*;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+
 
 public class Main extends Application {
 
@@ -38,7 +40,13 @@ public class Main extends Application {
         SeccionesService seccionesService = new SeccionesService(seccionRepository);
         ListarCursosService listarCursosService = new ListarCursosService(cursoRepository, usuarioCursoRepository);
         PomodoroTimer pomodoroTimer = PomodoroTimer.getInstance();
+
+
         SesionPomodoroService sesionPomodoroService = new SesionPomodoroService(sesionEstudioRepository);
+
+        AppServices.initCursos(listarCursosService, seccionesService);
+        AppServices.initPomodoro(sesionPomodoroService, pomodoroTimer);
+
         LoginService loginService = new LoginService(usuarioRepository);
         RegistroService registroService = new RegistroService(usuarioRepository);
         LeccionService leccionService = new LeccionService(leccionRepository);

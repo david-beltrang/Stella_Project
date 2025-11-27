@@ -21,14 +21,18 @@ import java.util.function.Function;
 
 public class IgluController {
 
-    // =========================
-    // SERVICIOS Y NAVEGACIÓN
-    // =========================
     private SesionPomodoroService sesionService;
     private Function<Class<?>, Object> controllerFactory;
     private final Navegacion navigator = new Navegacion();
 
-    // ✅ Necesario para que no se rompan los servicios al navegar
+
+    public IgluController(SesionPomodoroService sesionService) {
+        this.sesionService = sesionService;
+    }
+
+
+    public IgluController() {}
+
     public void setControllerFactory(Function<Class<?>, Object> factory) {
         this.controllerFactory = factory;
     }
@@ -36,9 +40,6 @@ public class IgluController {
     public void setSesionService(SesionPomodoroService sesionService) {
         this.sesionService = sesionService;
     }
-
-    // ✅ Constructor vacío obligatorio para JavaFX
-    public IgluController() {}
 
     // =========================
     // FXML
@@ -74,8 +75,7 @@ public class IgluController {
                 "Octubre", "Noviembre", "Diciembre"
         };
 
-        int row = 0;
-        int col = 0;
+        int row = 0, col = 0;
 
         for (int i = 0; i < 12; i++) {
             Button monthBtn = new Button(months[i]);
@@ -117,7 +117,6 @@ public class IgluController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/SemanasPopup.fxml"));
 
-            // ✅ MUY IMPORTANTE: conservar la inyección de controladores
             if (controllerFactory != null) {
                 loader.setControllerFactory(controllerFactory::apply);
             }
@@ -125,11 +124,7 @@ public class IgluController {
             Parent rootPopup = loader.load();
             SemanasPopupController controller = loader.getController();
 
-            if (this.sesionService == null) {
-                System.out.println("❌ ERROR: sesionService es NULL en IgluController");
-            } else {
-                controller.setSesionService(this.sesionService);
-            }
+            controller.setSesionService(this.sesionService);
 
             controller.init(currentYear, month);
 
@@ -171,7 +166,6 @@ public class IgluController {
             popupStage.initModality(Modality.APPLICATION_MODAL);
             popupStage.initOwner(root.getScene().getWindow());
             popupStage.setScene(popupScene);
-            popupStage.centerOnScreen();
 
             root.setEffect(new GaussianBlur(10));
             popupStage.setOnHidden(e -> root.setEffect(null));
@@ -188,48 +182,27 @@ public class IgluController {
     // =========================
     @FXML
     private void goHome() {
-        try {
-            navigator.goTo("/views/Principal.fxml", "STELLA - Inicio", controllerFactory, root);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        navigator.goTo("/views/Principal.fxml", "STELLA - Inicio", controllerFactory, root);
     }
 
     @FXML
     private void goForum() {
-        try {
-            navigator.goTo("/views/Foro.fxml", "STELLA - Foro", controllerFactory, root);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        navigator.goTo("/views/Foro.fxml", "STELLA - Foro", controllerFactory, root);
     }
 
     @FXML
     private void goProfile() {
-        try {
-            navigator.goTo("/views/Perfil.fxml", "STELLA - Perfil", controllerFactory, root);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        navigator.goTo("/views/Perfil.fxml", "STELLA - Perfil", controllerFactory, root);
     }
 
     @FXML
     private void goPomodoro() {
-        try {
-            navigator.goTo("/views/Pomodoro.fxml", "STELLA - Pomodoro", controllerFactory, root);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        navigator.goTo("/views/Pomodoro.fxml", "STELLA - Pomodoro", controllerFactory, root);
     }
 
     @FXML
     private void cerrarSesion() {
-        try {
-            AppServices.cerrarSesion();
-            navigator.goTo("/views/Login.fxml", "STELLA - Login", controllerFactory, root);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        AppServices.cerrarSesion();
+        navigator.goTo("/views/Login.fxml", "STELLA - Login", controllerFactory, root);
     }
 }
-
