@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 public class ChatbotService {
     private static final Logger logger = LoggerFactory.getLogger(ChatbotService.class);
 
-    private static final String API_KEY = "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";
+    private static final String API_KEY = "";
     private static final String API_URL = "https://openrouter.ai/api/v1/chat/completions";
 
     // Historial de mensajes como lista de ChatMessageResponse para DTOs
@@ -72,7 +72,7 @@ public class ChatbotService {
                     .header("X-Title", "Chatbot Stella")
                     .POST(HttpRequest.BodyPublishers.ofString(body.toString()))
                     .build();
-            
+
             HttpClient client = createHttpClient();
             HttpResponse<String> response = client.send(requestHttp, HttpResponse.BodyHandlers.ofString());
 
