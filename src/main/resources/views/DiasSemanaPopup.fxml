@@ -21,7 +21,7 @@
 
         <!-- Fondo -->
         <Rectangle arcHeight="25.0" arcWidth="25.0"
-                   height="500.0" width="800.0"
+                   height="750.0" width="800.0"
                    style="-fx-fill: rgba(8,7,54,0.93);" />
 
         <!-- TÍTULO -->
