@@ -12,12 +12,11 @@
       minHeight="1080.0" minWidth="1920.0"
       prefHeight="1080.0" prefWidth="1920.0"
       stylesheets="@../styles/LoginStyle.css"
-      xmlns="http://javafx.com/javafx/25"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="Infrastructure.controllers.StellaController">
+      xmlns="http://javafx.com/javafx/18.0.2" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="Infrastructure.controllers.LoginController">
 
     <children>
-        <Label layoutX="667.0" layoutY="165.0"
+        <Label layoutX="467.0" layoutY="65.0"
                prefHeight="388.0" prefWidth="873.0"
                text="STELLA" textFill="WHITE">
             <font>
@@ -25,12 +24,12 @@
             </font>
         </Label>
 
-        <Label layoutX="744.0" layoutY="457.0"
+        <Label layoutX="544.0" layoutY="357.0"
                text="Recuperar Contraseña" textFill="WHITE">
             <font><Font size="47.0" /></font>
         </Label>
 
-        <Label layoutX="783.0" layoutY="526.0"
+        <Label layoutX="583.0" layoutY="426.0"
                prefWidth="426.0"
                style="-fx-font-size: 18px;"
                text="Ingresa tu email y te enviaremos un enlace para restablecer tu contraseña"
@@ -38,13 +37,13 @@
                textFill="WHITE" wrapText="true" />
 
         <TextField fx:id="recoverEmailField"
-                   layoutX="747.0" layoutY="600.0"
+                   layoutX="547.0" layoutY="500.0"
                    prefHeight="60.0" prefWidth="465.0"
                    promptText="Ingresa tu email"
                    style="-fx-font-size: 24px;" />
 
         <Button fx:id="sendRecoveryButton"
-                layoutX="747.0" layoutY="680.0"
+                layoutX="547.0" layoutY="580.0"
                 mnemonicParsing="false"
                 onAction="#sendRecoveryEmail"
                 opacity="0.8"
@@ -56,7 +55,7 @@
 
         <!-- 🔹 Botón corregido -->
         <Button fx:id="backToLoginButton"
-                layoutX="973.0" layoutY="680.0"
+                layoutX="773.0" layoutY="580.0"
                 mnemonicParsing="false"
                 onAction="#goBackToLogin"
                 opacity="0.8"
@@ -67,18 +66,19 @@
         </Button>
 
         <Label fx:id="recoveryMessage"
-               layoutX="747.0" layoutY="750.0"
+               layoutX="547.0" layoutY="650.0"
                prefWidth="426.0"
                style="-fx-font-size: 18px; -fx-font-weight: bold;"
                textFill="#90EE90" visible="false"
                wrapText="true" />
 
         <ImageView fitHeight="61.0" fitWidth="70.0"
-                   layoutX="1559.0" layoutY="763.0"
+                   layoutX="1359.0" layoutY="663.0"
                    pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../Image.General/StellaEsquinaSF.png" />
+                <Image url="@../Image/General/StellaEsquinaSF.png" />
             </image>
         </ImageView>
     </children>
+
 </Pane>

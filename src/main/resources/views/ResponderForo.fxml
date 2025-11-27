@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="root" maxHeight="1080.0" maxWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../styles/LoginStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Infrastructure.controllers.ResponderForoController">
+
+    <!-- Fondo -->
+    <ImageView fx:id="background" fitHeight="1080" fitWidth="1920" layoutX="1.0" preserveRatio="false">
+        <image>
+            <Image url="@../Image/General/FondoStella.jpg" />
+        </image>
+    </ImageView>
+
+    <!-- Barra inferior -->
+    <StackPane layoutY="760.0" prefHeight="30" prefWidth="900.0">
+        <children>
+            <Rectangle arcHeight="0" arcWidth="0" height="80" style="-fx-fill: rgba(8,7,54,0.55);" width="1923.0" />
+            <AnchorPane prefHeight="56.0" prefWidth="1876.0">
+                <children>
+                    <Button fx:id="homeBtn" layoutX="136.0" layoutY="12.0" onAction="#goHome" styleClass="nav-btn">
+                        <graphic>
+                            <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Image/General/home.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+
+                    <Button fx:id="forumBtn" layoutX="477.0" layoutY="10.0" onAction="#goForum" styleClass="nav-btn">
+                        <graphic>
+                            <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Image/General/foro.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+
+                    <Button fx:id="profileBtn" layoutX="1343.0" layoutY="12.0" onAction="#goProfile" styleClass="nav-btn">
+                        <graphic>
+                            <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Image/General/usuario.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+
+                    <Button fx:id="igluBtn" layoutX="1083.0" layoutY="10.0" onAction="#goGamificacion" styleClass="nav-btn">
+                        <graphic>
+                            <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Image/General/iglu.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+
+                    <Button fx:id="tiendaBtn" layoutX="784.0" layoutY="10.0" onAction="#goTienda" styleClass="nav-btn">
+                        <graphic>
+                            <ImageView fitHeight="35.0" fitWidth="35.0" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Image/General/tienda.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                </children>
+            </AnchorPane>
+        </children>
+    </StackPane>
+
+    <!-- Barra superior con buscador y logout -->
+    <StackPane layoutY="0" prefHeight="80" prefWidth="1920.0">
+        <children>
+            <Rectangle arcHeight="0" arcWidth="0" height="80" style="-fx-fill: rgba(8,7,54,0.55);" width="1923.0" />
+            <AnchorPane prefHeight="56.0" prefWidth="1876.0">
+                <children>
+
+                    <!-- FUEGUITO -->
+                    <ImageView fitHeight="61.0" fitWidth="65.0" layoutX="250.0" layoutY="11.0" preserveRatio="true">
+                        <image><Image url="@../Image/General/racha.png" /></image>
+                    </ImageView>
+                    <Label fx:id="rachaLabel" layoutX="310.0" layoutY="20.0" text="0" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold; -fx-border-color: #4DA3FF; -fx-border-width: 2; -fx-border-radius: 5; -fx-padding: 4;" />
+
+                    <!-- PESCADITOS -->
+                    <ImageView fitHeight="237.0" fitWidth="90.0" layoutX="850.0" layoutY="14.0" preserveRatio="true">
+                        <image><Image url="@../Image/General/pescaditos.png" /></image>
+                    </ImageView>
+                    <Label fx:id="pescaditosLabel" layoutX="950.0" layoutY="20.0" text="0" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold; -fx-border-color: #4DA3FF; -fx-border-width: 2; -fx-border-radius: 5; -fx-padding: 4;" />
+
+                    <!-- Chatbot -->
+                    <Button fx:id="chatBtn1" layoutX="600.0" layoutY="9.0" onAction="#goChatbot" styleClass="nav-btn">
+                        <graphic>
+                            <ImageView fitHeight="35.0" fitWidth="35.0" preserveRatio="true">
+                                <image><Image url="@../Image/General/ChatBot.png" /></image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+
+                    <!-- Botón cerrar sesión -->
+                    <Button fx:id="logoutBtn" layoutX="1240.0" layoutY="15.0" onAction="#cerrarSesion" style="-fx-background-color: #4DA3FF; -fx-text-fill: white; -fx-font-weight: bold;                                    -fx-background-radius: 10; -fx-padding: 6 14;" text="Cerrar sesión">
+                        <font>
+                            <Font name="System Bold Italic" size="27.0" />
+                        </font>
+                    </Button>
+                </children>
+            </AnchorPane>
+        </children>
+    </StackPane>
+
+    <!-- Contenido principal con ScrollPane -->
+    <ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutX="100.0" layoutY="130.0" prefHeight="550.0" prefWidth="1300.0" style="-fx-background-color: transparent; -fx-background: transparent;" vbarPolicy="AS_NEEDED">
+        <content>
+            <VBox spacing="20.0" style="-fx-background-color: transparent; -fx-padding: 20;">
+
+                <!-- Pregunta original -->
+                <VBox spacing="15.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 10; -fx-padding: 20;">
+                    <Label style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;" text="Pregunta Original">
+                        <font>
+                            <Font name="System Bold" size="24.0" />
+                        </font>
+                    </Label>
+
+                    <!-- Contenido de la pregunta -->
+                    <VBox spacing="10.0" style="-fx-background-color: rgba(255,255,255,0.05); -fx-background-radius: 8; -fx-padding: 15;">
+                        <Label fx:id="preguntaTituloLabel" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;" text="Pregunta" wrapText="true" />
+                        <Label fx:id="preguntaContenidoLabel" style="-fx-text-fill: white; -fx-font-size: 16px;" text="Descipcion Pregunta" wrapText="true" />
+                    </VBox>
+                </VBox>
+
+                <!-- Respuestas existentes -->
+                <VBox fx:id="respuestasContainer" spacing="15.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 10; -fx-padding: 20;">
+                    <Label style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;" text="Respuestas">
+                        <font>
+                            <Font name="System Bold" size="24.0" />
+                        </font>
+                    </Label>
+                    <!-- Las respuestas se añaden dinámicamente aquí -->
+                </VBox>
+
+                <!-- Formulario para nueva respuesta -->
+                <VBox spacing="15.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 10; -fx-padding: 20;">
+                    <Label style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;" text="Tu Respuesta">
+                        <font>
+                            <Font name="System Bold" size="24.0" />
+                        </font>
+                    </Label>
+
+                    <TextArea fx:id="respuestaTextArea" prefHeight="150.0" promptText="Escribe tu respuesta aquí..." style="-fx-background-color: rgba(255,255,255,0.8); -fx-background-radius: 5;" wrapText="true" />
+
+                    <HBox spacing="15.0">
+                        <Button fx:id="cancelarBtn" style="-fx-background-color: #080737; -fx-text-fill: white; -fx-background-radius: 5; -fx-pref-width: 120;" text="Cancelar" />
+                        <Button fx:id="enviarBtn" style="-fx-background-color: #080737; -fx-text-fill: white; -fx-background-radius: 5; -fx-pref-width: 150;" text="Enviar Respuesta" />
+                    </HBox>
+                </VBox>
+            </VBox>
+        </content>
+    </ScrollPane>
+
+    <!-- Botón Volver al Foro -->
+    <Button layoutX="700.0" layoutY="700.0" onAction="#goForum" style="-fx-background-color: #4DA3FF; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 10 20;" text="Volver a Foro">
+        <font>
+            <Font name="System Bold" size="20.0" />
+        </font>
+    </Button>
+
+</AnchorPane>

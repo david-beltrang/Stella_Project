@@ -1,58 +1,45 @@
 package Infrastructure.controllers;
 
-import Application.config.AppServices;
+import Infrastructure.ui.Navegacion;
+import Infrastructure.ui.AyudaUI;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
+
+import java.util.function.Function;
 
 public class HelloController {
 
     @FXML private Button loginButton;
     @FXML private Button registroButton;
 
+    // Dependencias de UI
+    private final Navegacion navigator = new Navegacion();
+    private final AyudaUI uiHelper = new AyudaUI();
+
+    // Factory global para la inyección de controladores
+    // Osea esto permite mantener las mismas instancias entre vistas al cambiar de escena
+    private Function<Class<?>, Object> controllerFactory;
+
+    public void setControllerFactory(Function<Class<?>, Object> controllerFactory) {
+        this.controllerFactory = controllerFactory;
+    }
+
+    //  ACCIONES DE BOTONES
     @FXML
     private void goToLogin() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Login.fxml"));
-            loader.setControllerFactory(c -> {
-                if (c == LoginController.class) return new LoginController(AppServices.service());
-                try { return c.getDeclaredConstructor().newInstance(); }
-                catch (Exception e) { throw new RuntimeException(e); }
-            });
-            Parent next = loader.load();
-            Stage stage = (Stage) loginButton.getScene().getWindow();
-            stage.setScene(new Scene(next));
-            stage.centerOnScreen();
+            navigator.goTo("/views/Login.fxml", "STELLA - Login", controllerFactory, loginButton);
         } catch (Exception e) {
-            new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR,
-                    "No pude cargar /views/Login.fxml : " + e.getMessage()).showAndWait();
+            uiHelper.showError("Error al abrir login", e.getMessage());
         }
     }
 
     @FXML
     private void goToRegistro() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Registro.fxml"));
-            loader.setControllerFactory(c -> {
-                if (c == RegistroController.class)
-                    return new RegistroController(AppServices.service());
-                try {
-                    return c.getDeclaredConstructor().newInstance();
-                }
-                catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            });
-            Parent next = loader.load();
-            Stage stage = (Stage) registroButton.getScene().getWindow();
-            stage.setScene(new Scene(next));
-            stage.centerOnScreen();
+            navigator.goTo("/views/Registro.fxml", "STELLA - Registro", controllerFactory, registroButton);
         } catch (Exception e) {
-            new Alert(Alert.AlertType.ERROR, "No pude cargar Registro.fxml: " + e.getMessage()).showAndWait();
+            uiHelper.showError("Error al abrir registro", e.getMessage());
         }
     }
 }

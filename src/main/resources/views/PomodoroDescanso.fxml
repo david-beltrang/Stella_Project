@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="root" maxHeight="1080.0" maxWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@/styles/LoginStyle.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Infrastructure.controllers.PomodoroDescansoController">
+
+    <!-- Panel azul translúcido (ya NO es botón) -->
+    <Rectangle arcHeight="20" arcWidth="20" height="526.0" layoutX="408.0" layoutY="221.0" opacity="0.78" style="-fx-fill: #1F618D;" width="679.0" />
+
+    <!-- Pingüino y sello -->
+    <ImageView fitHeight="312.0" fitWidth="295.0" layoutX="1058.0" layoutY="485.0" preserveRatio="true">
+        <image><Image url="@../Image/General/StellaPomodoroDescansoSF.png" /></image>
+    </ImageView>
+
+    <ImageView fitHeight="61.0" fitWidth="70.0" layoutX="1469.0" layoutY="773.0" preserveRatio="true">
+        <image><Image url="@../Image/General/StellaEsquinaSF.png" /></image>
+    </ImageView>
+
+    <!-- Botón confirmar -->
+    <Button fx:id="confirmarButton" layoutX="494.0" layoutY="646.0" onAction="#confirmarTiempoDeDescanso" opacity="0.86" prefHeight="61.0" prefWidth="519.0" style="-fx-background-color: #080736; -fx-text-fill: white;" text="CONFIRMAR TIEMPO DE DESCANSO">
+        <font><Font name="System Bold" size="30.0" /></font>
+    </Button>
+
+    <!-- Título -->
+    <Text fill="WHITE" layoutX="445.0" layoutY="281.0" text="Configurar Sesión Pomodoro" wrappingWidth="634.2">
+        <font><Font name="System Bold" size="45.0" /></font>
+    </Text>
+
+    <Text fill="WHITE" layoutX="580.0" layoutY="329.0" text="Tiempo de Descanso" wrappingWidth="364.2">
+        <font><Font name="Segoe UI Bold" size="34.0" /></font>
+    </Text>
+
+    <!-- Botones de selección de tiempo -->
+    <Button fx:id="btn3min" layoutX="458.0" layoutY="395.0" prefHeight="81.0" prefWidth="258.0" style="-fx-background-color: #4A90E2; -fx-text-fill: white;" text="3 Minutos">
+        <font><Font name="System Bold" size="38.0" /></font>
+    </Button>
+
+    <Button fx:id="btn5min" layoutX="775.0" layoutY="395.0" prefHeight="81.0" prefWidth="258.0" style="-fx-background-color: #4A90E2; -fx-text-fill: white;" text="5 Minutos">
+        <font><Font name="System Bold" size="38.0" /></font>
+    </Button>
+
+    <Button fx:id="btn8min" layoutX="458.0" layoutY="519.0" prefHeight="73.0" prefWidth="258.0" style="-fx-background-color: #4A90E2; -fx-text-fill: white;" text="8 Minutos">
+        <font><Font name="System Bold" size="38.0" /></font>
+    </Button>
+
+    <Button fx:id="btn10min" layoutX="775.0" layoutY="519.0" prefHeight="81.0" prefWidth="258.0" style="-fx-background-color: #4A90E2; -fx-text-fill: white;" text="10 Minutos">
+        <font><Font name="System Bold" size="38.0" /></font>
+    </Button>
+
+</AnchorPane>

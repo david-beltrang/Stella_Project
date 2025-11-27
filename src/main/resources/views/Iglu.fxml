@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="root" maxHeight="1080.0" maxWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../styles/LoginStyle.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Infrastructure.controllers.IgluController">
+
+    <!-- Fondo -->
+    <ImageView fx:id="background" fitHeight="1080" fitWidth="1920" preserveRatio="false">
+        <image><Image url="@../Image/General/FondoStella.jpg" /></image>
+    </ImageView>
+
+
+    <!-- ====================== -->
+    <!-- BARRA SUPERIOR (COPIA) -->
+    <!-- ====================== -->
+    <StackPane layoutY="0" prefHeight="80" prefWidth="1920.0">
+        <children>
+            <Rectangle arcHeight="0" arcWidth="0" height="80" style="-fx-fill: rgba(8,7,54,0.55);" width="1923.0" />
+
+            <AnchorPane prefHeight="56.0" prefWidth="1876.0">
+                <children>
+
+                    <!-- FUEGUITO -->
+                    <ImageView fitHeight="61.0" fitWidth="65.0" layoutX="250.0" layoutY="11.0" preserveRatio="true">
+                        <image><Image url="@../Image/General/racha.png" /></image>
+                    </ImageView>
+
+                    <Label fx:id="rachaLabel" layoutX="310.0" layoutY="20.0" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;                                   -fx-border-color: #4DA3FF; -fx-border-width: 2;                                   -fx-border-radius: 5; -fx-padding: 4;" text="0" />
+
+                    <!-- PESCADITOS -->
+                    <ImageView fitHeight="237.0" fitWidth="90.0" layoutX="850.0" layoutY="14.0" preserveRatio="true">
+                        <image><Image url="@../Image/General/pescaditos.png" /></image>
+                    </ImageView>
+
+                    <Label fx:id="pescaditosLabel" layoutX="950.0" layoutY="20.0" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;                                   -fx-border-color: #4DA3FF; -fx-border-width: 2;                                   -fx-border-radius: 5; -fx-padding: 4;" text="0" />
+
+                    <!-- Chatbot -->
+                    <Button fx:id="chatBtn1" layoutX="600.0" layoutY="9.0" onAction="#goChatbot" styleClass="nav-btn">
+                        <graphic>
+                            <ImageView fitHeight="35.0" fitWidth="35.0" preserveRatio="true">
+                                <image><Image url="@../Image/General/ChatBot.png" /></image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+
+                    <!-- Botón cerrar sesión -->
+                    <Button fx:id="logoutBtn" layoutX="1240.0" layoutY="15.0" onAction="#cerrarSesion" style="-fx-background-color: #4DA3FF; -fx-text-fill: white; -fx-font-weight: bold;                                    -fx-background-radius: 10; -fx-padding: 6 14;" text="Cerrar sesión">
+                        <font>
+                            <Font name="System Bold Italic" size="27.0" />
+                        </font>
+                    </Button>
+                </children>
+            </AnchorPane>
+        </children>
+    </StackPane>
+
+
+    <!-- ====================== -->
+    <!-- BARRA INFERIOR (COPIA) -->
+    <!-- ====================== -->
+    <StackPane layoutY="760.0" prefHeight="30" prefWidth="900.0">
+        <children>
+            <Rectangle arcHeight="0" arcWidth="0" height="80" style="-fx-fill: rgba(8,7,54,0.55);" width="1923.0" />
+            <AnchorPane prefHeight="56.0" prefWidth="1876.0">
+                <children>
+
+                    <!-- Home -->
+                    <Button fx:id="homeBtn" layoutX="136.0" layoutY="12.0" onAction="#goHome" styleClass="nav-btn">
+                        <graphic>
+                            <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                                <image><Image url="@../Image/General/home.png" /></image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+
+                    <!-- Foro -->
+                    <Button fx:id="forumBtn" layoutX="477.0" layoutY="10.0" onAction="#goForum" styleClass="nav-btn">
+                        <graphic>
+                            <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                                <image><Image url="@../Image/General/foro.png" /></image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+
+                    <!-- Tienda -->
+                    <Button fx:id="tiendaBtn" layoutX="784.0" layoutY="10.0" onAction="#goTienda" styleClass="nav-btn">
+                        <graphic>
+                            <ImageView fitHeight="35.0" fitWidth="35.0" preserveRatio="true">
+                                <image><Image url="@../Image/General/tienda.png" /></image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+
+                    <!-- Iglu -->
+                    <Button fx:id="igluBtn" layoutX="1083.0" layoutY="10.0" onAction="#goIglu" styleClass="nav-btn">
+                        <graphic>
+                            <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                                <image><Image url="@../Image/General/iglu.png" /></image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+
+                    <!-- Perfil -->
+                    <Button fx:id="profileBtn" layoutX="1343.0" layoutY="12.0" onAction="#goProfile" styleClass="nav-btn">
+                        <graphic>
+                            <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                                <image><Image url="@../Image/General/usuario.png" /></image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+
+                </children>
+            </AnchorPane>
+        </children>
+    </StackPane>
+
+
+    <!-- Selector de año -->
+    <Button layoutX="601.0" layoutY="130.0" onAction="#prevYear" text="◀" />
+    <Button fx:id="yearLabelBtn" layoutX="702.0" layoutY="125.0" prefHeight="39.0" prefWidth="72.0" text="2025" />
+    <Button layoutX="843.0" layoutY="130.0" onAction="#nextYear" text="▶" />
+
+    <!-- Grid de meses -->
+    <GridPane fx:id="monthGrid" hgap="30" layoutX="346.0" layoutY="173.0" prefHeight="571.0" prefWidth="1200" vgap="30" />
+
+</AnchorPane>

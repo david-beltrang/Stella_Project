@@ -2,118 +2,92 @@ package Infrastructure.repositories;
 
 // Imports necesarios
 import Domain.models.Usuario;
-import Domain.models.UsuarioValueObjects.Correo;
-import Domain.models.UsuarioValueObjects.Nombre;
 import Domain.models.UsuarioValueObjects.Tipo;
-import Domain.models.UsuarioValueObjects.Username;
 import Domain.repositoriesInterfaces.InterfazUsuarioRepository;
-import Domain.exceptions.UsuarioYaExisteException;
-import Infrastructure.persistence.ConexionBD;
+import Domain.exceptions.usuario.UsuarioYaExisteException;
+import Infrastructure.persistence.IConexionBD;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-// Esta clase UsuarioRepository implementa la interfaz del repositorio
+// Clase para interactuar con la tabla de usuarios en la base de datos
 public class UsuarioRepository implements InterfazUsuarioRepository {
 
-    public UsuarioRepository() {
-        crearTablaSiNoExiste();
-    }
+    private IConexionBD connMgr;
 
-    private void crearTablaSiNoExiste() {
-        String sql = """
-            CREATE TABLE IF NOT EXISTS usuarios (
-                id INT AUTO_INCREMENT PRIMARY KEY,
-                username VARCHAR(100) NOT NULL UNIQUE,
-                nombre VARCHAR(100) NOT NULL,
-                correo VARCHAR(200) NOT NULL UNIQUE,
-                contrasena VARCHAR(100) NOT NULL,
-                tipo VARCHAR(20) NOT NULL DEFAULT 'ESTUDIANTE'
-            )
-        """;
-        //Aquí se usa el metodo static de ConexionBD para poder obtener una conexión con la base de datos y no escribir las credenciales de nuevo
-        try (Connection conn = ConexionBD.getConnection();
-             Statement stmt = conn.createStatement()) {
-            //Se crea la tabla con el sql statement
-            stmt.execute(sql);
-        } catch (SQLException e) {
-            throw new RuntimeException("Error creando tabla: " + e.getMessage(), e);
-        }
+    public UsuarioRepository(IConexionBD connMgr) {
+        this.connMgr = connMgr;
     }
 
     @Override
-    //Este metodo devuelve un usuario para poder usarlo en el caso de uso de registrar y que se sepa cual usuario tiene sesion activa
     public Usuario guardar(Usuario usuario) {
-        //El metodo isPresent permite saber si el metodo de buscarPorCoreo devolvio o no un usuario
-        if (buscarPorCorreo(usuario.getCorreo().valor()).isPresent()) {
-            //Si se devuekve un usuario esto quiere decir que ya existe en la BD
-            throw new UsuarioYaExisteException(usuario.getCorreo().valor());
-        }
-        String sql = "INSERT INTO usuarios (username, nombre, correo, contrasena, tipo) VALUES (?, ?, ?, ?, ?)";
-        try (Connection conn = ConexionBD.getConnection();
-             //Se coloca el RETURN_GENERATED_KEYS para poder retornar el usuario posteriormente
-             PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            //Se usa prepreStatement para poder ejecutar la sentencia SQL incluyendo los parametros y ubicandolos en donde se encuentran los ?
-            pstmt.setString(1, usuario.getUsername().valor());
-            pstmt.setString(2, usuario.getNombre().valor());
-            pstmt.setString(3, usuario.getCorreo().valor());
+        // Usar comillas dobles para asegurar que H2 reconozca el nombre 'usuario' en
+        // minúsculas.
+        String sql = "INSERT INTO \"usuario\" (username, nombre, correo, contrasena, tipo_usuario) VALUES (?, ?, ?, ?, ?)";
+        try (Connection conn = connMgr.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
+            pstmt.setString(1, usuario.getUsername());
+            pstmt.setString(2, usuario.getNombre());
+            pstmt.setString(3, usuario.getCorreo());
             pstmt.setString(4, usuario.getContrasena());
             pstmt.setString(5, usuario.getTipo().valor());
             pstmt.executeUpdate();
-            //Si se genero un registro entonces hubo exito registrando al usuario, usamos los datos del registro para poder retornar el objeto dle usuario
+
             try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
+                    // Reconstruir con el ID generado (patrón de Dominio)
                     return Usuario.reconstruir(
                             generatedKeys.getInt(1),
-                            //Aqui se usa unicamente un get porque si se genero un ID es porque se genero un registro, por ende se puede usar el objeto que llegó por parametro
                             usuario.getUsername(),
                             usuario.getCorreo(),
                             usuario.getNombre(),
                             usuario.getContrasena(),
-                            usuario.getTipo()
-                    );
+                            usuario.getTipo(),
+                            usuario.getFechaCreacion());
                 }
                 throw new SQLException("No se generó ID para el usuario.");
             }
         } catch (SQLException e) {
-            if (e.getErrorCode() == 23505) { // 23505 es una violación de unicidad en H2
-                throw new UsuarioYaExisteException(usuario.getCorreo().valor());
+            // Código de error para violación de unicidad en H2: 23505.
+            if (e.getErrorCode() == 23505) {
+                throw new UsuarioYaExisteException(usuario.getCorreo());
             }
             throw new RuntimeException("Error guardando usuario: " + e.getMessage(), e);
         }
     }
 
+    // Método para obtener un usuario por su ID.
     @Override
-    //Se declara con optional porque si no se encuentra el usuario es posible que se retorne null, esto lo cntrola optional
     public Optional<Usuario> buscarPorId(int id) {
-        String sql = "SELECT * FROM usuarios WHERE id = ?";
-        try (Connection conn = ConexionBD.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        String sql = "SELECT * FROM \"usuario\" WHERE id = ?"; // <<-- CAMBIO AQUÍ
+        try (Connection conn = connMgr.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, id);
-            ResultSet rs = pstmt.executeQuery();
-            //Si sí se obtuvo un registro entonces se devuelve el Optional de obtenerUsuario
-            if (rs.next()) {
-                return Optional.of(obtenerUsuario(rs));
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return Optional.of(obtenerUsuario(rs));
+                }
             }
         } catch (SQLException e) {
             throw new RuntimeException("Error buscando por ID: " + e.getMessage(), e);
         }
-        //Si no se encontró al usuario se retorna Optional.empty() que no genera un nullPointerException
         return Optional.empty();
     }
 
+    // Método para obtener un usuario por su correo.
     @Override
-    //Al igual que en buscarPorId se retorna un Optional de usuario
     public Optional<Usuario> buscarPorCorreo(String correo) {
-        String sql = "SELECT * FROM usuarios WHERE correo = ?";
-        try (Connection conn = ConexionBD.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        String sql = "SELECT * FROM \"usuario\" WHERE correo = ?"; // <<-- CAMBIO AQUÍ
+        try (Connection conn = connMgr.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, correo);
-            ResultSet rs = pstmt.executeQuery();
-            if (rs.next()) {
-                return Optional.of(obtenerUsuario(rs));
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return Optional.of(obtenerUsuario(rs));
+                }
             }
         } catch (SQLException e) {
             throw new RuntimeException("Error buscando por correo: " + e.getMessage(), e);
@@ -122,16 +96,32 @@ public class UsuarioRepository implements InterfazUsuarioRepository {
     }
 
     @Override
+    public Optional<Usuario> buscarPorUsername(String username) {
+        String sql = "SELECT * FROM \"usuario\" WHERE username = ?";
+        try (Connection conn = connMgr.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, username);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return Optional.of(obtenerUsuario(rs));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al buscar usuario por username: " + username, e);
+        }
+        return Optional.empty();
+    }
+
+    // Método para obtener todos los usuarios.
+    @Override
     public List<Usuario> listarTodos() {
-        //Se crea una lista para almacenar los registros del usuario en memoria
         List<Usuario> usuarios = new ArrayList<>();
-        String sql = "SELECT * FROM usuarios";
-        try (Connection conn = ConexionBD.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
-            //Un ciclo while para ir registro por registro
+        String sql = "SELECT * FROM \"usuario\""; // <<-- CAMBIO AQUÍ
+        try (Connection conn = connMgr.getConnection();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                //Se añade a la lista el usuario del registro
                 usuarios.add(obtenerUsuario(rs));
             }
         } catch (SQLException e) {
@@ -140,11 +130,12 @@ public class UsuarioRepository implements InterfazUsuarioRepository {
         return usuarios;
     }
 
+    // Método para eliminar un usuario.
     @Override
     public void eliminar(int id) {
-        String sql = "DELETE FROM usuarios WHERE id = ?";
-        try (Connection conn = ConexionBD.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        String sql = "DELETE FROM \"usuario\" WHERE id = ?"; // <<-- CAMBIO AQUÍ
+        try (Connection conn = connMgr.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, id);
             pstmt.executeUpdate();
         } catch (SQLException e) {
@@ -152,11 +143,12 @@ public class UsuarioRepository implements InterfazUsuarioRepository {
         }
     }
 
+    // Método para actualizar el username de un usuario.
     @Override
     public void actualizarUsername(int id, String nuevoUsername) {
-        String sql = "UPDATE usuarios SET username = ? WHERE id = ?";
-        try (Connection conn = ConexionBD.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        String sql = "UPDATE \"usuario\" SET username = ? WHERE id = ?"; // <<-- CAMBIO AQUÍ
+        try (Connection conn = connMgr.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, nuevoUsername);
             pstmt.setInt(2, id);
             pstmt.executeUpdate();
@@ -165,15 +157,15 @@ public class UsuarioRepository implements InterfazUsuarioRepository {
         }
     }
 
-    // Metodo auxiliar para reconstruir Usuario desde ResultSet y que se pueda usar en los otros metodos
+    // Método auxiliar para mapear un ResultSet a un Usuario.
     private Usuario obtenerUsuario(ResultSet rs) throws SQLException {
         return Usuario.reconstruir(
                 rs.getInt("id"),
-                new Username(rs.getString("username")),
-                new Correo(rs.getString("correo")),
-                new Nombre(rs.getString("nombre")),
+                rs.getString("username"),
+                rs.getString("correo"),
+                rs.getString("nombre"),
                 rs.getString("contrasena"),
-                new Tipo(rs.getString("tipo"))
-        );
+                new Tipo(rs.getString("tipo_usuario")),
+                rs.getTimestamp("fecha_creacion") != null ? rs.getTimestamp("fecha_creacion").toLocalDateTime() : null);
     }
 }

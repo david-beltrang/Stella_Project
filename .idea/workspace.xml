@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="3c791a3f-173c-427e-b5d1-4cf3b6fd8098" name="Changes" comment="se agregan configural boton de pomodoro para poder ser usado">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Application/services/ChatbotService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/services/ChatbotService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Application/services/DarAcceso/RegistroService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/services/DarAcceso/RegistroService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Application/services/ForoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/services/ForoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Application/services/PruebaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application/services/PruebaService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/repositoriesInterfaces/InterfazUsuarioRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/repositoriesInterfaces/InterfazUsuarioRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/controllers/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/ForoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/ForoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/ProgresoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/ProgresoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/UsuarioCursoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/UsuarioCursoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/UsuarioRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Infrastructure/repositories/UsuarioRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/test_temporal/ForoServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/test_temporal/LeccionServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/test_temporal/ListarCursosServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/test_temporal/ProgresoServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/test_temporal/PruebaServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/test_temporal/SeccionesServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/test_temporal/TestConexionSetup.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/test_temporal/TestUsuarioService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Infrastructure/test_temporal/TiendaServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/sql/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/sql/schema.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Application/services/ForoService_IntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Application/services/ForoService_IntegrationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Application/services/LeccionServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Application/services/ListarCursosService_IntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Application/services/ListarCursosService_IntegrationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Application/services/RegistroServiceIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Application/services/RegistroServiceIntegrationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Application/services/SesionPomodoroService_IntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Application/services/SesionPomodoroService_IntegrationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Application/services/TiendaService_IntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Application/services/TiendaService_IntegrationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stella.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/stella.mv.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stella.trace.db" beforeDir="false" afterPath="$PROJECT_DIR$/stella.trace.db" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="FxmlFile" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;LOUWPII&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/david-beltrang/Stella_Project.git&quot;,
+    &quot;accountId&quot;: &quot;8777b691-8a52-4ca1-a4e7-1ad65489ecfb&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="34tMU8jO9YcphGFhjh6wnl2bQxw" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "Application.h2webconsole.executor": "Run",
+    "JUnit.ChatbotService_IntegrationTest.limpiarHistorial_ReiniciaCorrectamente.executor": "Run",
+    "JUnit.ChatbotService_IntegrationTest.obtenerHistorial_RetornaHistorialCorrecto.executor": "Run",
+    "JUnit.ChatbotService_IntegrationTest.obtenerRespuesta_ApiKeyInvalida_ErrorAutenticacion.executor": "Run",
+    "JUnit.ChatbotService_IntegrationTest.obtenerRespuesta_CaminoFeliz_RespuestaValida.executor": "Run",
+    "JUnit.ChatbotService_IntegrationTest.obtenerRespuesta_SinConexion_ErrorRed.executor": "Run",
+    "JUnit.ForoService_IntegrationTest.crearComentario_PostInexistente_LanzaExcepcion.executor": "Run",
+    "JUnit.ForoService_IntegrationTest.crearComentario_Valido_AgregaCorrectamente.executor": "Run",
+    "JUnit.ForoService_IntegrationTest.crearPost_ContenidoVacio_LanzaExcepcion.executor": "Run",
+    "JUnit.ForoService_IntegrationTest.crearPost_Valido_CreaCorrectamente.executor": "Run",
+    "JUnit.ForoService_IntegrationTest.darLikeAComentario_Inexistente_LanzaExcepcion.executor": "Run",
+    "JUnit.ForoService_IntegrationTest.darLikeAComentario_Valido_IncrementaLikes.executor": "Run",
+    "JUnit.ForoService_IntegrationTest.darLikeAPost_Inexistente_LanzaExcepcion.executor": "Run",
+    "JUnit.ForoService_IntegrationTest.darLikeAPost_Valido_IncrementaLikes.executor": "Run",
+    "JUnit.ForoService_IntegrationTest.executor": "Run",
+    "JUnit.ForoService_IntegrationTest.obtenerPostPorId_Existente_RetornaCompleto.executor": "Run",
+    "JUnit.ForoService_IntegrationTest.obtenerPostPorId_Inexistente_LanzaExcepcion.executor": "Run",
+    "JUnit.ForoService_IntegrationTest.obtenerTodosLosPosts_RetornaEstructuraCompleta.executor": "Run",
+    "JUnit.ListarCursosService_IntegrationTest.executor": "Run",
+    "JUnit.ListarCursosService_IntegrationTest.inscribirCurso_CursoInexistente_LanzaExcepcion.executor": "Run",
+    "JUnit.ListarCursosService_IntegrationTest.inscribirCurso_Exito.executor": "Run",
+    "JUnit.ListarCursosService_IntegrationTest.obtenerCursosCompletos_CursoInexistente.executor": "Run",
+    "JUnit.LoginServiceIntegrationTest.executor": "Run",
+    "JUnit.ProgresoService_IntegrationTest.executor": "Debug",
+    "JUnit.ProgresoService_IntegrationTest.marcarCompletada_CompletaTodo_Alcanza100.executor": "Run",
+    "JUnit.ProgresoService_IntegrationTest.obtenerProgresoPorCurso_Inicio_Correcto.executor": "Run",
+    "JUnit.ProgresoService_IntegrationTest.obtenerProgresoPorCurso_RedondeoCorrecto.executor": "Run",
+    "JUnit.PruebaService_IntegrationTest.crearIntento_SinRespuestas.executor": "Run",
+    "JUnit.PruebaService_IntegrationTest.executor": "Run",
+    "JUnit.RegistroServiceIntegrationTest.executor": "Run",
+    "JUnit.RegistroServiceIntegrationTest.registrar_CorreoDuplicado_LanzaExcepcion.executor": "Run",
+    "JUnit.SeccionesService_IntegrationTest.executor": "Run",
+    "JUnit.SesionPomodoroService_IntegrationTest.executor": "Run",
+    "JUnit.SesionPomodoroService_IntegrationTest.flujoCompleto_PomodoroFunciona.executor": "Run",
+    "JUnit.TiendaService_IntegrationTest.comprarItem_SaldoInsuficiente_NoModificaSaldo.executor": "Run",
+    "JUnit.TiendaService_IntegrationTest.executor": "Run",
+    "Maven.Stella [javafx:run].executor": "Run",
+    "Maven.Stella [org.openjfx:javafx-maven-plugin:0.0.8:run].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "fix/database",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/StellaFIS/Stella_Project/src/main/resources/Image/General",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15274803",
+    "project.structure.side.proportion": "0.29173693",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\StellaFIS\Stella_Project\src\main\resources\Image\General" />
+      <recent name="C:\StellaFIS\Stella_Project\src\main\resources\views" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.LoginServiceIntegrationTest">
+    <configuration name="ForoService_IntegrationTest.obtenerPostPorId_Existente_RetornaCompleto" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Stella" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Application.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Application.services" />
+      <option name="MAIN_CLASS_NAME" value="Application.services.ForoService_IntegrationTest" />
+      <option name="METHOD_NAME" value="obtenerPostPorId_Existente_RetornaCompleto" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ForoService_IntegrationTest.obtenerTodosLosPosts_RetornaEstructuraCompleta" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Stella" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Application.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Application.services" />
+      <option name="MAIN_CLASS_NAME" value="Application.services.ForoService_IntegrationTest" />
+      <option name="METHOD_NAME" value="obtenerTodosLosPosts_RetornaEstructuraCompleta" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LoginServiceIntegrationTest" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+      <module name="Stella" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Infrastructure.controllers.*" />
+          <option name="ENABLED" value="true" />
+          <option name="INCLUDE" value="false" />
+        </pattern>
+        <pattern>
+          <option name="PATTERN" value="Infrastructure.ui.*" />
+          <option name="ENABLED" value="true" />
+          <option name="INCLUDE" value="false" />
+        </pattern>
+        <pattern>
+          <option name="PATTERN" value="Main.*" />
+          <option name="ENABLED" value="true" />
+          <option name="INCLUDE" value="false" />
+        </pattern>
+        <pattern>
+          <option name="PATTERN" value="Application.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Application.services" />
+      <option name="MAIN_CLASS_NAME" value="Application.services.LoginServiceIntegrationTest" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProgresoService_IntegrationTest.marcarCompletada_CompletaTodo_Alcanza100" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Stella" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Application.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Application.services" />
+      <option name="MAIN_CLASS_NAME" value="Application.services.ProgresoService_IntegrationTest" />
+      <option name="METHOD_NAME" value="marcarCompletada_CompletaTodo_Alcanza100" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProgresoService_IntegrationTest.obtenerProgresoPorCurso_Inicio_Correcto" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Stella" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Application.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Application.services" />
+      <option name="MAIN_CLASS_NAME" value="Application.services.ProgresoService_IntegrationTest" />
+      <option name="METHOD_NAME" value="obtenerProgresoPorCurso_Inicio_Correcto" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProgresoService_IntegrationTest.obtenerProgresoPorCurso_RedondeoCorrecto" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Stella" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Application.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Application.services" />
+      <option name="MAIN_CLASS_NAME" value="Application.services.ProgresoService_IntegrationTest" />
+      <option name="METHOD_NAME" value="obtenerProgresoPorCurso_RedondeoCorrecto" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="Stella_Project" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="Stella_Project" />
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="JUnit.LoginServiceIntegrationTest" />
+      <item itemvalue="JUnit.ForoService_IntegrationTest.obtenerPostPorId_Existente_RetornaCompleto" />
+      <item itemvalue="JUnit.ForoService_IntegrationTest.obtenerTodosLosPosts_RetornaEstructuraCompleta" />
+      <item itemvalue="JUnit.ProgresoService_IntegrationTest.marcarCompletada_CompletaTodo_Alcanza100" />
+      <item itemvalue="JUnit.ProgresoService_IntegrationTest.obtenerProgresoPorCurso_Inicio_Correcto" />
+      <item itemvalue="JUnit.ProgresoService_IntegrationTest.obtenerProgresoPorCurso_RedondeoCorrecto" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.ProgresoService_IntegrationTest.marcarCompletada_CompletaTodo_Alcanza100" />
+        <item itemvalue="JUnit.ProgresoService_IntegrationTest.obtenerProgresoPorCurso_Inicio_Correcto" />
+        <item itemvalue="JUnit.ProgresoService_IntegrationTest.obtenerProgresoPorCurso_RedondeoCorrecto" />
+        <item itemvalue="JUnit.ForoService_IntegrationTest.obtenerPostPorId_Existente_RetornaCompleto" />
+        <item itemvalue="JUnit.ForoService_IntegrationTest.obtenerTodosLosPosts_RetornaEstructuraCompleta" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3c791a3f-173c-427e-b5d1-4cf3b6fd8098" name="Changes" comment="" />
+      <created>1762028429485</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1762028429485</updated>
+    </task>
+    <task id="LOCAL-00001" summary="se agregan configural boton de pomodoro para poder ser usado">
+      <option name="closed" value="true" />
+      <created>1762224496150</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1762224496150</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="merge ramas curso-cpp y prueba" />
+    <MESSAGE value="se agregan configural boton de pomodoro para poder ser usado" />
+    <option name="LAST_COMMIT_MESSAGE" value="se agregan configural boton de pomodoro para poder ser usado" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Cuarto_semestre$LoginServiceIntegrationTest.ic" NAME="LoginServiceIntegrationTest Coverage Results" MODIFIED="1764188746541" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>Application.services.*</FILTER>
+      <EXCLUDED_FILTER>Infrastructure.controllers.*</EXCLUDED_FILTER>
+      <EXCLUDED_FILTER>Infrastructure.ui.*</EXCLUDED_FILTER>
+      <EXCLUDED_FILTER>Main.*</EXCLUDED_FILTER>
+    </SUITE>
+  </component>
+  <component name="github-copilot-workspace">
+    <instructionFileLocations>
+      <option value=".github/instructions" />
+    </instructionFileLocations>
+    <promptFileLocations>
+      <option value=".github/prompts" />
+    </promptFileLocations>
+  </component>
+</project>

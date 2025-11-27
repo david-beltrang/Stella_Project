@@ -10,47 +10,47 @@
       minHeight="1080.0" minWidth="1920.0"
       prefHeight="1080.0" prefWidth="1920.0"
       stylesheets="@/styles/LoginStyle.css"
-      xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
+      xmlns="http://javafx.com/javafx/18.0.2" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="Infrastructure.controllers.RegistroController">
 
     <children>
-        <Label layoutX="653.0" layoutY="14.0" prefHeight="388.0" prefWidth="873.0"
+        <Label layoutX="453.0" layoutY="4.0" prefHeight="388.0" prefWidth="873.0"
                text="STELLA" textFill="WHITE">
             <font><Font name="Franklin Gothic Demi" size="180.0"/></font>
         </Label>
 
-        <Label layoutX="624.0" layoutY="282.0"
+        <Label layoutX="424.0" layoutY="272.0"
                text="¡Regístrate y empieza la aventura!" textFill="WHITE">
             <font><Font size="47.0"/></font>
         </Label>
 
         <!-- Nombre completo -->
-        <TextField fx:id="nombreField" layoutX="750.0" layoutY="372.0"
+        <TextField fx:id="nombreField" layoutX="550.0" layoutY="362.0"
                    prefHeight="60.0" prefWidth="426.0"
                    promptText="Nombre" style="-fx-font-size: 24px;"/>
 
         <!-- Nickname / username -->
-        <TextField fx:id="usernameField" layoutX="750.0" layoutY="443.0"
+        <TextField fx:id="usernameField" layoutX="550.0" layoutY="433.0"
                    prefHeight="60.0" prefWidth="426.0"
                    promptText="Nickname" style="-fx-font-size: 24px;"/>
 
         <!-- Correo -->
-        <TextField fx:id="correoField" layoutX="750.0" layoutY="510.0"
+        <TextField fx:id="correoField" layoutX="550.0" layoutY="500.0"
                    prefHeight="60.0" prefWidth="426.0"
                    promptText="Email" style="-fx-font-size: 24px;"/>
 
         <!-- Contraseña -->
-        <PasswordField fx:id="passwordField" layoutX="750.0" layoutY="578.0"
+        <PasswordField fx:id="passwordField" layoutX="550.0" layoutY="568.0"
                        prefHeight="60.0" prefWidth="426.0"
                        promptText="Contraseña" style="-fx-font-size: 24px;"/>
 
         <!-- Confirmar contraseña -->
-        <PasswordField fx:id="confirmPasswordField" layoutX="750.0" layoutY="648.0"
+        <PasswordField fx:id="confirmPasswordField" layoutX="550.0" layoutY="638.0"
                        prefHeight="60.0" prefWidth="426.0"
                        promptText="Confirmar Contraseña" style="-fx-font-size: 24px;"/>
 
         <!-- Registrar -->
-        <Button layoutX="747.0" layoutY="748.0" mnemonicParsing="false"
+        <Button layoutX="547.0" layoutY="738.0" mnemonicParsing="false"
                 opacity="0.8" prefHeight="60.0" prefWidth="200.0"
                 style="-fx-background-color: #080736;" text="Registrar" textFill="WHITE"
                 onAction="#onRegistrarClicked">
@@ -58,14 +58,14 @@
         </Button>
 
         <!-- Volver -->
-        <Button fx:id="backButton" layoutX="973.0" layoutY="748.0" mnemonicParsing="false"
+        <Button fx:id="backButton" layoutX="773.0" layoutY="738.0" mnemonicParsing="false"
                 opacity="0.8" prefHeight="60.0" prefWidth="200.0"
                 style="-fx-background-color: #080736;" text="Volver" textFill="WHITE"
                 onAction="#onVolverClicked">
             <font><Font name="System Bold" size="24.0"/></font>
         </Button>
 
-        <ImageView fitHeight="61.0" fitWidth="70.0" layoutX="1559.0" layoutY="763.0"
+        <ImageView fitHeight="61.0" fitWidth="70.0" layoutX="1359.0" layoutY="753.0"
                    pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@/Image/General/StellaEsquinaSF.png"/>
@@ -73,4 +73,3 @@
         </ImageView>
     </children>
 </Pane>
-

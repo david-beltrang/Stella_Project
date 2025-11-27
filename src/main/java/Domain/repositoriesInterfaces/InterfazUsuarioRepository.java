@@ -1,7 +1,6 @@
 package Domain.repositoriesInterfaces;
 
 import Domain.models.Usuario;
-import Domain.models.UsuarioValueObjects.Username;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,4 +11,5 @@ public interface InterfazUsuarioRepository {
     List<Usuario> listarTodos();
     void eliminar(int id);
     void actualizarUsername(int id, String nuevoUsername);
+    Optional<Usuario> buscarPorUsername(String username);
 }

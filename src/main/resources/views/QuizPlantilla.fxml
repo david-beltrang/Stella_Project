@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="root" maxHeight="1080.0" maxWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../styles/LoginStyle.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Infrastructure.controllers.QuizController">
+
+    <!-- Fondo -->
+    <ImageView fx:id="background" fitHeight="1080" fitWidth="1920" layoutX="2.0" preserveRatio="false">
+        <image>
+            <Image url="@../Image/General/FondoStella.jpg" />
+        </image>
+    </ImageView>
+
+    <!-- Contenido principal del quiz -->
+    <ScrollPane hbarPolicy="NEVER" layoutX="90.0" layoutY="70.0" prefHeight="600.0" prefWidth="1080.0" style="-fx-background-color: transparent; -fx-border-color: transparent;">
+        <content>
+            <VBox prefHeight="654.0" prefWidth="1116.0" spacing="30.0" style="-fx-background-color: transparent;">
+
+                <!-- Título del quiz -->
+                <Label prefHeight="53.0" prefWidth="1556.0" style="-fx-text-fill: white; -fx-font-size: 36px; -fx-font-weight: bold; -fx-alignment: center;" text="¡Llego el momento del Quiz!">
+                    <font>
+                        <Font name="System Bold" size="36.0" />
+                    </font>
+                </Label>
+
+                <!-- Pregunta 1 -->
+                <VBox spacing="15.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 15; -fx-padding: 20;">
+                    <Label fx:id="pregunta1Label" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;" text="1. " />
+
+                    <VBox spacing="10.0">
+                        <RadioButton fx:id="Opcion1_1" style="-fx-text-fill: white; -fx-font-size: 16px;" text="a)">
+                            <toggleGroup>
+                                <ToggleGroup fx:id="pregunta1Group" />
+                            </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="Opcion1_2" style="-fx-text-fill: white; -fx-font-size: 16px;" text="b)" toggleGroup="$pregunta1Group" />
+                        <RadioButton fx:id="Opcion1_3" style="-fx-text-fill: white; -fx-font-size: 16px;" text="c)" toggleGroup="$pregunta1Group" />
+                        <RadioButton fx:id="Opcion1_4" style="-fx-text-fill: white; -fx-font-size: 16px;" text="d)" toggleGroup="$pregunta1Group" />
+                    </VBox>
+                </VBox>
+
+                <!-- Pregunta 2 -->
+                <VBox prefWidth="1046.0" spacing="15.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 15; -fx-padding: 20;">
+                    <Label fx:id="pregunta2Label" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;" text="2. " />
+
+                    <VBox spacing="10.0">
+                        <RadioButton fx:id="Opcion2_1" style="-fx-text-fill: white; -fx-font-size: 16px;" text="a)">
+                            <toggleGroup>
+                                <ToggleGroup fx:id="pregunta2Group" />
+                            </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="Opcion2_2" style="-fx-text-fill: white; -fx-font-size: 16px;" text="b)" toggleGroup="$pregunta2Group" />
+                        <RadioButton fx:id="Opcion2_3" style="-fx-text-fill: white; -fx-font-size: 16px;" text="c)" toggleGroup="$pregunta2Group" />
+                        <RadioButton fx:id="Opcion2_4" style="-fx-text-fill: white; -fx-font-size: 16px;" text="d)" toggleGroup="$pregunta2Group" />
+                    </VBox>
+                </VBox>
+
+                <!-- Pregunta 3 -->
+                <VBox prefWidth="1046.0" spacing="15.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 15; -fx-padding: 20;">
+                    <Label fx:id="pregunta3Label" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;" text="3. " />
+
+                    <VBox spacing="10.0">
+                        <RadioButton fx:id="Opcion3_1" style="-fx-text-fill: white; -fx-font-size: 16px;" text="a)">
+                            <toggleGroup>
+                                <ToggleGroup fx:id="pregunta3Group" />
+                            </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="Opcion3_2" style="-fx-text-fill: white; -fx-font-size: 16px;" text="b)" toggleGroup="$pregunta3Group" />
+                        <RadioButton fx:id="Opcion3_3" style="-fx-text-fill: white; -fx-font-size: 16px;" text="c)" toggleGroup="$pregunta3Group" />
+                        <RadioButton fx:id="Opcion3_4" style="-fx-text-fill: white; -fx-font-size: 16px;" text="d)" toggleGroup="$pregunta3Group" />
+                    </VBox>
+                </VBox>
+
+            </VBox>
+        </content>
+    </ScrollPane>
+
+    <!-- Botón Enviar Quiz -->
+    <Button layoutX="750.0" layoutY="700.0" onAction="#finalizarQuiz" style="-fx-background-color: #4DA3FF; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 10 20;" text="Enviar Quiz">
+        <font>
+            <Font name="System Bold" size="25.0" />
+        </font>
+    </Button>
+
+    <!-- Barra inferior -->
+    <StackPane layoutY="760.0" prefHeight="30" prefWidth="900.0">
+        <children>
+            <Rectangle arcHeight="0" arcWidth="0" height="80" style="-fx-fill: rgba(8,7,54,0.55);" width="1923.0" />
+            <AnchorPane prefHeight="56.0" prefWidth="1876.0">
+                <children>
+                    <Button fx:id="homeBtn" layoutX="136.0" layoutY="12.0" onAction="#goHome" styleClass="nav-btn">
+                        <graphic>
+                            <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Image/General/home.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+
+                    <Button fx:id="forumBtn" layoutX="477.0" layoutY="10.0" onAction="#goForum" styleClass="nav-btn">
+                        <graphic>
+                            <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Image/General/foro.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+
+                    <Button fx:id="profileBtn" layoutX="1343.0" layoutY="12.0" onAction="#goProfile" styleClass="nav-btn">
+                        <graphic>
+                            <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Image/General/usuario.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+
+                    <Button fx:id="igluBtn" layoutX="1083.0" layoutY="10.0" onAction="#goIglu" styleClass="nav-btn">
+                        <graphic>
+                            <ImageView fitHeight="32" fitWidth="32" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Image/General/iglu.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+
+                    <Button fx:id="tiendaBtn" layoutX="784.0" layoutY="10.0" onAction="#goTienda" styleClass="nav-btn">
+                        <graphic>
+                            <ImageView fitHeight="35.0" fitWidth="35.0" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Image/General/tienda.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                </children>
+            </AnchorPane>
+        </children>
+    </StackPane>
+
+   <ImageView fitHeight="430.0" fitWidth="400.0" layoutX="1142.0" layoutY="229.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@../Image/General/StellaQuiz.png" />
+      </image>
+   </ImageView>
+
+</AnchorPane>
