@@ -32,4 +32,5 @@ target/**/*
 
 #Archivos de la base de datos
 stella.trace.db
-stella.mv.db
+stella.mv.db*.mv.db
+*.trace.db
