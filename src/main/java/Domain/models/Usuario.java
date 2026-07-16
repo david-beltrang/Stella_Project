@@ -131,7 +131,7 @@ public class Usuario {
 
     // Verifica si el correo ingresado coincide con el del usuario en memoria
     public boolean verificarCorreo(String correoIngresado) {
-        return this.correo == correoIngresado;
+        return this.correo.equals(correoIngresado);
     }
 
     // Actualiza el username del usuario
