@@ -1544,7 +1544,7 @@ INSERT INTO "ejercicio" (leccion_id, titulo, instrucciones, codigo_plantilla, so
 
 -- QUIZ SECCIÓN 10: Fundamentos y Sintaxis (PRUEBA ID 10)
 INSERT INTO "prueba" (curso_id, seccion_id, titulo, tipo) VALUES
-(1, 10, 'Quiz - Conceptos Básicos de C++', 'FINAL');
+(4, 10, 'Quiz - Conceptos Básicos de C++', 'FINAL');
 -- Pregunta 10.1
 INSERT INTO "pregunta" (enunciado, prueba_id)
 VALUES ('¿Qué biblioteca se utiliza en C++ para realizar operaciones de entrada/salida (como cout y cin)?', 10);
@@ -1577,7 +1577,7 @@ INSERT INTO "opcion" (pregunta_id, texto, es_correcta) VALUES
 
 -- QUIZ SECCIÓN 11: Estructuras de Datos y Bucles (PRUEBA ID 11)
 INSERT INTO "prueba" (curso_id, seccion_id, titulo, tipo) VALUES
-(1, 11, 'Quiz - Estructuras de Datos y Bucles', 'FINAL');
+(4, 11, 'Quiz - Estructuras de Datos y Bucles', 'FINAL');
 
 -- Pregunta 11.1
 INSERT INTO "pregunta" (enunciado, prueba_id)
@@ -1611,7 +1611,7 @@ INSERT INTO "opcion" (pregunta_id, texto, es_correcta) VALUES
 
 -- QUIZ SECCIÓN 12: Punteros e Introducción a Clases (PRUEBA ID 12)
 INSERT INTO "prueba" (curso_id, seccion_id, titulo, tipo) VALUES
-(1, 12, 'Quiz - Punteros e Introducción a Clases', 'FINAL');
+(4, 12, 'Quiz - Punteros e Introducción a Clases', 'FINAL');
 
 -- Pregunta 12.1
 INSERT INTO "pregunta" (enunciado, prueba_id)
