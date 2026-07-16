@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 public class ChatbotService {
     private static final Logger logger = LoggerFactory.getLogger(ChatbotService.class);
 
-    private static final String API_KEY = "";
+    private static final String API_KEY_ENV = "CHATBOT_API_KEY";
     private static final String API_URL = "https://openrouter.ai/api/v1/chat/completions";
 
     // Historial de mensajes como lista de ChatMessageResponse para DTOs
@@ -41,6 +41,16 @@ public class ChatbotService {
      * @return Un ChatMessageResponse con la respuesta del chatbot y metadatos.
      */
     public ChatMessageResponse obtenerRespuesta(ChatMessageRequest request) {
+        String apiKey = getApiKey();
+        if (apiKey == null || apiKey.isEmpty()) {
+            logger.warn("CHATBOT_API_KEY no configurada. El chatbot no funcionara.");
+            return new ChatMessageResponse(
+                    "El chatbot no esta disponible: la clave de API no esta configurada. " +
+                    "Define la variable de entorno CHATBOT_API_KEY para habilitarlo.",
+                    LocalDateTime.now(),
+                    "assistant");
+        }
+
         try {
             // Añadir el mensaje del usuario al historial
             ChatMessageResponse userMsg = new ChatMessageResponse(
@@ -152,7 +162,8 @@ public class ChatbotService {
     }
 
     protected String getApiKey() {
-        return API_KEY;
+        String key = System.getenv(API_KEY_ENV);
+        return key != null ? key : "";
     }
 
     protected String getApiUrl() {
