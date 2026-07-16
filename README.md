@@ -176,7 +176,7 @@ Test classes:
 
 ## Repository Hygiene
 
-- `stella.mv.db` and `stella.trace.db` are no longer tracked by Git (removed in commit 29441f0).
+- `stella.mv.db` and `stella.trace.db` are no longer tracked by Git
 - `.gitignore` patterns correctly exclude `*.mv.db`, `*.trace.db`, `stella.mv.db`, and `stella.trace.db`.
 
 ## Known Issues and Code Smells
@@ -187,4 +187,4 @@ Test classes:
 - Passwords stored in plaintext in `data.sql` seed data. The app compares passwords in plaintext (`Usuario.java:129`); no hashing is implemented. Adding hashing would require changes to `Usuario.java`, `LoginService`, `RegistroService`, and seed data.
 - `ForoService.java` is deprecated (replaced by `PreguntasRespuestasForoService`).
 - No JaCoCo coverage thresholds configured, despite the plugin being present in `pom.xml`.
-- C++ course seed data in `data.sql` was initially incomplete (commit 0cab22f fixed quiz `curso_id` from 1 to 4). Course now has 3 sections, 12 lessons, 3 exercises, and 3 quizzes.
+- C++ course seed data in `data.sql` was initially incomplete. Course now has 3 sections, 12 lessons, 3 exercises, and 3 quizzes.
