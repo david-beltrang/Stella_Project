@@ -152,7 +152,27 @@ src/
 
 13 test files under `src/test/java/Application/services/`, using JUnit 5 (`junit-jupiter:5.10.0`) and Mockito (`mockito-core:5.11.0`). Tests are a mix of integration tests (use real H2 database via `H2DataBaseInitializer`) and unit tests (mocked dependencies).
 
-Coverage includes: `LoginService`, `RegistroService`, `TiendaService`, `SesionPomodoroService`, `SeccionesService`, `PruebaService`, `ProgresoService`, `LeccionService`, `ForoService`, `ListarCursosService`, `ChatbotService`, `CodeExecutionService`, `UsuarioStatsService`. JaCoCo is configured in pom.xml but coverage thresholds are not set.
+**Current status:** 89 tests passing, 0 failures, 0 errors.
+
+Test classes:
+
+| Test File | Type | Coverage Focus |
+|---|---|---|
+| `ChatbotService_IntegrationTest` | Integration (H2) | API key guard, invalid key, empty question, valid response |
+| `CodeExecutionService_Test` | Unit (mocked) | Code compilation/execution pipeline |
+| `ForoServiceTest` | Integration (H2) | Forum CRUD operations |
+| `LeccionServiceTest` | Integration (H2) | Lesson retrieval and progression |
+| `ListarCursosService_Test` | Unit (mocked) | Course listing logic |
+| `LoginServiceIntegrationTest` | Integration (H2) | Login validation, credential check |
+| `ProgresoServiceTest` | Integration (H2) | Progress tracking |
+| `PruebaService_Test` | Unit (mocked) | Quiz evaluation logic |
+| `RegistroServiceIntegrationTest` | Integration (H2) | User registration, duplicate prevention |
+| `SeccionesService_Test` | Unit (mocked) | Section retrieval |
+| `SesionPomodoroServiceTest` | Integration (H2) | Pomodoro session persistence |
+| `TiendaService_Test` | Unit (mocked) | Store item management |
+| `UsuarioStatsService_Test` | Integration (H2) | User statistics aggregation |
+
+**JaCoCo coverage (last full report):** 29% instructions, 24% branches across 79 of 166 classes. Coverage is concentrated in service-layer tests; JavaFX controllers and DAO/repository classes are untested. Coverage thresholds are not enforced.
 
 ## Repository Hygiene
 
@@ -167,4 +187,4 @@ Coverage includes: `LoginService`, `RegistroService`, `TiendaService`, `SesionPo
 - Passwords stored in plaintext in `data.sql` seed data. The app compares passwords in plaintext (`Usuario.java:129`); no hashing is implemented. Adding hashing would require changes to `Usuario.java`, `LoginService`, `RegistroService`, and seed data.
 - `ForoService.java` is deprecated (replaced by `PreguntasRespuestasForoService`).
 - No JaCoCo coverage thresholds configured, despite the plugin being present in `pom.xml`.
-- C++ course seed data in `data.sql` is incomplete (course record exists but no sections/lessons -- no known runtime impact).
+- C++ course seed data in `data.sql` was initially incomplete (commit 0cab22f fixed quiz `curso_id` from 1 to 4). Course now has 3 sections, 12 lessons, 3 exercises, and 3 quizzes.
