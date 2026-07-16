@@ -14,8 +14,12 @@ import javafx.scene.layout.AnchorPane;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PomodoroController {
+
+    private static final Logger logger = LoggerFactory.getLogger(PomodoroController.class);
 
     // ===== Dependencias =====
     private final SesionPomodoroService sesionPomodoroService;
@@ -69,7 +73,8 @@ public class PomodoroController {
         if (pomodoroTimer != null) {
             try {
                 pomodoroTimer.pause();
-            } catch (Exception ignore) {
+            } catch (Exception e) {
+                logger.warn("Error al pausar el temporizador Pomodoro durante inicialización", e);
             }
         }
         configurarVistaPomodoro();
