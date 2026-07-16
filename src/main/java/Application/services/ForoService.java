@@ -8,6 +8,12 @@ import Domain.repositoriesInterfaces.InterfazForoRepository;
 
 import java.util.List;
 
+/**
+ * Servicio para el foro estilo post/comentario.
+ * @deprecated Reemplazado por {@link PreguntasRespuestasForoService} (foro Q&A).
+ * Se mantiene solo para no romper ForoService_IntegrationTest. No usar en nuevo código.
+ */
+@Deprecated
 public class ForoService {
     private final InterfazForoRepository foroRepository;
 
@@ -18,7 +24,9 @@ public class ForoService {
     /**
      * Obtiene todos los posts junto con sus comentarios.
      * @return Lista de PostResponse con sus comentarios asociados.
+     * @deprecated Usar PreguntasRespuestasForoService en su lugar.
      */
+    @Deprecated
     public List<PostResponse> obtenerTodosLosPosts() {
         return foroRepository.obtenerTodos();
     }
@@ -27,7 +35,9 @@ public class ForoService {
      * Obtiene un post específico por su ID junto con sus comentarios.
      * @param id ID del post a buscar.
      * @return PostResponse con los detalles del post y sus comentarios, o null si no existe.
+     * @deprecated Usar PreguntasRespuestasForoService en su lugar.
      */
+    @Deprecated
     public PostResponse obtenerPostPorId(int id) {
         PostResponse post = foroRepository.obtenerPostResponsePorId(id);
         if (post == null) {
