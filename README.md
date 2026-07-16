@@ -15,7 +15,7 @@ Built as the final project for a Fundamentals of Software Engineering course, it
 - **Virtual Store** (`TiendaController`, `TiendaService`): spend in-app currency ("pescaditos") on cosmetic items (hats, glasses, hoodies) for the penguin avatar.
 - **Penguin Avatar / Igloo** (`IgluController`, `InventarioAvatarController`, `UsuarioStellaService`): visual feedback showing character growth and igloo construction progress as study goals are met.
 - **Forum Q&A** (`ForoController`, `PreguntasRespuestasForoService`): questions, answers, comments, likes/dislikes.
-- **Chatbot** (`ChatbotController`, `ChatbotService`): AI assistant integrated via OpenRouter API (Mistral 7B). API key is currently unset (empty string).
+- **Chatbot** (`ChatbotController`, `ChatbotService`): AI assistant integrated via OpenRouter API (Mistral 7B). Requires `CHATBOT_API_KEY` env var (see Environment Variables).
 - **Profile & Stats** (`PerfilController`, `UsuarioStatsService`): streak tracking, total study time, per-user statistics.
 
 ## Architecture
@@ -107,6 +107,12 @@ mvn package
 
 The main class is `Main.Main` (configured in `javafx-maven-plugin`).
 
+## Environment Variables
+
+| Variable | Required | Description |
+|---|---|---|
+| `CHATBOT_API_KEY` | No (chatbot disabled if unset) | OpenRouter API key for the chatbot feature. Obtain one at https://openrouter.ai/keys. If unset, the chatbot returns an informative error message instead of crashing. |
+
 ## Project Structure
 
 ```
@@ -157,9 +163,8 @@ Coverage includes: `LoginService`, `RegistroService`, `TiendaService`, `SesionPo
 
 (Not exhaustive -- see audit notes for full list.)
 
-- `Usuario.java:134` -- `verificarCorreo()` uses `==` instead of `.equals()` for string comparison.
-- `ChatbotService.java:22` -- `API_KEY` is an empty string literal; chatbot will fail at runtime.
-- `EmailValidationStrategy` and `PasswordValidationStrategy` only check null/blank; no format validation.
-- Passwords stored in plaintext in `data.sql` seed data.
-- `ForoService.java` is unused (the active foro service is `PreguntasRespuestasForoService`).
-- `ConexionBD.java` javadoc claims it implements "patron DAO" but it is a connection manager, not a DAO.
+- `EmailValidationStrategy` and `PasswordValidationStrategy` only check null/blank; no format or regex validation.
+- Passwords stored in plaintext in `data.sql` seed data. The app compares passwords in plaintext (`Usuario.java:129`); no hashing is implemented. Adding hashing would require changes to `Usuario.java`, `LoginService`, `RegistroService`, and seed data.
+- `ForoService.java` is deprecated (replaced by `PreguntasRespuestasForoService`).
+- No JaCoCo coverage thresholds configured, despite the plugin being present in `pom.xml`.
+- C++ course seed data in `data.sql` is incomplete (course record exists but no sections/lessons -- no known runtime impact).
