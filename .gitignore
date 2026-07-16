@@ -30,7 +30,8 @@ logs/
 /target/
 target/**/*
 
-#Archivos de la base de datos
+# Archivos de la base de datos
 stella.trace.db
-stella.mv.db*.mv.db
+stella.mv.db
+*.mv.db
 *.trace.db
