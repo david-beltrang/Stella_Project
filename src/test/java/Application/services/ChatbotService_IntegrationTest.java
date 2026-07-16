@@ -61,6 +61,11 @@ class ChatbotService_IntegrationTest {
             protected HttpClient createHttpClient() {
                 return mockClient;
             }
+
+            @Override
+            protected String getApiKey() {
+                return "fake-api-key";
+            }
         };
 
         ChatMessageRequest request = new ChatMessageRequest("Hola Stella, ¿qué día es hoy?");
@@ -97,6 +102,11 @@ class ChatbotService_IntegrationTest {
             protected HttpClient createHttpClient() {
                 return mockClient;
             }
+
+            @Override
+            protected String getApiKey() {
+                return "invalid-fake-key";
+            }
         };
 
         ChatMessageRequest request = new ChatMessageRequest("Test");
@@ -123,6 +133,11 @@ class ChatbotService_IntegrationTest {
             protected HttpClient createHttpClient() {
                 return mockClient;
             }
+
+            @Override
+            protected String getApiKey() {
+                return "fake-api-key";
+            }
         };
 
         ChatMessageResponse respuesta = serviceMock.obtenerRespuesta(new ChatMessageRequest("Hola"));
@@ -143,6 +158,11 @@ class ChatbotService_IntegrationTest {
             @Override
             protected HttpClient createHttpClient() {
                 return mockClient;
+            }
+
+            @Override
+            protected String getApiKey() {
+                return "fake-api-key";
             }
         };
 
@@ -183,6 +203,11 @@ class ChatbotService_IntegrationTest {
             protected HttpClient createHttpClient() {
                 return mockClient;
             }
+
+            @Override
+            protected String getApiKey() {
+                return "fake-api-key";
+            }
         };
 
         serviceMock.obtenerRespuesta(new ChatMessageRequest("Hola"));
@@ -219,6 +244,11 @@ class ChatbotService_IntegrationTest {
             @Override
             protected HttpClient createHttpClient() {
                 return mockClient;
+            }
+
+            @Override
+            protected String getApiKey() {
+                return "fake-api-key";
             }
         };
 

@@ -157,13 +157,13 @@ public class ChatbotService {
         conversationHistory.add(systemMsg);
     }
 
-    protected HttpClient createHttpClient() {
-        return HttpClient.newHttpClient();
-    }
-
     protected String getApiKey() {
         String key = System.getenv(API_KEY_ENV);
         return key != null ? key : "";
+    }
+
+    protected HttpClient createHttpClient() {
+        return HttpClient.newHttpClient();
     }
 
     protected String getApiUrl() {
